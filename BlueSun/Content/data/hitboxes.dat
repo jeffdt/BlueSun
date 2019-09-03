@@ -1,0 +1,32 @@
+# ----------------
+# Format:
+# ----------------
+# hitbox
+#	[xOffset,yOffset,width,height]{PHV}
+#
+# ----------------
+# Explanation:
+# ----------------
+# xOffset/yOffset: distance in pixels between the object's position and the upper left corner of the hitbox. negative numbers mean left/up, NOT left/down as you might expect.
+# width/height: dimensions of hitbox in pixels.
+# {PHV}:-Extra options that can also be left out entirely
+#       -H: Hitbox will support being flipped horizontally
+#		-V: Hitbox will support being flipped horizontally
+#		-P: Hitbox will be marked "passive," almost exclusively used for things that won't be moving. Saves lots of time in collision detection if on.
+#
+# ----------------
+# Example:
+# ----------------
+# crate
+#	[-1,-2,3,4]
+# 
+#	This would create a hitbox named "crate" that starts at {-1,-2}, which is one pixel to the LEFT and 2 pixels UP from the object's position. The hitbox would be 3 pixels wide and 4 pixels tall.
+# --------
+# crate
+#   [-1,-2,3,4]{HV}
+# 
+#	This would create the same hitbox as above, except it would also support being mirrored Horizontally and Vertically. 
+#
+
+border.thl
+	[0,0][64,7]{PS}

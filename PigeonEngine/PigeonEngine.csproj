@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4986DF21-0E9A-4AF1-9879-58D8E4EC01A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PigeonEngine</RootNamespace>
+    <AssemblyName>PigeonEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.3.0.2238, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\dependencies\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Steamworks.NET">
+      <HintPath>..\dependencies\Steamworks\Steamworks.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="collision\BoxCollider.cs" />
+    <Compile Include="collision\SimpleBoxCollider.cs" />
+    <Compile Include="collision\TriggerCollisionHandler.cs" />
+    <Compile Include="collision\DumbSatCollider.cs" />
+    <Compile Include="collision\HitboxSetManager.cs" />
+    <Compile Include="collision\ColliderComponent.cs" />
+    <Compile Include="collision\HitboxShapes.cs" />
+    <Compile Include="collision\ICollider.cs" />
+    <Compile Include="collision\PointCollider.cs" />
+    <Compile Include="collision\QuadSATCollider.cs" />
+    <Compile Include="collision\QuadTree.cs" />
+    <Compile Include="collision\BresenhamLine.cs" />
+    <Compile Include="collision\SatCollider.cs" />
+    <Compile Include="collision\HitboxSet.cs" />
+    <Compile Include="component\AlphaFader.cs" />
+    <Compile Include="component\BoundaryExpirator.cs" />
+    <Compile Include="component\PrecisionVelocityManager.cs" />
+    <Compile Include="component\SimpleController.cs" />
+    <Compile Include="console\AliasManager.cs" />
+    <Compile Include="console\CommandHistory.cs" />
+    <Compile Include="console\Console.cs" />
+    <Compile Include="console\ConsoleUtilities.cs" />
+    <Compile Include="console\ConsoleCommand.cs" />
+    <Compile Include="console\MessageLog.cs" />
+    <Compile Include="console\LogMessage.cs" />
+    <Compile Include="console\PigeonCommands.cs" />
+    <Compile Include="core\events\EventRegistry.cs" />
+    <Compile Include="core\tasks\TaskRegistry.cs" />
+    <Compile Include="core\tasks\TimedTask.cs" />
+    <Compile Include="core\World.cs" />
+    <Compile Include="data\ContentLoader.cs" />
+    <Compile Include="data\Data.cs" />
+    <Compile Include="data\Font.cs" />
+    <Compile Include="data\GameData.cs" />
+    <Compile Include="data\PlayerData.cs" />
+    <Compile Include="data\ProcessedTextureTemplate.cs" />
+    <Compile Include="data\Properties.cs" />
+    <Compile Include="data\ResourceCache.cs" />
+    <Compile Include="data\SerializableDictionary.cs" />
+    <Compile Include="debug\Const.cs" />
+    <Compile Include="debug\DebugHelper.cs" />
+    <Compile Include="debug\EmptyWorld.cs" />
+    <Compile Include="debug\ObjectDescriber.cs" />
+    <Compile Include="gfx\SpriteDebug.cs" />
+    <Compile Include="ObjectRegistry.cs" />
+    <Compile Include="particle\BurstParticleEmitter.cs" />
+    <Compile Include="particle\ConstantParticleEmitter.cs" />
+    <Compile Include="particle\Particle.cs" />
+    <Compile Include="sound\music\GmeEqualizer.cs" />
+    <Compile Include="sound\music\GmeInfo.cs" />
+    <Compile Include="sound\music\GmeNative.cs" />
+    <Compile Include="sound\music\GmeReader.cs" />
+    <Compile Include="sound\music\GmeType.cs" />
+    <Compile Include="sound\music\Music.cs" />
+    <Compile Include="utilities\Delegates.cs" />
+    <Compile Include="utilities\extensions\BoolExtensions.cs" />
+    <Compile Include="utilities\extensions\DoubleExtensions.cs" />
+    <Compile Include="utilities\PointOps.cs" />
+    <Compile Include="utilities\XmlOps.cs" />
+    <Compile Include="winforms\AnimationTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="winforms\AnimationTool.Designer.cs">
+      <DependentUpon>AnimationTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="winforms\ConsoleUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="winforms\ObjectsUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="winforms\PigeonUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="winforms\PigeonUi.Designer.cs">
+      <DependentUpon>PigeonUi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gfx\YSorter.cs" />
+    <Compile Include="IFlippable.cs" />
+    <Compile Include="gfx\ImageRenderer.cs" />
+    <Compile Include="gfx\RectRenderer.cs" />
+    <Compile Include="gfx\Renderer.cs" />
+    <Compile Include="gfx\SpriteRenderer.cs" />
+    <Compile Include="gfx\TextRenderer.cs" />
+    <Compile Include="gfx\TimedFlasher.cs" />
+    <Compile Include="input\InputReader.cs" />
+    <Compile Include="input\Legacy_GamepadAdapter.cs" />
+    <Compile Include="input\GamepadInputDevice.cs" />
+    <Compile Include="input\Legacy_GamepadReader.cs" />
+    <Compile Include="input\InputManager.cs" />
+    <Compile Include="input\InputDevice.cs" />
+    <Compile Include="input\KeyBinds.cs" />
+    <Compile Include="input\Legacy_KeyboardAdapter.cs" />
+    <Compile Include="input\KeyboardInputDevice.cs" />
+    <Compile Include="input\RawKeyboardInput.cs" />
+    <Compile Include="input\MouseReader.cs" />
+    <Compile Include="legacy\entities\Entity.cs" />
+    <Compile Include="legacy\entities\EntityRegistry.cs" />
+    <Compile Include="legacy\entities\ImageEntity.cs" />
+    <Compile Include="legacy\entities\primitives\Line.cs" />
+    <Compile Include="legacy\entities\TextEntity.cs" />
+    <Compile Include="legacy\graphics\anim\Sprite.cs" />
+    <Compile Include="legacy\graphics\anim\TeslaFrame.cs" />
+    <Compile Include="legacy\graphics\Graphic.cs" />
+    <Compile Include="legacy\graphics\Image.cs" />
+    <Compile Include="legacy\graphics\text\ColoredString.cs" />
+    <Compile Include="legacy\graphics\text\TextGraphic.cs" />
+    <Compile Include="menu\DynamicPanel.cs" />
+    <Compile Include="menu\GridEntry.cs" />
+    <Compile Include="menu\MenuEntry.cs" />
+    <Compile Include="Pigeon.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="rand\Rand.cs" />
+    <Compile Include="rand\WeightedRoulette.cs" />
+    <Compile Include="sound\Audio.cs" />
+    <Compile Include="squab\Component.cs" />
+    <Compile Include="squab\Drawable.cs" />
+    <Compile Include="squab\Egg.cs" />
+    <Compile Include="squab\ObjectSeed.cs" />
+    <Compile Include="squab\Squabject.cs" />
+    <Compile Include="time\GameSpeed.cs" />
+    <Compile Include="time\Time.cs" />
+    <Compile Include="tools\Cursor.cs" />
+    <Compile Include="utilities\extensions\ArrayExtensions.cs" />
+    <Compile Include="utilities\extensions\CharExtensions.cs" />
+    <Compile Include="utilities\extensions\CollectionExtensions.cs" />
+    <Compile Include="utilities\extensions\ColorExtensions.cs" />
+    <Compile Include="utilities\extensions\DictionaryExtensions.cs" />
+    <Compile Include="utilities\extensions\EnumUtil.cs" />
+    <Compile Include="utilities\extensions\IntExtensions.cs" />
+    <Compile Include="utilities\extensions\ListExtensions.cs" />
+    <Compile Include="utilities\extensions\RectangleExtensions.cs" />
+    <Compile Include="utilities\extensions\StringExtensions.cs" />
+    <Compile Include="utilities\extensions\Texture2DExtensions.cs" />
+    <Compile Include="utilities\GraphicsUtility.cs" />
+    <Compile Include="utilities\helpers\CardinalDirections.cs" />
+    <Compile Include="utilities\helpers\Direction.cs" />
+    <Compile Include="utilities\helpers\SimpleDirections.cs" />
+    <Compile Include="utilities\MathUtil.cs" />
+    <Compile Include="utilities\PropertiesParser.cs" />
+    <Compile Include="utilities\VectorOps.cs" />
+    <Compile Include="winforms\UtilsUi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="winforms\AnimationTool.resx">
+      <DependentUpon>AnimationTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="winforms\PigeonUi.resx">
+      <DependentUpon>PigeonUi.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tick.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)\_dependencies\gme.dll" "$(TargetDir)" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
