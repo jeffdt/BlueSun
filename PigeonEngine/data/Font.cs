@@ -1,4 +1,4 @@
-﻿namespace pigeon.data {
+﻿namespace Pigeon.Data {
 	public class Font {
 		public string Name;
 		public string Path;

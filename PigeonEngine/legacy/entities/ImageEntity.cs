@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.legacy.graphics;
+using Pigeon.legacy.graphics;
 
-namespace pigeon.legacy.entities {
+namespace Pigeon.legacy.entities {
 	public class ImageEntity : Entity {
 		public ImageEntity(string image) {
 			Graphic = Image.Create(image);

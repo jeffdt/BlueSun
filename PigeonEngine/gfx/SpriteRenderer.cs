@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.legacy.graphics.anim;
-using pigeon.squab;
+using Pigeon.legacy.graphics.anim;
+using Pigeon.squab;
 
-namespace pigeon.gfx {
+namespace Pigeon.Gfx {
 	public class SpriteRenderer : Component, Drawable, IFlippable {
 		public readonly Sprite Sprite;
 

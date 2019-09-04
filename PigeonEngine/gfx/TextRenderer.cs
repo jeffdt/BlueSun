@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.legacy.graphics.text;
-using pigeon.squab;
+using Pigeon.legacy.graphics.text;
+using Pigeon.squab;
 
-namespace pigeon.gfx {
+namespace Pigeon.Gfx {
 	public class TextRenderer : Component, Drawable {
 		public delegate string TimeBasedUpdater();
 		public delegate string EventBasedUpdater(object sender, EventArgs evt);

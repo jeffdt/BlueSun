@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.gfx;
+using Pigeon.Gfx;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	public static class ResourceCache {
 		private static readonly Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 		private static readonly Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();

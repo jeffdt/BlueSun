@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	[XmlRoot("dictionary")]
 	[Serializable]
 	public class SerializableDictionary<TKey, TValue>

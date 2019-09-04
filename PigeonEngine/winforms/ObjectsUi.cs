@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using pigeon;
-using pigeon.squab;
+using Pigeon;
+using Pigeon.squab;
 
 namespace PigeonEngine.winforms {
 	public partial class PigeonUi {
@@ -12,7 +12,7 @@ namespace PigeonEngine.winforms {
 			enableObjectDetails(false);
 
 			objectTree.Nodes.Clear();
-			var allObjects = Pigeon.World.ObjRoot.GetChildren();
+			var allObjects = Pigeon.Pigeon.World.ObjRoot.GetChildren();
 			populateObjectTreeRecursive(objectTree.Nodes, allObjects);
 		}
 
@@ -97,7 +97,7 @@ namespace PigeonEngine.winforms {
 		}
 
 		private void objectTree_AfterSelect(object sender, TreeViewEventArgs e) {
-			currentObj = Pigeon.World.FindObj(convertObjectPath(e.Node.FullPath));
+            currentObj = Pigeon.Pigeon.World.FindObj(convertObjectPath(e.Node.FullPath));
 			refreshObjectDetails(currentObj);
 		}
 		#endregion object list

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	internal class HitboxSet {
 		public bool IsPassive;
 		// internal string Name;

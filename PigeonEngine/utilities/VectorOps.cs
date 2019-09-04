@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.utilities {
+namespace Pigeon.utilities {
 	public static class VectorOps {
 		public static Vector2 DiscardMax(this Vector2 vect) {
 			return (vect.X * vect.X) > (vect.Y * vect.Y) ? new Vector2(0, vect.Y) : new Vector2(vect.X, 0);

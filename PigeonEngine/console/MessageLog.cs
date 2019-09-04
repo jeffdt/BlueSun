@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.legacy.entities;
-using pigeon.legacy.graphics.text;
-using pigeon.utilities.extensions;
+using Pigeon.legacy.entities;
+using Pigeon.legacy.graphics.text;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
 	public class MessageLog {
 		private readonly int limit;
 		private readonly SpriteFont font;

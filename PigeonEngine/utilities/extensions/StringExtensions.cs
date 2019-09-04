@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace pigeon.utilities.extensions {
+namespace Pigeon.utilities.extensions {
 	public static class StringExtensions {
 		private static readonly Regex quoteSplitter = new Regex(@"[\""].+?[\""]|[^ ]+");
 		private static readonly char[] COMMA_SEPARATOR = { ',' };

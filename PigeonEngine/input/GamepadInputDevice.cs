@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon;
+using Pigeon;
 
-namespace PigeonEngine.input {
+namespace PigeonEngine.Input {
 	public class GamepadInputDevice : InputDevice {
 		// CONSTANTS
 		private const float JOYSTICK_DIGITAL_LENGTH_THRESH = .5f;
@@ -44,7 +44,7 @@ namespace PigeonEngine.input {
 
 		public override void Update() {
 			previousState = currentState;
-			currentState = Pigeon.IsInFocus ? GamePad.GetState(playerIndex) : emptyState;
+            currentState = Pigeon.Pigeon.IsInFocus ? GamePad.GetState(playerIndex) : emptyState;
 
 			if (currentState.IsConnected) {
 				previousLeftJoystickActive = currentLeftJoystickActive;

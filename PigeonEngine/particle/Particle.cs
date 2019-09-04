@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.gfx;
-using pigeon.time;
+using Pigeon.Data;
+using Pigeon.Gfx;
+using Pigeon.Time;
 
 namespace PigeonEngine.particle {
 	public class Particle : RegistryObject {

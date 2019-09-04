@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using pigeon.core.tasks.xnapunk.task;
+using Pigeon.Core.tasks.xnapunk.task;
 
-namespace pigeon.core.tasks {
+namespace Pigeon.Core.tasks {
 	public class TaskRegistry {
 		private readonly List<TimedTask> toAdd = new List<TimedTask>();
 		private readonly List<TimedTask> toRemove = new List<TimedTask>();

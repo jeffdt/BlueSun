@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace pigeon.rand {
+namespace Pigeon.rand {
 	public class WeightedRoulette<T> {
 		public int Size { get { return slots.Count; } }
 

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.debug;
-using pigeon.rand;
-using pigeon.collision;
-using pigeon.time;
-using pigeon.utilities;
+using Pigeon.Debug;
+using Pigeon.rand;
+using Pigeon.Collision;
+using Pigeon.Time;
+using Pigeon.utilities;
 
-namespace pigeon.squab {
+namespace Pigeon.squab {
     public class Squabject {
 		#region debugging
 		public static bool DrawPositionsGlobal;
@@ -375,7 +375,7 @@ namespace pigeon.squab {
 
 				toInitialize.Add(cmpt);
 			} else {
-				Pigeon.Console.LogError("cannot add a component to more than one object.");
+                Pigeon.Console.LogError("cannot add a component to more than one object.");
 			}
 
 			return this;
@@ -499,7 +499,7 @@ namespace pigeon.squab {
     	}
 
 	    public void UpdateSpeculativePosition() {
-		    SpeculativePosition = trueLocalPosition + Velocity * Time.SecScaled;
+            SpeculativePosition = trueLocalPosition + Velocity * Time.Time.SecScaled;
 	    }
 
 	    private void updateChildren() {

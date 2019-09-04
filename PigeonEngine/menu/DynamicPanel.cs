@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.legacy.entities;
-using pigeon.legacy.graphics;
+using Pigeon.legacy.entities;
+using Pigeon.legacy.graphics;
 
-namespace pigeon.menu {
+namespace Pigeon.menu {
 	public class DynamicPanel : Entity {
 		private readonly Image topLeft;
 		private readonly Image topEdge;

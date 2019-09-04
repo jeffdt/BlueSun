@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.squab;
-using pigeon.time;
+using Pigeon.squab;
+using Pigeon.Time;
 
-namespace pigeon.component {
+namespace Pigeon.component {
 	public class BoundaryExpirator : Component {
 		public float ExpWindow;	// how long an object needs to be off screen before it is expired
 		public Rectangle Boundaries;
@@ -14,7 +14,7 @@ namespace pigeon.component {
 		protected override void Update() {
 			if (Object.WorldPosition.X < Boundaries.X || Object.WorldPosition.X >= Boundaries.X + Boundaries.Width
 				|| Object.WorldPosition.Y < Boundaries.Y || Object.WorldPosition.Y >= Boundaries.Y + Boundaries.Height) {
-				timer += Time.SecScaled;
+                timer += Time.Time.SecScaled;
 				if (timer >= ExpWindow) {
 					Object.Deleted = true;
 				}

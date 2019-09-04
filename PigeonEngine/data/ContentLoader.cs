@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	public static class ContentLoader {
 		public static T Load<T>(string fullPath) {
 			return loadResource<T>(fullPath);

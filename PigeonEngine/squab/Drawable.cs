@@ -1,4 +1,4 @@
-﻿namespace pigeon.squab {
+﻿namespace Pigeon.squab {
 	public interface Drawable {
         void Draw();
     }

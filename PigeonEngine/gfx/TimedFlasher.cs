@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using pigeon.squab;
-using pigeon.time;
+using Pigeon.squab;
+using Pigeon.Time;
 
-namespace pigeon.gfx {
+namespace Pigeon.Gfx {
 	public class TimedFlasher : Component {
 		// parameters
 		public float OnTime;
@@ -15,7 +15,7 @@ namespace pigeon.gfx {
 		protected override void Initialize() { }
 
 		protected override void Update() {
-			timer -= Time.SecScaled;
+            timer -= Time.Time.SecScaled;
 
 			if (timer <= 0) {
 				CmptToFlash.Enabled = !CmptToFlash.Enabled;

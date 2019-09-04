@@ -5,23 +5,23 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon.core;
-using pigeon.data;
-using pigeon.debug;
-using pigeon.gfx;
-using pigeon.input;
-using pigeon.sound;
-using pigeon.squab;
-using pigeon.time;
-using pigeon.utilities.extensions;
+using Pigeon.Core;
+using Pigeon.Data;
+using Pigeon.Debug;
+using Pigeon.Gfx;
+using Pigeon.Input;
+using Pigeon.Sound;
+using Pigeon.squab;
+using Pigeon.Time;
+using Pigeon.utilities.extensions;
 using PigeonEngine.debug;
 using PigeonEngine.gfx;
-using PigeonEngine.input;
-using PigeonEngine.sound;
+using PigeonEngine.Input;
+using PigeonEngine.Sound;
 using PigeonEngine.utilities.extensions;
 using PigeonEngine.winforms;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
     public static class PigeonCommands {
 		public static Dictionary<string, ConsoleCommand> Build() {
 			var commands = new Dictionary<string, ConsoleCommand> {
@@ -95,27 +95,27 @@ namespace pigeon.console {
 	    #region console manipulation
 		private static void clearScreen(string args) {
 			for (int i = 0; i < Pigeon.Console.Options.LogHistoryLimit; i++) {
-				Pigeon.Console.Log("");
+                Pigeon.Console.Log("");
 			}
 		}
 
 		private static void findCommands(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("Available engine commands:");
-				Pigeon.Console.Log(ConsoleUtilities.BracketedList(Pigeon.Console.EngineCommandNames));
+                Pigeon.Console.Log("Available engine commands:");
+                Pigeon.Console.Log(ConsoleUtilities.BracketedList(Pigeon.Console.EngineCommandNames));
 
 				if (Pigeon.Console.GameCommandNames.Count > 0) {
-					Pigeon.Console.Log("Available game commands:");
-					Pigeon.Console.Log(ConsoleUtilities.BracketedList(Pigeon.Console.GameCommandNames));
+                    Pigeon.Console.Log("Available game commands:");
+                    Pigeon.Console.Log(ConsoleUtilities.BracketedList(Pigeon.Console.GameCommandNames));
 				}
 			} else {
 				var matches = Pigeon.Console.AllCommandNames.FindStringMatches(args);
 
 				if (matches.Count == 0) {
-					Pigeon.Console.Log(string.Format("no commands match for '{0}'", args));
+                    Pigeon.Console.Log(string.Format("no commands match for '{0}'", args));
 				} else {
-					Pigeon.Console.Log(string.Format("commands matching '{0}':", args));
-					Pigeon.Console.Log(ConsoleUtilities.BracketedList(matches));
+                    Pigeon.Console.Log(string.Format("commands matching '{0}':", args));
+                    Pigeon.Console.Log(ConsoleUtilities.BracketedList(matches));
 				}
 			}
 		}
@@ -124,7 +124,7 @@ namespace pigeon.console {
 			var count = string.IsNullOrWhiteSpace(args) ? 1 : args.ToFloat();
 
 			for (int i = 0; i < count; i++) {
-				Pigeon.Console.RepeatPrevious();
+                Pigeon.Console.RepeatPrevious();
 			}
 		}
 		#endregion
@@ -155,13 +155,13 @@ namespace pigeon.console {
 
 		private static void setScale(string args) {
 			if (string.IsNullOrEmpty(args)) {
-				Pigeon.Console.Log("current draw scale: " + Pigeon.Renderer.DrawScale);
+                Pigeon.Console.Log("current draw scale: " + Pigeon.Renderer.DrawScale);
 				return;
 			}
 			int after = args.ToInt();
 
 			if (after < 1 || after > 7) {
-				Pigeon.Console.LogError("Scale must be between 1 and 7");
+                Pigeon.Console.LogError("Scale must be between 1 and 7");
 			} else {
 				int before = Pigeon.Renderer.DrawScale;
 				Pigeon.Renderer.DrawScale = after;
@@ -281,11 +281,11 @@ namespace pigeon.console {
 		private static void describeChildren(Squabject obj, StringBuilder builder) {
 			var children = obj.GetChildren();
 			if (children == null || children.Count == 0) {
-				Pigeon.Console.Log("object has no children");
+                Pigeon.Console.Log("object has no children");
 				return;
 			}
 
-			Pigeon.Console.Log("children:");
+            Pigeon.Console.Log("children:");
 			var treeChildren = from child in children
 							   where child.GetChildren() != null && child.GetChildren().Count > 0
 							   orderby child.Name ascending
@@ -308,17 +308,17 @@ namespace pigeon.console {
 				builder.Append(' ');
 			}
 
-			Pigeon.Console.Log(builder.ToString());
+            Pigeon.Console.Log(builder.ToString());
 		}
 
 		private static void inspect(string args) {
 			var squabject = Pigeon.World.FindObj(args);
 			if (squabject != null) {
-				Pigeon.Console.Log(squabject.ToString());
+                Pigeon.Console.Log(squabject.ToString());
 				return;
 			}
 
-			Pigeon.Console.LogError("object does not exist");
+            Pigeon.Console.LogError("object does not exist");
 		}
 
 		private static void hideDrawable(string args) {
@@ -342,7 +342,7 @@ namespace pigeon.console {
 				drawable.Enabled = !drawable.Enabled;
 				ConsoleUtilities.LogVariableChange(args + " visible", !drawable.Enabled, drawable.Enabled);
 			} else {
-				Pigeon.Console.Log(args + " no drawable components");
+                Pigeon.Console.Log(args + " no drawable components");
 			}
 		}
 
@@ -355,9 +355,9 @@ namespace pigeon.console {
 					componentNames.Add(component.GetType().Name);
 				}
 
-				Pigeon.Console.Log(ConsoleUtilities.BracketedList(componentNames));
+                Pigeon.Console.Log(ConsoleUtilities.BracketedList(componentNames));
 			} else {
-				Pigeon.Console.Log("object has no components");
+                Pigeon.Console.Log("object has no components");
 			}
 		}
 		#endregion
@@ -394,9 +394,9 @@ namespace pigeon.console {
 		#region audio
 		private static void bgmEqualizer(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("bgmequalizer <treble> <bass>");
-				Pigeon.Console.Log("   treble: -50 to 5 (def 0)");
-				Pigeon.Console.Log("   bass: 1 to 16000 (def 90)");
+                Pigeon.Console.Log("bgmequalizer <treble> <bass>");
+                Pigeon.Console.Log("   treble: -50 to 5 (def 0)");
+                Pigeon.Console.Log("   bass: 1 to 16000 (def 90)");
 			} else {
 				var splitArgs = args.SplitArgs();
 
@@ -409,9 +409,9 @@ namespace pigeon.console {
 
 		private static void bgmMuteVoice(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("bgmmutevoice <index> <mute>");
-				Pigeon.Console.Log("   index: 0 to 7 (channel to mute)");
-				Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
+                Pigeon.Console.Log("bgmmutevoice <index> <mute>");
+                Pigeon.Console.Log("   index: 0 to 7 (channel to mute)");
+                Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
 			} else {
 				var splitArgs = args.SplitArgs();
 				Music.MuteVoice(splitArgs[0].ToInt(), splitArgs[1].ToInt());
@@ -446,8 +446,8 @@ namespace pigeon.console {
 
 		private static void bgmStereoDepth(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("bgmstereodepth <depth>");
-				Pigeon.Console.Log("	depth: 0.0 to 1.0 (def 0)");
+                Pigeon.Console.Log("bgmstereodepth <depth>");
+                Pigeon.Console.Log("	depth: 0.0 to 1.0 (def 0)");
 			} else {
 				Music.SetStereoDepth(args.ToDouble());
 			}
@@ -455,7 +455,7 @@ namespace pigeon.console {
 
 		private static void bgmFade(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("bgmfade <msLength>");
+                Pigeon.Console.Log("bgmfade <msLength>");
 			} else {
 				Music.SetFade(args.ToInt());
 			}
@@ -463,8 +463,8 @@ namespace pigeon.console {
 
 		private static void bgmTempo(string args) {
 			if (string.IsNullOrWhiteSpace(args)) {
-				Pigeon.Console.Log("bgmtempo <tempo>");
-				Pigeon.Console.Log("	tempo: 0.5 to 2.0 (def 1)");
+                Pigeon.Console.Log("bgmtempo <tempo>");
+                Pigeon.Console.Log("	tempo: 0.5 to 2.0 (def 1)");
 			} else {
 				Music.SetTempo(args.ToDouble());
 			}
@@ -479,7 +479,7 @@ namespace pigeon.console {
 				//				Audio.BgmVolume = after;
 				//				ConsoleUtilities.LogVariableChange("bgm vol", before, after);
 			} else {
-				Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
+                Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
 			}
 		}
 
@@ -492,7 +492,7 @@ namespace pigeon.console {
 				Audio.SfxVolume = after;
 				ConsoleUtilities.LogVariableChange("sfx vol", before, after);
 			} else {
-				Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
+                Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
 			}
 		}
 		#endregion
@@ -500,7 +500,7 @@ namespace pigeon.console {
 		#region vars
 		private static void setVar(string args) {
 			if (args == string.Empty) {
-				Pigeon.Console.Log("select category:");
+                Pigeon.Console.Log("select category:");
 				var allCategories = Const.Categories;
 				StringBuilder stringBuilder = new StringBuilder();
 				foreach (var category in allCategories) {
@@ -508,14 +508,14 @@ namespace pigeon.console {
 					stringBuilder.Append(category);
 					stringBuilder.Append(" ");
 				}
-				Pigeon.Console.Log(stringBuilder.ToString());
+                Pigeon.Console.Log(stringBuilder.ToString());
 				return;
 			}
 
 			var splitArgs = args.SplitArgs();
 			switch (splitArgs.Length) {
 				case 1:
-					Pigeon.Console.Log("select variable:");
+                    Pigeon.Console.Log("select variable:");
 					var vars = Const.GetVarsForCategory(splitArgs[0]);
 					StringBuilder stringBuilder = new StringBuilder();
 					foreach (var variable in vars) {
@@ -523,10 +523,10 @@ namespace pigeon.console {
 						stringBuilder.Append(variable);
 						stringBuilder.Append(" ");
 					}
-					Pigeon.Console.Log(stringBuilder.ToString());
+                    Pigeon.Console.Log(stringBuilder.ToString());
 					break;
 				case 2:
-					Pigeon.Console.Log("current value: " + Const.GetFloat(splitArgs[0], splitArgs[1]));
+                    Pigeon.Console.Log("current value: " + Const.GetFloat(splitArgs[0], splitArgs[1]));
 					break;
 				case 3:
 					var before = Const.GetFloat(splitArgs[0], splitArgs[1]);
@@ -535,20 +535,20 @@ namespace pigeon.console {
 					ConsoleUtilities.LogVariableChange(splitArgs[0] + "." + splitArgs[1], before, after);
 					break;
 				default:
-					Pigeon.Console.LogError("too many arguments provided.");
+                    Pigeon.Console.LogError("too many arguments provided.");
 					break;
 			}
 		}
 
 		private static void resetVar(string args) {
 			Const.ResetToDefaults();
-			Pigeon.Console.Log("all variables restored to defaults");
+            Pigeon.Console.Log("all variables restored to defaults");
 		}
 
 		private static void saveVarPreset(string args) {
 			PlayerData.CreateDirectory(@"constants");
 			Const.SavePreset(@"constants\" + args + ".cfg");
-			Pigeon.Console.Log("created preset '" + args + "' from current variables");
+            Pigeon.Console.Log("created preset '" + args + "' from current variables");
 		}
 
 		private static void loadVarPreset(string args) {
@@ -562,12 +562,12 @@ namespace pigeon.console {
 					stringBuilder.Append(" ");
 				}
 
-				Pigeon.Console.Log("available presets:");
-				Pigeon.Console.Log(stringBuilder.ToString());
+                Pigeon.Console.Log("available presets:");
+                Pigeon.Console.Log(stringBuilder.ToString());
 
 			} else {
 				Const.LoadPreset(@"constants\" + args + ".cfg");
-				Pigeon.Console.Log("loaded preset '" + args + "'");
+                Pigeon.Console.Log("loaded preset '" + args + "'");
 			}
 		}
 		#endregion
@@ -589,7 +589,7 @@ namespace pigeon.console {
 		private static void unbind(string args) {
 			if (args == "all") {
 				KeyBinds.Reset();
-				Pigeon.Console.Log("all custom binds reset");
+                Pigeon.Console.Log("all custom binds reset");
 			} else {
 				var key = KeyBinds.ParseToKey(args);
 				KeyBinds.UnbindKey(key);
@@ -598,17 +598,17 @@ namespace pigeon.console {
 		}
 
 		private static void displayKeybind(Keys key) {
-			Pigeon.Console.Log(string.Format("{0}: {1}", key, KeyBinds.GetKeyBind(key) ?? "<unbound>"));
+            Pigeon.Console.Log(string.Format("{0}: {1}", key, KeyBinds.GetKeyBind(key) ?? "<unbound>"));
 		}
 
 		private static void findKeyboardKeyName(string args) {
 			var matches = EnumUtil.GetValues<Keys>().Select(k => k.ToString()).FindStringMatches(args);
 
 			if (matches.Count == 0) {
-				Pigeon.Console.Log(string.Format("no keys match for '{0}'", args));
+                Pigeon.Console.Log(string.Format("no keys match for '{0}'", args));
 			} else {
-				Pigeon.Console.Log(string.Format("keys matching '{0}':", args));
-				Pigeon.Console.Log(ConsoleUtilities.BracketedList(matches));
+                Pigeon.Console.Log(string.Format("keys matching '{0}':", args));
+                Pigeon.Console.Log(ConsoleUtilities.BracketedList(matches));
 			}
 		}
 
@@ -617,7 +617,7 @@ namespace pigeon.console {
 
 			if (string.IsNullOrEmpty(args)) {
 				var names = manager.GetNames();
-				Pigeon.Console.Log(names.Count > 0 ? ConsoleUtilities.BracketedList(names) : "no aliases currently defined");
+                Pigeon.Console.Log(names.Count > 0 ? ConsoleUtilities.BracketedList(names) : "no aliases currently defined");
 				return;
 			}
 
@@ -628,12 +628,12 @@ namespace pigeon.console {
 				if (manager.Exists(aliasName)) {
 					var commands = manager.Get(aliasName);
 
-					Pigeon.Console.Log(string.Format("{0}:", aliasName));
+                    Pigeon.Console.Log(string.Format("{0}:", aliasName));
 					foreach (var command in commands) {
-						Pigeon.Console.Log(string.Format("  -{0}", command));
+                        Pigeon.Console.Log(string.Format("  -{0}", command));
 					}
 				} else {
-					Pigeon.Console.Log(string.Format("no alias with name '{0}'", splitArgs[0]));
+                    Pigeon.Console.Log(string.Format("no alias with name '{0}'", splitArgs[0]));
 				}
 				return;
 			}

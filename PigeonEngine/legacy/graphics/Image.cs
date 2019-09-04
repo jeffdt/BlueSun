@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.gfx;
+using Pigeon.Data;
+using Pigeon.Gfx;
 
-namespace pigeon.legacy.graphics {
+namespace Pigeon.legacy.graphics {
 	public class Image : Graphic {
 		public Texture2D Texture;
 		public Rectangle SourceRect;
@@ -87,7 +87,7 @@ namespace pigeon.legacy.graphics {
 					centerImage(this);
 				}
 			} else {
-				Pigeon.Console.LogError("no source on image with key: " + key);
+                Pigeon.Console.LogError("no source on image with key: " + key);
 			}
 		}
 

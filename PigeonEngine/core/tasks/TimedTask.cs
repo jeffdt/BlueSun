@@ -1,7 +1,7 @@
 ﻿using System;
-using pigeon.time;
+using Pigeon.Time;
 
-namespace pigeon.core.tasks {
+namespace Pigeon.Core.tasks {
 	namespace xnapunk.task {
 		public class TimedTask {
 			private readonly Action callback;
@@ -13,7 +13,7 @@ namespace pigeon.core.tasks {
 			}
 
 			public bool Update() {
-				time -= Time.SecScaled;
+                time -= Time.Time.SecScaled;
 
 				if (time <= 0) {
 					callback.Invoke();

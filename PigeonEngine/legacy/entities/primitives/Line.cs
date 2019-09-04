@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.legacy.graphics;
+using Pigeon.legacy.graphics;
 
-namespace pigeon.legacy.entities.primitives {
+namespace Pigeon.legacy.entities.primitives {
 	public class Line : Entity {
 		private readonly Vector2[] points;
 		private readonly Image[] pixels;

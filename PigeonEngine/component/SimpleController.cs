@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon.input;
-using pigeon.squab;
+using Pigeon.Input;
+using Pigeon.squab;
 using PigeonEngine.utilities;
 
-namespace pigeon.component {
+namespace Pigeon.component {
 	public class SimpleController : Component {
-		public int Speed;
+		public int Speed = 100;
 
 		private int lastX;
 		private int lastY;

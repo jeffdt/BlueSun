@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pigeon.squab {
+namespace Pigeon.squab {
     public abstract class Component {
 		public Squabject Object;
 

@@ -1,17 +1,18 @@
 ﻿using Bazaar.resources;
 using BlueSun.src.parameters;
+using BlueSun.src.worlds;
 using Microsoft.Xna.Framework;
-using pigeon;
-using pigeon.console;
-using pigeon.core;
-using pigeon.data;
-using pigeon.gfx;
+using Pigeon;
+using Pigeon.Console;
+using Pigeon.Core;
+using Pigeon.Data;
+using Pigeon.Gfx;
 using PigeonEngine.debug;
-using PigeonEngine.sound;
+using PigeonEngine.Sound;
 using System.Reflection;
 
 namespace BlueSun {
-    internal class BlueSunGame : Pigeon {
+    internal class BlueSunGame : Pigeon.Pigeon {
         protected override string WindowTitle { get { return "Blue Sun"; } }
         protected override string Version { get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 
@@ -20,7 +21,7 @@ namespace BlueSun {
         protected override Color DefaultBkgdColor { get { return Palette.Black; } }
         protected override Renderer GetRenderer { get { return new Renderer(Display.ScreenWidth, Display.ScreenHeight, Display.InitialScale); } }
         protected override TextureTemplateProcessor TemplateProcessor { get { return null; } }
-        protected override World InitialWorld { get { return new EmptyWorld(); } }
+        protected override World InitialWorld { get { return new SplashScreenWorld(); } }
 
         protected override ConsoleOptions ConsoleOpts {
             get {

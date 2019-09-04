@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public static class BresenhamLine {
 		// Swap the values of A and B
 		private static void Swap<T>(ref T a, ref T b) {

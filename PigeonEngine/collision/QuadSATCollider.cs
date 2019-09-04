@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public class QuadSATCollider : ICollider {
 		internal QuadTree rootQuad;
 

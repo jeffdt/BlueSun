@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon.legacy.graphics.anim {
+namespace Pigeon.legacy.graphics.anim {
 	public class TeslaFrame {
 		public int Duration = -1;
 

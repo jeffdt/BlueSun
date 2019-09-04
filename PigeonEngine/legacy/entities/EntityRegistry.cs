@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.legacy.entities {
+namespace Pigeon.legacy.entities {
 	public class EntityRegistry {
 		private readonly List<Entity> toAdd = new List<Entity>();
 		private readonly List<Entity> toRemove = new List<Entity>();

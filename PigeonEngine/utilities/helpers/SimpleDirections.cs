@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.utilities.helpers {
+namespace Pigeon.utilities.helpers {
 	public enum  SimpleDirections {
 		Up, Right, Down, Left
 	}

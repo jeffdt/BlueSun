@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.utilities.extensions;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public class BoxCollider : ColliderComponent {
 		private readonly HitboxSetManager hitboxSetManager;
 		private readonly Color color = new Color(255, 0, 0, 168);

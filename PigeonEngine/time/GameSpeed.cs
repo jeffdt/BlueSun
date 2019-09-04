@@ -1,4 +1,4 @@
-﻿namespace pigeon.time {
+﻿namespace Pigeon.Time {
 	public static class GameSpeed {
 		public static float Multiplier { get; set; }
 

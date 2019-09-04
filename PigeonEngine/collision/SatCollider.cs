@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public static class SatCollider {
 		public static bool CollideBoxPoint(Rectangle box, Point point) {
 			if (box.Right - 1 < point.X ||

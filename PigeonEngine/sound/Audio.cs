@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
-using pigeon.data;
+using Pigeon.Data;
 
-namespace pigeon.sound {
+namespace Pigeon.Sound {
 	public static class Audio {
 		public class SfxVolumeChangedEvent : EventArgs { }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace pigeon.core.events {
+namespace Pigeon.Core.Events {
 	public class EventRegistry {
 		public delegate void SimpleEventHandler(object sender);
 

@@ -45,10 +45,11 @@
     <Compile Include="BlueSunGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\constants\Display.cs" />
-    <Compile Include="src\constants\Palette.cs" />
-    <Compile Include="src\constants\Fonts.cs" />
-    <Compile Include="src\constants\Inputs.cs" />
+    <Compile Include="constants\Display.cs" />
+    <Compile Include="constants\Palette.cs" />
+    <Compile Include="constants\Fonts.cs" />
+    <Compile Include="constants\Inputs.cs" />
+    <Compile Include="worlds\SplashScreenWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -81,6 +82,7 @@
       <Name>PigeonEngine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
 	public delegate void ConsoleCommand(string args);
 }

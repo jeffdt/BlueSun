@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
-using pigeon.squab;
+using Pigeon.squab;
 
 namespace PigeonEngine.component {
 	public class PrecisionVelocityManager : Component {

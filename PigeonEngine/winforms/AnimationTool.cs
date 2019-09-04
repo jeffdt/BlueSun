@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using pigeon;
-using pigeon.legacy.graphics.anim;
+using Pigeon;
+using Pigeon.legacy.graphics.anim;
 using PigeonEngine.gfx;
 
 namespace PigeonEngine.winforms {
@@ -14,9 +14,9 @@ namespace PigeonEngine.winforms {
 		}
 
 		private void AnimationTool_Load(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("palette off");
-			Pigeon.Console.ExecuteCommand("lcd false");
-			Pigeon.Console.ExecuteCommand("sandbox");
+            Pigeon.Pigeon.Console.ExecuteCommand("palette off");
+            Pigeon.Pigeon.Console.ExecuteCommand("lcd false");
+            Pigeon.Pigeon.Console.ExecuteCommand("sandbox");
 
 			var spriteNames = Sprite.allSprites.Keys;
 			
@@ -52,7 +52,7 @@ namespace PigeonEngine.winforms {
 
 			if (dialogResult == DialogResult.OK) {
 				Color winColor = backgroundColorDialog.Color;
-				Pigeon.World.BackgroundColor = new Microsoft.Xna.Framework.Color(winColor.R, winColor.G, winColor.B);
+                Pigeon.Pigeon.World.BackgroundColor = new Microsoft.Xna.Framework.Color(winColor.R, winColor.G, winColor.B);
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace PigeonEngine.winforms {
 			} else if (!previewEnabledCheckBox.Checked) {
 				centerPreviewCheckBox.Enabled = false;
 				loopCheckBox.Enabled = false;
-				Pigeon.World.DeleteObjSafe("ANIM_TEST");
+                Pigeon.Pigeon.World.DeleteObjSafe("ANIM_TEST");
 			}
 		}
 
@@ -77,10 +77,10 @@ namespace PigeonEngine.winforms {
 		}
 
 		private void updatePreview() {
-			if (Pigeon.nextWorld != null) {
-				Pigeon.nextWorld.AddTask(.25f, createTestanim);
+			if (Pigeon.Pigeon.nextWorld != null) {
+                Pigeon.Pigeon.nextWorld.AddTask(.25f, this.createTestanim);
 			} else {
-				createTestanim();
+                createTestanim();
 			}
 		}
 

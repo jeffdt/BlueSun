@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon.time {
+namespace Pigeon.Time {
 	public static class Time {
 		public static float MsUnscaled;
 		public static float Seconds;

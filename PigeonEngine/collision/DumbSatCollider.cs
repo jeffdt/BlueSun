@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.time;
+using Pigeon.Time;
 using PigeonEngine.utilities;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public class DumbSatCollider : ICollider {
 		private const int ITERATIONS = 3;
 
@@ -47,7 +47,7 @@ namespace pigeon.collision {
 						var box2WorldPosition = box2.Object.WorldPosition;
 
 						for (int iteration = 0; iteration < iterationCount; iteration++) {
-							var deltaTime = (iteration + 1) * Time.SecScaled / iterationCount;
+							var deltaTime = (iteration + 1) * Time.Time.SecScaled / iterationCount;
 							var box1SpeculativePosition = box1.Object.SpeculativeWorldPositionAt(deltaTime);
 							var box2SpeculativePosition = box2.Object.SpeculativeWorldPositionAt(deltaTime);
 

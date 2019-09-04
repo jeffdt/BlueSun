@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.squab;
+using Pigeon.squab;
 using PigeonEngine.collision;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public abstract class ColliderComponent : Component, IFlippable {
 		// parameters
 		public CollisionHandler CollisionHandler;

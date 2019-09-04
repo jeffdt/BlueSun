@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using pigeon;
-using pigeon.console;
+using Pigeon;
+using Pigeon.Console;
 
 namespace PigeonEngine.winforms {
 	public partial class PigeonUi {
@@ -18,7 +18,7 @@ namespace PigeonEngine.winforms {
 		}
 
 		private void sendConsoleCommand() {
-			Pigeon.Console.ExecuteCommand(consoleCommandText.Text, true);
+            Pigeon.Pigeon.Console.ExecuteCommand(consoleCommandText.Text, true);
 			consoleCommandText.Text = String.Empty;
 
 			refreshConsoleLog();
@@ -27,7 +27,7 @@ namespace PigeonEngine.winforms {
 		private void refreshConsoleLog() {
 			consoleLogText.Clear();
 
-			var messages = Pigeon.Console.MessageLog.GetAllMessages();
+			var messages = Pigeon.Pigeon.Console.MessageLog.GetAllMessages();
 			for (int index = 0; index < messages.Count; index++) {
 				var message = messages[index];
 

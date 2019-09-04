@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.gfx;
-using pigeon.squab;
+using Pigeon.Gfx;
+using Pigeon.squab;
 using PigeonEngine.gfx;
 
 namespace PigeonEngine.squab {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace PigeonEngine.input {
+namespace PigeonEngine.Input {
 	public class InputManager {
 		private readonly List<InputDevice> allDevices = new List<InputDevice>();
 

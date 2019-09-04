@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon;
-using pigeon.rand;
-using pigeon.squab;
-using pigeon.time;
-using pigeon.utilities;
+using Pigeon;
+using Pigeon.rand;
+using Pigeon.squab;
+using Pigeon.Time;
+using Pigeon.utilities;
 
 namespace PigeonEngine.particle {
 	public class ConstantParticleEmitter : Component {
@@ -45,7 +45,7 @@ namespace PigeonEngine.particle {
 					particle.Lifespan = Rand.Float(MinLifespan, MaxLifespan);
 					particle.DrawLayer = DrawLayer;
 
-					Pigeon.World.ParticleRegistry.Register(particle);
+                    Pigeon.Pigeon.World.ParticleRegistry.Register(particle);
 				}
 			}
 		}

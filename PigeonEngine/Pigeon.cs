@@ -1,23 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.collision;
-using pigeon.console;
-using pigeon.core;
-using pigeon.core.events;
-using pigeon.data;
-using pigeon.debug;
-using pigeon.gfx;
-using pigeon.input;
-using pigeon.legacy.graphics.anim;
-using pigeon.sound;
-using pigeon.time;
-using PigeonEngine.input;
-using PigeonEngine.sound;
+using Pigeon.Collision;
+using Pigeon.Console;
+using Pigeon.Core;
+using Pigeon.Core.Events;
+using Pigeon.Data;
+using Pigeon.Debug;
+using Pigeon.Gfx;
+using Pigeon.Input;
+using Pigeon.legacy.graphics.anim;
+using Pigeon.Sound;
+using Pigeon.Time;
+using PigeonEngine.Input;
+using PigeonEngine.Sound;
 using System;
-using Console = pigeon.console.Console;
 
-namespace pigeon {
+namespace Pigeon {
     public abstract class Pigeon : Game {
 		// set these for each new game
 		protected abstract string WindowTitle { get; }
@@ -33,7 +32,7 @@ namespace pigeon {
         protected abstract void InitializeGame();
 
 		public static Pigeon Instance;
-        public static Console Console;
+        public static Console.Console Console;
         public static Renderer Renderer;
 		public static readonly EventRegistry GameEventRegistry = new EventRegistry();
 		public static readonly EventRegistry EngineEventRegistry = new EventRegistry();
@@ -82,9 +81,9 @@ namespace pigeon {
 
             Load();
 
-			Console = new Console(ConsoleOpts);
-			Console.LoadContent();
-			Console.AddGlobalCommands(PigeonCommands.Build());
+            Console = new Console.Console(ConsoleOpts);
+            Console.LoadContent();
+            Console.AddGlobalCommands(PigeonCommands.Build());
 
             EngineBkgdColor = DefaultBkgdColor;
 
@@ -140,11 +139,11 @@ namespace pigeon {
 			Legacy_GamepadReader.Update();
 			MouseReader.Update();
 
-            Time.Set(gameTime);
+            Time.Time.Set(gameTime);
 
 			base.Update(gameTime);
-			
-			Console.Update();
+
+            Console.Update();
 
 			if (!Console.IsDisplaying && !PauseWorld) {
 				UpdateGameplay();
@@ -158,8 +157,8 @@ namespace pigeon {
 
 		public static void SetWorld(World world, bool isAlreadyInitialized = false) {
 			if (nextWorld != null) {
-				Console.LogError("NextWorld has already been set.");
-				Console.LogError("Cannot override " + nextWorld + " with " + world);
+                Console.LogError("NextWorld has already been set.");
+                Console.LogError("Cannot override " + nextWorld + " with " + world);
 			}
 
 			nextWorld = world;
@@ -170,7 +169,7 @@ namespace pigeon {
 			if (!isNextWorldAlreadyInitialized) {
 				Camera.Position = Vector2.Zero;
 				World.UnloadContent();
-				Console.ResetWorldCommands();
+                Console.ResetWorldCommands();
 			}
 
 			lastWorld = World;

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
-using pigeon.collision;
-using pigeon.data;
-using pigeon.legacy.entities;
-using pigeon.core.tasks;
-using pigeon.squab;
+using Pigeon.Collision;
+using Pigeon.Data;
+using Pigeon.legacy.entities;
+using Pigeon.Core.tasks;
+using Pigeon.squab;
 using PigeonEngine;
 using PigeonEngine.particle;
 using PigeonEngine.squab;
 
-namespace pigeon.core {
+namespace Pigeon.Core {
 	public abstract class World {
 		protected bool AddDebugger = true;
 

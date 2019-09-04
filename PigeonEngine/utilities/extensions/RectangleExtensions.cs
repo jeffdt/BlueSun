@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.gfx;
+using Pigeon.Data;
+using Pigeon.Gfx;
 
-namespace pigeon.utilities.extensions {
+namespace Pigeon.utilities.extensions {
 	public static class RectangleExtensions {
 		public static Rectangle Add(this Rectangle rect, Point vector) {
 			var rectangle = new Rectangle(rect.X + vector.X, rect.Y + vector.Y, rect.Width, rect.Height);

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.legacy.graphics;
-using pigeon.debug;
-using pigeon.squab;
+using Pigeon.legacy.graphics;
+using Pigeon.Debug;
+using Pigeon.squab;
 
-namespace pigeon.legacy.entities {
+namespace Pigeon.legacy.entities {
 	public class Entity {
 		public bool UnloadOnUnregister { get; protected set; }
 

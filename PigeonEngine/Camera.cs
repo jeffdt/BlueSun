@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon {
+namespace Pigeon {
 	public class Camera {
 		public Vector2 Position;
 	}

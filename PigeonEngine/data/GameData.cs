@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using System.IO;
 using PigeonEngine.data;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	public static class GameData {
 		private static string contentDirectory;
 
 		public static void Initialize() {
             string dir = "current dir: " + Directory.GetCurrentDirectory();
-            Console.WriteLine(dir);
+            System.Console.WriteLine(dir);
 			Directory.SetCurrentDirectory("Content");
 			contentDirectory = Directory.GetCurrentDirectory();
 		}
 
 		public static bool FileExists(String filename) {
-			return Data.FileExists(filename);
+			return PigeonEngine.data.Data.FileExists(filename);
 		}
 
 		public static string[] Read(string filename) {
-			return Data.ReadFile(filename);
+			return PigeonEngine.data.Data.ReadFile(filename);
 		}
 
 		public static T Deserialize<T>(string filename) where T : class {
-			return Data.DeserializeObject<T>(contentDirectory, filename);
+			return PigeonEngine.data.Data.DeserializeObject<T>(contentDirectory, filename);
 		}
 
 		// example: GameData.GetFileList(@"data\rooms\mp\*.lvl")
 		public static List<String> GetFileList(string searchPattern, bool includeExtension = true) {
-			return Data.GetFileList(contentDirectory, searchPattern, includeExtension);
+			return PigeonEngine.data.Data.GetFileList(contentDirectory, searchPattern, includeExtension);
 		}
 
 		public static List<List<string>> ReadCsvFile(string filename) {
-			return  Data.ReadCsvFile(Path.Combine(contentDirectory, filename));
+			return PigeonEngine.data.Data.ReadCsvFile(Path.Combine(contentDirectory, filename));
 		}
 
 		public static string[] GetContentFiles(string directory) {

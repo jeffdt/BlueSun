@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.utilities.helpers {
+namespace Pigeon.utilities.helpers {
 	public static class Direction {
 		public const string CenterFriendly = @"center";
 		public const string UpFriendly = @"up";

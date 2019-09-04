@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
 	public class LogMessage {
 		public String Text;
 		public LogMessageTypes Type;

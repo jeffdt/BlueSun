@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
+using Pigeon.Data;
 using PigeonEngine.utilities;
 
-namespace pigeon.gfx {
+namespace Pigeon.Gfx {
 	public class Renderer {
 		public delegate void RenderFunction();
 		public class RenderScaleChangedEvent : EventArgs { }
@@ -31,7 +31,7 @@ namespace pigeon.gfx {
 
 					Pigeon.GameEventRegistry.RaiseEmptyEvent<RenderScaleChangedEvent>();
 				} catch (Exception) {
-					Pigeon.Console.LogError("Unable to set drawscale to " + value);
+                    Pigeon.Console.LogError("Unable to set drawscale to " + value);
 				}
 			}
 		}
@@ -68,7 +68,7 @@ namespace pigeon.gfx {
 		public static SpriteBatch spriteBatch;
 		public static GraphicsDeviceManager GraphicsDeviceMgr;
 
-		public static bool LcdDisplay = true;
+		public static bool LcdDisplay = false;
 
 		private bool takeScreenshot;
 

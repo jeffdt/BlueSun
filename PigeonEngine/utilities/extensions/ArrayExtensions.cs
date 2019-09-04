@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pigeon.utilities.extensions {
+namespace Pigeon.utilities.extensions {
 	public static class ArrayExtensions {
 		public static T[] Slice<T>(this T[] data, int index) {
 			return SubArray(data, index, data.Length - index);

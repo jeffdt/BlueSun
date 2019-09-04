@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon {
+namespace Pigeon {
 	public interface IFlippable {
 		void OnFlipped();
 	}

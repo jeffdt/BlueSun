@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.gfx;
+using Pigeon.Gfx;
 using PigeonEngine.utilities;
 using PigeonEngine.utilities.extensions;
 
-namespace pigeon.legacy.graphics.text {
+namespace Pigeon.legacy.graphics.text {
 	public class TextGraphic : Graphic {
 		private SpriteFont _font;
 		public SpriteFont Font {

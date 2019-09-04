@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.debug;
-using pigeon.squab;
-using pigeon.utilities;
+using Pigeon.Debug;
+using Pigeon.squab;
+using Pigeon.utilities;
 
 namespace PigeonEngine.gfx {
 	public class YSorter : Component, Drawable {

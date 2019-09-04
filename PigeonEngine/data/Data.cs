@@ -6,8 +6,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon;
-using pigeon.utilities.extensions;
+using Pigeon;
+using Pigeon.utilities.extensions;
 
 namespace PigeonEngine.data {
 	public static class Data {
@@ -76,7 +76,7 @@ namespace PigeonEngine.data {
 		public static T DeserializeObject<T>(string filePath) where T : class {
 			if (!File.Exists(filePath)) {
 				var dir = Directory.GetCurrentDirectory();
-				Pigeon.Console.LogError("file not found: " + filePath);
+                Pigeon.Pigeon.Console.LogError("file not found: " + filePath);
 				return null;
 			}
 
@@ -153,7 +153,7 @@ namespace PigeonEngine.data {
 				bitmap.Save(stream, ImageFormat.Png);
 			}
 
-			Pigeon.Console.Log(string.Format("Saving {0}...", fullPathFilename));
+            Pigeon.Pigeon.Console.Log(string.Format("Saving {0}...", fullPathFilename));
 		}
 		#endregion
 	}

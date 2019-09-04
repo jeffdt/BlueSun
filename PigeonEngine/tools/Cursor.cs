@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon.legacy.entities;
-using pigeon.legacy.graphics;
+using Pigeon.legacy.entities;
+using Pigeon.legacy.graphics;
 
-namespace pigeon.tools {
+namespace Pigeon.tools {
 	class Cursor : Entity {
 		public Image Regular, Clicked;
 

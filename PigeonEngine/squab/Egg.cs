@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace pigeon.squab {
+namespace Pigeon.squab {
 	public class Egg {
 		// this could potentially be completed to give this engine Prefab technology, but it would get sloppy to implement the Clone() function for every single component
 		// if we decide to use this we could create an abstract Clonable method on the Component class and have to implement Clone() for each one we create, which would suck

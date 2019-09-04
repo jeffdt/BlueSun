@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.input;
-using pigeon.core;
-using pigeon.legacy.entities;
-using pigeon.legacy.graphics;
-using pigeon.legacy.graphics.anim;
-using pigeon.legacy.graphics.text;
-using pigeon.utilities.extensions;
+using Pigeon.Data;
+using Pigeon.Input;
+using Pigeon.Core;
+using Pigeon.legacy.entities;
+using Pigeon.legacy.graphics;
+using Pigeon.legacy.graphics.anim;
+using Pigeon.legacy.graphics.text;
+using Pigeon.utilities.extensions;
 using PigeonEngine.console;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
-using pigeon.gfx;
+using Pigeon.Gfx;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
 	public class Console : World {
 		private const int bufferMaxLength = 300;
 

@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using PigeonEngine.data;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	public static class PlayerData {
 		public static string UserDataPath { get; private set; }
 
@@ -22,31 +22,31 @@ namespace pigeon.data {
 
 		#region file operations
 		public static string[] Read(string filename) {
-			return Data.ReadFile(buildPath(filename));
+			return PigeonEngine.data.Data.ReadFile(buildPath(filename));
 		}
 
 		public static void AppendToFile(string filename, string message) {
-			Data.AppendToFile(buildPath(filename), message);
+            PigeonEngine.data.Data.AppendToFile(buildPath(filename), message);
 		}
 
 		public static void WriteToFile(string filename, string[] data) {
-			Data.WriteToFile(buildPath(filename), data);
+            PigeonEngine.data.Data.WriteToFile(buildPath(filename), data);
 		}
 
 		public static void Serialize<T>(T data, string filename) {
-			Data.SerializeObject(data, buildPath(filename));
+            PigeonEngine.data.Data.SerializeObject(data, buildPath(filename));
 		}
 
 		public static T Deserialize<T>(String filename) where T : class {
-			return Data.DeserializeObject<T>(UserDataPath, filename);
+			return PigeonEngine.data.Data.DeserializeObject<T>(UserDataPath, filename);
 		}
 
 		public static bool FileExists(String filename) {
-			return Data.FileExists(buildPath(filename));
+			return PigeonEngine.data.Data.FileExists(buildPath(filename));
 		}
 
 		public static List<String> GetFileList(string searchPattern, bool includeExtension = true) {
-			return Data.GetFileList(UserDataPath, searchPattern, includeExtension);
+			return PigeonEngine.data.Data.GetFileList(UserDataPath, searchPattern, includeExtension);
 		}
 
 		public static void SaveAsTimestampedPng(this Texture2D texture) {
@@ -55,17 +55,17 @@ namespace pigeon.data {
 				Directory.CreateDirectory(screenshotFolder);
 			}
 
-			texture.SaveAsPng_Pigeon(Path.Combine(screenshotFolder, Data.FormattedTimestamp() + ".png"));
+			texture.SaveAsPng_Pigeon(Path.Combine(screenshotFolder, PigeonEngine.data.Data.FormattedTimestamp() + ".png"));
 		}
 		#endregion
 
 		#region directory operations
 		public static bool DirectoryExists(String dir) {
-			return Data.DirectoryExists(buildPath(dir));
+			return PigeonEngine.data.Data.DirectoryExists(buildPath(dir));
 		}
 		
 		public static void CreateDirectory(string directoryName) {
-			Data.CreateDirectory(buildPath(directoryName));
+            PigeonEngine.data.Data.CreateDirectory(buildPath(directoryName));
 		}
 		#endregion
 	}

@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
-using pigeon.gfx;
-using pigeon.squab;
-using pigeon.time;
+using Pigeon.Gfx;
+using Pigeon.squab;
+using Pigeon.Time;
 
-namespace pigeon.component {
+namespace Pigeon.component {
 	public class AlphaFader : Component {
 		// parameters
 		public float CyclePeriod;
@@ -24,13 +24,13 @@ namespace pigeon.component {
 
 		protected override void Update() {
 			if (!increasing) {
-				cycleTimer -= Time.SecScaled;
+                cycleTimer -= Time.Time.SecScaled;
 				if (cycleTimer < 0) {
 					cycleTimer = 0;
 					increasing = true;
 				}
 			} else {
-				cycleTimer += Time.SecScaled;
+                cycleTimer += Time.Time.SecScaled;
 				if (cycleTimer > CyclePeriod) {
 					cycleTimer = CyclePeriod;
 					increasing = false;

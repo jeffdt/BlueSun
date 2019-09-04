@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon.utilities.helpers;
+using Pigeon.utilities.helpers;
 
-namespace pigeon.input {
+namespace Pigeon.Input {
 	public static class Legacy_GamepadReader {
 		private const float JOYSTICK_DIGITAL_LENGTH_THRESH = .5f;
 		private const float JOYSTICK_COMPONENT_THRESH = .25f;

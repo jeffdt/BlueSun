@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.utilities.extensions;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	internal class QuadTree {
 		private const int MAX_OBJECTS = 50;
 		private const int MAX_LEVELS = 4;

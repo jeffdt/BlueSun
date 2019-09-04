@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace pigeon.input {
+namespace Pigeon.Input {
 	public static class MouseReader {
 		public static bool UpdateState = true;
 		public static bool ReadWhenOutOfFocus = true;

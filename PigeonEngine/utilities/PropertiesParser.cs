@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace pigeon.utilities {
+namespace Pigeon.utilities {
 	public abstract class PropertiesParser {
 		public static Tuple<string, string> ParseObjectIntoType(string propertyObject) {
 			string [] strings = propertyObject.Split(new[] { ':' });

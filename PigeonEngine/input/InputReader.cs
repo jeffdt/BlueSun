@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PigeonEngine.input {
+namespace PigeonEngine.Input {
 	public class InputReader {
 		private readonly List<InputDevice> inputDevices = new List<InputDevice>();
 

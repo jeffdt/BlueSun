@@ -1,4 +1,4 @@
-﻿namespace PigeonEngine.input {
+﻿namespace PigeonEngine.Input {
 	public abstract class InputDevice {
 		public abstract void Update();
 

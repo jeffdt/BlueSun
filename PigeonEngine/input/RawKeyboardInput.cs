@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using PigeonEngine.input;
+using PigeonEngine.Input;
 
-namespace pigeon.input {
+namespace Pigeon.Input {
 	public static class RawKeyboardInput {
 		private static KeyboardState previousState;
 		private static KeyboardState currentState;
@@ -25,7 +25,7 @@ namespace pigeon.input {
 			foreach (var key in KeyBinds.BoundKeys) {
 				if (IsPressed(key) && !Pigeon.Console.IsDisplaying) {
 					string boundCommand = KeyBinds.GetKeyBind(key);
-					Pigeon.Console.ExecuteCommand(boundCommand);
+                    Pigeon.Console.ExecuteCommand(boundCommand);
 				}
 			}
 		}

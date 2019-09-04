@@ -4,7 +4,7 @@ using NAudio.Wave;
 using PigeonEngine.utilities.extensions;
 using System;
 
-namespace PigeonEngine.sound {
+namespace PigeonEngine.Sound {
 	public static class Music {
 		public enum States { Playing, Stopped, Paused }
 

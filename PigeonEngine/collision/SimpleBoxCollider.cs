@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.collision;
-using pigeon.utilities.extensions;
+using Pigeon.Collision;
+using Pigeon.utilities.extensions;
 
 namespace PigeonEngine.collision {
 	public class SimpleBoxCollider : ColliderComponent {

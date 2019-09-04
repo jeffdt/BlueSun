@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.utilities;
-using pigeon.utilities.helpers;
+using Pigeon.utilities;
+using Pigeon.utilities.helpers;
 
-namespace pigeon.rand {
+namespace Pigeon.rand {
 	public static class Rand {
 		private static readonly Random rand = new Random();
 

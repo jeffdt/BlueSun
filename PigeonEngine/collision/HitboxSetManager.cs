@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
-using pigeon.data;
-using pigeon.utilities.extensions;
+using Pigeon.Data;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	internal class HitboxSetManager {
 		#region database
 		private static readonly Regex smartParse = new Regex(@"\[(?<offsets>\S.*)]\[(?<dimensions>\S.*)](\{(?<options>\S.*)\})?");

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.gfx;
+using Pigeon.Data;
+using Pigeon.Gfx;
 
-namespace pigeon.utilities {
+namespace Pigeon.utilities {
 	public static class GraphicsUtility {
 		public static Texture2D ColorSwap(string textureName, Dictionary<Color, Color> colorMap) {
 			Texture2D cachedTexture = ContentLoader.LoadTexture(textureName);

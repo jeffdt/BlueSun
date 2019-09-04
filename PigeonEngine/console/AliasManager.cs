@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using pigeon.data;
+using Pigeon.Data;
 
 namespace PigeonEngine.console {
 	public class AliasManager {

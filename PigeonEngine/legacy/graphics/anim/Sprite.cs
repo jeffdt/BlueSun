@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
-using pigeon.gfx;
-using pigeon.time;
-using pigeon.utilities.extensions;
+using Pigeon.Data;
+using Pigeon.Gfx;
+using Pigeon.Time;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.legacy.graphics.anim {
+namespace Pigeon.legacy.graphics.anim {
 	public class Sprite : Graphic {
 		private const string NO_TEXTURE = "NO TEXTURE SPECIFIED";
 
@@ -225,8 +225,8 @@ namespace pigeon.legacy.graphics.anim {
 
 		public override void Update() {
 			if (!playing) { return; }
-			
-			frameTimer -= Time.MsScaled;
+
+            frameTimer -= Time.Time.MsScaled;
 			if (frameTimer > 0) { return; }	// still displaying current frame
 
 			if (isPingPonging) {

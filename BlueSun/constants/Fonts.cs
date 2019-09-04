@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using pigeon.data;
+using Pigeon.Data;
 
 namespace Bazaar.resources {
 	public static class Fonts {

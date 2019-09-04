@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using pigeon.input;
+using Pigeon.Input;
 
-namespace PigeonEngine.input {
+namespace PigeonEngine.Input {
 	public class KeyboardInputDevice : InputDevice {
 		private static readonly Keys [] DIR_WSAD = { Keys.W, Keys.D, Keys.S, Keys.A };
 		private static readonly Keys[] DIR_ARROW = { Keys.Up, Keys.Right, Keys.Down, Keys.Left };

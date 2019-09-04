@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace pigeon.utilities.extensions {
+namespace Pigeon.utilities.extensions {
 	public static class ListExtensions {
 		public static T Last<T>(this List<T> list) {
 			return list[list.Count - 1];

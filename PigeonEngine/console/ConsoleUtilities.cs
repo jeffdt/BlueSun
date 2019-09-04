@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace pigeon.console {
+namespace Pigeon.Console {
 	public static class ConsoleUtilities {
 		public static string BracketedList(IEnumerable<string> strings) {
 			var builder = new StringBuilder();
@@ -16,11 +16,11 @@ namespace pigeon.console {
 		}
 
 		public static void LogVariableChange(string variableName, object oldValue, object newValue) {
-			Pigeon.Console.Log(String.Format("{0}: {1} -> {2}", variableName, oldValue, newValue));
+            Pigeon.Console.Log(string.Format("{0}: {1} -> {2}", variableName, oldValue, newValue));
 		}
 
 		public static void LogVariable(string variableName, object value) {
-			Pigeon.Console.Log(String.Format("{0}: {1}", variableName, value));
+            Pigeon.Console.Log(string.Format("{0}: {1}", variableName, value));
 		}
 	}
 }

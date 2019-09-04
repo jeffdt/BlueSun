@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using pigeon.utilities.extensions;
+using Pigeon.utilities.extensions;
 
-namespace pigeon.data {
+namespace Pigeon.Data {
 	public class Properties {
 		public readonly String Filename;
 		

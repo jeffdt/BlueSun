@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.utilities {
+namespace Pigeon.utilities {
 	public static class MathUtil {
 		#region lerps
 		public static float InverseLerp(this float value, float min, float max) {

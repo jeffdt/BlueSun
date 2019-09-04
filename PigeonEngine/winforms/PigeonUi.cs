@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
-using pigeon;
-using pigeon.console;
-using pigeon.utilities.extensions;
+using Pigeon;
+using Pigeon.Console;
+using Pigeon.utilities.extensions;
 using PigeonEngine.Properties;
 
 namespace PigeonEngine.winforms {
@@ -15,28 +15,28 @@ namespace PigeonEngine.winforms {
 		private void PigeonUi_Load(object sender, EventArgs e) {
 			populateObjectTree();
 
-			Pigeon.EngineEventRegistry.RegisterEventHandler<ConsoleLogChangedEvent>(onConsoleLogChanged);
+            Pigeon.Pigeon.EngineEventRegistry.RegisterEventHandler<ConsoleLogChangedEvent>(this.onConsoleLogChanged);
 			refreshConsoleLog();
 
 			updatePauseButton();
 		}
 
 		private void updatePauseButton() {
-			utilitiesPauseButton.BackgroundImage = Pigeon.Instance.PauseWorld ? Resources.play : Resources.pause;
+            utilitiesPauseButton.BackgroundImage = Pigeon.Pigeon.Instance.PauseWorld ? Resources.play : Resources.pause;
 		}
 
 		private void pauseButton_Click(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("pauseworld");
+            Pigeon.Pigeon.Console.ExecuteCommand("pauseworld");
 			updatePauseButton();
 		}
 
 		private void tickButton_Click(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("tick");
+            Pigeon.Pigeon.Console.ExecuteCommand("tick");
 			updatePauseButton();
 		}
 
 		private void PigeonUi_FormClosed(object sender, FormClosedEventArgs e) {
-			Pigeon.EngineEventRegistry.UnregisterEventHandler<ConsoleLogChangedEvent>(onConsoleLogChanged);
+            Pigeon.Pigeon.EngineEventRegistry.UnregisterEventHandler<ConsoleLogChangedEvent>(this.onConsoleLogChanged);
 		}
 
 		#region menu
@@ -45,15 +45,15 @@ namespace PigeonEngine.winforms {
 		}
 
 		private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("screenshot");
+            Pigeon.Pigeon.Console.ExecuteCommand("screenshot");
 		}
 
 		private void openSaveDirectoryToolStripMenuItem_Click(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("savedir");
+            Pigeon.Pigeon.Console.ExecuteCommand("savedir");
 		}
 
 		private void sandboxWorldToolStripMenuItem_Click(object sender, EventArgs e) {
-			Pigeon.Console.ExecuteCommand("sandbox");
+            Pigeon.Pigeon.Console.ExecuteCommand("sandbox");
 		}
 		#endregion
 
@@ -68,7 +68,7 @@ namespace PigeonEngine.winforms {
 			var y = utilitiesResolutionYTextfield.Text.ToInt();
 
 			if (x > 0 && y > 0) {
-				Pigeon.Renderer.SetCustomResolution(x, y);
+                Pigeon.Pigeon.Renderer.SetCustomResolution(x, y);
 			}
 		}
 	}

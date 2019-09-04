@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using pigeon.utilities.helpers;
+using Pigeon.utilities.helpers;
 
-namespace pigeon.input {
+namespace Pigeon.Input {
 	public class Legacy_GamepadAdapter<T> {
 			private readonly Dictionary<T, Buttons> buttomMap;
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using pigeon.data;
+using Pigeon.Data;
 
-namespace PigeonEngine.input {
+namespace PigeonEngine.Input {
 	public static class KeyBinds {
 		private const string BINDINGS_FILEPATH = "keys.cfg";
 

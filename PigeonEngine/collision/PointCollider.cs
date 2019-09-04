@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace pigeon.collision {
+namespace Pigeon.Collision {
 	public class PointCollider : ColliderComponent {
 		private readonly bool isPassive;
 
