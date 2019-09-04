@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using NAudio.Wave;
 using PigeonEngine.utilities.extensions;
+using System;
 
 namespace PigeonEngine.sound {
 	public static class Music {
@@ -34,7 +35,14 @@ namespace PigeonEngine.sound {
 		}
 
 		public static void PlayTrack(int trackNum) {
-			reader.SetTrack(trackNum);
+
+            int clampedTrackNum = trackNum.Clamp(0, reader.TrackCount - 1);
+
+            if (trackNum < 0 || trackNum > reader.TrackCount - 1) {
+                Console.WriteLine(string.Format(@"trackNum {0} not valid for trackCount range [0, {1}]. defaulting to {2}.", trackNum, reader.TrackCount - 1, clampedTrackNum));
+            }
+
+			reader.SetTrack(clampedTrackNum);
 			Play();
 		}
 
