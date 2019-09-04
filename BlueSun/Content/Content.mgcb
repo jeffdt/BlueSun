@@ -1,0 +1,126 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:Windows
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin data/hitboxes.dat
+/copy:data/hitboxes.dat
+
+#begin fonts/bazaarDialog.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/bazaarDialog.png
+
+#begin fonts/bazaarLightBack.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter=0
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/bazaarLightBack.png
+
+#begin fonts/bazaartwotone.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/bazaartwotone.png
+
+#begin fonts/coin.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter=0
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/coin.png
+
+#begin fonts/console.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/console.png
+
+#begin fonts/fonts.xml
+/copy:fonts/fonts.xml
+
+#begin fonts/highScoreName.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/highScoreName.png
+
+#begin fonts/onetonenumber.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter=0
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/onetonenumber.png
+
+#begin fonts/onetonetext.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter=0
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/onetonetext.png
+
+#begin fonts/title.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/title.png
+
+#begin music/BAZAAR.nsf
+/copy:music/BAZAAR.nsf
+
+#begin textures/compactAnimations.cfg
+/copy:textures/compactAnimations.cfg
+
+#begin textures/console/cursor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/console/cursor.png
+
+#begin textures/console/panel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/console/panel.png
+
+#begin textures/templates.cfg
+/copy:textures/templates.cfg
+
