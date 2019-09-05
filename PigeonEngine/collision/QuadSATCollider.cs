@@ -1,54 +1,54 @@
 ﻿using System.Collections.Generic;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace Pigeon.Collision {
-	public class QuadSATCollider : ICollider {
-		internal QuadTree rootQuad;
+namespace pigeon.collision {
+    public class QuadSATCollider : ICollider {
+        internal QuadTree rootQuad;
 
-		public QuadSATCollider(Rectangle bounds) {
-			rootQuad = new QuadTree(0, bounds);
-		}
+        public QuadSATCollider(Rectangle bounds) {
+            rootQuad = new QuadTree(0, bounds);
+        }
 
-		public bool Enabled { get; set; }
+        public bool Enabled { get; set; }
 
-		public void Collide(List<ColliderComponent> allBoxes) {
-			buildAllQuads(allBoxes);
-			checkCollisions(allBoxes);
-		}
+        public void Collide(List<ColliderComponent> allBoxes) {
+            buildAllQuads(allBoxes);
+            checkCollisions(allBoxes);
+        }
 
-		public void Draw() {
-			rootQuad.Draw();
-		}
+        public void Draw() {
+            rootQuad.Draw();
+        }
 
-		private void buildAllQuads(List<ColliderComponent> allBoxes) {
-			rootQuad.Clear();
-			foreach (ColliderComponent box in allBoxes) {
-				rootQuad.Insert(box);
-			}
-		}
+        private void buildAllQuads(List<ColliderComponent> allBoxes) {
+            rootQuad.Clear();
+            foreach (ColliderComponent box in allBoxes) {
+                rootQuad.Insert(box);
+            }
+        }
 
-		private void checkCollisions(List<ColliderComponent> allBoxes) {
-			var nearbyBoxes = new List<ColliderComponent>();
-			foreach (ColliderComponent box in allBoxes) {
-				if (box.IsPassive()) {
-					continue;
-				}
-				nearbyBoxes.Clear();
-				rootQuad.RetrieveCandidates(box, nearbyBoxes);
+        private void checkCollisions(List<ColliderComponent> allBoxes) {
+            var nearbyBoxes = new List<ColliderComponent>();
+            foreach (ColliderComponent box in allBoxes) {
+                if (box.IsPassive()) {
+                    continue;
+                }
+                nearbyBoxes.Clear();
+                rootQuad.RetrieveCandidates(box, nearbyBoxes);
 
-				foreach (ColliderComponent otherBox in nearbyBoxes) {
-					if (box == otherBox || box.FrameCollisions.Contains(otherBox)) {
-						continue;
-					}
-					
-					bool collided = false;
-//					var penetration = MinkowskiCollider.Collide(out collided, box, otherBox);
-					if (collided) {
-//						box.CollidedWith(otherBox, penetration);
-//						otherBox.CollidedWith(box, penetration);
-					}
-				}
-			}
-		}
-	}
+                foreach (ColliderComponent otherBox in nearbyBoxes) {
+                    if (box == otherBox || box.FrameCollisions.Contains(otherBox)) {
+                        continue;
+                    }
+
+                    bool collided = false;
+                    //					var penetration = MinkowskiCollider.Collide(out collided, box, otherBox);
+                    if (collided) {
+                        //						box.CollidedWith(otherBox, penetration);
+                        //						otherBox.CollidedWith(box, penetration);
+                    }
+                }
+            }
+        }
+    }
 }

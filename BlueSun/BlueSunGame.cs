@@ -2,17 +2,15 @@
 using BlueSun.src.parameters;
 using BlueSun.src.worlds;
 using Microsoft.Xna.Framework;
-using Pigeon;
-using Pigeon.Console;
-using Pigeon.Core;
-using Pigeon.Data;
-using Pigeon.Gfx;
-using PigeonEngine.debug;
-using PigeonEngine.Sound;
+using pigeon.console;
+using pigeon.core;
+using pigeon.data;
+using pigeon.gfx;
+using pigeon.sound;
 using System.Reflection;
 
 namespace BlueSun {
-    internal class BlueSunGame : Pigeon.Pigeon {
+    internal class BlueSunGame : pigeon.Pigeon {
         protected override string WindowTitle { get { return "Blue Sun"; } }
         protected override string Version { get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 

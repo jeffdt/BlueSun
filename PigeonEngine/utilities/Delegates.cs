@@ -1,3 +1,3 @@
-﻿namespace PigeonEngine.utilities {
-	public delegate bool BoolQuery();
+﻿namespace pigeon.utilities {
+    public delegate bool BoolQuery();
 }

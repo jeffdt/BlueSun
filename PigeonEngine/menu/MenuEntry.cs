@@ -1,15 +1,15 @@
 using System;
 using Microsoft.Xna.Framework;
-using Pigeon.legacy.entities;
-using Pigeon.legacy.graphics;
+using pigeon.legacy.entities;
+using pigeon.legacy.graphics;
 
-namespace Pigeon.menu {
-	public class MenuEntry : Entity {
-		public object BaseItem;
-		public MenuEntry Previous { get; set; }
-		public MenuEntry Next { get; set; }
-		public Action SelectionAction { get; set; }
+namespace pigeon.menu {
+    public class MenuEntry : Entity {
+        public object BaseItem;
+        public MenuEntry Previous { get; set; }
+        public MenuEntry Next { get; set; }
+        public Action SelectionAction { get; set; }
 
-		public MenuEntry(Vector2 position, Graphic graphic) : base(position, graphic) { }
-	}
+        public MenuEntry(Vector2 position, Graphic graphic) : base(position, graphic) { }
+    }
 }

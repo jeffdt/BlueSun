@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Pigeon.squab {
+namespace pigeon.squab {
     public abstract class Component {
-		public Squabject Object;
+        public Squabject Object;
 
-		public Action Destructor;
-		private bool initialized;
+        public Action Destructor;
+        private bool initialized;
 
         private bool enabled = true;
         public bool Enabled {
@@ -13,27 +13,27 @@ namespace Pigeon.squab {
             set { enabled = value; }
         }
 
-		public T GetComponent<T>() where T : Component {
-		    return Object.GetComponent<T>();
-	    }
+        public T GetComponent<T>() where T : Component {
+            return Object.GetComponent<T>();
+        }
 
-	    internal void InitializeComponent() {
-		    if (!initialized) {
-			    Initialize();
-		    }
+        internal void InitializeComponent() {
+            if (!initialized) {
+                Initialize();
+            }
 
-		    initialized = true;
-	    }
+            initialized = true;
+        }
 
-		internal void UpdateComponent() {
-		    if (!enabled) {
-			    return;
-		    }
+        internal void UpdateComponent() {
+            if (!enabled) {
+                return;
+            }
 
-		    Update();
-	    }
+            Update();
+        }
 
-		protected abstract void Initialize();
-	    protected abstract void Update();
+        protected abstract void Initialize();
+        protected abstract void Update();
     }
 }

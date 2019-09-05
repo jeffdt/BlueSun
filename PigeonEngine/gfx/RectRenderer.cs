@@ -1,21 +1,19 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Pigeon.squab;
-using Pigeon.utilities.extensions;
 
-namespace Pigeon.Gfx {
-	public class RectRenderer : ImageRenderer {
-		public enum DrawModes { Filled, Bordered, FilledBordered }
+namespace pigeon.gfx {
+    public class RectRenderer : ImageRenderer {
+        public enum DrawModes { Filled, Bordered, FilledBordered }
 
         // x/y represent offsets from Object.Position
         public Rectangle Rect;
 
-		public Color FillColor;
-		public Color BorderColor;
-		public int BorderThickness = 1;
+        public Color FillColor;
+        public Color BorderColor;
+        public int BorderThickness = 1;
 
-		public DrawModes DrawMode = DrawModes.Filled;
+        public DrawModes DrawMode = DrawModes.Filled;
 
         public RectRenderer(DrawModes drawMode) {
             DrawMode = drawMode;
@@ -23,17 +21,19 @@ namespace Pigeon.Gfx {
 
         protected override void Initialize() {
             initialTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Rect.Width, Rect.Height);
-            Color[] pixels = null;
+            Color[] pixels = new Color[initialTexture.Width * initialTexture.Height];
 
             switch (DrawMode) {
                 case DrawModes.Filled:
-                    pixels = buildFillPixels();
+                    setFillPixels(pixels);
                     break;
                 case DrawModes.Bordered:
-                    pixels = buildBorderPixels();
+                    setBorderPixels(pixels, Rect.Width, Rect.Height);
                     break;
                 case DrawModes.FilledBordered:
-                    throw new NotImplementedException();
+                    setFillPixels(pixels);
+                    setBorderPixels(pixels, Rect.Width, Rect.Height);
+                    break;
             }
 
             initialTexture.SetData(pixels);
@@ -41,22 +41,13 @@ namespace Pigeon.Gfx {
             base.Initialize();
         }
 
-        private Color[] buildFillPixels() {
-            var pixels = new Color[initialTexture.Width * initialTexture.Height];
-
+        private void setFillPixels(Color[] pixels) {
             for (int i = 0; i < pixels.Length; i++) {
                 pixels[i] = FillColor;
             }
-
-            return pixels;
         }
 
-        private Color[] buildBorderPixels() {
-            int width = initialTexture.Width;
-            int height = initialTexture.Height;
-
-            var pixels = new Color[width * height];
-
+        private void setBorderPixels(Color[] pixels, int width, int height) {
             // top
             for (int row = 0; row < BorderThickness; row++) {
                 for (int col = 0; col < width; col++) {
@@ -84,8 +75,6 @@ namespace Pigeon.Gfx {
                     pixels[row * width + col] = BorderColor;
                 }
             }
-
-            return pixels;
         }
     }
 }

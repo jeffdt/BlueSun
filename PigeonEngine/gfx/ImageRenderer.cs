@@ -1,36 +1,36 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Pigeon.legacy.graphics;
-using Pigeon.squab;
+using pigeon.legacy.graphics;
+using pigeon.squab;
 
-namespace Pigeon.Gfx {
+namespace pigeon.gfx {
     public class ImageRenderer : Component, Drawable, IFlippable {
-		public string TexturePath;
-    	public bool Center;
-		
-		public Image Image;
+        public string TexturePath;
+        public bool Center;
 
-		public readonly Point Anchor;
-	    public Color InitialColor = Color.White;
-    	private readonly float initialAlpha = -1;
+        public Image Image;
+
+        public readonly Point Anchor;
+        public Color InitialColor = Color.White;
+        private readonly float initialAlpha = -1;
 
         protected Texture2D initialTexture;
 
-		public ImageRenderer(string texturePath, bool center = false, float initialAlpha = -1) {
-			TexturePath = texturePath;
-			Center = center;
-			this.initialAlpha = initialAlpha;
-		}
+        public ImageRenderer(string texturePath, bool center = false, float initialAlpha = -1) {
+            TexturePath = texturePath;
+            Center = center;
+            this.initialAlpha = initialAlpha;
+        }
 
-		public ImageRenderer(string texturePath, Point anchor, float initialAlpha = -1) {
-			TexturePath = texturePath;
-			Anchor = anchor;
-			this.initialAlpha = initialAlpha;
-		}
+        public ImageRenderer(string texturePath, Point anchor, float initialAlpha = -1) {
+            TexturePath = texturePath;
+            Anchor = anchor;
+            this.initialAlpha = initialAlpha;
+        }
 
         protected ImageRenderer() { }   // can leave configuration up to custom components
 
-    	protected override void Initialize() {
+        protected override void Initialize() {
             if (Image != null) {
                 return;
             }
@@ -53,51 +53,51 @@ namespace Pigeon.Gfx {
             }
         }
 
-		public void SetAlpha(float a) {
-			if (a < 0f || a > 1f) {
-				return;
-			}
+        public void SetAlpha(float a) {
+            if (a < 0f || a > 1f) {
+                return;
+            }
 
-			Image.Color.A = (byte) (255f * a);
-		}
+            Image.Color.A = (byte) (255f * a);
+        }
 
-    	protected override void Update() {
-            
+        protected override void Update() {
+
         }
 
         public void Draw() {
-			if (Enabled) {
-				Image.Draw(Object.WorldPosition.ToVector2(), Object.DrawLayer);
-			}
+            if (Enabled) {
+                Image.Draw(Object.WorldPosition.ToVector2(), Object.DrawLayer);
+            }
         }
 
-	    public void OnFlipped() {
-			SetFlipHorizontal(Object.IsFlippedX());
-			SetFlipVertical(Object.IsFlippedY());
-	    }
+        public void OnFlipped() {
+            SetFlipHorizontal(Object.IsFlippedX());
+            SetFlipVertical(Object.IsFlippedY());
+        }
 
-		public bool IsFlippedHorizontal() {
-			return (Image.Flip & SpriteEffects.FlipHorizontally) != 0;
-		}
+        public bool IsFlippedHorizontal() {
+            return (Image.Flip & SpriteEffects.FlipHorizontally) != 0;
+        }
 
-		public bool IsFlippedVertical() {
-			return (Image.Flip & SpriteEffects.FlipVertically) != 0;
-		}
+        public bool IsFlippedVertical() {
+            return (Image.Flip & SpriteEffects.FlipVertically) != 0;
+        }
 
-		public void SetFlipHorizontal(bool hFlip) {
-			if (hFlip) {
+        public void SetFlipHorizontal(bool hFlip) {
+            if (hFlip) {
                 Image.Flip |= SpriteEffects.FlipHorizontally;
-			} else {
-				Image.Flip &= SpriteEffects.FlipVertically;
-			}
-		}
+            } else {
+                Image.Flip &= SpriteEffects.FlipVertically;
+            }
+        }
 
-		public void SetFlipVertical(bool vFlip) {
-			if (vFlip) {
-				Image.Flip |= SpriteEffects.FlipVertically;
-			} else {
-				Image.Flip &= SpriteEffects.FlipHorizontally;
-			}
-		}
+        public void SetFlipVertical(bool vFlip) {
+            if (vFlip) {
+                Image.Flip |= SpriteEffects.FlipVertically;
+            } else {
+                Image.Flip &= SpriteEffects.FlipHorizontally;
+            }
+        }
     }
 }

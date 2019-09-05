@@ -1,50 +1,50 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Pigeon.Collision {
-	public static class SatCollider {
-		public static bool CollideBoxPoint(Rectangle box, Point point) {
-			if (box.Right - 1 < point.X ||
-				box.Bottom - 1 < point.Y ||
-				box.Left > point.X ||
-				box.Top > point.Y) {
-				return false;
-			}
-			
-			return true;
-		}
+namespace pigeon.collision {
+    public static class SatCollider {
+        public static bool CollideBoxPoint(Rectangle box, Point point) {
+            if (box.Right - 1 < point.X
+                || box.Bottom - 1 < point.Y ||
+                box.Left > point.X ||
+                box.Top > point.Y) {
+                return false;
+            }
 
-		public static bool CollideBoxes(Rectangle a, Rectangle b) {
-			if (a.Right - 1 < b.Left ||
-				a.Bottom - 1 < b.Top ||
-				a.Left > b.Right - 1 ||
-				a.Top > b.Bottom - 1) {
-				return false;
-			}
+            return true;
+        }
 
-			return true;
-		}
+        public static bool CollideBoxes(Rectangle a, Rectangle b) {
+            if (a.Right - 1 < b.Left
+                || a.Bottom - 1 < b.Top ||
+                a.Left > b.Right - 1 ||
+                a.Top > b.Bottom - 1) {
+                return false;
+            }
 
-		public static int GetMinTranslationX(Rectangle specA, Rectangle specB) {
-			int left = (specB.Left - specA.Right);
-			int right = (specB.Right - specA.Left);
+            return true;
+        }
 
-			if (left > 0 || right < 0) {
-				return 0;
-			}
+        public static int GetMinTranslationX(Rectangle specA, Rectangle specB) {
+            int left = (specB.Left - specA.Right);
+            int right = (specB.Right - specA.Left);
 
-			return Math.Abs(left) < right ? left : right;
-		}
+            if (left > 0 || right < 0) {
+                return 0;
+            }
 
-		public static int GetMinTranslationY(Rectangle specA, Rectangle specB) {
-			int top = (specB.Top - specA.Bottom);
-			int bottom = (specB.Bottom - specA.Top);
+            return Math.Abs(left) < right ? left : right;
+        }
 
-			if (top > 0 || bottom < 0) {
-				return 0;
-			}
+        public static int GetMinTranslationY(Rectangle specA, Rectangle specB) {
+            int top = (specB.Top - specA.Bottom);
+            int bottom = (specB.Bottom - specA.Top);
 
-			return Math.Abs(top) < bottom ? top : bottom;
-		}
-	}
+            if (top > 0 || bottom < 0) {
+                return 0;
+            }
+
+            return Math.Abs(top) < bottom ? top : bottom;
+        }
+    }
 }

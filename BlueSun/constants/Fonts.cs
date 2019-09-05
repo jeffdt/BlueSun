@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Pigeon.Data;
+using pigeon.data;
 
 namespace Bazaar.resources {
-	public static class Fonts {
+    public static class Fonts {
         public static SpriteFont Coin { get { return ResourceCache.Font("coin"); } }
         public static SpriteFont Console { get { return ResourceCache.Font("console"); } }
         public static SpriteFont Dialog { get { return ResourceCache.Font("dialog"); } }
