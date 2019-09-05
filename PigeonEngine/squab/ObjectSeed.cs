@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using pigeon.gfx;
 
-namespace pigeon.squab {
+namespace pigeon.gameobject {
     [Serializable]
     public class ObjectSeed {
         public string ParentName;
@@ -24,8 +24,8 @@ namespace pigeon.squab {
 
         public List<ObjectSeed> Children;
 
-        public Squabject Build() {
-            Squabject obj = new Squabject(Name, Layer);
+        public GameObject Build() {
+            GameObject obj = new GameObject(Name, Layer);
             if (Sprite != null) {
                 var spriteRenderer = new SpriteRenderer(Sprite);
                 obj.AddComponent(spriteRenderer);

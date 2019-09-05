@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using pigeon.legacy.graphics;
 using pigeon.debug;
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.legacy.entities {
     public class Entity {

@@ -6,8 +6,8 @@ using pigeon.collision;
 using pigeon.time;
 using pigeon.utilities;
 
-namespace pigeon.squab {
-    public class Squabject {
+namespace pigeon.gameobject {
+    public class GameObject {
         #region debugging
         public static bool DrawPositionsGlobal;
         public static bool DrawHitboxesGlobal;
@@ -191,7 +191,7 @@ namespace pigeon.squab {
             flipChildren(x, y, children_toAdd, oldX, oldY);
         }
 
-        private static void flipChildren(bool x, bool y, List<Squabject> squabjects, bool oldX, bool oldY) {
+        private static void flipChildren(bool x, bool y, List<GameObject> squabjects, bool oldX, bool oldY) {
             if (squabjects != null) {
                 foreach (var child in squabjects) {
                     if (child.FlipWithParent) {
@@ -229,17 +229,17 @@ namespace pigeon.squab {
         #endregion
 
         #region children
-        private List<Squabject> children;
-        private List<Squabject> children_toAdd;
+        private List<GameObject> children;
+        private List<GameObject> children_toAdd;
         private List<Component> toInitialize;
 
-        public void AddChild(Squabject newChild) {
+        public void AddChild(GameObject newChild) {
             if (children == null) {
-                children = new List<Squabject>();
+                children = new List<GameObject>();
             }
 
             if (children_toAdd == null) {
-                children_toAdd = new List<Squabject>();
+                children_toAdd = new List<GameObject>();
             }
 
             newChild.Parent = this;
@@ -248,22 +248,22 @@ namespace pigeon.squab {
             children_toAdd.Add(newChild);
         }
 
-        public void AddChildImmediate(Squabject newChild) {
+        public void AddChildImmediate(GameObject newChild) {
             newChild.Parent = this;
             newChild.updateWorldPosition();
 
             children.Add(newChild);
         }
 
-        public Squabject AddContainer(string name) {
-            var obj = new Squabject(name);
+        public GameObject AddContainer(string name) {
+            var obj = new GameObject(name);
             AddChild(obj);
             return obj;
         }
 
         public void AddContainers(params string[] names) {
             foreach (var name in names) {
-                AddChild(new Squabject(name));
+                AddChild(new GameObject(name));
             }
         }
 
@@ -277,11 +277,11 @@ namespace pigeon.squab {
             }
         }
 
-        public List<Squabject> GetChildren() {
+        public List<GameObject> GetChildren() {
             return children;
         }
 
-        public List<Squabject> GetChildrenToAdd() {
+        public List<GameObject> GetChildrenToAdd() {
             return children_toAdd;
         }
 
@@ -289,7 +289,7 @@ namespace pigeon.squab {
             return (children == null) ? 0 : children.Count;
         }
 
-        public Squabject GetChild(int index) {
+        public GameObject GetChild(int index) {
             return children[index];
         }
 
@@ -297,7 +297,7 @@ namespace pigeon.squab {
             return children != null && children.Count > 0;
         }
 
-        public Squabject FindChild(string name) {
+        public GameObject FindChild(string name) {
             // grab from active children if possible, otherwise check the children about to be added
             if (children != null) {
                 foreach (var child in children) {
@@ -318,7 +318,7 @@ namespace pigeon.squab {
             return null;
         }
 
-        public Squabject FindChildRecursive(string search) {
+        public GameObject FindChildRecursive(string search) {
             int ind = search.IndexOf('.');
 
             if (ind == -1) {
@@ -346,7 +346,7 @@ namespace pigeon.squab {
         private List<Drawable> drawableCmpts;
         private List<IFlippable> flippableCmpts;
 
-        public Squabject AddComponent(Component cmpt) {
+        public GameObject AddComponent(Component cmpt) {
             if (cmpt.Object == null) {
                 cmpt.Object = this;
                 components.Add(cmpt);
@@ -446,23 +446,23 @@ namespace pigeon.squab {
         #endregion
 
         public string Name;
-        public Squabject Parent;
+        public GameObject Parent;
         public bool Deleted;
 
-        private Squabject newParent = null;
+        private GameObject newParent = null;
 
-        public Squabject() { }
+        public GameObject() { }
 
-        public Squabject(string name) {
+        public GameObject(string name) {
             Name = name;
         }
 
-        public Squabject(string name, float localLayer) {
+        public GameObject(string name, float localLayer) {
             Name = name;
             LocalLayer = localLayer;
         }
 
-        public Squabject(string name, float localLayer, Point flatLocalPosition) {
+        public GameObject(string name, float localLayer, Point flatLocalPosition) {
             FlatLocalPosition = flatLocalPosition;
             Name = name;
             LocalLayer = localLayer;
@@ -606,11 +606,11 @@ namespace pigeon.squab {
             return inspector.ToString();
         }
 
-        public void SetNewParent(Squabject parent) {
+        public void SetNewParent(GameObject parent) {
             newParent = parent;
         }
 
-        public void SetNewParentImmediate(Squabject parent) {
+        public void SetNewParentImmediate(GameObject parent) {
             Parent.children.Remove(this);
             parent.AddChildImmediate(this);
         }

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using pigeon.gfx;
-using pigeon.squab;
+using pigeon.gameobject;
 using pigeon.time;
 
 namespace pigeon.component {

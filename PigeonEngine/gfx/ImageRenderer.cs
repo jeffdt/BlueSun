@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics;
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.gfx {
     public class ImageRenderer : Component, Drawable, IFlippable {

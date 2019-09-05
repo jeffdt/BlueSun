@@ -11,7 +11,7 @@ using pigeon.debug;
 using pigeon.gfx;
 using pigeon.input;
 using pigeon.sound;
-using pigeon.squab;
+using pigeon.gameobject;
 using pigeon.time;
 using pigeon.utilities.extensions;
 using pigeon.winforms;
@@ -215,9 +215,9 @@ namespace pigeon.console {
         }
 
         private static void toggleHitbox(string args) {
-            var before = Squabject.DrawHitboxesGlobal;
+            var before = GameObject.DrawHitboxesGlobal;
             var after = !before;
-            Squabject.DrawHitboxesGlobal = after;
+            GameObject.DrawHitboxesGlobal = after;
             ConsoleUtilities.LogVariableChange("hitbox debug", before, after);
         }
 
@@ -229,9 +229,9 @@ namespace pigeon.console {
         }
 
         private static void togglePosition(string args) {
-            var before = Squabject.DrawPositionsGlobal;
+            var before = GameObject.DrawPositionsGlobal;
             var after = !before;
-            Squabject.DrawPositionsGlobal = after;
+            GameObject.DrawPositionsGlobal = after;
             ConsoleUtilities.LogVariableChange("position debug", before, after);
         }
 
@@ -246,7 +246,7 @@ namespace pigeon.console {
         #region objects
         private static void allObjects(string args) {
             StringBuilder builder = new StringBuilder();
-            Squabject obj = string.IsNullOrEmpty(args) ? Pigeon.World.ObjRoot : Pigeon.World.FindObj(args);
+            GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.ObjRoot : Pigeon.World.FindObj(args);
             describeChildren(obj, builder);
         }
 
@@ -273,7 +273,7 @@ namespace pigeon.console {
             obj.FlatLocalPosition = obj.FlatLocalPosition + bumpDir;
         }
 
-        private static void describeChildren(Squabject obj, StringBuilder builder) {
+        private static void describeChildren(GameObject obj, StringBuilder builder) {
             var children = obj.GetChildren();
             if (children == null || children.Count == 0) {
                 Pigeon.Console.Log("object has no children");
@@ -409,7 +409,7 @@ namespace pigeon.console {
                 Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
             } else {
                 var splitArgs = args.SplitArgs();
-                Music.MuteVoice(splitArgs[0].ToInt(), splitArgs[1].ToInt());
+                Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
             }
         }
 

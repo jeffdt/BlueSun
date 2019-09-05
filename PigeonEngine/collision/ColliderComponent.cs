@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.collision {
     public abstract class ColliderComponent : Component, IFlippable {

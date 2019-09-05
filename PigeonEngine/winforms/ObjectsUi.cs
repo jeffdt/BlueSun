@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.winforms {
     public partial class PigeonUi {
-        private Squabject currentObj;
+        private GameObject currentObj;
 
         private void populateObjectTree() {
             enableObjectDetails(false);
@@ -20,7 +20,7 @@ namespace pigeon.winforms {
             objectDetailsRefreshButton.Visible = enabled;
         }
 
-        private void populateObjectTreeRecursive(TreeNodeCollection nodeCollection, IEnumerable<Squabject> objects) {
+        private void populateObjectTreeRecursive(TreeNodeCollection nodeCollection, IEnumerable<GameObject> objects) {
             if (objects == null) {
                 return;
             }
@@ -32,7 +32,7 @@ namespace pigeon.winforms {
             }
         }
 
-        private void refreshObjectDetails(Squabject obj) {
+        private void refreshObjectDetails(GameObject obj) {
             if (obj == null) {
                 enableObjectDetails(false);
                 return;
@@ -63,7 +63,7 @@ namespace pigeon.winforms {
             populateComponentsList(obj);
         }
 
-        private void refreshObjectLayerInfo(Squabject obj) {
+        private void refreshObjectLayerInfo(GameObject obj) {
             const string layerFormat = "F6";
             objectLayerText.Text = obj.LocalLayer.ToString(layerFormat);
             objectParentLayerText.Text = obj.Parent.DrawLayer.ToString(layerFormat);
@@ -77,7 +77,7 @@ namespace pigeon.winforms {
             return fullPath.Replace(@"\", @".");
         }
 
-        private void populateComponentsList(Squabject obj) {
+        private void populateComponentsList(GameObject obj) {
             componentsList.Items.Clear();
 
             if (obj.components != null) {

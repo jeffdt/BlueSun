@@ -1,11 +1,11 @@
-﻿using pigeon.squab;
+﻿using pigeon.gameobject;
 using pigeon.time;
 
 namespace pigeon.gfx {
     public static class SpriteDebug {
         public static void CreateTestAnim(string sprite, string animation, bool isCentered, bool continuousLoop) {
             Pigeon.World.DeleteObjSafe("ANIM_TEST");
-            Squabject animObj = new Squabject("ANIM_TEST", .99f);
+            GameObject animObj = new GameObject("ANIM_TEST", .99f);
 
             var spriteRenderer = new SpriteRenderer(sprite);
 

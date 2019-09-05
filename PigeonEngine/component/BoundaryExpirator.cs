@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.component {
     public class BoundaryExpirator : Component {

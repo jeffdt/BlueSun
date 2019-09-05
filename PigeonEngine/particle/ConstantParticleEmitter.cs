@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using pigeon.rand;
-using pigeon.squab;
+using pigeon.gameobject;
 using pigeon.time;
 using pigeon.utilities;
 

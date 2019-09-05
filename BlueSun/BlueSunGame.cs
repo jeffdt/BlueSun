@@ -40,12 +40,11 @@ namespace BlueSun {
         }
 
         protected override void Load() {
-            Music.Load(@"music/BAZAAR.nsf");
+            Music.Load(@"music/predation.nsf");
         }
 
         protected override void InitializeGame() {
-            Music.PlayTrack(0);
-            Music.SetStereoDepth(0.4f);
+
         }
     }
 }

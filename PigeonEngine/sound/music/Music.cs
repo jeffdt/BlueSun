@@ -4,6 +4,15 @@ using pigeon.utilities.extensions;
 
 namespace pigeon.sound {
     public static class Music {
+        public const int P1 = 0;
+        public const int P2 = 1;
+        public const int TRI = 2;
+        public const int NOISE = 3;
+        public const int DPCM = 4;
+        public const int SAW = 5;
+        public const int P3 = 6;
+        public const int P4 = 7;
+
         public enum States { Playing, Stopped, Paused }
 
         public static int Track;
@@ -58,11 +67,31 @@ namespace pigeon.sound {
             player.Pause();
         }
 
-        public static void MuteVoice(int voiceIndex, int mute) {
+        public static void MuteVoice(int voiceIndex) {
+            SetVoiceMute(voiceIndex, 1);
+        }
+
+        public static void MuteVoices(params int[] voiceIndexes) {
+            foreach(int voiceIndex in voiceIndexes) {
+                MuteVoice(voiceIndex);
+            }
+        }
+
+        public static void UnmuteVoice(int voiceIndex) {
+            SetVoiceMute(voiceIndex, 0);
+        }
+
+        public static void UnmuteVoices(params int[] voiceIndexes) {
+            foreach (int voiceIndex in voiceIndexes) {
+                UnmuteVoice(voiceIndex);
+            }
+        }
+
+        public static void SetVoiceMute(int voiceIndex, int mute) {
             reader.MuteVoice(voiceIndex, mute);
         }
 
-        public static void MuteVoices(int mutingMask) {
+        public static void MaskMuteVoices(int mutingMask) {
             reader.MuteVoices(mutingMask);
         }
 

@@ -94,6 +94,12 @@
 #begin music/BAZAAR.nsf
 /copy:music/BAZAAR.nsf
 
+#begin music/predation.nsf
+/copy:music/predation.nsf
+
+#begin music/titanium.nsf
+/copy:music/titanium.nsf
+
 #begin textures/compactAnimations.cfg
 /copy:textures/compactAnimations.cfg
 

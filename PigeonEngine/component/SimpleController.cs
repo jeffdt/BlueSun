@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using pigeon.input;
-using pigeon.squab;
+using pigeon.gameobject;
 using pigeon.utilities;
 
 namespace pigeon.component {

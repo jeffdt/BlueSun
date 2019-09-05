@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace pigeon.squab {
+namespace pigeon.gameobject {
     public abstract class Component {
-        public Squabject Object;
+        public GameObject Object;
 
         public Action Destructor;
         private bool initialized;

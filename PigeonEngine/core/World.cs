@@ -6,14 +6,14 @@ using pigeon.collision;
 using pigeon.data;
 using pigeon.legacy.entities;
 using pigeon.core.tasks;
-using pigeon.squab;
+using pigeon.gameobject;
 using pigeon.particle;
 
 namespace pigeon.core {
     public abstract class World {
         protected bool AddDebugger = true;
 
-        public Squabject ObjRoot = new Squabject { Name = "Root", DisableSortVariance = true, DisableLayerInheritance = true };
+        public GameObject ObjRoot = new GameObject { Name = "Root", DisableSortVariance = true, DisableLayerInheritance = true };
         internal List<ColliderComponent> Hitboxes = new List<ColliderComponent>();
 
         public readonly EntityRegistry EntityRegistry = new EntityRegistry();
@@ -24,26 +24,26 @@ namespace pigeon.core {
         public ICollider Collider;
         public static bool DrawColliderDebugInfo;
 
-        public void AddObj(Squabject obj) {
+        public void AddObj(GameObject obj) {
             ObjRoot.AddChild(obj);
         }
 
-        public void AddNestedObj(string path, Squabject obj) {
+        public void AddNestedObj(string path, GameObject obj) {
             FindObj(path).AddChild(obj);
         }
 
-        public Squabject FindObj(string name) {
+        public GameObject FindObj(string name) {
             return ObjRoot.FindChildRecursive(name);
         }
 
         public void AddEmptyObj(params string[] names) {
             foreach (var name in names) {
-                ObjRoot.AddChild(new Squabject(name));
+                ObjRoot.AddChild(new GameObject(name));
             }
         }
 
         public bool DeleteObjSafe(string name) {
-            Squabject obj = ObjRoot.FindChildRecursive(name);
+            GameObject obj = ObjRoot.FindChildRecursive(name);
             if (obj != null) {
                 obj.Deleted = true;
                 return true;
@@ -79,7 +79,7 @@ namespace pigeon.core {
             var objectSeeds = LoadSeeds(seedLocation);
 
             foreach (var seed in objectSeeds) {
-                Squabject obj = seed.Build();
+                GameObject obj = seed.Build();
 
                 if (seed.ParentName == null) {
                     Pigeon.World.AddObj(obj);

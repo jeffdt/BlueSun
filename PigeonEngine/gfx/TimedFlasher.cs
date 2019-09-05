@@ -1,4 +1,4 @@
-using pigeon.squab;
+using pigeon.gameobject;
 
 namespace pigeon.gfx {
     public class TimedFlasher : Component {

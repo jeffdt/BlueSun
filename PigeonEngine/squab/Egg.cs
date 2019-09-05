@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace pigeon.squab {
+namespace pigeon.gameobject {
     public class Egg {
         // this could potentially be completed to give this engine Prefab technology, but it would get sloppy to implement the Clone() function for every single component
         // if we decide to use this we could create an abstract Clonable method on the Component class and have to implement Clone() for each one we create, which would suck
@@ -12,8 +12,8 @@ namespace pigeon.squab {
         private readonly List<Egg> children = new List<Egg>();
         private readonly List<Component> cmpts = new List<Component>();
 
-        public Squabject Clone() {
-            var obj = new Squabject { Name = Name + instanceCount++, LocalLayer = Layer };
+        public GameObject Clone() {
+            var obj = new GameObject { Name = Name + instanceCount++, LocalLayer = Layer };
 
             foreach (var child in children) {
                 obj.AddChild(child.Clone());
