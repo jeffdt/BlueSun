@@ -1,69 +1,68 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using PigeonEngine.input;
 
 namespace pigeon.input {
-	public static class RawKeyboardInput {
-		private static KeyboardState previousState;
-		private static KeyboardState currentState;
+    public static class RawKeyboardInput {
+        private static KeyboardState previousState;
+        private static KeyboardState currentState;
 
-		private static KeyboardState dummyState;
+        private static KeyboardState dummyState;
 
-		public static void Initialize() {
-			dummyState = new KeyboardState();
-			previousState = dummyState;
-			currentState = Keyboard.GetState();
+        public static void Initialize() {
+            dummyState = new KeyboardState();
+            previousState = dummyState;
+            currentState = Keyboard.GetState();
 
-			KeyBinds.Load();
-		}
+            KeyBinds.Load();
+        }
 
-		public static void Update() {
-			previousState = currentState;
-			currentState = Pigeon.IsInFocus ? Keyboard.GetState() : dummyState;
+        public static void Update() {
+            previousState = currentState;
+            currentState = Pigeon.IsInFocus ? Keyboard.GetState() : dummyState;
 
-			foreach (var key in KeyBinds.BoundKeys) {
-				if (IsPressed(key) && !Pigeon.Console.IsDisplaying) {
-					string boundCommand = KeyBinds.GetKeyBind(key);
-					Pigeon.Console.ExecuteCommand(boundCommand);
-				}
-			}
-		}
-		
-		public static bool IsPressed(Keys key) {
-			return currentState.IsKeyDown(key) && previousState.IsKeyUp(key);
-		}
+            foreach (var key in KeyBinds.BoundKeys) {
+                if (IsPressed(key) && !Pigeon.Console.IsDisplaying) {
+                    string boundCommand = KeyBinds.GetKeyBind(key);
+                    Pigeon.Console.ExecuteCommand(boundCommand);
+                }
+            }
+        }
 
-		public static bool IsHeld(Keys key) {
-			return currentState.IsKeyDown(key);
-		}
+        public static bool IsPressed(Keys key) {
+            return currentState.IsKeyDown(key) && previousState.IsKeyUp(key);
+        }
 
-		public static bool IsAnyPressed() {
-			return (currentState.GetPressedKeys().Length > 0 && previousState.GetPressedKeys().Length == 0);
-		}
+        public static bool IsHeld(Keys key) {
+            return currentState.IsKeyDown(key);
+        }
 
-		public static bool IsAnyKeyHeld() {
-			return currentState.GetPressedKeys().Length > 0;
-		}
+        public static bool IsAnyPressed() {
+            return (currentState.GetPressedKeys().Length > 0 && previousState.GetPressedKeys().Length == 0);
+        }
 
-		public static HashSet<Keys> GetJustPressedKeys() {
-			var currentKeys = new HashSet<Keys>(currentState.GetPressedKeys());
-			var previousKeys = new HashSet<Keys>(previousState.GetPressedKeys());
+        public static bool IsAnyKeyHeld() {
+            return currentState.GetPressedKeys().Length > 0;
+        }
 
-			var justPressedKeys = new HashSet<Keys>(currentKeys);
+        public static HashSet<Keys> GetJustPressedKeys() {
+            var currentKeys = new HashSet<Keys>(currentState.GetPressedKeys());
+            var previousKeys = new HashSet<Keys>(previousState.GetPressedKeys());
 
-			foreach(var key in currentKeys) {
-				if (previousKeys.Contains(key)) {
-					justPressedKeys.Remove(key);
-				}
-			}
+            var justPressedKeys = new HashSet<Keys>(currentKeys);
 
-			return justPressedKeys;
-		}
+            foreach (var key in currentKeys) {
+                if (previousKeys.Contains(key)) {
+                    justPressedKeys.Remove(key);
+                }
+            }
 
-		public static Keys GetSingleJustPressedKey() {
-			var justPressedKeys = GetJustPressedKeys();
-			return justPressedKeys.Count > 0 ? justPressedKeys.First() : Keys.None;
-		}
-	}
+            return justPressedKeys;
+        }
+
+        public static Keys GetSingleJustPressedKey() {
+            var justPressedKeys = GetJustPressedKeys();
+            return justPressedKeys.Count > 0 ? justPressedKeys.First() : Keys.None;
+        }
+    }
 }

@@ -12,207 +12,204 @@ using pigeon.input;
 using pigeon.legacy.graphics.anim;
 using pigeon.sound;
 using pigeon.time;
-using PigeonEngine.input;
-using PigeonEngine.sound;
 using System;
-using Console = pigeon.console.Console;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
-		// set these for each new game
-		protected abstract string WindowTitle { get; }
-		protected abstract Renderer GetRenderer { get; }
-		protected abstract string Version { get; }
-		protected abstract int FrameRate { get; }
-		protected abstract ConsoleOptions ConsoleOpts { get; }
-		protected abstract bool StartMouseVisible { get; }
-		protected abstract Color DefaultBkgdColor { get; }
-		protected abstract TextureTemplateProcessor TemplateProcessor { get; }
-		protected abstract World InitialWorld { get; }
-		protected abstract void Load();
+        // set these for each new game
+        protected abstract string WindowTitle { get; }
+        protected abstract Renderer GetRenderer { get; }
+        protected abstract string Version { get; }
+        protected abstract int FrameRate { get; }
+        protected abstract ConsoleOptions ConsoleOpts { get; }
+        protected abstract bool StartMouseVisible { get; }
+        protected abstract Color DefaultBkgdColor { get; }
+        protected abstract TextureTemplateProcessor TemplateProcessor { get; }
+        protected abstract World InitialWorld { get; }
+        protected abstract void Load();
         protected abstract void InitializeGame();
 
-		public static Pigeon Instance;
-        public static Console Console;
+        public static Pigeon Instance;
+        public static console.Console Console;
         public static Renderer Renderer;
-		public static readonly EventRegistry GameEventRegistry = new EventRegistry();
-		public static readonly EventRegistry EngineEventRegistry = new EventRegistry();
+        public static readonly EventRegistry GameEventRegistry = new EventRegistry();
+        public static readonly EventRegistry EngineEventRegistry = new EventRegistry();
         public static readonly Camera Camera = new Camera();
         public static ContentManager ContentManager;
         public static bool IsInFocus;
-		public static World World { get; private set; }
+        public static World World { get; private set; }
 
-		public static InputManager InputManager = new InputManager();
+        public static InputManager InputManager = new InputManager();
 
-		internal static Color EngineBkgdColor;
+        internal static Color EngineBkgdColor;
 
-		public bool PauseWorld;
-		internal static World nextWorld = null;
-		private static bool isNextWorldAlreadyInitialized;
-		private static World lastWorld;
+        public bool PauseWorld;
+        internal static World nextWorld = null;
+        private static bool isNextWorldAlreadyInitialized;
+        private static World lastWorld;
 
-		public static bool MouseVisible { set { Instance.IsMouseVisible = value; } }
+        public static bool MouseVisible { set { Instance.IsMouseVisible = value; } }
 
-		protected Pigeon() {
-			ContentManager = Content;
-			ContentManager.RootDirectory = @"Content";
+        protected Pigeon() {
+            ContentManager = Content;
+            ContentManager.RootDirectory = @"Content";
 
-			Renderer.GraphicsDeviceMgr = new GraphicsDeviceManager(this);
+            Renderer.GraphicsDeviceMgr = new GraphicsDeviceManager(this);
 
-			Instance = this;
-		}
+            Instance = this;
+        }
 
-		protected sealed override void LoadContent() {
-			Renderer = GetRenderer;
+        protected sealed override void LoadContent() {
+            Renderer = GetRenderer;
 
-			TargetElapsedTime = TimeSpan.FromSeconds(1 / (float) FrameRate);
-			Instance.Window.Title = WindowTitle;
+            TargetElapsedTime = TimeSpan.FromSeconds(1 / (float) FrameRate);
+            Instance.Window.Title = WindowTitle;
 
-			ResourceCache.Initialize(TemplateProcessor);
+            ResourceCache.Initialize(TemplateProcessor);
 
-			GameData.Initialize();
-			PlayerData.Initialize();
+            GameData.Initialize();
+            PlayerData.Initialize();
 
-			Renderer.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Renderer.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			loadResources();
+            loadResources();
 
             Audio.Initialize();
             Music.Initialize();
 
             Load();
 
-			Console = new Console(ConsoleOpts);
-			Console.LoadContent();
-			Console.AddGlobalCommands(PigeonCommands.Build());
+            Console = new console.Console(ConsoleOpts);
+            Console.LoadContent();
+            Console.AddGlobalCommands(PigeonCommands.Build());
 
             EngineBkgdColor = DefaultBkgdColor;
 
             World = InitialWorld;
-			World.LoadContent();
-		}
+            World.LoadContent();
+        }
 
-		private static void loadResources() {
-			string[] texturePaths = GameData.GetContentFiles(@"textures");
-			var templates = GameData.Read(@"textures\templates.cfg");
-			ResourceCache.LoadTextures(texturePaths, templates);
+        private static void loadResources() {
+            string[] texturePaths = GameData.GetContentFiles(@"textures");
+            var templates = GameData.Read(@"textures\templates.cfg");
+            ResourceCache.LoadTextures(texturePaths, templates);
 
-			string[] sfxPaths = GameData.GetContentFiles(@"sfx");
-			ResourceCache.LoadSounds(sfxPaths);
+            string[] sfxPaths = GameData.GetContentFiles(@"sfx");
+            ResourceCache.LoadSounds(sfxPaths);
 
-			Font[] fonts = GameData.Deserialize<Font[]>(@"fonts\fonts.xml");
-			if (fonts != null) {
-				ResourceCache.LoadFonts(fonts);
-			}
+            Font[] fonts = GameData.Deserialize<Font[]>(@"fonts\fonts.xml");
+            if (fonts != null) {
+                ResourceCache.LoadFonts(fonts);
+            }
 
-			HitboxSetManager.Load(@"data\hitboxes.dat");
-			Sprite.LoadCompact(@"textures\compactAnimations.cfg");
-		}
+            HitboxSetManager.Load(@"data\hitboxes.dat");
+            Sprite.LoadCompact(@"textures\compactAnimations.cfg");
+        }
 
-		protected override void Initialize() {
-			base.Initialize();
+        protected override void Initialize() {
+            base.Initialize();
 
-			MouseReader.Initialize();
-			RawKeyboardInput.Initialize();
-			Legacy_GamepadReader.Initialize();
-			GameSpeed.Reinitialize();
-			GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
-			DebugHelper.Initialize();
+            MouseReader.Initialize();
+            RawKeyboardInput.Initialize();
+            Legacy_GamepadReader.Initialize();
+            GameSpeed.Reinitialize();
+            GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+            DebugHelper.Initialize();
 
-			MouseVisible = StartMouseVisible;
+            MouseVisible = StartMouseVisible;
 
             InitializeGame();
-		}
+        }
 
-		protected override void UnloadContent() {
-			World.UnloadContent();
-		}
+        protected override void UnloadContent() {
+            World.UnloadContent();
+        }
 
-		protected override void Update(GameTime gameTime) {
-			if (nextWorld != null && World != nextWorld) {
-				swapWorld();
-			}
+        protected override void Update(GameTime gameTime) {
+            if (nextWorld != null && World != nextWorld) {
+                swapWorld();
+            }
 
-			IsInFocus = IsActive;
+            IsInFocus = IsActive;
 
-			InputManager.Update();
-			RawKeyboardInput.Update();
-			Legacy_GamepadReader.Update();
-			MouseReader.Update();
+            InputManager.Update();
+            RawKeyboardInput.Update();
+            Legacy_GamepadReader.Update();
+            MouseReader.Update();
 
             Time.Set(gameTime);
 
-			base.Update(gameTime);
-			
-			Console.Update();
+            base.Update(gameTime);
 
-			if (!Console.IsDisplaying && !PauseWorld) {
-				UpdateGameplay();
-			}
-		}
+            Console.Update();
 
-		public void UpdateGameplay() {
-			World.Update();
-			Audio.Update();
-		}
+            if (!Console.IsDisplaying && !PauseWorld) {
+                UpdateGameplay();
+            }
+        }
 
-		public static void SetWorld(World world, bool isAlreadyInitialized = false) {
-			if (nextWorld != null) {
-				Console.LogError("NextWorld has already been set.");
-				Console.LogError("Cannot override " + nextWorld + " with " + world);
-			}
+        public void UpdateGameplay() {
+            World.Update();
+            Audio.Update();
+        }
 
-			nextWorld = world;
-			isNextWorldAlreadyInitialized = isAlreadyInitialized;
-		}
+        public static void SetWorld(World world, bool isAlreadyInitialized = false) {
+            if (nextWorld != null) {
+                Console.LogError("NextWorld has already been set.");
+                Console.LogError("Cannot override " + nextWorld + " with " + world);
+            }
 
-		private static void swapWorld() {
-			if (!isNextWorldAlreadyInitialized) {
-				Camera.Position = Vector2.Zero;
-				World.UnloadContent();
-				Console.ResetWorldCommands();
-			}
+            nextWorld = world;
+            isNextWorldAlreadyInitialized = isAlreadyInitialized;
+        }
 
-			lastWorld = World;
-			World = nextWorld;
-			nextWorld = null;
+        private static void swapWorld() {
+            if (!isNextWorldAlreadyInitialized) {
+                Camera.Position = Vector2.Zero;
+                World.UnloadContent();
+                Console.ResetWorldCommands();
+            }
 
-			if (!isNextWorldAlreadyInitialized) {
-				GameEventRegistry.Reset();
-				World.LoadContent();
-			}
+            lastWorld = World;
+            World = nextWorld;
+            nextWorld = null;
 
-			Audio.StopAllSfx();
-			World.Enter();
-		}
+            if (!isNextWorldAlreadyInitialized) {
+                GameEventRegistry.Reset();
+                World.LoadContent();
+            }
 
-		protected override void Draw(GameTime gameTime) {
-			base.Draw(gameTime);
+            Audio.StopAllSfx();
+            World.Enter();
+        }
 
-			if (lastWorld != null) {
-				lastWorld.Draw();
-				lastWorld = null;
-			} else {
-				World.Draw();
-			}
+        protected override void Draw(GameTime gameTime) {
+            base.Draw(gameTime);
 
-			if (Console.IsDisplaying) { Console.Draw(); }
-		}
+            if (lastWorld != null) {
+                lastWorld.Draw();
+                lastWorld = null;
+            } else {
+                World.Draw();
+            }
 
-		public static void Reset() {
-			SetWorld(Instance.InitialWorld);
-		}
+            if (Console.IsDisplaying) { Console.Draw(); }
+        }
 
-		public static void ExitApp() {
-			Instance.ExitGame();
-		}
+        public static void Reset() {
+            SetWorld(Instance.InitialWorld);
+        }
 
-		public void ExitGame() {
-			Exit();
-		}
+        public static void ExitApp() {
+            Instance.ExitGame();
+        }
 
-		protected override void OnExiting(object sender, EventArgs args) {
-			base.OnExiting(sender, args);
-		}
-	}
+        public void ExitGame() {
+            Exit();
+        }
+
+        protected override void OnExiting(object sender, EventArgs args) {
+            base.OnExiting(sender, args);
+        }
+    }
 }

@@ -2,35 +2,35 @@
 using Microsoft.Xna.Framework.Graphics;
 
 namespace pigeon.legacy.graphics {
-	public abstract class Graphic {
-		public Point Size = new Point(1);
-		public Vector2 Parallax = new Vector2(1);
-		
-		public Color Color = Color.White;
-		private float rotation = 0;
-		public Vector2 Scale = Vector2.One;
+    public abstract class Graphic {
+        public Point Size = new Point(1);
+        public Vector2 Parallax = new Vector2(1);
 
-		internal Vector2 InternalOffset;
-		public Point Offset {
-			get { return InternalOffset.ToPoint(); }
-			set { InternalOffset = value.ToVector2(); }
-		}
+        public Color Color = Color.White;
+        private float rotation = 0;
+        public Vector2 Scale = Vector2.One;
 
-		public SpriteEffects Flip = SpriteEffects.None;
+        internal Vector2 InternalOffset;
+        public Point Offset {
+            get { return InternalOffset.ToPoint(); }
+            set { InternalOffset = value.ToVector2(); }
+        }
 
-		public float Rotation {
-			get {
-				return rotation;
-			}
-			set {
-				rotation = value;
-				if (rotation >= MathHelper.TwoPi) {
-					rotation -= MathHelper.TwoPi;
-				}
-			}
-		}
+        public SpriteEffects Flip = SpriteEffects.None;
 
-		public abstract void Update();
-		public abstract void Draw(Vector2 position, float layer);
-	}
+        public float Rotation {
+            get {
+                return rotation;
+            }
+            set {
+                rotation = value;
+                if (rotation >= MathHelper.TwoPi) {
+                    rotation -= MathHelper.TwoPi;
+                }
+            }
+        }
+
+        public abstract void Update();
+        public abstract void Draw(Vector2 position, float layer);
+    }
 }

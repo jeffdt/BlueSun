@@ -9,272 +9,272 @@ using pigeon.time;
 using pigeon.utilities.extensions;
 
 namespace pigeon.legacy.graphics.anim {
-	public class Sprite : Graphic {
-		private const string NO_TEXTURE = "NO TEXTURE SPECIFIED";
+    public class Sprite : Graphic {
+        private const string NO_TEXTURE = "NO TEXTURE SPECIFIED";
 
-		#region database
-		private static readonly Regex smartParse = new Regex(@"(?<animName>\S*)\[(?<seed>\S.*)](\((?<dupeParams>\S.*)\))?(\{(?<delayParams>\S.*)\})?");
-		private static readonly Regex seedParse = new Regex(@"(?<anchorX>\d.*),(?<anchorY>\d.*),(?<sheetX>\d.*),(?<sheetY>\d.*),(?<width>\d.*),(?<height>\d.*)");
+        #region database
+        private static readonly Regex smartParse = new Regex(@"(?<animName>\S*)\[(?<seed>\S.*)](\((?<dupeParams>\S.*)\))?(\{(?<delayParams>\S.*)\})?");
+        private static readonly Regex seedParse = new Regex(@"(?<anchorX>\d.*),(?<anchorY>\d.*),(?<sheetX>\d.*),(?<sheetY>\d.*),(?<width>\d.*),(?<height>\d.*)");
 
-		public static readonly Dictionary<string, Sprite> allSprites = new Dictionary<string, Sprite>();
+        public static readonly Dictionary<string, Sprite> allSprites = new Dictionary<string, Sprite>();
 
-		public static void LoadCompact(string path) {
-			var lines = GameData.Read(path);
-			int i = 0;
+        public static void LoadCompact(string path) {
+            var lines = GameData.Read(path);
+            int i = 0;
 
-			while (lines != null && i < lines.Length) {
-				string spriteName = lines[i++];
+            while (lines != null && i < lines.Length) {
+                string spriteName = lines[i++];
 
-				if (String.IsNullOrWhiteSpace(spriteName) || spriteName.StartsWith("#")) {
-					continue;
-				}
+                if (string.IsNullOrWhiteSpace(spriteName) || spriteName.StartsWith("#")) {
+                    continue;
+                }
 
-				var splitName = spriteName.Split(new [] { '=' });
-				spriteName = splitName[0];
-				string textureName = null;
-				if (splitName.Length == 2) {
-					textureName = splitName[1];
-				}
+                var splitName = spriteName.Split(new[] { '=' });
+                spriteName = splitName[0];
+                string textureName = null;
+                if (splitName.Length == 2) {
+                    textureName = splitName[1];
+                }
 
-				Sprite sprite = new Sprite { Animations = new SerializableDictionary<string, List<TeslaFrame>>(), texturePath = textureName };
+                Sprite sprite = new Sprite { Animations = new SerializableDictionary<string, List<TeslaFrame>>(), texturePath = textureName };
 
-				bool isSameSprite = true;
-				while (isSameSprite) {
-					string animationDef = lines[i];
+                bool isSameSprite = true;
+                while (isSameSprite) {
+                    string animationDef = lines[i];
 
-					var parseResult = smartParse.Match(animationDef);
+                    var parseResult = smartParse.Match(animationDef);
 
-					if (parseResult.Success) {
-						string animationName = parseResult.Groups["animName"].Value;
+                    if (parseResult.Success) {
+                        string animationName = parseResult.Groups["animName"].Value;
 
-						TeslaFrame seedFrame = parseSeed(parseResult.Groups["seed"].Value);
-						List<TeslaFrame> frames = new List<TeslaFrame> { seedFrame };
+                        TeslaFrame seedFrame = parseSeed(parseResult.Groups["seed"].Value);
+                        List<TeslaFrame> frames = new List<TeslaFrame> { seedFrame };
 
-						string dupeParamsStr = parseResult.Groups["dupeParams"].Value;
-						string delayParamsStr = parseResult.Groups["delayParams"].Value;
-						if (dupeParamsStr != String.Empty) {
-							string[] dupeParams = dupeParamsStr.Split(new[] { ',' });
-							int duration = dupeParams[0].ToInt();
-							int frameCount = dupeParams[1].ToInt();
-							seedFrame.Duration = duration;
+                        string dupeParamsStr = parseResult.Groups["dupeParams"].Value;
+                        string delayParamsStr = parseResult.Groups["delayParams"].Value;
+                        if (dupeParamsStr != string.Empty) {
+                            string[] dupeParams = dupeParamsStr.Split(new[] { ',' });
+                            int duration = dupeParams[0].ToInt();
+                            int frameCount = dupeParams[1].ToInt();
+                            seedFrame.Duration = duration;
 
-							for (int frameNum = 1; frameNum < frameCount; frameNum++) {
-								TeslaFrame frame = createFrame(seedFrame, frameNum, duration);
-								frames.Add(frame);
-							}
-						} else if (delayParamsStr != String.Empty) {
-							string[] delayParams = delayParamsStr.Split(new[] { ',' });
-							int frameCount = delayParams.Length;
-							seedFrame.Duration = delayParams[0].ToInt();
+                            for (int frameNum = 1; frameNum < frameCount; frameNum++) {
+                                TeslaFrame frame = createFrame(seedFrame, frameNum, duration);
+                                frames.Add(frame);
+                            }
+                        } else if (delayParamsStr != string.Empty) {
+                            string[] delayParams = delayParamsStr.Split(new[] { ',' });
+                            int frameCount = delayParams.Length;
+                            seedFrame.Duration = delayParams[0].ToInt();
 
-							for (int frameNum = 1; frameNum < frameCount; frameNum++) {
-								TeslaFrame frame = createFrame(seedFrame, frameNum, delayParams[frameNum].ToInt());
-								frames.Add(frame);
-							}
-						}
+                            for (int frameNum = 1; frameNum < frameCount; frameNum++) {
+                                TeslaFrame frame = createFrame(seedFrame, frameNum, delayParams[frameNum].ToInt());
+                                frames.Add(frame);
+                            }
+                        }
 
-						sprite.Animations.Add(animationName, frames);
-					}
+                        sprite.Animations.Add(animationName, frames);
+                    }
 
-					i++;
+                    i++;
 
-					if (i >= lines.Length || !lines[i].StartsWith("\t")) {
-						isSameSprite = false;
-						allSprites.Add(spriteName, sprite);
-					}
-				}
-			}
-		}
+                    if (i >= lines.Length || !lines[i].StartsWith("\t")) {
+                        isSameSprite = false;
+                        allSprites.Add(spriteName, sprite);
+                    }
+                }
+            }
+        }
 
-		private static TeslaFrame parseSeed(string seed) {
-			var parseResult = seedParse.Match(seed);
-			if (parseResult.Success) {
-				var frameSeed = new TeslaFrame {
-					AnchorOffsetX = parseResult.Groups["anchorX"].Value.ToInt(),
-					AnchorOffsetY = parseResult.Groups["anchorY"].Value.ToInt(),
-					SheetX = parseResult.Groups["sheetX"].Value.ToInt(),
-					SheetY = parseResult.Groups["sheetY"].Value.ToInt(),
-					Width = parseResult.Groups["width"].Value.ToInt(),
-					Height = parseResult.Groups["height"].Value.ToInt()
-				};
+        private static TeslaFrame parseSeed(string seed) {
+            var parseResult = seedParse.Match(seed);
+            if (parseResult.Success) {
+                var frameSeed = new TeslaFrame {
+                    AnchorOffsetX = parseResult.Groups["anchorX"].Value.ToInt(),
+                    AnchorOffsetY = parseResult.Groups["anchorY"].Value.ToInt(),
+                    SheetX = parseResult.Groups["sheetX"].Value.ToInt(),
+                    SheetY = parseResult.Groups["sheetY"].Value.ToInt(),
+                    Width = parseResult.Groups["width"].Value.ToInt(),
+                    Height = parseResult.Groups["height"].Value.ToInt()
+                };
 
-				return frameSeed;
-			}
+                return frameSeed;
+            }
 
-			return null;
-		}
+            return null;
+        }
 
-		private static TeslaFrame createFrame(TeslaFrame seedFrame, int frameNum, int duration) {
-			return new TeslaFrame {
-				Duration = duration,
-				AnchorOffsetX = seedFrame.AnchorOffsetX,
-				AnchorOffsetY = seedFrame.AnchorOffsetY,
-				SheetX = seedFrame.SheetX + seedFrame.Width * frameNum,
-				SheetY = seedFrame.SheetY,
-				Width = seedFrame.Width,
-				Height = seedFrame.Height
-			};
-		}
+        private static TeslaFrame createFrame(TeslaFrame seedFrame, int frameNum, int duration) {
+            return new TeslaFrame {
+                Duration = duration,
+                AnchorOffsetX = seedFrame.AnchorOffsetX,
+                AnchorOffsetY = seedFrame.AnchorOffsetY,
+                SheetX = seedFrame.SheetX + seedFrame.Width * frameNum,
+                SheetY = seedFrame.SheetY,
+                Width = seedFrame.Width,
+                Height = seedFrame.Height
+            };
+        }
 
-		public static Sprite Clone(String name, String customTexturePath = null) {
-			var sourceSprite = allSprites[name];
-			var texturePath = customTexturePath ?? sourceSprite.texturePath;
+        public static Sprite Clone(string name, string customTexturePath = null) {
+            var sourceSprite = allSprites[name];
+            var texturePath = customTexturePath ?? sourceSprite.texturePath;
 
-			return new Sprite {
-				Animations = sourceSprite.Animations,
-				texturePath = texturePath,
-				Texture = ResourceCache.Texture(texturePath)
-			};
-		}
+            return new Sprite {
+                Animations = sourceSprite.Animations,
+                texturePath = texturePath,
+                Texture = ResourceCache.Texture(texturePath)
+            };
+        }
 
-		#endregion
+        #endregion
 
-		public bool Looping { get; set; }
-		private bool isPingPonging;
-		private int pingPongCoefficient;
+        public bool Looping { get; set; }
+        private bool isPingPonging;
+        private int pingPongCoefficient;
 
-		public SerializableDictionary<String, List<TeslaFrame>> Animations;
-		public Texture2D Texture;
-		private string texturePath = NO_TEXTURE;
-		private List<TeslaFrame> animation;
-		public Rectangle SourceArea = new Rectangle();
-		private int frameIndex;
-		private float frameTimer;
-		private bool playing;
-		public Action Callback;
-		private int _callbackFrame;
+        public SerializableDictionary<string, List<TeslaFrame>> Animations;
+        public Texture2D Texture;
+        private string texturePath = NO_TEXTURE;
+        private List<TeslaFrame> animation;
+        public Rectangle SourceArea = new Rectangle();
+        private int frameIndex;
+        private float frameTimer;
+        private bool playing;
+        public Action Callback;
+        private int _callbackFrame;
 
-		private string _currentAnimation;
-		public string CurrentAnimation { get; private set; }
+        private string _currentAnimation;
+        public string CurrentAnimation { get; private set; }
 
-		private Vector2 adjOrigin;
+        private Vector2 adjOrigin;
 
-		public bool ContainsAnimation(string name) {
-			return Animations.ContainsKey(name);
-		}
+        public bool ContainsAnimation(string name) {
+            return Animations.ContainsKey(name);
+        }
 
-		public void Stop() {
-			playing = false;
-		}
+        public void Stop() {
+            playing = false;
+        }
 
-		public void Play(String name, Action onFinish = null, int callbackFrame = -1) {
-			_currentAnimation = name;
+        public void Play(string name, Action onFinish = null, int callbackFrame = -1) {
+            _currentAnimation = name;
 
-			Callback = onFinish;
-			_callbackFrame = callbackFrame;
+            Callback = onFinish;
+            _callbackFrame = callbackFrame;
 
-			animation = Animations[name];
-			playFrame(0);
-			playing = animation[0].Duration != -1;
-			
-			Looping = false;
-			isPingPonging = false;
-		}
+            animation = Animations[name];
+            playFrame(0);
+            playing = animation[0].Duration != -1;
 
-		public void Loop(String name, Action onFinish = null) {
-			_currentAnimation = name;
-			Callback = onFinish;
+            Looping = false;
+            isPingPonging = false;
+        }
 
-			animation = Animations[name];
-			playFrame(0);
-			playing = animation[0].Duration != -1;
+        public void Loop(string name, Action onFinish = null) {
+            _currentAnimation = name;
+            Callback = onFinish;
 
-			Looping = true;
-			isPingPonging = false;
-		}
+            animation = Animations[name];
+            playFrame(0);
+            playing = animation[0].Duration != -1;
 
-		public void PingPong(string name) {
-			_currentAnimation = name;
-			Callback = null;
+            Looping = true;
+            isPingPonging = false;
+        }
 
-			animation = Animations[name];
-			playFrame(0);
-			playing = animation[0].Duration != -1;
+        public void PingPong(string name) {
+            _currentAnimation = name;
+            Callback = null;
 
-			isPingPonging = true;
-			Looping = true;
-			pingPongCoefficient = 0;
-		}
+            animation = Animations[name];
+            playFrame(0);
+            playing = animation[0].Duration != -1;
 
-		public void ShowFrame(int frame, string name) {	// uses current animation if "name" == null
-			if (name != null) {
-				_currentAnimation = name;
-				animation = Animations[name];
-			}
-			
-			Callback = null;
-			playFrame(frame);
+            isPingPonging = true;
+            Looping = true;
+            pingPongCoefficient = 0;
+        }
 
-			playing = false;
-			isPingPonging = false;
-			Looping = false;
-		}
+        public void ShowFrame(int frame, string name) { // uses current animation if "name" == null
+            if (name != null) {
+                _currentAnimation = name;
+                animation = Animations[name];
+            }
 
-		private void playFrame(int index) {
-			frameIndex = index;
+            Callback = null;
+            playFrame(frame);
 
-			var frame = animation[index];
-			frameTimer = frame.Duration;
-			SourceArea.X = frame.SheetX;
-			SourceArea.Y = frame.SheetY;
-			SourceArea.Width = frame.Width;
-			SourceArea.Height = frame.Height;
-			Offset = new Point(frame.AnchorOffsetX, frame.AnchorOffsetY);
-			Size = new Point(SourceArea.Width, SourceArea.Height);
-		}
+            playing = false;
+            isPingPonging = false;
+            Looping = false;
+        }
 
-		public override void Update() {
-			if (!playing) { return; }
-			
-			frameTimer -= Time.MsScaled;
-			if (frameTimer > 0) { return; }	// still displaying current frame
+        private void playFrame(int index) {
+            frameIndex = index;
 
-			if (isPingPonging) {
-				if (frameIndex == animation.Count - 1) {
-					pingPongCoefficient = -1;
-				} else if (frameIndex == 0) {
-					pingPongCoefficient = 1;
-				}
-				playFrame(frameIndex + pingPongCoefficient * 1);
-				return;
-			}
+            var frame = animation[index];
+            frameTimer = frame.Duration;
+            SourceArea.X = frame.SheetX;
+            SourceArea.Y = frame.SheetY;
+            SourceArea.Width = frame.Width;
+            SourceArea.Height = frame.Height;
+            Offset = new Point(frame.AnchorOffsetX, frame.AnchorOffsetY);
+            Size = new Point(SourceArea.Width, SourceArea.Height);
+        }
 
-			if (frameIndex == animation.Count - 1) {
-				if (Looping) {
-					if (isPingPonging) {
-						playFrame(animation.Count - 2);
-						pingPongCoefficient = -1;
-					} else {
-						playFrame(0);
-					}
-				} else {
-					playing = false;
-				}
+        public override void Update() {
+            if (!playing) { return; }
 
-				if (Callback != null && (_callbackFrame == -1 || _callbackFrame == animation.Count - 1)) {
-					Callback.Invoke();
-				}
-			} else {
-				if (Callback != null && _callbackFrame == animation.Count - 1) {
-					Callback.Invoke();
-				}
+            frameTimer -= Time.MsScaled;
+            if (frameTimer > 0) { return; } // still displaying current frame
 
-				playFrame(frameIndex + 1);
-			}
-		}
+            if (isPingPonging) {
+                if (frameIndex == animation.Count - 1) {
+                    pingPongCoefficient = -1;
+                } else if (frameIndex == 0) {
+                    pingPongCoefficient = 1;
+                }
+                playFrame(frameIndex + pingPongCoefficient * 1);
+                return;
+            }
 
-		public override void Draw(Vector2 position, float layer) {
-			adjOrigin = Offset.ToVector2();
+            if (frameIndex == animation.Count - 1) {
+                if (Looping) {
+                    if (isPingPonging) {
+                        playFrame(animation.Count - 2);
+                        pingPongCoefficient = -1;
+                    } else {
+                        playFrame(0);
+                    }
+                } else {
+                    playing = false;
+                }
 
-			if ((Flip & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally) {
-				adjOrigin.X = Size.X - adjOrigin.X - 1;
-			}
+                if (Callback != null && (_callbackFrame == -1 || _callbackFrame == animation.Count - 1)) {
+                    Callback.Invoke();
+                }
+            } else {
+                if (Callback != null && _callbackFrame == animation.Count - 1) {
+                    Callback.Invoke();
+                }
 
-			if ((Flip & SpriteEffects.FlipVertically) == SpriteEffects.FlipVertically) {
-				adjOrigin.Y = Size.Y - adjOrigin.Y - 1;
-			}
+                playFrame(frameIndex + 1);
+            }
+        }
 
-			Renderer.spriteBatch.Draw(Texture, position, SourceArea, Color, Rotation, adjOrigin, Scale, Flip, layer);
-		}
-	}
+        public override void Draw(Vector2 position, float layer) {
+            adjOrigin = Offset.ToVector2();
+
+            if ((Flip & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally) {
+                adjOrigin.X = Size.X - adjOrigin.X - 1;
+            }
+
+            if ((Flip & SpriteEffects.FlipVertically) == SpriteEffects.FlipVertically) {
+                adjOrigin.Y = Size.Y - adjOrigin.Y - 1;
+            }
+
+            Renderer.spriteBatch.Draw(Texture, position, SourceArea, Color, Rotation, adjOrigin, Scale, Flip, layer);
+        }
+    }
 }

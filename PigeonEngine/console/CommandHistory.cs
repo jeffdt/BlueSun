@@ -1,52 +1,52 @@
 ﻿using System.Collections.Generic;
 
 namespace pigeon.console {
-	class CommandHistory {
-		private readonly int historyLength;
-		private readonly List<string> commands;
-		private int index;
+    class CommandHistory {
+        private readonly int historyLength;
+        private readonly List<string> commands;
+        private int index;
 
-		public CommandHistory(int historyLength) {
-			this.historyLength = historyLength;
-			commands = new List<string>(historyLength);
-		}
+        public CommandHistory(int historyLength) {
+            this.historyLength = historyLength;
+            commands = new List<string>(historyLength);
+        }
 
-		public void Commit(string command) {
-			commands.Insert(0, command);
-			
-			while (commands.Count > historyLength) {
-				commands.RemoveAt(commands.Count - 1);
-			}
+        public void Commit(string command) {
+            commands.Insert(0, command);
 
-			index = -1;
-		}
+            while (commands.Count > historyLength) {
+                commands.RemoveAt(commands.Count - 1);
+            }
 
-		public string Next() {
-			if (commands.Count == 0) {
-				return null;
-			}
+            index = -1;
+        }
 
-			if (index < commands.Count - 1) {
-				index++;
-			}
+        public string Next() {
+            if (commands.Count == 0) {
+                return null;
+            }
 
-			return commands[index];
-		}
+            if (index < commands.Count - 1) {
+                index++;
+            }
 
-		public string Previous() {
-			if (commands.Count == 0) {
-				return string.Empty;
-			}
+            return commands[index];
+        }
 
-			if (index >= 0) {
-				index--;
-			}
+        public string Previous() {
+            if (commands.Count == 0) {
+                return string.Empty;
+            }
 
-			return index == -1 ? string.Empty : commands[index];
-		}
+            if (index >= 0) {
+                index--;
+            }
 
-		public void Reset() {
-			index = -1;
-		}
-	}
+            return index == -1 ? string.Empty : commands[index];
+        }
+
+        public void Reset() {
+            index = -1;
+        }
+    }
 }

@@ -1,164 +1,163 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon;
 
-namespace PigeonEngine.input {
-	public class GamepadInputDevice : InputDevice {
-		// CONSTANTS
-		private const float JOYSTICK_DIGITAL_LENGTH_THRESH = .5f;
-		private const float JOYSTICK_COMPONENT_THRESH = .25f;
+namespace pigeon.input {
+    public class GamepadInputDevice : InputDevice {
+        // CONSTANTS
+        private const float JOYSTICK_DIGITAL_LENGTH_THRESH = .5f;
+        private const float JOYSTICK_COMPONENT_THRESH = .25f;
 
-		// PARAMETERS
-		private readonly PlayerIndex playerIndex;
-		private readonly Buttons[] map;
+        // PARAMETERS
+        private readonly PlayerIndex playerIndex;
+        private readonly Buttons[] map;
 
-		// STATE
-		private readonly GamePadState emptyState;
-		private GamePadState previousState;
-		private GamePadState currentState;
+        // STATE
+        private readonly GamePadState emptyState;
+        private GamePadState previousState;
+        private GamePadState currentState;
 
-		private bool currentLeftJoystickActive;
-		private bool previousLeftJoystickActive;
+        private bool currentLeftJoystickActive;
+        private bool previousLeftJoystickActive;
 
-		public GamepadInputDevice(int controllerNumber, Buttons[] buttonMap) {
-			switch(controllerNumber) {
-				case 0:
-					playerIndex = PlayerIndex.One;
-					break;
-				case 1:
-					playerIndex = PlayerIndex.Two;
-					break;
-				case 2:
-					playerIndex = PlayerIndex.Three;
-					break;
-				case 3:
-					playerIndex = PlayerIndex.Four;
-					break;
-			}
+        public GamepadInputDevice(int controllerNumber, Buttons[] buttonMap) {
+            switch (controllerNumber) {
+                case 0:
+                    playerIndex = PlayerIndex.One;
+                    break;
+                case 1:
+                    playerIndex = PlayerIndex.Two;
+                    break;
+                case 2:
+                    playerIndex = PlayerIndex.Three;
+                    break;
+                case 3:
+                    playerIndex = PlayerIndex.Four;
+                    break;
+            }
 
-			map = buttonMap;
+            map = buttonMap;
 
-			currentState = GamePad.GetState(playerIndex);
-			emptyState = new GamePadState();
-		}
+            currentState = GamePad.GetState(playerIndex);
+            emptyState = new GamePadState();
+        }
 
-		public override void Update() {
-			previousState = currentState;
-			currentState = Pigeon.IsInFocus ? GamePad.GetState(playerIndex) : emptyState;
+        public override void Update() {
+            previousState = currentState;
+            currentState = Pigeon.IsInFocus ? GamePad.GetState(playerIndex) : emptyState;
 
-			if (currentState.IsConnected) {
-				previousLeftJoystickActive = currentLeftJoystickActive;
-				currentLeftJoystickActive = currentState.ThumbSticks.Left.Length() > JOYSTICK_DIGITAL_LENGTH_THRESH;
-			}
-		}
+            if (currentState.IsConnected) {
+                previousLeftJoystickActive = currentLeftJoystickActive;
+                currentLeftJoystickActive = currentState.ThumbSticks.Left.Length() > JOYSTICK_DIGITAL_LENGTH_THRESH;
+            }
+        }
 
-		public override bool IsButtonPressed(int buttonNumber) {
-			if (!currentState.IsConnected) {
-				return false;
-			}
+        public override bool IsButtonPressed(int buttonNumber) {
+            if (!currentState.IsConnected) {
+                return false;
+            }
 
-			Buttons button = map[buttonNumber];
-			bool result = isButtonPressedRaw(button);
+            Buttons button = map[buttonNumber];
+            bool result = isButtonPressedRaw(button);
 
-			switch(button) {
-				case Buttons.DPadUp:
-					return result || isJoystickPressedUp();
-				case Buttons.DPadRight:
-					return result || isJoystickPressedRight();
-				case Buttons.DPadDown:
-					return result || isJoystickPressedDown();
-				case Buttons.DPadLeft:
-					return result || isJoystickPressedLeft();
-			}
+            switch (button) {
+                case Buttons.DPadUp:
+                    return result || isJoystickPressedUp();
+                case Buttons.DPadRight:
+                    return result || isJoystickPressedRight();
+                case Buttons.DPadDown:
+                    return result || isJoystickPressedDown();
+                case Buttons.DPadLeft:
+                    return result || isJoystickPressedLeft();
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public override bool IsButtonHeld(int buttonNumber) {
-			if (!currentState.IsConnected) {
-				return false;
-			}
+        public override bool IsButtonHeld(int buttonNumber) {
+            if (!currentState.IsConnected) {
+                return false;
+            }
 
-			Buttons button = map[buttonNumber];
-			bool result = isButtonHeldRaw(map[buttonNumber]);
+            Buttons button = map[buttonNumber];
+            bool result = isButtonHeldRaw(map[buttonNumber]);
 
-			switch (button) {
-				case Buttons.DPadUp:
-					return result || isJoystickHeldUp();
-				case Buttons.DPadRight:
-					return result || isJoystickHeldRight();
-				case Buttons.DPadDown:
-					return result || isJoystickHeldDown();
-				case Buttons.DPadLeft:
-					return result || isJoystickHeldLeft();
-			}
+            switch (button) {
+                case Buttons.DPadUp:
+                    return result || isJoystickHeldUp();
+                case Buttons.DPadRight:
+                    return result || isJoystickHeldRight();
+                case Buttons.DPadDown:
+                    return result || isJoystickHeldDown();
+                case Buttons.DPadLeft:
+                    return result || isJoystickHeldLeft();
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public override bool IsAnyPressed() {
-			return isButtonPressedRaw(Buttons.A) || isButtonPressedRaw(Buttons.B) ||
-				isButtonPressedRaw(Buttons.X) || isButtonPressedRaw(Buttons.Y) ||
-				isButtonPressedRaw(Buttons.LeftShoulder) || isButtonPressedRaw(Buttons.RightShoulder) ||
-				isButtonPressedRaw(Buttons.LeftTrigger) || isButtonPressedRaw(Buttons.RightTrigger) ||
-				isButtonPressedRaw(Buttons.DPadLeft) || isButtonPressedRaw(Buttons.DPadRight) ||
-				isButtonPressedRaw(Buttons.DPadUp) || isButtonPressedRaw(Buttons.DPadDown) ||
-				isButtonPressedRaw(Buttons.Back) || isButtonPressedRaw(Buttons.Start) ||
-				isJoystickPressedUp() || isJoystickPressedRight() || isJoystickPressedDown() || isJoystickPressedLeft();
-		}
+        public override bool IsAnyPressed() {
+            return isButtonPressedRaw(Buttons.A) || isButtonPressedRaw(Buttons.B)
+                || isButtonPressedRaw(Buttons.X) || isButtonPressedRaw(Buttons.Y) ||
+                isButtonPressedRaw(Buttons.LeftShoulder) || isButtonPressedRaw(Buttons.RightShoulder) ||
+                isButtonPressedRaw(Buttons.LeftTrigger) || isButtonPressedRaw(Buttons.RightTrigger) ||
+                isButtonPressedRaw(Buttons.DPadLeft) || isButtonPressedRaw(Buttons.DPadRight) ||
+                isButtonPressedRaw(Buttons.DPadUp) || isButtonPressedRaw(Buttons.DPadDown) ||
+                isButtonPressedRaw(Buttons.Back) || isButtonPressedRaw(Buttons.Start) ||
+                isJoystickPressedUp() || isJoystickPressedRight() || isJoystickPressedDown() || isJoystickPressedLeft();
+        }
 
-		public override bool IsAnyHeld() {
-			return isButtonHeldRaw(Buttons.A) || isButtonHeldRaw(Buttons.B) ||
-				isButtonHeldRaw(Buttons.X) || isButtonHeldRaw(Buttons.Y) ||
-				isButtonHeldRaw(Buttons.LeftShoulder) || isButtonHeldRaw(Buttons.RightShoulder) ||
-				isButtonHeldRaw(Buttons.LeftTrigger) || isButtonHeldRaw(Buttons.RightTrigger) ||
-				isButtonHeldRaw(Buttons.DPadLeft) || isButtonHeldRaw(Buttons.DPadRight) ||
-				isButtonHeldRaw(Buttons.DPadUp) || isButtonHeldRaw(Buttons.DPadDown) ||
-				isButtonHeldRaw(Buttons.Back) || isButtonHeldRaw(Buttons.Start) ||
-				isButtonHeldRaw(Buttons.LeftStick) || isButtonHeldRaw(Buttons.RightStick) ||
-				isJoystickHeldUp() || isJoystickHeldRight() || isJoystickHeldDown() || isJoystickHeldLeft();
-		}
+        public override bool IsAnyHeld() {
+            return isButtonHeldRaw(Buttons.A) || isButtonHeldRaw(Buttons.B)
+                || isButtonHeldRaw(Buttons.X) || isButtonHeldRaw(Buttons.Y) ||
+                isButtonHeldRaw(Buttons.LeftShoulder) || isButtonHeldRaw(Buttons.RightShoulder) ||
+                isButtonHeldRaw(Buttons.LeftTrigger) || isButtonHeldRaw(Buttons.RightTrigger) ||
+                isButtonHeldRaw(Buttons.DPadLeft) || isButtonHeldRaw(Buttons.DPadRight) ||
+                isButtonHeldRaw(Buttons.DPadUp) || isButtonHeldRaw(Buttons.DPadDown) ||
+                isButtonHeldRaw(Buttons.Back) || isButtonHeldRaw(Buttons.Start) ||
+                isButtonHeldRaw(Buttons.LeftStick) || isButtonHeldRaw(Buttons.RightStick) ||
+                isJoystickHeldUp() || isJoystickHeldRight() || isJoystickHeldDown() || isJoystickHeldLeft();
+        }
 
-		#region raw input checks
-		private bool isButtonPressedRaw(Buttons button) {
-			return currentState.IsButtonDown(button) && previousState.IsButtonUp(button);
-		}
+        #region raw input checks
+        private bool isButtonPressedRaw(Buttons button) {
+            return currentState.IsButtonDown(button) && previousState.IsButtonUp(button);
+        }
 
-		private bool isButtonHeldRaw(Buttons button) {
-			return currentState.IsButtonDown(button);
-		}
+        private bool isButtonHeldRaw(Buttons button) {
+            return currentState.IsButtonDown(button);
+        }
 
-		private bool isJoystickPressedUp() {
-			return !previousLeftJoystickActive && isJoystickHeldUp();
-		}
+        private bool isJoystickPressedUp() {
+            return !previousLeftJoystickActive && isJoystickHeldUp();
+        }
 
-		private bool isJoystickPressedRight() {
-			return !previousLeftJoystickActive && isJoystickHeldRight();
-		}
+        private bool isJoystickPressedRight() {
+            return !previousLeftJoystickActive && isJoystickHeldRight();
+        }
 
-		private bool isJoystickPressedDown() {
-			return !previousLeftJoystickActive && isJoystickHeldDown();
-		}
+        private bool isJoystickPressedDown() {
+            return !previousLeftJoystickActive && isJoystickHeldDown();
+        }
 
-		private bool isJoystickPressedLeft() {
-			return !previousLeftJoystickActive && isJoystickHeldLeft();
-		}
+        private bool isJoystickPressedLeft() {
+            return !previousLeftJoystickActive && isJoystickHeldLeft();
+        }
 
-		public bool isJoystickHeldUp() {
-			return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y > JOYSTICK_COMPONENT_THRESH;
-		}
+        public bool isJoystickHeldUp() {
+            return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y > JOYSTICK_COMPONENT_THRESH;
+        }
 
-		public bool isJoystickHeldDown() {
-			return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y < -JOYSTICK_COMPONENT_THRESH;
-		}
+        public bool isJoystickHeldDown() {
+            return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y < -JOYSTICK_COMPONENT_THRESH;
+        }
 
-		public bool isJoystickHeldRight() {
-			return currentLeftJoystickActive && currentState.ThumbSticks.Left.X > JOYSTICK_COMPONENT_THRESH;
-		}
+        public bool isJoystickHeldRight() {
+            return currentLeftJoystickActive && currentState.ThumbSticks.Left.X > JOYSTICK_COMPONENT_THRESH;
+        }
 
-		public bool isJoystickHeldLeft() {
-			return currentLeftJoystickActive && currentState.ThumbSticks.Left.X < -JOYSTICK_COMPONENT_THRESH;
-		}
-		#endregion
-	}
+        public bool isJoystickHeldLeft() {
+            return currentLeftJoystickActive && currentState.ThumbSticks.Left.X < -JOYSTICK_COMPONENT_THRESH;
+        }
+        #endregion
+    }
 }
