@@ -11,6 +11,7 @@ namespace pigeon.legacy.graphics {
         public Vector2 Scale = Vector2.One;
 
         internal Vector2 InternalOffset;
+
         public Point Offset {
             get { return InternalOffset.ToPoint(); }
             set { InternalOffset = value.ToVector2(); }

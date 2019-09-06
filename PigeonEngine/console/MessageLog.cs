@@ -66,6 +66,7 @@ namespace pigeon.console {
     public class ConsoleLogChangedEvent : EventArgs {
         public LogMessage Message { get; set; }
     }
+
     public enum LogMessageTypes {
         Command, Info, Error
     }

@@ -20,6 +20,7 @@ namespace pigeon.gfx {
 
         private bool deviceNeedsRefresh;
         private int drawScale = 1;
+
         public int DrawScale {
             get { return drawScale; }
             set {
@@ -37,6 +38,7 @@ namespace pigeon.gfx {
         }
 
         private bool isFullScreen;
+
         public bool IsFullScreen {
             get { return isFullScreen; }
             set {
@@ -53,6 +55,7 @@ namespace pigeon.gfx {
 
         private int customResX = -1;
         private int customResY = -1;
+
         public void SetCustomResolution(int x, int y) {
             customResX = x;
             customResY = y;

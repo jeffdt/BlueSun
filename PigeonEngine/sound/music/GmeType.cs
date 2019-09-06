@@ -16,6 +16,7 @@ namespace GameMusicEmuSharp {
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate IntPtr newemu();  // C++ only
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate IntPtr newInfo(); // C++ only
 

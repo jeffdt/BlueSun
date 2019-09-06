@@ -18,6 +18,7 @@ namespace pigeon.legacy.entities {
 
         #region components
         private List<Component> components;
+
         public void AddComponent(Component component) {
             if (components == null) {
                 components = new List<Component>();

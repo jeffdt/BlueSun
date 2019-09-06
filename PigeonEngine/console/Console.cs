@@ -13,6 +13,7 @@ using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using pigeon.gfx;
+using PigeonEngine.utilities.extensions;
 
 namespace pigeon.console {
     public class Console : World {
@@ -91,6 +92,7 @@ namespace pigeon.console {
         #endregion
 
         private string _commandBuffer;
+
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
@@ -123,6 +125,7 @@ namespace pigeon.console {
                 return all;
             }
         }
+
         internal List<string> EngineCommandNames { get { return engineCommands.Keys.ToList(); } }
         internal List<string> GameCommandNames { get { return gameCommands.Keys.ToList(); } }
         private readonly Dictionary<string, ConsoleCommand> engineCommands = new Dictionary<string, ConsoleCommand>();
@@ -225,8 +228,7 @@ namespace pigeon.console {
                     commandBuffer = command;
                 }
             } else if (key == Keys.Down) {
-                var command = history.Previous();
-                commandBuffer = command;
+                commandBuffer = history.Previous();
             } else if (key == Keys.Back) {
                 history.Reset();
                 handleBackspace();
@@ -377,7 +379,7 @@ namespace pigeon.console {
         }
 
         private void updateCursorPosition() {
-            cursor.Position.X = Options.BufferPosition.X + font.MeasureString(buffer.Text).X + font.Spacing;
+            cursor.Position.X = Options.BufferPosition.X + font.MeasureWidth(buffer.Text) + font.Spacing;
         }
 
         private void handleBackspace() {
@@ -415,7 +417,7 @@ namespace pigeon.console {
         }
 
         public void Log(object message, bool condition = true) {
-            Log(message.ToString());
+            Log(message.ToString(), condition);
         }
 
         public void Log(string message, bool condition = true) {

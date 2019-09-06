@@ -112,6 +112,7 @@
     <Compile Include="utilities\Delegates.cs" />
     <Compile Include="utilities\extensions\BoolExtensions.cs" />
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />
+    <Compile Include="utilities\extensions\SpriteFontExtensions.cs" />
     <Compile Include="utilities\PointOps.cs" />
     <Compile Include="utilities\XmlOps.cs" />
     <Compile Include="winforms\AnimationTool.cs">

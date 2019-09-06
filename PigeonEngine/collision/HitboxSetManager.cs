@@ -62,12 +62,10 @@ namespace pigeon.collision {
         private static Point parsePoint(string info) {
             var parseResult = infoParse.Match(info);
             if (parseResult.Success) {
-                var point = new Point {
+                return new Point {
                     X = parseResult.Groups["x"].Value.ToInt(),
                     Y = parseResult.Groups["y"].Value.ToInt()
                 };
-
-                return point;
             }
 
             throw new ArgumentException("bad point string formatting: " + info);
