@@ -40,7 +40,7 @@ namespace BlueSun {
         }
 
         protected override void Load() {
-            Music.Load(@"music/predation.nsf");
+            Music.Load(@"music/distress signals.nsf");
         }
 
         protected override void InitializeGame() {

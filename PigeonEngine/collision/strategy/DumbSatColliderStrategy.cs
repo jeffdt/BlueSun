@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework;
 using pigeon.utilities;
 
 namespace pigeon.collision {
-    public class DumbSatCollider : ICollider {
+    public class DumbSatColliderStrategy : IColliderStrategy {
         private const int ITERATIONS = 3;
 
         public bool Enabled { get; set; }
 
-        public DumbSatCollider() {
+        public DumbSatColliderStrategy() {
             Enabled = true;
         }
 

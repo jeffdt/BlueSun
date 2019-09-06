@@ -58,13 +58,13 @@
     <Compile Include="collision\BoxCollider.cs" />
     <Compile Include="collision\SimpleBoxCollider.cs" />
     <Compile Include="collision\TriggerCollisionHandler.cs" />
-    <Compile Include="collision\DumbSatCollider.cs" />
+    <Compile Include="collision\strategy\DumbSatColliderStrategy.cs" />
     <Compile Include="collision\HitboxSetManager.cs" />
     <Compile Include="collision\ColliderComponent.cs" />
     <Compile Include="collision\HitboxShapes.cs" />
-    <Compile Include="collision\ICollider.cs" />
+    <Compile Include="collision\strategy\IColliderStrategy.cs" />
     <Compile Include="collision\PointCollider.cs" />
-    <Compile Include="collision\QuadSATCollider.cs" />
+    <Compile Include="collision\strategy\QuadSATColliderStrategy.cs" />
     <Compile Include="collision\QuadTree.cs" />
     <Compile Include="collision\BresenhamLine.cs" />
     <Compile Include="collision\SatCollider.cs" />
