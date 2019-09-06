@@ -34,8 +34,7 @@ namespace pigeon.gfx {
 
         private void adjustLayer() {
             adjustedY = Object.WorldPosition.Y + YOffset;
-            var lerpedLayer = adjustedY.CrossLerp(yTop, yBottom, layerMin, layerMax);
-            Object.LocalLayer = lerpedLayer;
+            Object.LocalLayer = adjustedY.CrossLerp(yTop, yBottom, layerMin, layerMax);
         }
 
         public void Draw() {

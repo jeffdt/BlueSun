@@ -8,6 +8,7 @@ using pigeon.utilities.extensions;
 namespace pigeon.legacy.graphics.text {
     public class TextGraphic : Graphic {
         private SpriteFont _font;
+
         public SpriteFont Font {
             get { return _font; }
             set {
@@ -19,9 +20,11 @@ namespace pigeon.legacy.graphics.text {
                 }
             }
         }
+
         private readonly Justification just;
 
         private string text;
+
         public string Text {
             get { return text; }
             set {

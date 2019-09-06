@@ -17,9 +17,7 @@ namespace pigeon.winforms {
             Pigeon.Console.ExecuteCommand("lcd false");
             Pigeon.Console.ExecuteCommand("sandbox");
 
-            var spriteNames = Sprite.allSprites.Keys;
-
-            foreach (var spriteName in spriteNames) {
+            foreach (var spriteName in Sprite.allSprites.Keys) {
                 allSpritesComboBox.Items.Add(spriteName);
             }
 

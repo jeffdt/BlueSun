@@ -6,8 +6,7 @@ using pigeon.gfx;
 namespace pigeon.utilities.extensions {
     public static class RectangleExtensions {
         public static Rectangle Add(this Rectangle rect, Point vector) {
-            var rectangle = new Rectangle(rect.X + vector.X, rect.Y + vector.Y, rect.Width, rect.Height);
-            return rectangle;
+            return new Rectangle(rect.X + vector.X, rect.Y + vector.Y, rect.Width, rect.Height);
         }
 
         public static Point Min(this Rectangle rect) {

@@ -134,6 +134,7 @@ namespace pigeon.gameobject {
         internal float sortVariance = Rand.Float(0f, .0001f);
 
         public float LocalLayer;
+
         public float DrawLayer {
             get {
                 float drawLayer = LocalLayer;
@@ -160,10 +161,12 @@ namespace pigeon.gameobject {
 
         #region flipping
         private bool _flipWithParent = true;
+
         public bool FlipWithParent {
             get { return _flipWithParent; }
             set { _flipWithParent = value; }
         }
+
         public bool FlipLocalPositionWithParent { get; set; }
 
         public void SetFlipX(bool x) {

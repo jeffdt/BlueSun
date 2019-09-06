@@ -8,6 +8,7 @@ namespace pigeon.gameobject {
         private bool initialized;
 
         private bool enabled = true;
+
         public bool Enabled {
             get { return enabled; }
             set { enabled = value; }

@@ -10,6 +10,7 @@ namespace pigeon.particle {
         #region static
         private const int RESERVE_COUNT = 1000;
         private static Queue<Particle> particles;
+
         public static void Initialize() {
             if (particles == null) {
                 particles = new Queue<Particle>();
@@ -29,8 +30,7 @@ namespace pigeon.particle {
 
         public static Particle Get() {
             refillPool();
-            var particle = particles.Dequeue();
-            return particle;
+            return particles.Dequeue();
         }
 
         public static void Recycle(Particle particle) {

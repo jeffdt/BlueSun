@@ -18,8 +18,7 @@ namespace pigeon.utilities {
 
         public static float CrossLerp(this float value, int fromMin, int fromMax, float toMin, float toMax) {
             var inverseLerp = InverseLerp(value, fromMin, fromMax);
-            var crossLerp = MathHelper.Lerp(toMin, toMax, inverseLerp);
-            return crossLerp;
+            return MathHelper.Lerp(toMin, toMax, inverseLerp);
         }
 
         public static float CrossLerp(this int value, int fromMin, int fromMax, float toMin, float toMax) {

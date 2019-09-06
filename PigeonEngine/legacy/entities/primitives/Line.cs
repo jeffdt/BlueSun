@@ -9,6 +9,7 @@ namespace pigeon.legacy.entities.primitives {
         private readonly Image[] pixels;
 
         private Color tint;
+
         public Color Tint {
             get {
                 return tint;

@@ -23,6 +23,7 @@ namespace pigeon.sound {
         private static States state;
 
         private static float volume = 1.0f;
+
         public static float Volume {
             get { return volume; }
             set {

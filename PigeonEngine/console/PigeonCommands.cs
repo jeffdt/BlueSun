@@ -19,7 +19,72 @@ using pigeon.winforms;
 namespace pigeon.console {
     public static class PigeonCommands {
         public static Dictionary<string, ConsoleCommand> Build() {
-            var commands = new Dictionary<string, ConsoleCommand> {
+                  
+				// console manipulation
+				   
+                   
+                   
+
+				// binds + aliases
+				   
+                  
+                   
+                   
+
+				// audio
+				   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+
+				// toggled debug info
+				   
+                   
+                  
+                   
+                   
+
+				// engine
+				   
+                  
+                   
+                   
+                   
+                   
+				
+				// objects
+				   
+                   
+                   
+                   
+                   
+
+				// graphics
+				   
+                   
+                   
+                   
+
+				// world
+				   
+                   
+
+				// vars
+				   
+                   
+                   
+                   
+            
+
+            return new Dictionary<string, ConsoleCommand> {
 				// console manipulation
 				{ "clear", clearScreen },
                 { "help", findCommands },
@@ -83,8 +148,6 @@ namespace pigeon.console {
                 { "vsave", saveVarPreset },
                 { "vreset", resetVar },
             };
-
-            return commands;
         }
 
         #region console manipulation
@@ -581,6 +644,7 @@ namespace pigeon.console {
                 displayKeybind(key);
             }
         }
+
         private static void unbind(string args) {
             if (args == "all") {
                 KeyBinds.Reset();

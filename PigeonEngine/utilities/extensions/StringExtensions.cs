@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PigeonEngine.utilities.extensions;
 
 namespace pigeon.utilities.extensions {
     public static class StringExtensions {
@@ -90,7 +91,7 @@ namespace pigeon.utilities.extensions {
             int lineCount = 1;
 
             foreach (string word in words) {
-                if (font.MeasureString(line + word).X > width) {
+                if (font.MeasureWidth(line + word) > width) {
                     if (maxLines != 0 && lineCount >= maxLines) {
                         throw new ArgumentException(string.Format("cannot format string into {0} lines. original string: {1}", maxLines, text));
                     }
@@ -107,28 +108,26 @@ namespace pigeon.utilities.extensions {
         }
 
         public static List<string> SplitWrap(this string text, SpriteFont font, int width) {
-            if (text.Length > Pigeon.Console.Options.CommandDisplayLength + 1) {
-                int insertionCount = text.Length / Pigeon.Console.Options.CommandDisplayLength;
-                for (int i = 0; i < insertionCount; i++) {
-                    int ind = (i + 1) * Pigeon.Console.Options.CommandDisplayLength;
-                    text = text.Insert(ind, " ");
-                }
+            if (font.MeasureWidth(text) <= width) {
+                return new List<string> { text };
             }
+
             List<string> lines = new List<string>();
-            string line = string.Empty;
-            string[] words = text.Split(' ');
 
-            foreach (string word in words) {
-                float f = font.MeasureString(line + word).X;
-                if (f > width) {
-                    lines.Add(line);
-                    line = string.Empty;
+            string remainingText = text;
+            while (font.MeasureWidth(remainingText) > width) {    // still more lines to parse
+                //parse into two lines
+                int charIndex = 0;
+                while (font.MeasureWidth(remainingText.Substring(0, charIndex)) <= width) {
+                    charIndex++;
                 }
-
-                line = line + word + ' ';
+                lines.Add(remainingText.Substring(0, charIndex));
+                remainingText = remainingText.Substring(charIndex);
             }
 
-            lines.Add(line);
+            if (remainingText.Length > 0) {
+                lines.Add(remainingText);
+            }
 
             return lines;
         }

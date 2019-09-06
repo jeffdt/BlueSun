@@ -89,7 +89,7 @@ namespace pigeon.legacy.graphics.anim {
         private static TeslaFrame parseSeed(string seed) {
             var parseResult = seedParse.Match(seed);
             if (parseResult.Success) {
-                var frameSeed = new TeslaFrame {
+                return new TeslaFrame {
                     AnchorOffsetX = parseResult.Groups["anchorX"].Value.ToInt(),
                     AnchorOffsetY = parseResult.Groups["anchorY"].Value.ToInt(),
                     SheetX = parseResult.Groups["sheetX"].Value.ToInt(),
@@ -97,8 +97,6 @@ namespace pigeon.legacy.graphics.anim {
                     Width = parseResult.Groups["width"].Value.ToInt(),
                     Height = parseResult.Groups["height"].Value.ToInt()
                 };
-
-                return frameSeed;
             }
 
             return null;
