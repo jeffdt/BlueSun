@@ -98,7 +98,7 @@
     <Compile Include="debug\DebugHelper.cs" />
     <Compile Include="debug\EmptyWorld.cs" />
     <Compile Include="debug\ObjectDescriber.cs" />
-    <Compile Include="gfx\SpriteDebug.cs" />
+    <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />
@@ -132,14 +132,14 @@
     <Compile Include="winforms\PigeonUi.Designer.cs">
       <DependentUpon>PigeonUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="gfx\YSorter.cs" />
+    <Compile Include="gfx\utils\YSorter.cs" />
     <Compile Include="IFlippable.cs" />
-    <Compile Include="gfx\ImageRenderer.cs" />
-    <Compile Include="gfx\RectRenderer.cs" />
+    <Compile Include="gfx\drawable\image\ImageRenderer.cs" />
+    <Compile Include="gfx\drawable\shape\RectRenderer.cs" />
     <Compile Include="gfx\Renderer.cs" />
-    <Compile Include="gfx\SpriteRenderer.cs" />
-    <Compile Include="gfx\TextRenderer.cs" />
-    <Compile Include="gfx\TimedFlasher.cs" />
+    <Compile Include="gfx\drawable\animation\SpriteRenderer.cs" />
+    <Compile Include="gfx\drawable\text\TextRenderer.cs" />
+    <Compile Include="gfx\utils\TimedFlasher.cs" />
     <Compile Include="input\InputReader.cs" />
     <Compile Include="input\Legacy_GamepadAdapter.cs" />
     <Compile Include="input\GamepadInputDevice.cs" />
@@ -176,7 +176,7 @@
     <Compile Include="rand\WeightedRoulette.cs" />
     <Compile Include="sound\Audio.cs" />
     <Compile Include="squab\Component.cs" />
-    <Compile Include="squab\Drawable.cs" />
+    <Compile Include="gfx\drawable\Drawable.cs" />
     <Compile Include="squab\Egg.cs" />
     <Compile Include="squab\ObjectSeed.cs" />
     <Compile Include="squab\Squabject.cs" />

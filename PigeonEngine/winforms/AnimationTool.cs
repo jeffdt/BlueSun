@@ -84,7 +84,7 @@ namespace pigeon.winforms {
         }
 
         private void createTestanim() {
-            SpriteDebug.CreateTestAnim((string) allSpritesComboBox.SelectedItem, (string) allAnimationsComboBox.SelectedItem, centerPreviewCheckBox.Checked, loopCheckBox.Checked);
+            SpriteDebugger.CreateTestAnim((string) allSpritesComboBox.SelectedItem, (string) allAnimationsComboBox.SelectedItem, centerPreviewCheckBox.Checked, loopCheckBox.Checked);
         }
 
     }

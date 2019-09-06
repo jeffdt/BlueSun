@@ -16,7 +16,7 @@ namespace BlueSun {
 
         protected override bool StartMouseVisible { get { return true; } }
         protected override int FrameRate { get { return Display.FrameRate; } }
-        protected override Color DefaultBkgdColor { get { return Palette.Black; } }
+        protected override Color DefaultBkgdColor { get { return Palette.White; } }
         protected override Renderer GetRenderer { get { return new Renderer(Display.ScreenWidth, Display.ScreenHeight, Display.InitialScale); } }
         protected override TextureTemplateProcessor TemplateProcessor { get { return null; } }
         protected override World InitialWorld { get { return new SplashScreenWorld(); } }

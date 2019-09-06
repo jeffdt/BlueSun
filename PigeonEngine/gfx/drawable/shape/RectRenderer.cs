@@ -5,18 +5,11 @@ namespace pigeon.gfx {
     public class RectRenderer : ImageRenderer {
         public enum DrawModes { Filled, Bordered, FilledBordered }
 
-        // x/y represent offsets from Object.Position
-        public Rectangle Rect;
-
-        public Color FillColor;
-        public Color BorderColor;
+        public Rectangle Rect; // x/y represent offsets from Object.Position
+        public Color FillColor = Color.White;
+        public Color BorderColor = Color.Black;
         public int BorderThickness = 1;
-
-        public DrawModes DrawMode = DrawModes.Filled;
-
-        public RectRenderer(DrawModes drawMode) {
-            DrawMode = drawMode;
-        }
+        public DrawModes DrawMode = DrawModes.FilledBordered;
 
         protected override void Initialize() {
             initialTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Rect.Width, Rect.Height);

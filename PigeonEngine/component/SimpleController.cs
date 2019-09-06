@@ -14,7 +14,7 @@ namespace pigeon.component {
         protected override void Initialize() { }
 
         protected override void Update() {
-            if (RawKeyboardInput.IsHeld(Keys.LeftShift)) {
+            if (RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift)) {
                 Object.Stop();
                 updateBumpControl();
             } else {
