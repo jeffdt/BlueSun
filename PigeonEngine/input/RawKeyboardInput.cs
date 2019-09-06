@@ -33,11 +33,19 @@ namespace pigeon.input {
             return currentState.IsKeyDown(key) && previousState.IsKeyUp(key);
         }
 
+        public static bool IsPressed(params Keys[] keys) {
+            return keys.Any(key => currentState.IsKeyDown(key) && previousState.IsKeyUp(key));
+        }
+
         public static bool IsHeld(Keys key) {
             return currentState.IsKeyDown(key);
         }
 
-        public static bool IsAnyPressed() {
+        public static bool IsHeld(params Keys[] keys) {
+            return keys.Any(key => currentState.IsKeyDown(key));
+        }
+
+        public static bool IsAnyKeyPressed() {
             return (currentState.GetPressedKeys().Length > 0 && previousState.GetPressedKeys().Length == 0);
         }
 

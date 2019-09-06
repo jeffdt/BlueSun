@@ -22,7 +22,7 @@ namespace pigeon.input {
         }
 
         public override bool IsAnyPressed() {
-            return RawKeyboardInput.IsAnyPressed();
+            return RawKeyboardInput.IsAnyKeyPressed();
         }
 
         public override bool IsAnyHeld() {

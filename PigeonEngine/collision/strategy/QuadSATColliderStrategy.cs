@@ -2,10 +2,10 @@
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace pigeon.collision {
-    public class QuadSATCollider : ICollider {
+    public class QuadSATColliderStrategy : IColliderStrategy {
         internal QuadTree rootQuad;
 
-        public QuadSATCollider(Rectangle bounds) {
+        public QuadSATColliderStrategy(Rectangle bounds) {
             rootQuad = new QuadTree(0, bounds);
         }
 

@@ -21,7 +21,7 @@ namespace pigeon.core {
         private readonly TaskRegistry taskRegistry = new TaskRegistry();
         public Color BackgroundColor = Pigeon.EngineBkgdColor;
 
-        public ICollider Collider;
+        public IColliderStrategy Collider;
         public static bool DrawColliderDebugInfo;
 
         public void AddObj(GameObject obj) {

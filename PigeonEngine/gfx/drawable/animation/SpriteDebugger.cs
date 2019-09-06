@@ -2,7 +2,7 @@
 using pigeon.time;
 
 namespace pigeon.gfx {
-    public static class SpriteDebug {
+    public static class SpriteDebugger {
         public static void CreateTestAnim(string sprite, string animation, bool isCentered, bool continuousLoop) {
             Pigeon.World.DeleteObjSafe("ANIM_TEST");
             GameObject animObj = new GameObject("ANIM_TEST", .99f);
