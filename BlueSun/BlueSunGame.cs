@@ -33,7 +33,7 @@ namespace BlueSun {
                     LogHistoryLimit = 64,
                     BufferPosition = new Vector2(5, Display.ScreenHeight - 10),
                     BottomMessagePosition = new Vector2(5, Display.ScreenHeight - 20),
-                    LineWrapWidth = 156,
+                    LineWrapWidth = Display.ScreenWidth - 15,
                     CommandDisplayLength = 25,
                 };
             }
