@@ -109,6 +109,7 @@ namespace pigeon.console {
         }
 
         public readonly ConsoleOptions Options;
+        private readonly Vector2 bufferPosition;
         private bool initialized;
         private readonly SpriteFont font;
         public readonly MessageLog MessageLog;
@@ -139,10 +140,15 @@ namespace pigeon.console {
 
         public Console(ConsoleOptions options) {
             Options = options;
-            font = options.Font;
 
-            MessageLog = new MessageLog(options, EntityRegistry);
-            history = new CommandHistory(5);
+            font = ResourceCache.Font("console");
+            bufferPosition = new Vector2(5, Pigeon.Renderer.BaseResolutionY - 10);
+
+            int lineWrapWidth = Pigeon.Renderer.BaseResolutionX - 15;
+            Vector2 bottomMessagePosition = new Vector2(5, Pigeon.Renderer.BaseResolutionY - 20);
+            MessageLog = new MessageLog(font, lineWrapWidth, bottomMessagePosition, options, EntityRegistry);
+
+            history = new CommandHistory(options.CommandHistory);
         }
 
         protected override void Load() {
@@ -165,10 +171,10 @@ namespace pigeon.console {
             Sprite animatedSprite = Sprite.Clone("consoleCursor", @"console\cursor");
             animatedSprite.Loop("flash");
             animatedSprite.Color = Options.BufferColor;
-            cursor = new Entity(Options.BufferPosition, animatedSprite) { Layer = .5f };
+            cursor = new Entity(bufferPosition, animatedSprite) { Layer = .5f };
             EntityRegistry.Register(cursor);
 
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", Options.BufferPosition, font, 1f, Options.BufferColor, Justification.TopLeft);
+            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, Options.BufferColor, Justification.TopLeft);
             commandBuffer = "";
 
             Log("Console loaded...");
@@ -379,7 +385,7 @@ namespace pigeon.console {
         }
 
         private void updateCursorPosition() {
-            cursor.Position.X = Options.BufferPosition.X + font.MeasureWidth(buffer.Text) + font.Spacing;
+            cursor.Position.X = bufferPosition.X + font.MeasureWidth(buffer.Text) + font.Spacing;
         }
 
         private void handleBackspace() {
@@ -443,19 +449,5 @@ namespace pigeon.console {
         public void RepeatPrevious() {
             ExecuteCommand(previousCommand);
         }
-    }
-
-    public class ConsoleOptions {
-        public Color PanelColor;
-        public Color BufferColor;
-        public Color HistoryColor;
-        public Color InfoColor;
-        public Color ErrorColor;
-        public SpriteFont Font;
-        public int LogHistoryLimit;
-        public Vector2 BottomMessagePosition;
-        public Vector2 BufferPosition;
-        public int LineWrapWidth;
-        public int CommandDisplayLength;    // 49 for MW
     }
 }

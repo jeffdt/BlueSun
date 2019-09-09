@@ -1,9 +1,5 @@
-﻿using Bazaar.resources;
+﻿using BlueSun.resources;
 using pigeon.core;
-using pigeon.sound;
-using pigeon.data;
-using System.Collections.Generic;
-using pigeon.rand;
 using pigeon.gameobject;
 using pigeon.gfx;
 using Microsoft.Xna.Framework;

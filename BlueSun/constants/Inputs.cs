@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace Bazaar.resources {
+namespace BlueSun.resources {
     public static class Inputs {
         public const int Up = 0;
         public const int Right = 1;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Bazaar.resources {
+namespace BlueSun.resources {
     public static class Palette {
         public static Color Black { get { return new Color(0, 0, 0); } }
         public static Color DarkGray { get { return new Color(112, 112, 112); } }

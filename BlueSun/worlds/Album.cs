@@ -1,12 +1,7 @@
-﻿using Bazaar.resources;
-using pigeon.core;
-using pigeon.sound;
-using pigeon.data;
+﻿using pigeon.data;
 using System.Collections.Generic;
-using pigeon.rand;
-using pigeon.gameobject;
-using System;
 using System.Linq;
+using pigeon.utilities.extensions;
 
 namespace BlueSun.src.worlds {
 
@@ -17,7 +12,7 @@ namespace BlueSun.src.worlds {
 
         public void Initialize() {
             songFilenames = GameData.GetFileList(@"music\" + AlbumName + @"\*.nsf");
-            friendlySongNames = songFilenames.Select(filename => filename.Substring(0, filename.Length - 4)).ToList();
+            friendlySongNames = songFilenames.Select(filename => filename.Chop(".nsf")).ToList();
         }
 
         public int SongCount => songFilenames.Count;
