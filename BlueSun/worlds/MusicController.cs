@@ -4,7 +4,6 @@ using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.sound;
-using System;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {

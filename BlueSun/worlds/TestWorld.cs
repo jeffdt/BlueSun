@@ -1,4 +1,4 @@
-﻿using Bazaar.resources;
+﻿using BlueSun.resources;
 using Microsoft.Xna.Framework;
 using pigeon.component;
 using pigeon.core;
@@ -7,8 +7,6 @@ using pigeon.gameobject;
 using pigeon.sound;
 using pigeon.input;
 using Microsoft.Xna.Framework.Input;
-using pigeon.data;
-using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
     class TestWorld : World {

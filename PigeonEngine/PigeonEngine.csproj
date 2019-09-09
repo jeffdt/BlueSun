@@ -76,6 +76,7 @@
     <Compile Include="console\AliasManager.cs" />
     <Compile Include="console\CommandHistory.cs" />
     <Compile Include="console\Console.cs" />
+    <Compile Include="console\ConsoleOptions.cs" />
     <Compile Include="console\ConsoleUtilities.cs" />
     <Compile Include="console\ConsoleCommand.cs" />
     <Compile Include="console\MessageLog.cs" />

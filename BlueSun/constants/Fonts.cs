@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 
-namespace Bazaar.resources {
+namespace BlueSun.resources {
     public static class Fonts {
         public static SpriteFont Numbers { get { return ResourceCache.Font("numbers"); } }
         public static SpriteFont Console { get { return ResourceCache.Font("console"); } }

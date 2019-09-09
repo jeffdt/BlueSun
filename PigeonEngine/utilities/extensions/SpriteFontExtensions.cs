@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace PigeonEngine.utilities.extensions {
     public static class SpriteFontExtensions {

@@ -1,4 +1,4 @@
-﻿using Bazaar.resources;
+﻿using BlueSun.resources;
 using BlueSun.src.parameters;
 using BlueSun.src.worlds;
 using Microsoft.Xna.Framework;
@@ -6,7 +6,6 @@ using pigeon.console;
 using pigeon.core;
 using pigeon.data;
 using pigeon.gfx;
-using pigeon.sound;
 using System.Reflection;
 
 namespace BlueSun {
@@ -24,16 +23,6 @@ namespace BlueSun {
         protected override ConsoleOptions ConsoleOpts {
             get {
                 return new ConsoleOptions {
-                    Font = Fonts.Console,
-                    PanelColor = Color.DarkSlateGray,
-                    BufferColor = Color.MintCream,
-                    HistoryColor = Color.Gray,
-                    InfoColor = Color.DodgerBlue,
-                    ErrorColor = Color.Red,
-                    LogHistoryLimit = 64,
-                    BufferPosition = new Vector2(5, Display.ScreenHeight - 10),
-                    BottomMessagePosition = new Vector2(5, Display.ScreenHeight - 20),
-                    LineWrapWidth = Display.ScreenWidth - 15,
                     CommandDisplayLength = 25,
                 };
             }

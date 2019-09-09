@@ -18,13 +18,14 @@ namespace pigeon.console {
         private readonly List<LogMessage> allMessages;
         private readonly List<TextEntity> messageEntities;
 
-        public MessageLog(ConsoleOptions options, EntityRegistry registry) {
-            limit = options.LogHistoryLimit;
-            font = options.Font;
-            bottomMessagePosition = options.BottomMessagePosition;
-            wrapWidth = options.LineWrapWidth;
-            typeColors = new Dictionary<LogMessageTypes, Color> { { LogMessageTypes.Command, options.HistoryColor }, { LogMessageTypes.Info, options.InfoColor }, { LogMessageTypes.Error, options.ErrorColor } };
+        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, ConsoleOptions options, EntityRegistry registry) {
+            this.font = font;
+            this.wrapWidth = lineWrapWidth;
+            this.bottomMessagePosition = bottomMessagePosition;
             this.registry = registry;
+
+            limit = options.LogHistoryLimit;
+            typeColors = new Dictionary<LogMessageTypes, Color> { { LogMessageTypes.Command, options.HistoryColor }, { LogMessageTypes.Info, options.InfoColor }, { LogMessageTypes.Error, options.ErrorColor } };
 
             allMessages = new List<LogMessage>();
             messageEntities = new List<TextEntity>();

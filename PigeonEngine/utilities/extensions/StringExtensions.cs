@@ -13,12 +13,16 @@ namespace pigeon.utilities.extensions {
         private static readonly char[] COMMA_SEPARATOR = { ',' };
         private static readonly char[] SPACE_SEPARATOR = { ' ' };
 
-        public static string Last(this string source, int tail_length) {
-            return tail_length >= source.Length ? source : source.Substring(source.Length - tail_length);
+        public static string Last(this string source, int tailLength) {
+            return tailLength >= source.Length ? source : source.Substring(source.Length - tailLength);
         }
 
         public static string After(this string source, string openingString) {
             return source.Substring(openingString.Length, source.Length - openingString.Length);
+        }
+
+        public static string Chop(this string source, string tailString) {
+            return source.EndsWith(tailString) ? source.Substring(0, source.Length - tailString.Length) : source;
         }
 
         public static string[] SplitArgs(this string str) {
