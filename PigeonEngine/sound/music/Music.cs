@@ -22,18 +22,9 @@ namespace pigeon.sound {
 
         private static States state;
 
-        private static float volume = 1.0f;
+        public static float Volume { get; set; } = 1.0f;
 
-        public static float Volume {
-            get { return volume; }
-            set {
-                volume = value;
-            }
-        }
-
-        public static void Initialize() {
-
-        }
+        public static void Initialize() { }
 
         public static void Load(string filename) {
             reader = new GmeReader(filename);
@@ -43,7 +34,6 @@ namespace pigeon.sound {
         }
 
         public static void PlayTrack(int trackNum) {
-
             int clampedTrackNum = trackNum.Clamp(0, reader.TrackCount - 1);
 
             if (trackNum < 0 || trackNum > reader.TrackCount - 1) {
@@ -56,11 +46,12 @@ namespace pigeon.sound {
 
         public static void Play() {
             player.Play();
+            SetStereoDepth(.4f);
         }
 
         public static void Stop() {
             state = States.Stopped;
-            player.Stop();
+            player?.Stop();
         }
 
         public static void Pause() {
@@ -73,7 +64,7 @@ namespace pigeon.sound {
         }
 
         public static void MuteVoices(params int[] voiceIndexes) {
-            foreach(int voiceIndex in voiceIndexes) {
+            foreach (int voiceIndex in voiceIndexes) {
                 MuteVoice(voiceIndex);
             }
         }

@@ -7,9 +7,11 @@ using pigeon.gameobject;
 using pigeon.sound;
 using pigeon.input;
 using Microsoft.Xna.Framework.Input;
+using pigeon.data;
+using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
-    class SplashScreenWorld : World {
+    class TestWorld : World {
         protected override void Load() {
             RectRenderer rectRenderer = new RectRenderer() {
                 BorderThickness = 10,
@@ -30,20 +32,21 @@ namespace BlueSun.src.worlds {
 
         protected override void Unload() { }
     }
+}
 
-    internal class RectTester : Component {
-        RectRenderer rectRenderer;
+internal class RectTester : Component {
+    RectRenderer rectRenderer;
 
-        protected override void Initialize() {
-            rectRenderer = GetComponent<RectRenderer>();
-        }
+    protected override void Initialize() {
+        rectRenderer = GetComponent<RectRenderer>();
+    }
 
-        protected override void Update() {
-            if (RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift)) {
-                rectRenderer.Image.Color = Color.DodgerBlue;
-            } else {
-                rectRenderer.Image.Color = Color.White;
-            }
+    protected override void Update() {
+        if (RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift)) {
+            rectRenderer.Image.Color = Color.DodgerBlue;
+        } else {
+            rectRenderer.Image.Color = Color.White;
         }
     }
 }
+

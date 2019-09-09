@@ -19,71 +19,6 @@ using pigeon.winforms;
 namespace pigeon.console {
     public static class PigeonCommands {
         public static Dictionary<string, ConsoleCommand> Build() {
-                  
-				// console manipulation
-				   
-                   
-                   
-
-				// binds + aliases
-				   
-                  
-                   
-                   
-
-				// audio
-				   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-                   
-
-				// toggled debug info
-				   
-                   
-                  
-                   
-                   
-
-				// engine
-				   
-                  
-                   
-                   
-                   
-                   
-				
-				// objects
-				   
-                   
-                   
-                   
-                   
-
-				// graphics
-				   
-                   
-                   
-                   
-
-				// world
-				   
-                   
-
-				// vars
-				   
-                   
-                   
-                   
-            
-
             return new Dictionary<string, ConsoleCommand> {
 				// console manipulation
 				{ "clear", clearScreen },
@@ -484,9 +419,18 @@ namespace pigeon.console {
 
         private static void bgmPlayTrack(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Music.Play();
+                Pigeon.Console.Log("unknown track");
             } else {
-                Music.PlayTrack(args.ToInt());
+                if (!args.StartsWith("music/")) {
+                    args = "music/" + args;
+                }
+
+                if (!args.EndsWith(".nsf")) {
+                    args += ".nsf";
+                }
+                Music.Stop();
+                Music.Load(args);
+                Music.Play();
             }
         }
 

@@ -38,6 +38,7 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -49,7 +50,10 @@
     <Compile Include="constants\Palette.cs" />
     <Compile Include="constants\Fonts.cs" />
     <Compile Include="constants\Inputs.cs" />
-    <Compile Include="worlds\SplashScreenWorld.cs" />
+    <Compile Include="worlds\MusicController.cs" />
+    <Compile Include="worlds\NsfPlayer.cs" />
+    <Compile Include="worlds\Album.cs" />
+    <Compile Include="worlds\TestWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -59,16 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\bazaarDialog.png" />
-    <Content Include="Content\fonts\bazaarLightBack.png" />
-    <Content Include="Content\fonts\bazaartwotone.png" />
-    <Content Include="Content\fonts\coin.png" />
+    <Content Include="Content\fonts\dialog.png" />
+    <Content Include="Content\fonts\twotone.png" />
+    <Content Include="Content\fonts\numbers.png" />
     <Content Include="Content\fonts\console.png" />
     <Content Include="Content\fonts\fonts.xml" />
-    <Content Include="Content\fonts\highScoreName.png" />
-    <Content Include="Content\fonts\onetonenumber.png" />
-    <Content Include="Content\fonts\onetonetext.png" />
-    <Content Include="Content\fonts\title.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

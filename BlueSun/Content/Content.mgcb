@@ -16,38 +16,6 @@
 #begin data/hitboxes.dat
 /copy:data/hitboxes.dat
 
-#begin fonts/bazaarDialog.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter= 
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/bazaarDialog.png
-
-#begin fonts/bazaarLightBack.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter=0
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/bazaarLightBack.png
-
-#begin fonts/bazaartwotone.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter= 
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/bazaartwotone.png
-
-#begin fonts/coin.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter=0
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/coin.png
-
 #begin fonts/console.png
 /importer:TextureImporter
 /processor:FontTextureProcessor
@@ -56,55 +24,395 @@
 /processorParam:TextureFormat=Color
 /build:fonts/console.png
 
+#begin fonts/dialog.png
+/importer:TextureImporter
+/processor:FontTextureProcessor
+/processorParam:FirstCharacter= 
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:fonts/dialog.png
+
 #begin fonts/fonts.xml
 /copy:fonts/fonts.xml
 
-#begin fonts/highScoreName.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter= 
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/highScoreName.png
-
-#begin fonts/onetonenumber.png
+#begin fonts/numbers.png
 /importer:TextureImporter
 /processor:FontTextureProcessor
 /processorParam:FirstCharacter=0
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Color
-/build:fonts/onetonenumber.png
+/build:fonts/numbers.png
 
-#begin fonts/onetonetext.png
-/importer:TextureImporter
-/processor:FontTextureProcessor
-/processorParam:FirstCharacter=0
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Color
-/build:fonts/onetonetext.png
-
-#begin fonts/title.png
+#begin fonts/twotone.png
 /importer:TextureImporter
 /processor:FontTextureProcessor
 /processorParam:FirstCharacter= 
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Color
-/build:fonts/title.png
+/build:fonts/twotone.png
 
-#begin music/BAZAAR.nsf
-/copy:music/BAZAAR.nsf
+#begin music/Bazaar/AlwaysBeClosin.nsf
+/copy:music/Bazaar/AlwaysBeClosin.nsf
 
-#begin music/dill.nsf
-/copy:music/dill.nsf
+#begin music/Bazaar/BAZAAR.nsf
+/copy:music/Bazaar/BAZAAR.nsf
 
-#begin music/distress signals.nsf
-/copy:music/distress signals.nsf
+#begin music/Bazaar/bazaarshop.nsf
+/copy:music/Bazaar/bazaarshop.nsf
 
-#begin music/predation.nsf
-/copy:music/predation.nsf
+#begin music/Bazaar/boss.nsf
+/copy:music/Bazaar/boss.nsf
 
-#begin music/titanium.nsf
-/copy:music/titanium.nsf
+#begin music/Bazaar/dreidelpiledriver.nsf
+/copy:music/Bazaar/dreidelpiledriver.nsf
+
+#begin music/Bazaar/fastjam.nsf
+/copy:music/Bazaar/fastjam.nsf
+
+#begin music/Bazaar/groove.nsf
+/copy:music/Bazaar/groove.nsf
+
+#begin music/Bazaar/highscore.nsf
+/copy:music/Bazaar/highscore.nsf
+
+#begin music/Bazaar/mt.nsf
+/copy:music/Bazaar/mt.nsf
+
+#begin music/Bazaar/scarabdroppings.nsf
+/copy:music/Bazaar/scarabdroppings.nsf
+
+#begin music/Bazaar/slowjam2.nsf
+/copy:music/Bazaar/slowjam2.nsf
+
+#begin music/Bazaar/tectonictechniques.nsf
+/copy:music/Bazaar/tectonictechniques.nsf
+
+#begin music/Bazaar/turbanyouth.nsf
+/copy:music/Bazaar/turbanyouth.nsf
+
+#begin music/Covers/breathe.nsf
+/copy:music/Covers/breathe.nsf
+
+#begin music/Covers/chromeparadise.nsf
+/copy:music/Covers/chromeparadise.nsf
+
+#begin music/Covers/cupsandblunts.nsf
+/copy:music/Covers/cupsandblunts.nsf
+
+#begin music/Covers/cydelix_nes.nsf
+/copy:music/Covers/cydelix_nes.nsf
+
+#begin music/Covers/cydelix_vrc6.nsf
+/copy:music/Covers/cydelix_vrc6.nsf
+
+#begin music/Covers/dblockwhat.nsf
+/copy:music/Covers/dblockwhat.nsf
+
+#begin music/Covers/dnb.nsf
+/copy:music/Covers/dnb.nsf
+
+#begin music/Covers/duke.nsf
+/copy:music/Covers/duke.nsf
+
+#begin music/Covers/eye2eye.nsf
+/copy:music/Covers/eye2eye.nsf
+
+#begin music/Covers/gostraight.nsf
+/copy:music/Covers/gostraight.nsf
+
+#begin music/Covers/gratitude.nsf
+/copy:music/Covers/gratitude.nsf
+
+#begin music/Covers/irongalaxy.nsf
+/copy:music/Covers/irongalaxy.nsf
+
+#begin music/Covers/launchpad.nsf
+/copy:music/Covers/launchpad.nsf
+
+#begin music/Covers/lobster.nsf
+/copy:music/Covers/lobster.nsf
+
+#begin music/Covers/lostvikings.nsf
+/copy:music/Covers/lostvikings.nsf
+
+#begin music/Covers/lowerbrinstar.nsf
+/copy:music/Covers/lowerbrinstar.nsf
+
+#begin music/Covers/momentsinlove.nsf
+/copy:music/Covers/momentsinlove.nsf
+
+#begin music/Covers/morse.nsf
+/copy:music/Covers/morse.nsf
+
+#begin music/Covers/nectarforisis.nsf
+/copy:music/Covers/nectarforisis.nsf
+
+#begin music/Covers/policeandthieves.nsf
+/copy:music/Covers/policeandthieves.nsf
+
+#begin music/Covers/policeandthieves_noswing.nsf
+/copy:music/Covers/policeandthieves_noswing.nsf
+
+#begin music/Covers/sawitoff.nsf
+/copy:music/Covers/sawitoff.nsf
+
+#begin music/Covers/seaweed.nsf
+/copy:music/Covers/seaweed.nsf
+
+#begin music/Covers/shitsfucked.nsf
+/copy:music/Covers/shitsfucked.nsf
+
+#begin music/Covers/suntemple.nsf
+/copy:music/Covers/suntemple.nsf
+
+#begin music/Covers/thecars-imnottheone.nsf
+/copy:music/Covers/thecars-imnottheone.nsf
+
+#begin music/Covers/tunaktun.nsf
+/copy:music/Covers/tunaktun.nsf
+
+#begin music/Covers/UNsquadron.nsf
+/copy:music/Covers/UNsquadron.nsf
+
+#begin music/Covers/yourenotalone.nsf
+/copy:music/Covers/yourenotalone.nsf
+
+#begin music/LilLoops/blue.nsf
+/copy:music/LilLoops/blue.nsf
+
+#begin music/LilLoops/bluetwo.nsf
+/copy:music/LilLoops/bluetwo.nsf
+
+#begin music/LilLoops/bluhblah.nsf
+/copy:music/LilLoops/bluhblah.nsf
+
+#begin music/LilLoops/digga.nsf
+/copy:music/LilLoops/digga.nsf
+
+#begin music/LilLoops/doopter.nsf
+/copy:music/LilLoops/doopter.nsf
+
+#begin music/LilLoops/ElCapitan.nsf
+/copy:music/LilLoops/ElCapitan.nsf
+
+#begin music/LilLoops/gungeon.nsf
+/copy:music/LilLoops/gungeon.nsf
+
+#begin music/LilLoops/harmonies.nsf
+/copy:music/LilLoops/harmonies.nsf
+
+#begin music/LilLoops/HipHop.nsf
+/copy:music/LilLoops/HipHop.nsf
+
+#begin music/LilLoops/HipHop2.nsf
+/copy:music/LilLoops/HipHop2.nsf
+
+#begin music/LilLoops/jester.nsf
+/copy:music/LilLoops/jester.nsf
+
+#begin music/LilLoops/L.nsf
+/copy:music/LilLoops/L.nsf
+
+#begin music/LilLoops/labess.nsf
+/copy:music/LilLoops/labess.nsf
+
+#begin music/LilLoops/loop.nsf
+/copy:music/LilLoops/loop.nsf
+
+#begin music/LilLoops/luke.nsf
+/copy:music/LilLoops/luke.nsf
+
+#begin music/LilLoops/mushroom.nsf
+/copy:music/LilLoops/mushroom.nsf
+
+#begin music/LilLoops/selection.nsf
+/copy:music/LilLoops/selection.nsf
+
+#begin music/LilLoops/shanty.nsf
+/copy:music/LilLoops/shanty.nsf
+
+#begin music/LilLoops/spokky.nsf
+/copy:music/LilLoops/spokky.nsf
+
+#begin music/LilLoops/truepower.nsf
+/copy:music/LilLoops/truepower.nsf
+
+#begin music/LilLoops/turbodrive.nsf
+/copy:music/LilLoops/turbodrive.nsf
+
+#begin music/LilLoops/turtles.nsf
+/copy:music/LilLoops/turtles.nsf
+
+#begin music/MetallicWing/blast_furnace.nsf
+/copy:music/MetallicWing/blast_furnace.nsf
+
+#begin music/MetallicWing/briefing.nsf
+/copy:music/MetallicWing/briefing.nsf
+
+#begin music/MetallicWing/consequences.nsf
+/copy:music/MetallicWing/consequences.nsf
+
+#begin music/MetallicWing/distress_signals.nsf
+/copy:music/MetallicWing/distress_signals.nsf
+
+#begin music/MetallicWing/dread.nsf
+/copy:music/MetallicWing/dread.nsf
+
+#begin music/MetallicWing/echo.nsf
+/copy:music/MetallicWing/echo.nsf
+
+#begin music/MetallicWing/fear.nsf
+/copy:music/MetallicWing/fear.nsf
+
+#begin music/MetallicWing/harmonies.nsf
+/copy:music/MetallicWing/harmonies.nsf
+
+#begin music/MetallicWing/hope.nsf
+/copy:music/MetallicWing/hope.nsf
+
+#begin music/MetallicWing/intrigue.nsf
+/copy:music/MetallicWing/intrigue.nsf
+
+#begin music/MetallicWing/intrigueX.nsf
+/copy:music/MetallicWing/intrigueX.nsf
+
+#begin music/MetallicWing/loss.nsf
+/copy:music/MetallicWing/loss.nsf
+
+#begin music/MetallicWing/peril.nsf
+/copy:music/MetallicWing/peril.nsf
+
+#begin music/MetallicWing/peril+intro.nsf
+/copy:music/MetallicWing/peril+intro.nsf
+
+#begin music/MetallicWing/predation.nsf
+/copy:music/MetallicWing/predation.nsf
+
+#begin music/MetallicWing/relief.nsf
+/copy:music/MetallicWing/relief.nsf
+
+#begin music/MetallicWing/remorse.nsf
+/copy:music/MetallicWing/remorse.nsf
+
+#begin music/MetallicWing/resolve.nsf
+/copy:music/MetallicWing/resolve.nsf
+
+#begin music/MetallicWing/rust.nsf
+/copy:music/MetallicWing/rust.nsf
+
+#begin music/MetallicWing/sad.nsf
+/copy:music/MetallicWing/sad.nsf
+
+#begin music/MetallicWing/shadowvapors.nsf
+/copy:music/MetallicWing/shadowvapors.nsf
+
+#begin music/MetallicWing/solitude.nsf
+/copy:music/MetallicWing/solitude.nsf
+
+#begin music/MetallicWing/starsurfin.nsf
+/copy:music/MetallicWing/starsurfin.nsf
+
+#begin music/MetallicWing/strife.nsf
+/copy:music/MetallicWing/strife.nsf
+
+#begin music/MetallicWing/strife_loop.nsf
+/copy:music/MetallicWing/strife_loop.nsf
+
+#begin music/MetallicWing/thuglas.nsf
+/copy:music/MetallicWing/thuglas.nsf
+
+#begin music/MetallicWing/titanium.nsf
+/copy:music/MetallicWing/titanium.nsf
+
+#begin music/MetallicWing/triumph.nsf
+/copy:music/MetallicWing/triumph.nsf
+
+#begin music/MetallicWing/valor.nsf
+/copy:music/MetallicWing/valor.nsf
+
+#begin music/MetallicWing/wonder.nsf
+/copy:music/MetallicWing/wonder.nsf
+
+#begin music/MetallicWing/wroughtiron.nsf
+/copy:music/MetallicWing/wroughtiron.nsf
+
+#begin music/RandomJams/2medieval.nsf
+/copy:music/RandomJams/2medieval.nsf
+
+#begin music/RandomJams/arps.nsf
+/copy:music/RandomJams/arps.nsf
+
+#begin music/RandomJams/CasioCruiser.nsf
+/copy:music/RandomJams/CasioCruiser.nsf
+
+#begin music/RandomJams/coiled.nsf
+/copy:music/RandomJams/coiled.nsf
+
+#begin music/RandomJams/dill_dealer.nsf
+/copy:music/RandomJams/dill_dealer.nsf
+
+#begin music/RandomJams/fury.nsf
+/copy:music/RandomJams/fury.nsf
+
+#begin music/RandomJams/jupiter.nsf
+/copy:music/RandomJams/jupiter.nsf
+
+#begin music/RandomJams/LoopPoop.nsf
+/copy:music/RandomJams/LoopPoop.nsf
+
+#begin music/RandomJams/malice.nsf
+/copy:music/RandomJams/malice.nsf
+
+#begin music/RandomJams/mancave.nsf
+/copy:music/RandomJams/mancave.nsf
+
+#begin music/RandomJams/paralysis.nsf
+/copy:music/RandomJams/paralysis.nsf
+
+#begin music/RandomJams/roasted.nsf
+/copy:music/RandomJams/roasted.nsf
+
+#begin music/RandomJams/sensoryoverload.nsf
+/copy:music/RandomJams/sensoryoverload.nsf
+
+#begin music/RandomJams/sharked.nsf
+/copy:music/RandomJams/sharked.nsf
+
+#begin music/RandomJams/viper.nsf
+/copy:music/RandomJams/viper.nsf
+
+#begin music/SuperFORE!/cave.nsf
+/copy:music/SuperFORE!/cave.nsf
+
+#begin music/SuperFORE!/nimbus.nsf
+/copy:music/SuperFORE!/nimbus.nsf
+
+#begin music/SuperFORE!/parkour.nsf
+/copy:music/SuperFORE!/parkour.nsf
+
+#begin music/SuperFORE!/splendor.nsf
+/copy:music/SuperFORE!/splendor.nsf
+
+#begin music/UnfinishedBusiness/aquatics.nsf
+/copy:music/UnfinishedBusiness/aquatics.nsf
+
+#begin music/UnfinishedBusiness/encounterwiththekhanklan.nsf
+/copy:music/UnfinishedBusiness/encounterwiththekhanklan.nsf
+
+#begin music/UnfinishedBusiness/evil.nsf
+/copy:music/UnfinishedBusiness/evil.nsf
+
+#begin music/UnfinishedBusiness/fantasy.nsf
+/copy:music/UnfinishedBusiness/fantasy.nsf
+
+#begin music/UnfinishedBusiness/ice.nsf
+/copy:music/UnfinishedBusiness/ice.nsf
+
+#begin music/UnfinishedBusiness/rock_n_roll.nsf
+/copy:music/UnfinishedBusiness/rock_n_roll.nsf
+
+#begin music/UnfinishedBusiness/sundriedtanuki.nsf
+/copy:music/UnfinishedBusiness/sundriedtanuki.nsf
 
 #begin textures/compactAnimations.cfg
 /copy:textures/compactAnimations.cfg

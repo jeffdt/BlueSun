@@ -39,6 +39,10 @@ namespace pigeon.rand {
             return rand.Next(min, max);
         }
 
+        public static int Random(this int integer) {
+            return Int(integer);
+        }
+
         public static double Double() {
             return rand.NextDouble();
         }

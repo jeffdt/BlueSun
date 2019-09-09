@@ -19,7 +19,7 @@ namespace BlueSun {
         protected override Color DefaultBkgdColor { get { return Palette.White; } }
         protected override Renderer GetRenderer { get { return new Renderer(Display.ScreenWidth, Display.ScreenHeight, Display.InitialScale); } }
         protected override TextureTemplateProcessor TemplateProcessor { get { return null; } }
-        protected override World InitialWorld { get { return new SplashScreenWorld(); } }
+        protected override World InitialWorld { get { return new NsfPlayer(); } }
 
         protected override ConsoleOptions ConsoleOpts {
             get {
@@ -40,7 +40,7 @@ namespace BlueSun {
         }
 
         protected override void Load() {
-            Music.Load(@"music/distress signals.nsf");
+            
         }
 
         protected override void InitializeGame() {

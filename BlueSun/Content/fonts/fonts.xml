@@ -7,45 +7,20 @@
     <LineSpacing>11</LineSpacing>
   </Font>
   <Font>
-    <Name>bazaarText</Name>
-    <Path>onetonetext</Path>
+    <Name>twotone</Name>
+    <Path>twotone</Path>
     <Spacing>2</Spacing>
   </Font>
   <Font>
-    <Name>bazaarScore</Name>
-    <Path>onetonenumber</Path>
-    <Spacing>1</Spacing>
-  </Font>
-  <Font>
-    <Name>scoreLightBackground</Name>
-    <Path>bazaarLightBack</Path>
-    <Spacing>1</Spacing>
-  </Font>
-  <Font>
-    <Name>bazaarTwoTone</Name>
-    <Path>bazaarTwoTone</Path>
-    <Spacing>2</Spacing>
-  </Font>
-  <Font>
-    <Name>highScoreName</Name>
-    <Path>highScoreName</Path>
-    <Spacing>1</Spacing>
-  </Font>
-  <Font>
-    <Name>coin</Name>
-    <Path>coin</Path>
+    <Name>numbers</Name>
+    <Path>numbers</Path>
     <Spacing>1</Spacing>
     <LineSpacing>11</LineSpacing>
   </Font>
   <Font>
     <Name>dialog</Name>
-    <Path>bazaarDialog</Path>
+    <Path>dialog</Path>
     <Spacing>0</Spacing>
     <LineSpacing>12</LineSpacing>
-  </Font>
-  <Font>
-    <Name>title</Name>
-    <Path>title</Path>
-    <Spacing>1</Spacing>
   </Font>
 </ArrayOfFont>
