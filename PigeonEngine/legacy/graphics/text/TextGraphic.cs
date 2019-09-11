@@ -105,7 +105,7 @@ namespace pigeon.legacy.graphics.text {
         public override void Update() { }
 
         public override void Draw(Vector2 position, float layer) {
-            Renderer.spriteBatch.DrawString(Font, text, position, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
+            Renderer.SpriteBatch.DrawString(Font, text, position, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
         }
     }
 

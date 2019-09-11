@@ -4,6 +4,7 @@ using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.sound;
+using System;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
@@ -11,7 +12,7 @@ namespace BlueSun.src.worlds {
         private List<Album> albums;
 
         private TextRenderer songText;
-        private TextRenderer folderText;
+        private TextRenderer albumText;
 
         private int currAlbumIndex;
         private int currSongIndex;
@@ -20,7 +21,7 @@ namespace BlueSun.src.worlds {
 
         protected override void Initialize() {
             songText = Object.FindChild("song").GetComponent<TextRenderer>();
-            folderText = Object.FindChild("folder").GetComponent<TextRenderer>();
+            albumText = Object.FindChild("folder").GetComponent<TextRenderer>();
 
             albums = new List<Album> {
                 new Album() { AlbumName = "Bazaar" },
@@ -38,7 +39,7 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            playRandomSong();
+            //playRandomSong();
             //playSpecificSong("morse");
         }
 
@@ -88,7 +89,6 @@ namespace BlueSun.src.worlds {
                     randomSong -= albums[i].SongCount;
                 } else {
                     playSong(i, randomSong - 1);
-                    break;
                 }
             }
         }
@@ -109,17 +109,22 @@ namespace BlueSun.src.worlds {
         }
 
         private void playSong(int nextAlbumIndex, int nextSongIndex) {
-            currAlbumIndex = nextAlbumIndex;
-            currSongIndex = nextSongIndex;
+            try {
+                currAlbumIndex = nextAlbumIndex;
+                currSongIndex = nextSongIndex;
 
-            Album songFolder = albums[currAlbumIndex];
+                Album songFolder = albums[currAlbumIndex];
 
-            Music.Stop();
-            Music.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
-            Music.PlayTrack(0);
+                Music.Stop();
+                Music.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
+                Music.PlayTrack(0);
 
-            songText.Text = songFolder.GetFriendlySongName(currSongIndex);
-            folderText.Text = songFolder.AlbumName;
+                songText.Text = songFolder.GetFriendlySongName(currSongIndex);
+                albumText.Text = songFolder.AlbumName;
+            } catch (Exception) {
+                songText.Text = "oops i broke";
+                albumText.Text = "oops i broke";
+            }
         }
     }
 }

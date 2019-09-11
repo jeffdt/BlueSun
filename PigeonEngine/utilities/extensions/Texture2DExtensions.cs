@@ -13,7 +13,7 @@ namespace pigeon.utilities.extensions {
             Color[,] colorsTwo = new Color[texture.Width, texture.Height];
             for (int x = 0; x < texture.Width; x++)
                 for (int y = 0; y < texture.Height; y++)
-                    colorsTwo[x, y] = colorsOne[x + y * texture.Width];
+                    colorsTwo[x, y] = colorsOne[x + (y * texture.Width)];
 
             return colorsTwo;
         }

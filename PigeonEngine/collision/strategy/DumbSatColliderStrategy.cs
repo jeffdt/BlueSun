@@ -28,7 +28,7 @@ namespace pigeon.collision {
 
                 for (int j = 0; j < allBoxes.Count; j++) {
                     var box2 = allBoxes[j];
-                    if (i == j || !box2.Enabled || box1.FrameCollisions.Contains(box2) || (box1.IgnoredColliders != null && box1.IgnoredColliders.Contains(box2))) {
+                    if (i == j || !box2.Enabled || box1.FrameCollisions.Contains(box2) || (box1.IgnoredColliders?.Contains(box2) == true)) {
                         continue;
                     }
 
@@ -102,7 +102,6 @@ namespace pigeon.collision {
         }
 
         public void Draw() {
-
         }
     }
 }

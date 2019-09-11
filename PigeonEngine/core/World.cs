@@ -95,9 +95,7 @@ namespace pigeon.core {
             ObjRoot.Update();
             ParticleRegistry.Update();
 
-            if (Collider != null) {
-                Collider.Collide(Hitboxes);
-            }
+            Collider?.Collide(Hitboxes);
 
             ObjRoot.FinalUpdate();
         }

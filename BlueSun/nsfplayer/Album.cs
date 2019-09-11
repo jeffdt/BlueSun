@@ -4,7 +4,6 @@ using System.Linq;
 using pigeon.utilities.extensions;
 
 namespace BlueSun.src.worlds {
-
     internal class Album {
         public string AlbumName;
         private List<string> songFilenames;

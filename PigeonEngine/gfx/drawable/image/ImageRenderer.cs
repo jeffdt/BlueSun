@@ -62,7 +62,6 @@ namespace pigeon.gfx {
         }
 
         protected override void Update() {
-
         }
 
         public void Draw() {

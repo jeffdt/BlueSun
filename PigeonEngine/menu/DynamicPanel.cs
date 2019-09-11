@@ -65,7 +65,7 @@ namespace pigeon.menu {
 
         public Vector2 Size {
             get {
-                return new Vector2(topLeft.Size.X + topEdge.Size.X * topEdge.Scale.X + topRight.Size.X, topLeft.Size.Y + left.Size.Y * left.Scale.Y + bottomLeft.Size.Y);
+                return new Vector2(topLeft.Size.X + (topEdge.Size.X * topEdge.Scale.X) + topRight.Size.X, topLeft.Size.Y + (left.Size.Y * left.Scale.Y) + bottomLeft.Size.Y);
             }
         }
     }

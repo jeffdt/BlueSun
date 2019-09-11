@@ -43,28 +43,28 @@ namespace pigeon.gfx {
             // top
             for (int row = 0; row < BorderThickness; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[row * width + col] = BorderColor;
+                    pixels[(row * width) + col] = BorderColor;
                 }
             }
 
             // bottom
             for (int row = height - BorderThickness; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[row * width + col] = BorderColor;
+                    pixels[(row * width) + col] = BorderColor;
                 }
             }
 
             // left
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < BorderThickness; col++) {
-                    pixels[row * width + col] = BorderColor;
+                    pixels[(row * width) + col] = BorderColor;
                 }
             }
 
             // right
             for (int row = 0; row < height; row++) {
                 for (int col = width - BorderThickness; col < width; col++) {
-                    pixels[row * width + col] = BorderColor;
+                    pixels[(row * width) + col] = BorderColor;
                 }
             }
         }

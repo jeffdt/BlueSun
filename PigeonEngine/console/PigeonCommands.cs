@@ -280,7 +280,7 @@ namespace pigeon.console {
 
             Pigeon.Console.Log("children:");
             var treeChildren = from child in children
-                               where child.GetChildren() != null && child.GetChildren().Count > 0
+                               where child.GetChildren()?.Count > 0
                                orderby child.Name ascending
                                select child.Name;
 
@@ -342,7 +342,7 @@ namespace pigeon.console {
         private static void listComponents(string args) {
             var obj = Pigeon.World.FindObj(args);
 
-            if (obj.components != null && obj.components.Count > 0) {
+            if (obj.components?.Count > 0) {
                 var componentNames = new List<string>();
                 foreach (var component in obj.components) {
                     componentNames.Add(component.GetType().Name);
@@ -566,7 +566,6 @@ namespace pigeon.console {
 
                 Pigeon.Console.Log("available presets:");
                 Pigeon.Console.Log(stringBuilder.ToString());
-
             } else {
                 Const.LoadPreset(@"constants\" + args + ".cfg");
                 Pigeon.Console.Log("loaded preset '" + args + "'");

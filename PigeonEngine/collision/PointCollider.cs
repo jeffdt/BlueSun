@@ -28,7 +28,6 @@ namespace pigeon.collision {
         }
 
         public override void Draw() {
-
         }
     }
 }

@@ -12,7 +12,6 @@ namespace pigeon.sound {
         private static readonly List<SoundEffectInstance> activeSfx = new List<SoundEffectInstance>();
 
         public static void Initialize() {
-
         }
 
         public static void Update() {

@@ -107,7 +107,7 @@ namespace pigeon.legacy.graphics.anim {
                 Duration = duration,
                 AnchorOffsetX = seedFrame.AnchorOffsetX,
                 AnchorOffsetY = seedFrame.AnchorOffsetY,
-                SheetX = seedFrame.SheetX + seedFrame.Width * frameNum,
+                SheetX = seedFrame.SheetX + (seedFrame.Width * frameNum),
                 SheetY = seedFrame.SheetY,
                 Width = seedFrame.Width,
                 Height = seedFrame.Height
@@ -233,7 +233,7 @@ namespace pigeon.legacy.graphics.anim {
                 } else if (frameIndex == 0) {
                     pingPongCoefficient = 1;
                 }
-                playFrame(frameIndex + pingPongCoefficient * 1);
+                playFrame(frameIndex + (pingPongCoefficient * 1));
                 return;
             }
 
@@ -272,7 +272,7 @@ namespace pigeon.legacy.graphics.anim {
                 adjOrigin.Y = Size.Y - adjOrigin.Y - 1;
             }
 
-            Renderer.spriteBatch.Draw(Texture, position, SourceArea, Color, Rotation, adjOrigin, Scale, Flip, layer);
+            Renderer.SpriteBatch.Draw(Texture, position, SourceArea, Color, Rotation, adjOrigin, Scale, Flip, layer);
         }
     }
 }

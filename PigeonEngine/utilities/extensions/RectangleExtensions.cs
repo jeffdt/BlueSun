@@ -34,11 +34,11 @@ namespace pigeon.utilities.extensions {
         }
 
         public static void DrawFilled(this Rectangle rect, Color color, float layer = 1f) {
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
 
         public static void DrawFilled(int xPosition, int yPosition, int width, int height, Color color, float layer = 1f) {
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPosition, yPosition, width, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPosition, yPosition, width, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
 
         public static void DrawBordered(this Rectangle rect, Color color, int thickness = 1, float layer = 1f) {
@@ -47,14 +47,14 @@ namespace pigeon.utilities.extensions {
 
         public static void DrawBordered(int xPos, int yPos, int width, int height, Color color, int thickness = 1, float layer = 1f) {
             // top
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, width, thickness), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, width, thickness), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
             // bottom
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos + height - thickness, width, thickness), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos + height - thickness, width, thickness), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
 
             // left
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
             // right
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, new Rectangle((xPos + width - thickness), yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle((xPos + width - thickness), yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
     }
 }

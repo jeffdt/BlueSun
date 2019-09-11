@@ -7,12 +7,7 @@ namespace pigeon.gameobject {
         public Action Destructor;
         private bool initialized;
 
-        private bool enabled = true;
-
-        public bool Enabled {
-            get { return enabled; }
-            set { enabled = value; }
-        }
+        public bool Enabled { get; set; } = true;
 
         public T GetComponent<T>() where T : Component {
             return Object.GetComponent<T>();
@@ -27,7 +22,7 @@ namespace pigeon.gameobject {
         }
 
         internal void UpdateComponent() {
-            if (!enabled) {
+            if (!Enabled) {
                 return;
             }
 

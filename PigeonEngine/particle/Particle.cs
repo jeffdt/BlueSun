@@ -6,7 +6,7 @@ using pigeon.gfx;
 using pigeon.time;
 
 namespace pigeon.particle {
-    public class Particle : RegistryObject {
+    public class Particle : IRegistryObject {
         #region static
         private const int RESERVE_COUNT = 1000;
         private static Queue<Particle> particles;
@@ -43,7 +43,6 @@ namespace pigeon.particle {
         public Point Position {
             get { return new Point((int) truePosition.X, (int) truePosition.Y); }
             set { truePosition = value.ToVector2(); }
-
         }
 
         public Vector2 Velocity { get { return _velocity; } set { _velocity = value; } }
@@ -71,7 +70,7 @@ namespace pigeon.particle {
         }
 
         public void Draw() {
-            Renderer.spriteBatch.Draw(ResourceCache.Pixel, Position.ToVector2(), null, Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, DrawLayer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, Position.ToVector2(), null, Color, 0f, Vector2.Zero, 1f, SpriteEffects.None, DrawLayer);
             // Renderer.spriteBatch.Draw(ResourceCache.Pixel, Position, Color);
         }
 
