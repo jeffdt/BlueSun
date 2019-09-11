@@ -68,8 +68,8 @@ namespace pigeon.collision {
 
         private int findOccupyingQuad(ColliderComponent collider) {
             int index = -1;
-            double verticalMidpoint = bounds.X + bounds.Width / 2;
-            double horizontalMidpoint = bounds.Y + bounds.Height / 2;
+            double verticalMidpoint = bounds.X + (bounds.Width / 2);
+            double horizontalMidpoint = bounds.Y + (bounds.Height / 2);
 
             Rectangle worldHitbox = collider.GetWorldRectangle();
 

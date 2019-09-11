@@ -97,7 +97,7 @@ namespace pigeon.gameobject {
         public Vector2 SpeculativePosition;
 
         public Point SpeculativeWorldPositionAt(float deltaTime) {
-            var speculativePosition = trueLocalPosition + Velocity * deltaTime;
+            var speculativePosition = trueLocalPosition + (Velocity * deltaTime);
             return new Point(((int) speculativePosition.X) + Parent.WorldPosition.X, ((int) speculativePosition.Y) + Parent.WorldPosition.Y);
         }
 
@@ -153,19 +153,15 @@ namespace pigeon.gameobject {
         #endregion
 
         #region control
-        private bool isUpdateDisabled { get { return UpdateDisabled || (Parent != null && Parent.isUpdateDisabled); } }
-        private bool isDrawDisabled { get { return DrawDisabled || (Parent != null && Parent.isDrawDisabled); } }
+        private bool isUpdateDisabled { get { return UpdateDisabled || (Parent?.isUpdateDisabled == true); } }
+        private bool isDrawDisabled { get { return DrawDisabled || (Parent?.isDrawDisabled == true); } }
         public bool UpdateDisabled;
         public bool DrawDisabled;
         #endregion
 
         #region flipping
-        private bool _flipWithParent = true;
 
-        public bool FlipWithParent {
-            get { return _flipWithParent; }
-            set { _flipWithParent = value; }
-        }
+        public bool FlipWithParent { get; set; } = true;
 
         public bool FlipLocalPositionWithParent { get; set; }
 
@@ -297,7 +293,7 @@ namespace pigeon.gameobject {
         }
 
         public bool HasChildren() {
-            return children != null && children.Count > 0;
+            return children?.Count > 0;
         }
 
         public GameObject FindChild(string name) {
@@ -400,9 +396,7 @@ namespace pigeon.gameobject {
         public int ComponentCount { get { return components == null ? 0 : components.Count; } }
 
         public void RemoveComponent(Component cmpt) {
-            if (cmpt.Destructor != null) {
-                cmpt.Destructor.Invoke();
-            }
+            cmpt.Destructor?.Invoke();
 
             var drawable = cmpt as Drawable;
             if (drawable != null) {
@@ -472,7 +466,7 @@ namespace pigeon.gameobject {
         }
 
         public void Update() {
-            if (toInitialize != null && toInitialize.Count > 0) {
+            if (toInitialize?.Count > 0) {
                 for (int index = 0; index < toInitialize.Count; index++) {
                     var cmpt = toInitialize[index];
                     cmpt.InitializeComponent();
@@ -500,11 +494,11 @@ namespace pigeon.gameobject {
         }
 
         public void UpdateSpeculativePosition() {
-            SpeculativePosition = trueLocalPosition + Velocity * Time.SecScaled;
+            SpeculativePosition = trueLocalPosition + (Velocity * Time.SecScaled);
         }
 
         private void updateChildren() {
-            if (children_toAdd != null && children_toAdd.Count > 0) {
+            if (children_toAdd?.Count > 0) {
                 foreach (var child in children_toAdd) {
                     children.Add(child);
                     child.Parent = this;
@@ -569,7 +563,7 @@ namespace pigeon.gameobject {
             if (DrawHitboxesGlobal || DrawHitbox) {
                 var hitbox = GetComponent<ColliderComponent>();
 
-                if (hitbox != null && hitbox.Enabled) {
+                if (hitbox?.Enabled == true) {
                     hitbox.Draw();
                 }
             }
@@ -599,10 +593,10 @@ namespace pigeon.gameobject {
             inspector.AppendField("WPos", WorldPosition);
             inspector.AppendField("LPos", FlatLocalPosition);
             inspector.AppendField("DrawLayer", DrawLayer);
-            if (children != null && children.Count > 0) {
+            if (children?.Count > 0) {
                 inspector.AppendField("Children", children.Count);
             }
-            if (components != null && components.Count > 0) {
+            if (components?.Count > 0) {
                 inspector.AppendField("Components", components.Count);
             }
 

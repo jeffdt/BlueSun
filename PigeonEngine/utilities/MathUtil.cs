@@ -32,11 +32,11 @@ namespace pigeon.utilities {
         }
 
         public static float Distance(float x1, float y1, float x2, float y2) {
-            return (float) Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            return (float) Math.Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
         }
 
         public static float Distance(Vector2 a, Vector2 b) {
-            return (float) Math.Sqrt((b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y));
+            return (float) Math.Sqrt(((b.X - a.X) * (b.X - a.X)) + ((b.Y - a.Y) * (b.Y - a.Y)));
         }
 
         public static int Max(int a, int b) {

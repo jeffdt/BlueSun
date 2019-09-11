@@ -39,7 +39,7 @@ namespace pigeon.component {
             var alphaRange = MaxAlpha - MinAlpha;
             var cycle = MathHelper.Lerp(0, CyclePeriod, cycleTimer);
 
-            image.SetAlpha(MinAlpha + alphaRange * (cycle / CyclePeriod));
+            image.SetAlpha(MinAlpha + (alphaRange * (cycle / CyclePeriod)));
         }
     }
 }

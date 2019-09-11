@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace pigeon {
-    public class ObjectRegistry<T> where T : RegistryObject {
+    public class ObjectRegistry<T> where T : IRegistryObject {
         public readonly List<T> Objects = new List<T>();
         private readonly List<T> toAdd = new List<T>();
         private readonly List<T> toRemove = new List<T>();
@@ -52,7 +52,7 @@ namespace pigeon {
         }
     }
 
-    public interface RegistryObject {
+    public interface IRegistryObject {
         bool Update();
         void OnUnregister();
     }

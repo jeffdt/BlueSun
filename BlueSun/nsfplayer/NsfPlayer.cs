@@ -26,10 +26,6 @@ namespace BlueSun.src.worlds {
             folderTextObj.AddComponent(new TextRenderer().SetAll("", Fonts.Console, Palette.LightGray, Justification.Center));
             controllerObj.AddChild(folderTextObj);
 
-
-
-
-
             AddObj(controllerObj);
         }
 

@@ -70,7 +70,7 @@ namespace pigeon {
             GameData.Initialize();
             PlayerData.Initialize();
 
-            Renderer.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Renderer.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             loadResources();
 
@@ -194,6 +194,8 @@ namespace pigeon {
             }
 
             if (Console.IsDisplaying) { Console.Draw(); }
+
+            Renderer.FinalDraw();
         }
 
         public static void Reset() {

@@ -50,9 +50,9 @@
     <Compile Include="constants\Palette.cs" />
     <Compile Include="constants\Fonts.cs" />
     <Compile Include="constants\Inputs.cs" />
-    <Compile Include="worlds\MusicController.cs" />
-    <Compile Include="worlds\NsfPlayer.cs" />
-    <Compile Include="worlds\Album.cs" />
+    <Compile Include="nsfplayer\MusicController.cs" />
+    <Compile Include="nsfplayer\NsfPlayer.cs" />
+    <Compile Include="nsfplayer\Album.cs" />
     <Compile Include="worlds\TestWorld.cs" />
   </ItemGroup>
   <ItemGroup>

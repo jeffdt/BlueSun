@@ -17,9 +17,7 @@ namespace pigeon.menu {
         public GridEntry(Vector2 position, Graphic graphic) : base(position, graphic) { }
 
         public void Select() {
-            if (SelectionAction != null) {
-                SelectionAction.Invoke();
-            }
+            SelectionAction?.Invoke();
         }
     }
 }

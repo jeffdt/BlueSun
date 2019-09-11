@@ -94,7 +94,7 @@ namespace pigeon.legacy.graphics {
         public override void Update() { }
 
         public override void Draw(Vector2 position, float layer) {
-            Renderer.spriteBatch.Draw(Texture, position, SourceRect, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
+            Renderer.SpriteBatch.Draw(Texture, position, SourceRect, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
         }
     }
 }

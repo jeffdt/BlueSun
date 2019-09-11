@@ -99,7 +99,6 @@ namespace pigeon.rand {
                     position.X = area.X + area.Width + extraOffset;
                     position.Y = area.Y + Int(area.Height);
                     break;
-
             }
             return position;
         }

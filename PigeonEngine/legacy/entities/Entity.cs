@@ -76,9 +76,7 @@ namespace pigeon.legacy.entities {
         }
 
         public virtual void Update() {
-            if (Graphic != null) {
-                Graphic.Update();
-            }
+            Graphic?.Update();
         }
 
 
