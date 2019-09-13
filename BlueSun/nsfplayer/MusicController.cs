@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using pigeon;
 using pigeon.gameobject;
 using pigeon.gfx;
 using pigeon.input;
@@ -39,7 +40,7 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            //playRandomSong();
+            playRandomSong();
             //playSpecificSong("morse");
         }
 
@@ -83,6 +84,7 @@ namespace BlueSun.src.worlds {
 
         private void playRandomSong() {
             int randomSong = totalSongCount.Random();
+            Pigeon.Console.DebugLog(randomSong.ToString());
 
             for (int i = 0; i < albums.Count; i++) {
                 if (albums[i].SongCount < randomSong) {
@@ -121,6 +123,8 @@ namespace BlueSun.src.worlds {
 
                 songText.Text = songFolder.GetFriendlySongName(currSongIndex);
                 albumText.Text = songFolder.AlbumName;
+
+                Pigeon.Console.DebugLog(songText.Text);
             } catch (Exception) {
                 songText.Text = "oops i broke";
                 albumText.Text = "oops i broke";

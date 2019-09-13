@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace pigeon.console {
+namespace pigeon.pgnconsole {
     public static class ConsoleUtilities {
         public static string BracketedList(IEnumerable<string> strings) {
             var builder = new StringBuilder();

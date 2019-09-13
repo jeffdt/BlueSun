@@ -16,34 +16,34 @@ using pigeon.time;
 using pigeon.utilities.extensions;
 using pigeon.winforms;
 
-namespace pigeon.console {
+namespace pigeon.pgnconsole {
     public static class PigeonCommands {
         public static Dictionary<string, ConsoleCommand> Build() {
             return new Dictionary<string, ConsoleCommand> {
 				// console manipulation
 				{ "clear", clearScreen },
-                { "help", findCommands },
+                { "help", getCommands },
                 { "repeat", repeat },
 
 				// binds + aliases
-				{ "alias", alias },
-                { "unbind", unbind},
-                { "bind", bind },
+				{ "alias", setAlias },
+                { "unbind", setUnbind},
+                { "bind", setBind },
                 { "findkey", findKeyboardKeyName },
 
 				// audio
-				{ "bgmequalizer", bgmEqualizer },
-                { "bgmmutevoice", bgmMuteVoice },
-                { "bgmmutevoices", bgmMuteVoices },
+                { "sfxvol", setSfxVolume },
                 { "bgmplay", bgmPlayTrack },
                 { "bgmpause", bgmPause },
                 { "bgmresume", bgmResume },
                 { "bgmstop", bgmStop },
-                { "bgmstereo", bgmStereoDepth },
-                { "bgmfade", bgmFade },
+                { "bgmvol", setBgmVolume },
                 { "bgmtempo", bgmTempo },
-                { "bgmvol", setVolumeBgm },
-                { "sfxvol", setVolumeSfx },
+				{ "bgmequalizer", setBgmEqualizer },
+                { "bgmmutevoice", setBgmMuteVoice },
+                { "bgmmutevoices", setBgmMuteVoices },
+                { "bgmstereo", bgmStereoDepth },
+                { "bgmfade", setBgmFade },
 
 				// toggled debug info
 				{ "togglecd", toggleCd },
@@ -54,27 +54,28 @@ namespace pigeon.console {
 
 				// engine
 				{ "exit", exitApp },
-                { "gamespeed", gameSpeed},
+                { "gamespeed", setGameSpeed},
                 { "reset", reset },
                 { "savedir", openSaveDir },
                 { "showui", showUi },
                 { "tick", tick },
 				
 				// objects
-				{ "components", listComponents },
+				{ "components", getComponents },
                 { "bump", bump },
-                { "hide", hideDrawable },
+                { "hide", setHideDrawable },
                 { "inspect", inspect },
-                { "objects", allObjects },
+                { "objects", getAllObjects },
 
 				// graphics
-				{ "fullscreen", fullscreen },
-                { "lcd", lcd },
+				{ "fullscreen", toggleFullscreen },
+                { "borderless", toggleBorderless},
+                { "lcd", toggleLcd },
                 { "scale", setScale },
                 { "screenshot", takeScreenshot },
 
 				// world
-				{ "pauseworld", pauseWorld },
+				{ "pauseworld", togglePauseWorld },
                 { "sandbox", createSandboxWorld },
 
 				// vars
@@ -92,7 +93,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void findCommands(string args) {
+        private static void getCommands(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("Available engine commands:");
                 Pigeon.Console.Log(ConsoleUtilities.BracketedList(Pigeon.Console.EngineCommandNames));
@@ -123,7 +124,7 @@ namespace pigeon.console {
         #endregion
 
         #region graphics
-        private static void lcd(string args) {
+        private static void toggleLcd(string args) {
             if (string.IsNullOrEmpty(args)) {
                 Renderer.LcdDisplay = !Renderer.LcdDisplay;
             } else {
@@ -131,7 +132,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void fullscreen(string args) {
+        private static void toggleFullscreen(string args) {
             bool before = Pigeon.Renderer.IsFullScreen;
             bool after;
 
@@ -141,9 +142,30 @@ namespace pigeon.console {
                 after = args.ToBool();
             }
 
+            if (before != after) {
+                Pigeon.Renderer.IsFullScreen = after;
+            }
+
             Pigeon.Renderer.IsFullScreen = after;
 
             ConsoleUtilities.LogVariableChange("full screen", before, after);
+        }
+
+        private static void toggleBorderless(string args) {
+            bool before = Pigeon.Renderer.IsBorderless;
+            bool after;
+
+            if (string.IsNullOrEmpty(args)) {
+                after = !Pigeon.Renderer.IsBorderless;
+            } else {
+                after = args.ToBool();
+            }
+
+            if (before != after) { 
+                Pigeon.Renderer.IsBorderless = after;
+            }
+
+            ConsoleUtilities.LogVariableChange("borderless", before, after);
         }
 
         private static void setScale(string args) {
@@ -172,7 +194,7 @@ namespace pigeon.console {
             Pigeon.ExitApp();
         }
 
-        private static void gameSpeed(string args) {
+        private static void setGameSpeed(string args) {
             if (string.IsNullOrEmpty(args)) {
                 ConsoleUtilities.LogVariable("game speed", GameSpeed.Multiplier);
             } else {
@@ -188,8 +210,8 @@ namespace pigeon.console {
         }
 
         private static void tick(string args) {
-            if (!Pigeon.Instance.PauseWorld) {
-                Pigeon.Instance.PauseWorld = true;
+            if (!Pigeon.PauseWorld) {
+                Pigeon.PauseWorld = true;
             }
 
             Pigeon.Instance.UpdateGameplay();
@@ -242,7 +264,7 @@ namespace pigeon.console {
         #endregion
 
         #region objects
-        private static void allObjects(string args) {
+        private static void getAllObjects(string args) {
             StringBuilder builder = new StringBuilder();
             GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.ObjRoot : Pigeon.World.FindObj(args);
             describeChildren(obj, builder);
@@ -314,7 +336,7 @@ namespace pigeon.console {
             Pigeon.Console.LogError("object does not exist");
         }
 
-        private static void hideDrawable(string args) {
+        private static void setHideDrawable(string args) {
             var obj = Pigeon.World.FindObj(args);
 
             if (obj == null) {
@@ -339,7 +361,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void listComponents(string args) {
+        private static void getComponents(string args) {
             var obj = Pigeon.World.FindObj(args);
 
             if (obj.components?.Count > 0) {
@@ -370,22 +392,22 @@ namespace pigeon.console {
             Pigeon.SetWorld(new EmptyWorld { BackgroundColor = background });
         }
 
-        private static void pauseWorld(string args) {
-            bool before = Pigeon.Instance.PauseWorld;
+        private static void togglePauseWorld(string args) {
+            bool before = Pigeon.PauseWorld;
             bool after;
             if (string.IsNullOrEmpty(args)) {
-                after = !Pigeon.Instance.PauseWorld;
+                after = !Pigeon.PauseWorld;
             } else {
                 after = args.ToBool();
             }
 
-            Pigeon.Instance.PauseWorld = after;
+            Pigeon.PauseWorld = after;
             ConsoleUtilities.LogVariableChange("pause world", before, after);
         }
         #endregion
 
         #region audio
-        private static void bgmEqualizer(string args) {
+        private static void setBgmEqualizer(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmequalizer <treble> <bass>");
                 Pigeon.Console.Log("   treble: -50 to 5 (def 0)");
@@ -400,7 +422,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void bgmMuteVoice(string args) {
+        private static void setBgmMuteVoice(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmmutevoice <index> <mute>");
                 Pigeon.Console.Log("   index: 0 to 7 (channel to mute)");
@@ -411,7 +433,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void bgmMuteVoices(string args) {
+        private static void setBgmMuteVoices(string args) {
             //			var mutingMask = 31;
             var mutingMask = Convert.ToInt32(args, 2);
             Music.MuteVoices(mutingMask);
@@ -455,7 +477,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void bgmFade(string args) {
+        private static void setBgmFade(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmfade <msLength>");
             } else {
@@ -472,7 +494,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void setVolumeBgm(string args) {
+        private static void setBgmVolume(string args) {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
@@ -485,7 +507,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void setVolumeSfx(string args) {
+        private static void setSfxVolume(string args) {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
@@ -574,7 +596,7 @@ namespace pigeon.console {
         #endregion
 
         #region binds/aliases
-        private static void bind(string args) {
+        private static void setBind(string args) {
             string[] splitArgs = args.Split(new[] { ' ' }, 2);
 
             Keys key = KeyBinds.ParseToKey(splitArgs[0]);
@@ -588,7 +610,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void unbind(string args) {
+        private static void setUnbind(string args) {
             if (args == "all") {
                 KeyBinds.Reset();
                 Pigeon.Console.Log("all custom binds reset");
@@ -614,7 +636,7 @@ namespace pigeon.console {
             }
         }
 
-        private static void alias(string args) {
+        private static void setAlias(string args) {
             var manager = Pigeon.Console.AliasManager;
 
             if (string.IsNullOrEmpty(args)) {

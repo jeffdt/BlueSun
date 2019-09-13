@@ -6,7 +6,7 @@ using pigeon.legacy.entities;
 using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 
-namespace pigeon.console {
+namespace pigeon.pgnconsole {
     public class MessageLog {
         private readonly int limit;
         private readonly SpriteFont font;
@@ -18,7 +18,7 @@ namespace pigeon.console {
         private readonly List<LogMessage> allMessages;
         private readonly List<TextEntity> messageEntities;
 
-        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, ConsoleOptions options, EntityRegistry registry) {
+        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, PGNConsoleOptions options, EntityRegistry registry) {
             this.font = font;
             this.wrapWidth = lineWrapWidth;
             this.bottomMessagePosition = bottomMessagePosition;

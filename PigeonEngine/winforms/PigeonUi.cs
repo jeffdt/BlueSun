@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using pigeon.console;
+using pigeon.pgnconsole;
 using pigeon.utilities.extensions;
 using pigeon.Properties;
 
@@ -20,7 +20,7 @@ namespace pigeon.winforms {
         }
 
         private void updatePauseButton() {
-            utilitiesPauseButton.BackgroundImage = Pigeon.Instance.PauseWorld ? Resources.play : Resources.pause;
+            utilitiesPauseButton.BackgroundImage = Pigeon.PauseWorld ? Resources.play : Resources.pause;
         }
 
         private void pauseButton_Click(object sender, EventArgs e) {

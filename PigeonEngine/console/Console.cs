@@ -15,8 +15,8 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using pigeon.gfx;
 using PigeonEngine.utilities.extensions;
 
-namespace pigeon.console {
-    public class Console : World {
+namespace pigeon.pgnconsole {
+    public class PGNConsole : World {
         private const int bufferMaxLength = 300;
 
         #region printCharacters
@@ -108,7 +108,7 @@ namespace pigeon.console {
             }
         }
 
-        public readonly ConsoleOptions Options;
+        public readonly PGNConsoleOptions Options;
         private readonly Vector2 bufferPosition;
         private bool initialized;
         private readonly SpriteFont font;
@@ -138,7 +138,7 @@ namespace pigeon.console {
 
         public bool IsDisplaying { get; private set; }
 
-        public Console(ConsoleOptions options) {
+        public PGNConsole(PGNConsoleOptions options) {
             Options = options;
 
             font = ResourceCache.Font("console");
