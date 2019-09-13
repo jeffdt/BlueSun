@@ -99,6 +99,7 @@
     <Compile Include="debug\DebugHelper.cs" />
     <Compile Include="debug\EmptyWorld.cs" />
     <Compile Include="debug\ObjectDescriber.cs" />
+    <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />

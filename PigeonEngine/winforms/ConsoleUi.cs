@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using pigeon.console;
+using pigeon.pgnconsole;
 
 namespace pigeon.winforms {
     public partial class PigeonUi {

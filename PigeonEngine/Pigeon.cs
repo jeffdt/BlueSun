@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.collision;
-using pigeon.console;
+using pigeon.pgnconsole;
 using pigeon.core;
 using pigeon.core.events;
 using pigeon.data;
@@ -12,16 +12,19 @@ using pigeon.input;
 using pigeon.legacy.graphics.anim;
 using pigeon.sound;
 using pigeon.time;
+using PigeonEngine.gfx;
 using System;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
+        public static Pigeon Instance;
+
         // set these for each new game
+        public abstract DisplayParams DisplayParams { get; }
         protected abstract string WindowTitle { get; }
-        protected abstract Renderer GetRenderer { get; }
         protected abstract string Version { get; }
         protected abstract int FrameRate { get; }
-        protected abstract ConsoleOptions ConsoleOpts { get; }
+        protected abstract PGNConsoleOptions ConsoleOpts { get; }
         protected abstract bool StartMouseVisible { get; }
         protected abstract Color DefaultBkgdColor { get; }
         protected abstract TextureTemplateProcessor TemplateProcessor { get; }
@@ -29,21 +32,20 @@ namespace pigeon {
         protected abstract void Load();
         protected abstract void InitializeGame();
 
-        public static Pigeon Instance;
-        public static console.Console Console;
+        public static PGNConsole Console;
         public static Renderer Renderer;
         public static readonly EventRegistry GameEventRegistry = new EventRegistry();
         public static readonly EventRegistry EngineEventRegistry = new EventRegistry();
         public static readonly Camera Camera = new Camera();
         public static ContentManager ContentManager;
-        public static bool IsInFocus;
         public static World World { get; private set; }
+        public static bool IsInFocus;
 
         public static InputManager InputManager = new InputManager();
 
         internal static Color EngineBkgdColor;
 
-        public bool PauseWorld;
+        public static bool PauseWorld;
         internal static World nextWorld = null;
         private static bool isNextWorldAlreadyInitialized;
         private static World lastWorld;
@@ -60,7 +62,7 @@ namespace pigeon {
         }
 
         protected sealed override void LoadContent() {
-            Renderer = GetRenderer;
+            Renderer = new Renderer(DisplayParams.ScreenWidth, DisplayParams.ScreenHeight, DisplayParams.InitialScale);
 
             TargetElapsedTime = TimeSpan.FromSeconds(1 / (float) FrameRate);
             Instance.Window.Title = WindowTitle;
@@ -79,7 +81,7 @@ namespace pigeon {
 
             Load();
 
-            Console = new console.Console(ConsoleOpts);
+            Console = new pgnconsole.PGNConsole(ConsoleOpts);
             Console.LoadContent();
             Console.AddGlobalCommands(PigeonCommands.Build());
 

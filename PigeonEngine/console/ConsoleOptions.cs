@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace pigeon.console {
-    public class ConsoleOptions {
+namespace pigeon.pgnconsole {
+    public class PGNConsoleOptions {
         public Color PanelColor = Color.DarkSlateGray;
         public Color BufferColor = Color.SkyBlue;
         public Color HistoryColor = Color.SteelBlue;

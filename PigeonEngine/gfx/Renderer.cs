@@ -35,14 +35,30 @@ namespace pigeon.gfx {
             }
         }
 
-        private bool isFullScreen;
+        private bool isBorderless;
+        public bool IsBorderless {
+            get { return isBorderless; }
+            set {
+                isBorderless = value;
+                GraphicsDeviceMgr.HardwareModeSwitch = !isBorderless;
+                IsFullScreen = isBorderless;
+            }
+        }
 
+        private bool isFullScreen;
         public bool IsFullScreen {
             get { return isFullScreen; }
             set {
                 isFullScreen = value;
-                GraphicsDeviceMgr.IsFullScreen = isFullScreen;
-                updateGraphicsDeviceSettings();
+
+                if (isFullScreen) {
+                    int scaleWidth = monitorWidth / BaseResolutionX;
+                    int scaleHeight = monitorHeight / BaseResolutionY;
+                    
+                    DrawScale = Math.Min(scaleWidth, scaleHeight);
+                } else {
+                    DrawScale = Pigeon.Instance.DisplayParams.InitialScale;
+                }
             }
         }
 
@@ -192,11 +208,14 @@ namespace pigeon.gfx {
         }
 
         private void updateGraphicsDeviceSettings() {
+            GraphicsDeviceMgr.IsFullScreen = IsFullScreen;
+
             int scaledGameWidth = BaseResolutionX * drawScale;
             int scaledGameHeight = BaseResolutionY * drawScale;
 
             int fullDisplayWidth;
             int fullDisplayHeight;
+
 
             if (IsFullScreen) {
                 fullDisplayWidth = monitorWidth;
