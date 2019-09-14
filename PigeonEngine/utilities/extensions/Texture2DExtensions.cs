@@ -6,7 +6,7 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace pigeon.utilities.extensions {
     public static class Texture2DExtensions {
-        public static Color[,] GetData2D(this Texture2D texture) {
+        public static Color[,] GetPixels2D(this Texture2D texture) {
             Color[] colorsOne = new Color[texture.Width * texture.Height];
             texture.GetData(colorsOne);
 
