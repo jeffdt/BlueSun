@@ -175,7 +175,7 @@ namespace pigeon.pgnconsole {
             buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, options.BufferColor, Justification.TopLeft);
             commandBuffer = "";
 
-            int lineSpacing = font.MeasureHeight(">") * 2;
+            int lineSpacing = font.MeasureHeight(">");
             Vector2 bottomMessagePosition = new Vector2(bufferPosition.X, bufferPosition.Y - lineSpacing);
             messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
 

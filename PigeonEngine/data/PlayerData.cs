@@ -51,7 +51,8 @@ namespace pigeon.data {
         public static void SaveAsTimestampedPng(this Texture2D texture) {
             var screenshotFolder = Path.Combine(UserDataPath, "screenshots");
             if (!DirectoryExists(screenshotFolder)) {
-                Directory.CreateDirectory(screenshotFolder);
+                var directoryInfo = Directory.CreateDirectory(screenshotFolder);
+                Pigeon.Console.Log("Created directory: " + directoryInfo.FullName);
             }
 
             texture.SaveAsPng_Pigeon(Path.Combine(screenshotFolder, Data.FormattedTimestamp() + ".png"));
