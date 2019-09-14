@@ -115,6 +115,7 @@ namespace pigeon.pgnconsole {
         internal readonly AliasManager AliasManager = new AliasManager();
         private bool initialized;
 
+        private RenderTarget2D overlayRenderTarget;
         private Entity panel;
         private Entity cursor;
         private TextEntity buffer;
@@ -144,7 +145,7 @@ namespace pigeon.pgnconsole {
             this.options = options;
 
             font = ResourceCache.Font("console");
-            bufferPosition = new Vector2(this.options.PanelRect.X + this.options.TextInset, this.options.PanelRect.Y + this.options.PanelRect.Height - 10);
+            bufferPosition = new Vector2(this.options.PanelRect.X + this.options.TextInset, this.options.PanelRect.Y + this.options.PanelRect.Height - this.options.TextInset * 2);
 
             history = new CommandHistory(options.CommandHistory);
         }
@@ -155,6 +156,7 @@ namespace pigeon.pgnconsole {
             initialized = true;
 
             var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, options.PanelRect.Width, options.PanelRect.Height);
+            overlayRenderTarget = new RenderTarget2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, options.PanelRect.Width, options.PanelRect.Height);
 
             Color[] panelPixels = new Color[panelTexture.Width * panelTexture.Height];
             for (int i = 0; i < panelPixels.Length; i++) {

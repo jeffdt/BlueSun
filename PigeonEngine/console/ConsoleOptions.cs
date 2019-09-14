@@ -3,7 +3,7 @@ using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
     public class PGNConsoleOptions {
-        public Rectangle PanelRect = new Rectangle(new Point(), new Point(Pigeon.Renderer.BaseResolutionX, 3 * Pigeon.Renderer.BaseResolutionY / 4));
+        public Rectangle PanelRect = new Rectangle(new Point(10, 0), new Point(Pigeon.Renderer.BaseResolutionX - 20, 3 * Pigeon.Renderer.BaseResolutionY / 4));
         public Color PanelColor = Color.Navy.WithAlpha(150);
         public Color BufferColor = Color.SkyBlue;
         public Color HistoryColor = Color.SkyBlue;
