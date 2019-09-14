@@ -29,7 +29,7 @@ namespace pigeon.utilities.extensions {
             return str.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static string[] SplitArgsWithQuotes(string args) {
+        public static string[] SplitArgsWithQuotes(this string args) {
             return quoteSplitter.Matches(args).Cast<Match>().Select(m => m.Value).ToArray();
         }
 
@@ -90,6 +90,11 @@ namespace pigeon.utilities.extensions {
         public static string FormatWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
             StringBuilder finalString = new StringBuilder();
 
+            Action<string> addLine = (str) => {
+                finalString.Append(str);
+                finalString.Append('\n');
+            };
+
             string[] words = text.Split(' ');
             string line = string.Empty;
             int lineCount = 1;
@@ -100,7 +105,8 @@ namespace pigeon.utilities.extensions {
                         throw new ArgumentException(string.Format("cannot format string into {0} lines. original string: {1}", maxLines, text));
                     }
 
-                    finalString.Append(line + '\n');
+                    addLine(line);
+
                     line = string.Empty;
                     lineCount++;
                 }
@@ -134,6 +140,35 @@ namespace pigeon.utilities.extensions {
             }
 
             return lines;
+        }
+
+        public static List<string> SplitWrapNew(this string text, SpriteFont font, int width) {
+            List<string> lines = new List<string>();
+            _splitString(text, font.MeasureWidth, width, (str) => lines.Add(str)) ;
+            return lines;
+        }
+
+        public static void _splitString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
+            string[] words = text.Split(' ');
+            string line = string.Empty;
+            int lineCount = 1;
+
+            foreach (string word in words) {
+                if (stringMeasurer(line + word) > width) {
+                    if (maxLines != 0 && lineCount >= maxLines) {
+                        throw new ArgumentException(string.Format("cannot format string into {0} lines. original string: {1}", maxLines, text));
+                    }
+
+                    onSplit(line.Chop(" "));
+
+                    line = string.Empty;
+                    lineCount++;
+                }
+
+                line = line + word + ' ';
+            }
+
+            onSplit(line.Chop(" ")); // add last line
         }
     }
 }
