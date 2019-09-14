@@ -71,26 +71,57 @@ namespace PigeonEngineTest.utilities.extensions {
             Assert.That(() => "111111111111111".ToInt(), Throws.TypeOf<OverflowException>());
             Assert.That(() => "abcdef".ToInt(), Throws.TypeOf<FormatException>());
         }
-        // ToFloat
-        // ToDouble
-        // ToBool
-        // ToUnitInterval
+        
+        [TestCase("true", true)]
+        [TestCase("false", false)]
+        [TestCase("1", true)]
+        [TestCase("0", false)]
+        [TestCase("on", true)]
+        [TestCase("off", false)]
+        [TestCase("t", true)]
+        [TestCase("f", false)]
+        public void ToBool(string input, bool expected) {
+            Assert.AreEqual(expected, input.ToBool());
+        }
+
+        [TestCase("0", 0.0)]
+        [TestCase("0.1", 0.1)]
+        [TestCase("0.5", 0.5)]
+        [TestCase("0.55555", 0.55555)]
+        [TestCase("0.99999", 0.99999)]
+        [TestCase("1.0", 1.0)]
+        [TestCase("1", 1.0)]
+        public void ToUnitInterval(string input, double expected) {
+            Assert.AreEqual(expected, input.ToUnitInterval());
+        }
+
+        public void ToUnitInterval_Exceptions() {
+            Assert.IsNull("-1.0".ToUnitInterval());
+            Assert.IsNull("1.5".ToUnitInterval());
+            Assert.IsNull("some words".ToUnitInterval());
+        }
         // ToVector2
         // ToRectangle
         // ToEnum
         // Tokenize
 
-        [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 5, 17)]
-        //         {}{  } {} {  } {} {       } {      } { } { } {    } { } {  } {} {  } {   } {} {     }
         [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 10, 9)]
         //         {   1    }{   2  }{   3    }{   4   }{   5  }{   6    } {   7  }{   8    } {   9    }
         [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 20, 5)]
         //         {       1        }{        2        }{       3         }{       4         }{   5    }
         [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 40, 3)]
         //         {              1                    }{                  2                   }{   3  }
+        public void SplitWrap(String inputStr, int inputWidth, int expectedLines) {
+            List<string> actualLines = new List<string>();
+            StringExtensions._wrapString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
+            Assert.AreEqual(expectedLines, actualLines.Count);
+        }
+
+        [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 5, 17)]
+        //         {}{  } {} {  } {} {       } {      } { } { } {    } { } {  } {} {  } {   } {} {     }
         [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 100, 1)]
         //         {                                                                                   }
-        public void SplitWrap(String inputStr, int inputWidth, int expectedLines) {
+        public void SplitWrap_EdgeCases(String inputStr, int inputWidth, int expectedLines) {
             List<string> actualLines = new List<string>();
             StringExtensions._wrapString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
             Assert.AreEqual(expectedLines, actualLines.Count);

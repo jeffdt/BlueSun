@@ -32,30 +32,40 @@ namespace pigeon.utilities.extensions {
             return Convert.ToByte(str);
         }
 
+        //$$
         public static byte HexToByte(this string hexStr) {
             return Convert.ToByte(hexStr, 16);
         }
 
+        //$$
         public static int ToInt(this string str) {
             return Convert.ToInt32(str);
         }
 
+        //$$
         public static float ToFloat(this string str) {
             return Convert.ToSingle(str);
         }
 
+        //$$
         public static double ToDouble(this string str) {
             return Convert.ToDouble(str);
         }
 
+        //$$
         public static bool ToBool(this string str) {
-            return Convert.ToBoolean(str);
+            if (str == "true" || str == "1" || str == "on" || str == "t") {
+                return true;
+            } else if (str == "false" || str == "0" || str == "off" || str == "f") {
+                return false;
+            } else {
+                throw new FormatException();
+            }
         }
 
         public static double? ToUnitInterval(this string str) {
-            double result;
-            bool parsed = double.TryParse(str, out result);
-            return (parsed && result >= 0f && result <= 1f) ? result : (double?) null;
+            bool parsed = double.TryParse(str, out double result);
+            return (parsed && result.InRange(0, 1)) ? result : null as double?;
         }
 
         public static Vector2 ToVector2(this string str) {
