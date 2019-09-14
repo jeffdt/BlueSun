@@ -101,8 +101,8 @@ namespace pigeon.pgnconsole {
                 }
 
                 _commandBuffer = value;
-                var displayPortion = _commandBuffer.Last(Options.CommandDisplayLength);
-                buffer.Text = string.Format(@">{0}", displayPortion);
+                var displayPortion = _commandBuffer.LastByPixels(bufferOverflowWidth, font);
+                buffer.Text = string.Format(">{0}", displayPortion);
 
                 updateCursorPosition();
             }
@@ -117,6 +117,9 @@ namespace pigeon.pgnconsole {
         private Entity panel;
         private Entity cursor;
         private TextEntity buffer;
+
+        private const int INSET_X = 5;
+        private int bufferOverflowWidth;
 
         internal List<string> AllCommandNames {
             get {
@@ -142,10 +145,10 @@ namespace pigeon.pgnconsole {
             Options = options;
 
             font = ResourceCache.Font("console");
-            bufferPosition = new Vector2(5, Pigeon.Renderer.BaseResolutionY - 10);
+            bufferPosition = new Vector2(INSET_X, Pigeon.Renderer.BaseResolutionY - 10);
 
             int lineWrapWidth = Pigeon.Renderer.BaseResolutionX - 15;
-            Vector2 bottomMessagePosition = new Vector2(5, Pigeon.Renderer.BaseResolutionY - 20);
+            Vector2 bottomMessagePosition = new Vector2(INSET_X, Pigeon.Renderer.BaseResolutionY - 20);
             MessageLog = new MessageLog(font, lineWrapWidth, bottomMessagePosition, options, EntityRegistry);
 
             history = new CommandHistory(options.CommandHistory);
@@ -173,6 +176,8 @@ namespace pigeon.pgnconsole {
             animatedSprite.Color = Options.BufferColor;
             cursor = new Entity(bufferPosition, animatedSprite) { Layer = .5f };
             EntityRegistry.Register(cursor);
+
+            bufferOverflowWidth = Pigeon.Renderer.BaseResolutionX - INSET_X - (font.MeasureWidth(">") * 3);
 
             buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, Options.BufferColor, Justification.TopLeft);
             commandBuffer = "";
