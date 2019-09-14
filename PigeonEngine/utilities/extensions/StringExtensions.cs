@@ -9,7 +9,6 @@ using PigeonEngine.utilities.extensions;
 
 namespace pigeon.utilities.extensions {
     public static class StringExtensions {
-        private static readonly Regex quoteSplitter = new Regex(@"[\""].+?[\""]|[^ ]+");
         private static readonly char[] COMMA_SEPARATOR = { ',' };
         private static readonly char[] SPACE_SEPARATOR = { ' ' };
 
@@ -28,12 +27,13 @@ namespace pigeon.utilities.extensions {
             return source.EndsWith(tailString) ? source.Substring(0, source.Length - tailString.Length) : source;
         }
 
-        public static string[] SplitArgsWithQuotes(this string args) {
-            return quoteSplitter.Matches(args).Cast<Match>().Select(m => m.Value).ToArray();
-        }
-
+        //$$
         public static byte ToByte(this string str) {
             return Convert.ToByte(str);
+        }
+
+        public static byte HexToByte(this string hexStr) {
+            return Convert.ToByte(hexStr, 16);
         }
 
         public static int ToInt(this string str) {

@@ -25,18 +25,52 @@ namespace PigeonEngineTest.utilities.extensions {
             Assert.AreEqual(expected, input.Chop(toChop));
         }
 
-        [Test]
-        public void SplitArgsWithQuotes() {
-            string[] actual = "\"abc\" \"1\" \"def\" \"true\"".SplitArgsWithQuotes();
-
-            Assert.AreEqual("abc", actual[0]);
-            Assert.AreEqual("1", actual[1]);
-            Assert.AreEqual("def", actual[2]);
-            Assert.AreEqual("true", actual[3]);
-
+        [TestCase("0", 0)]
+        [TestCase("127", 127)]
+        [TestCase("255", 255)]
+        [TestCase("127", 127)]
+        public void ToByte(string input, byte expected) {
+            Assert.AreEqual(expected, input.ToByte());
         }
-        // ToByte
-        // ToInt
+
+        [Test]
+        public void ToByteExceptions() {
+            Assert.That(() => "-1".ToByte(), Throws.TypeOf<OverflowException>());
+            Assert.That(() => "256".ToByte(), Throws.TypeOf<OverflowException>());
+            Assert.That(() => "byte".ToByte(), Throws.TypeOf<FormatException>());
+        }
+
+        [TestCase("ff", 255)]
+        [TestCase("f", 15)]
+        [TestCase("0f", 15)]
+        public void HexToByte(string input, byte expected) {
+            Assert.AreEqual(expected, input.HexToByte());
+        }
+
+        [Test]
+        public void HexToByteExceptions() {
+            Assert.That(() => "gg".HexToByte(), Throws.TypeOf<FormatException>());
+            Assert.That(() => "-1".HexToByte(), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => "256".HexToByte(), Throws.TypeOf<OverflowException>());
+            Assert.That(() => "byte".HexToByte(), Throws.TypeOf<FormatException>());
+        }
+
+
+        [TestCase("0", 0)]
+        [TestCase("15", 15)]
+        [TestCase("123456789", 123456789)]
+        [TestCase("-1", -1)]
+        [TestCase("-11111111", -11111111)]
+        public void ToInt(string input, int expected) {
+            Assert.AreEqual(expected, input.ToInt());
+        }
+
+        [Test]
+        public void ToIntExceptions() {
+            Assert.That(() => "-111111111111111".ToInt(), Throws.TypeOf<OverflowException>());
+            Assert.That(() => "111111111111111".ToInt(), Throws.TypeOf<OverflowException>());
+            Assert.That(() => "abcdef".ToInt(), Throws.TypeOf<FormatException>());
+        }
         // ToFloat
         // ToDouble
         // ToBool
@@ -59,11 +93,6 @@ namespace PigeonEngineTest.utilities.extensions {
         public void SplitWrap(String inputStr, int inputWidth, int expectedLines) {
             List<string> actualLines = new List<string>();
             StringExtensions._wrapString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
-            
-            foreach(var line in actualLines) {
-                Console.Write(line);
-            }
-
             Assert.AreEqual(expectedLines, actualLines.Count);
         }
     }
