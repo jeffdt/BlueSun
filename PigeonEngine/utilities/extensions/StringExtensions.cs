@@ -13,8 +13,23 @@ namespace pigeon.utilities.extensions {
         private static readonly char[] SPACE_SEPARATOR = { ' ' };
 
         //$$
-        public static string Last(this string source, int tailLength) {
-            return tailLength >= source.Length ? source : source.Substring(source.Length - tailLength);
+        public static string Last(this string source, int tailCharsLength) {
+            return tailCharsLength >= source.Length ? source : source.Substring(source.Length - tailCharsLength);
+        }
+
+        // calculate how many characters will fit in a space of {width} pixels
+        public static string LastByPixels(this string source, int spaceWidth, SpriteFont font) {
+            return _lastByPixels(source, spaceWidth, (str) => (int) font.MeasureString(str).X);
+        }
+
+        internal static string _lastByPixels(string source, int spaceWidth, Func<string, int> strMeasurer) {
+            for(int i = source.Length - 1; i >= 0; i--) {
+                if (strMeasurer(source.Substring(i)) > spaceWidth) {
+                    return source.Substring(i + 1);
+                }
+            }
+
+            return source;
         }
 
         //$$
@@ -110,7 +125,7 @@ namespace pigeon.utilities.extensions {
             return lines;
         }
 
-        public static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
+        internal static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
             string[] words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
             string line = string.Empty;
             int lineCount = 1;

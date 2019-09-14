@@ -5,7 +5,7 @@ using pigeon.utilities.extensions;
 using System;
 using System.Collections.Generic;
 
-namespace PigeonEngineTest.utilities.extensions {
+namespace PigeonEngineTests.utilities.extensions {
     [TestFixture]
     public class StringExtensionsTest {
         [TestCase("987654321", 5, "54321")]
@@ -13,6 +13,16 @@ namespace PigeonEngineTest.utilities.extensions {
         [TestCase("987654321", 20, "987654321")]
         public void Last(string input, int tailLength, string expected) {
             Assert.AreEqual(expected, input.Last(tailLength));
+        }
+
+        [TestCase("987654321", 5, 1, "54321")]
+        [TestCase("987654321", 1, 1, "1")]
+        [TestCase("987654321", 9, 1, "987654321")]
+        [TestCase("987654321", 9, 2, "4321")]
+        [TestCase("987654321", 20, 1, "987654321")]
+        [TestCase("987654321", 4, 2, "21")]
+        public void Last_byPixels(string input, int spaceWidth, int charWidth, string expected) {
+            Assert.AreEqual(expected, StringExtensions._lastByPixels(input, spaceWidth, (str) => str.Length * charWidth));
         }
 
         [TestCase("abcdefghijkl", "abc", "defghijkl")]
