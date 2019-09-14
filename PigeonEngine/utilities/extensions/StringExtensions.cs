@@ -9,56 +9,67 @@ using PigeonEngine.utilities.extensions;
 
 namespace pigeon.utilities.extensions {
     public static class StringExtensions {
-        private static readonly Regex quoteSplitter = new Regex(@"[\""].+?[\""]|[^ ]+");
         private static readonly char[] COMMA_SEPARATOR = { ',' };
         private static readonly char[] SPACE_SEPARATOR = { ' ' };
 
+        //$$
         public static string Last(this string source, int tailLength) {
             return tailLength >= source.Length ? source : source.Substring(source.Length - tailLength);
         }
 
+        //$$
         public static string After(this string source, string openingString) {
             return source.Substring(openingString.Length, source.Length - openingString.Length);
         }
 
+        //$$
         public static string Chop(this string source, string tailString) {
             return source.EndsWith(tailString) ? source.Substring(0, source.Length - tailString.Length) : source;
         }
 
-        public static string[] SplitArgs(this string str) {
-            return str.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-        }
-
-        public static string[] SplitArgsWithQuotes(this string args) {
-            return quoteSplitter.Matches(args).Cast<Match>().Select(m => m.Value).ToArray();
-        }
-
+        //$$
         public static byte ToByte(this string str) {
             return Convert.ToByte(str);
         }
 
+        //$$
+        public static byte HexToByte(this string hexStr) {
+            return Convert.ToByte(hexStr, 16);
+        }
+
+        //$$
         public static int ToInt(this string str) {
             return Convert.ToInt32(str);
         }
 
+        //$$
         public static float ToFloat(this string str) {
             return Convert.ToSingle(str);
         }
 
+        //$$
         public static double ToDouble(this string str) {
             return Convert.ToDouble(str);
         }
 
+        //$$
         public static bool ToBool(this string str) {
-            return Convert.ToBoolean(str);
+            if (str == "true" || str == "1" || str == "on" || str == "t") {
+                return true;
+            } else if (str == "false" || str == "0" || str == "off" || str == "f") {
+                return false;
+            } else {
+                throw new FormatException();
+            }
         }
 
+        //$$
         public static double? ToUnitInterval(this string str) {
-            double result;
-            bool parsed = double.TryParse(str, out result);
-            return (parsed && result >= 0f && result <= 1f) ? result : (double?) null;
+            bool parsed = double.TryParse(str, out double result);
+            return (parsed && result.InRange(0, 1)) ? result : null as double?;
         }
 
+        //$$
         public static Vector2 ToVector2(this string str) {
             string[] values = str.Split(COMMA_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
 
@@ -100,7 +111,7 @@ namespace pigeon.utilities.extensions {
         }
 
         public static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
-            string[] words = text.Split(' ');
+            string[] words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
             string line = string.Empty;
             int lineCount = 1;
 
