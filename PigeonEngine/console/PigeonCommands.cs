@@ -128,7 +128,7 @@ namespace pigeon.pgnconsole {
             if (string.IsNullOrEmpty(args)) {
                 Renderer.LcdDisplay = !Renderer.LcdDisplay;
             } else {
-                Renderer.LcdDisplay = args.SplitArgs()[0].ToBool();
+                Renderer.LcdDisplay = args.Tokenize()[0].ToBool();
             }
         }
 
@@ -271,7 +271,7 @@ namespace pigeon.pgnconsole {
         }
 
         private static void bump(string args) {
-            var splitArgs = args.SplitArgs();
+            var splitArgs = args.Tokenize();
             var obj = Pigeon.World.FindObj(splitArgs[1]);
 
             var bumpDir = Point.Zero;
@@ -379,7 +379,7 @@ namespace pigeon.pgnconsole {
 
         #region world
         private static void createSandboxWorld(string args) {
-            var splitArgs = args.SplitArgs();
+            var splitArgs = args.Tokenize();
 
             Color background = Pigeon.EngineBkgdColor;
 
@@ -413,7 +413,7 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("   treble: -50 to 5 (def 0)");
                 Pigeon.Console.Log("   bass: 1 to 16000 (def 90)");
             } else {
-                var splitArgs = args.SplitArgs();
+                var splitArgs = args.Tokenize();
 
                 double treble = splitArgs[0].ToDouble();
                 double bass = splitArgs[1].ToFloat();
@@ -428,7 +428,7 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("   index: 0 to 7 (channel to mute)");
                 Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
             } else {
-                var splitArgs = args.SplitArgs();
+                var splitArgs = args.Tokenize();
                 Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
             }
         }
@@ -536,7 +536,7 @@ namespace pigeon.pgnconsole {
                 return;
             }
 
-            var splitArgs = args.SplitArgs();
+            var splitArgs = args.Tokenize();
             switch (splitArgs.Length) {
                 case 1:
                     Pigeon.Console.Log("select variable:");
