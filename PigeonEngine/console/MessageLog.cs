@@ -9,6 +9,7 @@ using pigeon.utilities.extensions;
 namespace pigeon.pgnconsole {
     public class MessageLog {
         private readonly int limit;
+        private readonly int lineSpacing;
         private readonly SpriteFont font;
         private readonly Vector2 bottomMessagePosition;
         private readonly int wrapWidth;
@@ -18,9 +19,10 @@ namespace pigeon.pgnconsole {
         private readonly List<LogMessage> allMessages;
         private readonly List<TextEntity> messageEntities;
 
-        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, PGNConsoleOptions options, EntityRegistry registry) {
+        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, int lineSpacing, PGNConsoleOptions options, EntityRegistry registry) {
             this.font = font;
             this.wrapWidth = lineWrapWidth;
+            this.lineSpacing = lineSpacing;
             this.bottomMessagePosition = bottomMessagePosition;
             this.registry = registry;
 
@@ -59,7 +61,7 @@ namespace pigeon.pgnconsole {
             for (int index = 1; index < messageEntities.Count; index++) {
                 var line = messageEntities[index];
                 var previousLine = messageEntities[index - 1];
-                line.Position.Y = previousLine.Position.Y - font.LineSpacing;
+                line.Position.Y = previousLine.Position.Y - lineSpacing;
             }
         }
     }

@@ -92,7 +92,6 @@ namespace pigeon.pgnconsole {
         #endregion
 
         private string _commandBuffer;
-
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
@@ -101,25 +100,26 @@ namespace pigeon.pgnconsole {
                 }
 
                 _commandBuffer = value;
-                var displayPortion = _commandBuffer.LastByPixels(bufferOverflowWidth, font);
+                var displayPortion = _commandBuffer.LastByPixels(lineOverflowWidth, font);
                 buffer.Text = string.Format(">{0}", displayPortion);
 
                 updateCursorPosition();
             }
         }
 
-        public readonly PGNConsoleOptions Options;
-        private readonly Vector2 bufferPosition;
-        private bool initialized;
+        internal readonly PGNConsoleOptions options;
         private readonly SpriteFont font;
-        public readonly MessageLog MessageLog;
+        private readonly Vector2 bufferPosition;
         private readonly CommandHistory history;
+        internal MessageLog messageLog;
+        internal readonly AliasManager AliasManager = new AliasManager();
+        private bool initialized;
+
         private Entity panel;
         private Entity cursor;
         private TextEntity buffer;
 
-        private const int INSET_X = 5;
-        private int bufferOverflowWidth;
+        private int lineOverflowWidth;
 
         internal List<string> AllCommandNames {
             get {
@@ -134,7 +134,6 @@ namespace pigeon.pgnconsole {
         internal List<string> GameCommandNames { get { return gameCommands.Keys.ToList(); } }
         private readonly Dictionary<string, ConsoleCommand> engineCommands = new Dictionary<string, ConsoleCommand>();
         private readonly Dictionary<string, ConsoleCommand> gameCommands = new Dictionary<string, ConsoleCommand>();
-        internal readonly AliasManager AliasManager = new AliasManager();
 
         private string previousCommand = "";
         private Queue<string> messageQueue = new Queue<string>();
@@ -142,14 +141,10 @@ namespace pigeon.pgnconsole {
         public bool IsDisplaying { get; private set; }
 
         public PGNConsole(PGNConsoleOptions options) {
-            Options = options;
+            this.options = options;
 
             font = ResourceCache.Font("console");
-            bufferPosition = new Vector2(INSET_X, Pigeon.Renderer.BaseResolutionY - 10);
-
-            int lineWrapWidth = Pigeon.Renderer.BaseResolutionX - 15;
-            Vector2 bottomMessagePosition = new Vector2(INSET_X, Pigeon.Renderer.BaseResolutionY - 20);
-            MessageLog = new MessageLog(font, lineWrapWidth, bottomMessagePosition, options, EntityRegistry);
+            bufferPosition = new Vector2(this.options.PanelRect.X + this.options.TextInset, this.options.PanelRect.Y + this.options.PanelRect.Height - 10);
 
             history = new CommandHistory(options.CommandHistory);
         }
@@ -159,33 +154,36 @@ namespace pigeon.pgnconsole {
 
             initialized = true;
 
-            var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Pigeon.Renderer.BaseResolutionX, Pigeon.Renderer.BaseResolutionY);
+            var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, options.PanelRect.Width, options.PanelRect.Height);
 
             Color[] panelPixels = new Color[panelTexture.Width * panelTexture.Height];
             for (int i = 0; i < panelPixels.Length; i++) {
-                panelPixels[i] = Options.PanelColor;
+                panelPixels[i] = options.PanelColor;
             }
 
             panelTexture.SetData(panelPixels);
-            panel = new Entity(Vector2.Zero, Image.Create(panelTexture)) { Layer = 0f };
-            panel.Graphic.Color.A = 200;
+            panel = new Entity(new Vector2(options.PanelRect.X, options.PanelRect.Y), Image.Create(panelTexture)) { Layer = 0f };
             EntityRegistry.Register(panel);
 
-            Sprite animatedSprite = Sprite.Clone("consoleCursor", @"console\cursor");
-            animatedSprite.Loop("flash");
-            animatedSprite.Color = Options.BufferColor;
-            cursor = new Entity(bufferPosition, animatedSprite) { Layer = .5f };
+            Sprite cursorSprite = Sprite.Clone("consoleCursor", @"console\cursor");
+            cursorSprite.Loop("flash");
+            cursorSprite.Color = options.BufferColor;
+            cursor = new Entity(bufferPosition, cursorSprite) { Layer = .5f };
             EntityRegistry.Register(cursor);
 
-            bufferOverflowWidth = Pigeon.Renderer.BaseResolutionX - INSET_X - (font.MeasureWidth(">") * 3);
-
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, Options.BufferColor, Justification.TopLeft);
+            lineOverflowWidth = Pigeon.Renderer.BaseResolutionX - options.TextInset - (font.MeasureWidth(">") * 3);
+            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, options.BufferColor, Justification.TopLeft);
             commandBuffer = "";
 
-            Log("Console loaded...");
-            messageQueue = null;
+            int lineSpacing = font.MeasureHeight(">") * 2;
+            Vector2 bottomMessagePosition = new Vector2(bufferPosition.X, bufferPosition.Y - lineSpacing);
+            messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
+
+            messageQueue = null;    // TODO: what's up with this...? can it be deleted? try it
 
             AddDebugger = false;
+
+            Log("Console loaded...");
         }
 
         protected override void Unload() { }
@@ -334,8 +332,7 @@ namespace pigeon.pgnconsole {
 
             char character = printCharacters[key];
 
-            char value;
-            if (isCapsShift() && shiftChars.TryGetValue(character, out value)) {
+            if (isCapsShift() && shiftChars.TryGetValue(character, out char value)) {
                 character = value;
             } else if (isCapsLockXorShift()) {
                 if (char.IsLetter(character) && char.IsLower(character)) {
@@ -369,8 +366,7 @@ namespace pigeon.pgnconsole {
 
                 string commandName = splitBuffer[0].ToLower();
 
-                ConsoleCommand command;
-                if (engineCommands.TryGetValue(commandName, out command) || gameCommands.TryGetValue(commandName, out command)) {
+                if (engineCommands.TryGetValue(commandName, out ConsoleCommand command) || gameCommands.TryGetValue(commandName, out command)) {
                     string args = splitBuffer.Length == 2 ? splitBuffer[1] : string.Empty;
                     command.Invoke(args);
                 } else if (AliasManager.Exists(commandName)) {
@@ -435,7 +431,7 @@ namespace pigeon.pgnconsole {
             if (!initialized) {
                 messageQueue.Enqueue(message);
             } else if (condition) {
-                MessageLog.AddMessage(new LogMessage(message, LogMessageTypes.Info));
+                messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Info));
             }
         }
 
@@ -443,12 +439,12 @@ namespace pigeon.pgnconsole {
             if (!initialized) {
                 messageQueue.Enqueue(message);
             } else if (condition) {
-                MessageLog.AddMessage(new LogMessage(message, LogMessageTypes.Error));
+                messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Error));
             }
         }
 
         private void logCommand(string message) {
-            MessageLog.AddMessage(new LogMessage(message, LogMessageTypes.Command));
+            messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Command));
         }
 
         public void RepeatPrevious() {

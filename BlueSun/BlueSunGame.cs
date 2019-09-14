@@ -23,9 +23,7 @@ namespace BlueSun {
 
         protected override PGNConsoleOptions ConsoleOpts {
             get {
-                return new PGNConsoleOptions {
-                    CommandDisplayLength = 25,
-                };
+                return new PGNConsoleOptions();
             }
         }
 

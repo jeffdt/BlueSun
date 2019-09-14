@@ -88,7 +88,7 @@ namespace pigeon.pgnconsole {
 
         #region console manipulation
         private static void clearScreen(string args) {
-            for (int i = 0; i < Pigeon.Console.Options.LogHistoryLimit; i++) {
+            for (int i = 0; i < Pigeon.Console.options.LogHistoryLimit; i++) {
                 Pigeon.Console.Log("");
             }
         }

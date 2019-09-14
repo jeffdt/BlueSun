@@ -24,8 +24,7 @@ namespace pigeon.input {
         }
 
         public static string GetKeyBind(Keys key) {
-            string value;
-            return keyBinds.TryGetValue(key, out value) ? value : null;
+            return keyBinds.TryGetValue(key, out string value) ? value : null;
         }
 
         public static void BindKey(Keys key, string command) {

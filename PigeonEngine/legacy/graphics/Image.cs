@@ -80,8 +80,7 @@ namespace pigeon.legacy.graphics {
         }
 
         public void SwapSource(object key, bool center = false) {
-            Rectangle value;
-            if (sourceMap != null && sourceMap.TryGetValue(key, out value)) {
+            if (sourceMap != null && sourceMap.TryGetValue(key, out Rectangle value)) {
                 SourceRect = value;
                 if (center) {
                     centerImage(this);

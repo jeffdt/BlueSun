@@ -26,7 +26,7 @@ namespace pigeon.winforms {
         private void refreshConsoleLog() {
             consoleLogText.Clear();
 
-            var messages = Pigeon.Console.MessageLog.GetAllMessages();
+            var messages = Pigeon.Console.messageLog.GetAllMessages();
             for (int index = 0; index < messages.Count; index++) {
                 var message = messages[index];
 
