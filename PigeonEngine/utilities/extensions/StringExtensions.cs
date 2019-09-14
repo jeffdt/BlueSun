@@ -63,11 +63,13 @@ namespace pigeon.utilities.extensions {
             }
         }
 
+        //$$
         public static double? ToUnitInterval(this string str) {
             bool parsed = double.TryParse(str, out double result);
             return (parsed && result.InRange(0, 1)) ? result : null as double?;
         }
 
+        //$$
         public static Vector2 ToVector2(this string str) {
             string[] values = str.Split(COMMA_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
 
@@ -109,7 +111,7 @@ namespace pigeon.utilities.extensions {
         }
 
         public static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
-            string[] words = text.Split(' ');
+            string[] words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
             string line = string.Empty;
             int lineCount = 1;
 
