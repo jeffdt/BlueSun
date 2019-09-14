@@ -88,67 +88,18 @@ namespace pigeon.utilities.extensions {
         }
 
         public static string FormatWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
-            StringBuilder finalString = new StringBuilder();
-
-            Action<string> addLine = (str) => {
-                finalString.Append(str);
-                finalString.Append('\n');
-            };
-
-            string[] words = text.Split(' ');
-            string line = string.Empty;
-            int lineCount = 1;
-
-            foreach (string word in words) {
-                if (font.MeasureWidth(line + word) > width) {
-                    if (maxLines != 0 && lineCount >= maxLines) {
-                        throw new ArgumentException(string.Format("cannot format string into {0} lines. original string: {1}", maxLines, text));
-                    }
-
-                    addLine(line);
-
-                    line = string.Empty;
-                    lineCount++;
-                }
-
-                line = line + word + ' ';
-            }
-
-            return finalString.Append(line).ToString();
+            StringBuilder lines = new StringBuilder();
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Append(str).Append('\n'));
+            return lines.ToString();
         }
 
         public static List<string> SplitWrap(this string text, SpriteFont font, int width) {
-            if (font.MeasureWidth(text) <= width) {
-                return new List<string> { text };
-            }
-
             List<string> lines = new List<string>();
-
-            string remainingText = text;
-            while (font.MeasureWidth(remainingText) > width) {    // still more lines to parse
-                //parse into two lines
-                int charIndex = 0;
-                while (font.MeasureWidth(remainingText.Substring(0, charIndex)) <= width) {
-                    charIndex++;
-                }
-                lines.Add(remainingText.Substring(0, charIndex));
-                remainingText = remainingText.Substring(charIndex);
-            }
-
-            if (remainingText.Length > 0) {
-                lines.Add(remainingText);
-            }
-
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Add(str)) ;
             return lines;
         }
 
-        public static List<string> SplitWrapNew(this string text, SpriteFont font, int width) {
-            List<string> lines = new List<string>();
-            _splitString(text, font.MeasureWidth, width, (str) => lines.Add(str)) ;
-            return lines;
-        }
-
-        public static void _splitString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
+        public static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
             string[] words = text.Split(' ');
             string line = string.Empty;
             int lineCount = 1;

@@ -40,7 +40,7 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            playRandomSong();
+            // playRandomSong();
             //playSpecificSong("morse");
         }
 

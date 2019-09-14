@@ -25,7 +25,7 @@ namespace PigeonEngineTest.utilities.extensions {
             
 
             List<string> actualLines = new List<string>();
-            StringExtensions._splitString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
+            StringExtensions._wrapString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
             
             foreach(var line in actualLines) {
                 Console.Write(line);
