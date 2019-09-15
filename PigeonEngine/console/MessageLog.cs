@@ -34,7 +34,7 @@ namespace pigeon.pgnconsole {
         }
 
         public void AddMessage(LogMessage message) {
-            var splitLines = message.Text.SplitWrap(font, wrapWidth);
+            var splitLines = message.Text.SplitWrap(font, wrapWidth, "|");
 
             allMessages.Add(message);
 

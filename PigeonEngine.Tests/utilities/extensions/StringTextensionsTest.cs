@@ -169,14 +169,24 @@ namespace PigeonEngineTests.utilities.extensions {
             Assert.AreEqual(expectedLines, actualLines.Count);
         }
 
-        [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 5, 17)]
-        //         {}{  } {} {  } {} {       } {      } { } { } {    } { } {  } {} {  } {   } {} {     }
+        [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 5, 21)]
+        //         {}{  } {} {  } {} {  }{   } {  }{  } { } { } {  }{} { } {  } {} {  } {   } {} {   }{}
         [TestCase("I want to test my SplitWrap function but I'm really not sure if it's going to work...", 100, 1)]
         //         {                                                                                   }
         public void SplitWrap_EdgeCases(String inputStr, int inputWidth, int expectedLines) {
             List<string> actualLines = new List<string>();
             StringExtensions._wrapString(inputStr, (str) => str.Length * 1, inputWidth, (str) => actualLines.Add(str));
             Assert.AreEqual(expectedLines, actualLines.Count);
+        }
+
+        [Test]
+        public void SplitWrap_LongWord() {
+            string inputStr = "1234567890";
+            List<string> actualLines = new List<string>();
+            StringExtensions._wrapString(inputStr, (str) => str.Length * 1, 5, (str) => actualLines.Add(str), "|");
+            Assert.AreEqual("1234|", actualLines[0]);
+            Assert.AreEqual("5678|", actualLines[1]);
+            Assert.AreEqual("90", actualLines[2]);
         }
 
         [TestCase("a b c", new string[] { "a", "b", "c" })]
