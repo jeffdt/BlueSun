@@ -83,7 +83,7 @@ namespace pigeon {
 
             Console = new PGNConsole(ConsoleOpts);
             Console.LoadContent();
-            Console.AddGlobalCommands(PigeonCommands.Build());
+            Console.AddGlobalCommands(EngineCommands.Build());
 
             EngineBkgdColor = DefaultBkgdColor;
 

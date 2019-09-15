@@ -3,8 +3,8 @@ using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
     public class PGNConsoleOptions {
-        public int PanelHeight = 1 * Pigeon.Renderer.BaseResolutionY / 4;
-        public Color PanelColor = Color.Navy.WithAlpha(255);
+        public int PanelHeight = Pigeon.Renderer.BaseResolutionY;
+        public Color PanelColor = Color.Navy.WithAlpha(150);
         public Color BufferColor = Color.SkyBlue;
         public Color HistoryColor = Color.SkyBlue;
         public Color InfoColor = Color.MintCream;

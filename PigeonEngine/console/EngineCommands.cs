@@ -17,7 +17,7 @@ using pigeon.utilities.extensions;
 using pigeon.winforms;
 
 namespace pigeon.pgnconsole {
-    public static class PigeonCommands {
+    public static class EngineCommands {
         public static Dictionary<string, ConsoleCommand> Build() {
             return new Dictionary<string, ConsoleCommand> {
 				// console manipulation

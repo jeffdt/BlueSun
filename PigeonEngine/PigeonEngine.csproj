@@ -75,13 +75,13 @@
     <Compile Include="component\SimpleController.cs" />
     <Compile Include="console\AliasManager.cs" />
     <Compile Include="console\CommandHistory.cs" />
-    <Compile Include="console\Console.cs" />
-    <Compile Include="console\ConsoleOptions.cs" />
+    <Compile Include="console\PGNConsole.cs" />
+    <Compile Include="console\PGNConsoleOptions.cs" />
     <Compile Include="console\ConsoleUtilities.cs" />
     <Compile Include="console\ConsoleCommand.cs" />
     <Compile Include="console\MessageLog.cs" />
     <Compile Include="console\LogMessage.cs" />
-    <Compile Include="console\PigeonCommands.cs" />
+    <Compile Include="console\EngineCommands.cs" />
     <Compile Include="core\events\EventRegistry.cs" />
     <Compile Include="core\tasks\TaskRegistry.cs" />
     <Compile Include="core\tasks\TimedTask.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="gfx\drawable\Drawable.cs" />
     <Compile Include="squab\Egg.cs" />
     <Compile Include="squab\ObjectSeed.cs" />
-    <Compile Include="squab\Squabject.cs" />
+    <Compile Include="squab\GameObject.cs" />
     <Compile Include="time\GameSpeed.cs" />
     <Compile Include="time\Time.cs" />
     <Compile Include="tools\Cursor.cs" />

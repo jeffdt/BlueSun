@@ -351,26 +351,16 @@ namespace pigeon.gameobject {
                 components.Add(cmpt);
 
                 if (cmpt is Drawable) {
-                    if (drawableCmpts == null) {
-                        drawableCmpts = new List<Drawable>();
-                    }
 
-                    drawableCmpts.Add(cmpt as Drawable);
+                    (drawableCmpts ?? (drawableCmpts = new List<Drawable>())).Add(cmpt as Drawable);
                 }
 
                 if (cmpt is IFlippable) {
-                    if (flippableCmpts == null) {
-                        flippableCmpts = new List<IFlippable>();
-                    }
 
-                    flippableCmpts.Add(cmpt as IFlippable);
+                    (flippableCmpts ?? (flippableCmpts = new List<IFlippable>())).Add(cmpt as IFlippable);
                 }
 
-                if (toInitialize == null) {
-                    toInitialize = new List<Component>();
-                }
-
-                toInitialize.Add(cmpt);
+                (toInitialize ?? (toInitialize = new List<Component>())).Add(cmpt);
             } else {
                 Pigeon.Console.LogError("cannot add a component to more than one object.");
             }
@@ -416,11 +406,8 @@ namespace pigeon.gameobject {
         private List<string> tags;
 
         public void AddTag(string tag) {
-            if (tags == null) {
-                tags = new List<string>();
-            }
 
-            tags.Add(tag);
+            (tags ?? (tags = new List<string>())).Add(tag);
         }
 
         public void AddTags(params string[] newTags) {
