@@ -55,7 +55,7 @@ namespace pigeon.gfx {
                 if (isFullScreen) {
                     int scaleWidth = monitorWidth / BaseResolutionX;
                     int scaleHeight = monitorHeight / BaseResolutionY;
-                    
+
                     DrawScale = Math.Min(scaleWidth, scaleHeight);
                 } else {
                     DrawScale = Pigeon.Instance.DisplayParams.InitialScale;
@@ -81,7 +81,6 @@ namespace pigeon.gfx {
         public Matrix DrawScaleMatrix;
         public RenderTarget2D TrueGameScreen;
         public RenderTarget2D ShadedGameScreen;
-        public RenderTarget2D PaddedGameScreen;
 
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager GraphicsDeviceMgr;
@@ -92,7 +91,7 @@ namespace pigeon.gfx {
 
         private bool takeScreenshot;
 
-        private Vector2 fullscreenInset;
+        private Vector2 drawInset;
 
         public void Screenshot() {
             takeScreenshot = true;
@@ -108,7 +107,6 @@ namespace pigeon.gfx {
             BaseResolutionY = y;
             TrueGameScreen = new RenderTarget2D(GraphicsDeviceMgr.GraphicsDevice, x, y);
             ShadedGameScreen = new RenderTarget2D(GraphicsDeviceMgr.GraphicsDevice, x, y);
-            PaddedGameScreen = new RenderTarget2D(GraphicsDeviceMgr.GraphicsDevice, monitorWidth, monitorHeight);
             updateGraphicsDeviceSettings();
         }
 
@@ -156,36 +154,16 @@ namespace pigeon.gfx {
 
         public void FinalDraw() {
             // scale up
-            if (IsFullScreen) {
-                setRenderTarget(PaddedGameScreen, Color.Black);
-                SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
-                SpriteBatch.Draw(ShadedGameScreen, fullscreenInset, Color.White);
-                SpriteBatch.End();
+            setRenderTarget(null, Color.Black);
+            SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
+            SpriteBatch.Draw(ShadedGameScreen, drawInset, Color.White);
+            SpriteBatch.End();
 
-                setRenderTarget(null, Color.Black);
+            if (LcdDisplay && DrawScale != 1) {
                 SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
-                SpriteBatch.Draw(PaddedGameScreen, Vector2.Zero, Color.White);
+                SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
                 SpriteBatch.End();
-
-                if (LcdDisplay) {
-                    SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
-                    SpriteBatch.Draw(lcdGridTex, fullscreenInset, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
-                    SpriteBatch.End();
-                }
-            } else {
-                setRenderTarget(null, Color.Black);
-                SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
-                SpriteBatch.Draw(ShadedGameScreen, Vector2.Zero, Color.White);
-                SpriteBatch.End();
-
-                if (LcdDisplay && DrawScale != 1) {
-                    SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
-                    SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
-                    SpriteBatch.End();
-                }
             }
-
-
         }
 
         private void applyDeviceChanges() {
@@ -229,16 +207,18 @@ namespace pigeon.gfx {
             if (IsFullScreen) {
                 fullDisplayWidth = monitorWidth;
                 fullDisplayHeight = monitorHeight;
-                fullscreenInset = new Vector2((fullDisplayWidth - scaledGameWidth) / 2, (fullDisplayHeight - scaledGameHeight) / 2) / drawScale;
+                drawInset = new Vector2((fullDisplayWidth - scaledGameWidth) / 2, (fullDisplayHeight - scaledGameHeight) / 2) / drawScale;
             } else if (customResX != -1 && customResY != -1) {
                 fullDisplayWidth = customResX;
                 fullDisplayHeight = customResY;
 
                 customResX = -1;
                 customResY = -1;
+                drawInset = Vector2.Zero;
             } else {
                 fullDisplayWidth = scaledGameWidth;
                 fullDisplayHeight = scaledGameHeight;
+                drawInset = Vector2.Zero;
             }
 
             GraphicsDeviceMgr.PreferredBackBufferWidth = fullDisplayWidth;

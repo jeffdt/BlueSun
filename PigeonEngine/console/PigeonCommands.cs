@@ -148,7 +148,7 @@ namespace pigeon.pgnconsole {
 
             Pigeon.Renderer.IsFullScreen = after;
 
-            ConsoleUtilities.LogVariableChange("full screen", before, after);
+            ConsoleUtilities.LogVariableChange("fullscreen", before, after);
         }
 
         private static void toggleBorderless(string args) {
@@ -180,7 +180,7 @@ namespace pigeon.pgnconsole {
             } else {
                 int before = Pigeon.Renderer.DrawScale;
                 Pigeon.Renderer.DrawScale = after;
-                ConsoleUtilities.LogVariableChange("draw scale", before, after);
+                ConsoleUtilities.LogVariableChange("drawscale", before, after);
             }
         }
 
