@@ -130,6 +130,10 @@ namespace pigeon.utilities.extensions {
             string line = string.Empty;
             int lineCount = 1;
 
+            if (text.StartsWith("Name=flavor")) {
+                bool isDebugMessage = true;
+            }
+
             foreach (string word in words) {
                 if (stringMeasurer(line + word) > width) {
                     if (maxLines != 0 && lineCount >= maxLines) {

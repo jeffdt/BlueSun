@@ -24,8 +24,7 @@ namespace pigeon.pgnconsole {
         }
 
         public List<string> Get(string aliasName) {
-            List<string> value;
-            return aliases.TryGetValue(aliasName, out value) ? value : null;
+            return aliases.TryGetValue(aliasName, out List<string> value) ? value : null;
         }
 
         public void Set(string aliasName, string aliasValue) {

@@ -74,8 +74,7 @@ namespace pigeon.core.events {
         public void RaiseEvent(object sender, EventArgs e) {
             Type eventType = e.GetType();
 
-            EventHandler handler;
-            if (eventHandlers.TryGetValue(eventType, out handler) && handler != null) {
+            if (eventHandlers.TryGetValue(eventType, out EventHandler handler) && handler != null) {
                 handler(sender, e);
             }
         }
@@ -87,16 +86,14 @@ namespace pigeon.core.events {
         }
 
         public void RaiseNotification(string type) {
-            Action handler;
-            if (notificationHandlers.TryGetValue(type, out handler) && handler != null) {
+            if (notificationHandlers.TryGetValue(type, out Action handler) && handler != null) {
                 handler();
             }
         }
 
 
         public void RaiseSimpleEvent(string type, object sender) {
-            SimpleEventHandler handler;
-            if (simpleEventHandlers.TryGetValue(type, out handler) && handler != null) {
+            if (simpleEventHandlers.TryGetValue(type, out SimpleEventHandler handler) && handler != null) {
                 handler(sender);
             }
         }

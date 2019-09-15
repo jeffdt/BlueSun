@@ -16,8 +16,7 @@ namespace GameMusicEmuSharp {
         /// <returns>An emulator handle.</returns>
         public static IntPtr OpenFile(string fileName, int sampleRate) {
             // Get an emulator handle.
-            IntPtr emulatorHandle;
-            gme_open_file(fileName, out emulatorHandle, sampleRate);
+            gme_open_file(fileName, out IntPtr emulatorHandle, sampleRate);
 
             return emulatorHandle;
         }
@@ -45,8 +44,7 @@ namespace GameMusicEmuSharp {
         /// <returns>A GmeTrackInfo struct containing information about the track.</returns>
         public static GmeTrackInfo GetTrackInfo(IntPtr emuHandle, int track) {
             // Get the pointer to the native struct for the track info.
-            IntPtr trackInfoPtr;
-            gme_track_info(emuHandle, out trackInfoPtr, track);
+            gme_track_info(emuHandle, out IntPtr trackInfoPtr, track);
 
             // Marshal it over to the C# based struct.
             GmeTrackInfo trackInfo = (GmeTrackInfo) Marshal.PtrToStructure(trackInfoPtr, typeof(GmeTrackInfo));
@@ -65,8 +63,7 @@ namespace GameMusicEmuSharp {
         /// <returns>A GmeEqualizer struct that contains the current frequency equalizer parameters.</returns>
         public static GmeEqualizer GetEqualizer(IntPtr emuHandle) {
             // Get the equalizer
-            GmeEqualizer equalizer;
-            gme_equalizer(emuHandle, out equalizer);
+            gme_equalizer(emuHandle, out GmeEqualizer equalizer);
 
             return equalizer;
         }

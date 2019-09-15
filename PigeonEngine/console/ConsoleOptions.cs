@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
     public class PGNConsoleOptions {
-        public Color PanelColor = Color.DarkSlateGray;
+        public int PanelHeight = 1 * Pigeon.Renderer.BaseResolutionY / 4;
+        public Color PanelColor = Color.Navy.WithAlpha(255);
         public Color BufferColor = Color.SkyBlue;
-        public Color HistoryColor = Color.SteelBlue;
+        public Color HistoryColor = Color.SkyBlue;
         public Color InfoColor = Color.MintCream;
         public Color ErrorColor = Color.Red;
+
         public int LogHistoryLimit = 64;
-        public int CommandDisplayLength = 25;    // hack for characters that can fit in buffer since it can't be calced easily
         public int CommandHistory = 16;
+
+        public int TextInset = 5;
     }
 }

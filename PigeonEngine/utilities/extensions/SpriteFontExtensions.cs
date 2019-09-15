@@ -5,5 +5,9 @@ namespace PigeonEngine.utilities.extensions {
         public static int MeasureWidth(this SpriteFont font, string text) {
             return (int) font.MeasureString(text).X;
         }
+
+        public static int MeasureHeight(this SpriteFont font, string text) {
+            return (int) font.MeasureString(text).Y;
+        }
     }
 }
