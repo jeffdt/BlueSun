@@ -81,7 +81,7 @@ namespace pigeon {
 
             Load();
 
-            Console = new pgnconsole.PGNConsole(ConsoleOpts);
+            Console = new PGNConsole(ConsoleOpts);
             Console.LoadContent();
             Console.AddGlobalCommands(PigeonCommands.Build());
 
@@ -148,6 +148,8 @@ namespace pigeon {
             if (!Console.IsDisplaying && !PauseWorld) {
                 UpdateGameplay();
             }
+
+            Renderer.Update();
         }
 
         public void UpdateGameplay() {

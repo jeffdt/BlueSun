@@ -7,13 +7,13 @@ using pigeon.data;
 using pigeon.input;
 using pigeon.core;
 using pigeon.legacy.entities;
-using pigeon.legacy.graphics;
 using pigeon.legacy.graphics.anim;
 using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
 using pigeon.gfx;
 using PigeonEngine.utilities.extensions;
+using pigeon.legacy.graphics;
 
 namespace pigeon.pgnconsole {
     public class PGNConsole : World {
@@ -115,7 +115,6 @@ namespace pigeon.pgnconsole {
         internal readonly AliasManager AliasManager = new AliasManager();
         private bool initialized;
 
-        private RenderTarget2D overlayRenderTarget;
         private Entity panel;
         private Entity cursor;
         private TextEntity buffer;
@@ -145,7 +144,7 @@ namespace pigeon.pgnconsole {
             this.options = options;
 
             font = ResourceCache.Font("console");
-            bufferPosition = new Vector2(this.options.PanelRect.X + this.options.TextInset, this.options.PanelRect.Y + this.options.PanelRect.Height - this.options.TextInset * 2);
+            bufferPosition = new Vector2(this.options.TextInset, this.options.PanelHeight - (this.options.TextInset * 2));
 
             history = new CommandHistory(options.CommandHistory);
         }
@@ -155,8 +154,7 @@ namespace pigeon.pgnconsole {
 
             initialized = true;
 
-            var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, options.PanelRect.Width, options.PanelRect.Height);
-            overlayRenderTarget = new RenderTarget2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, options.PanelRect.Width, options.PanelRect.Height);
+            var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Pigeon.Renderer.BaseResolutionX, this.options.PanelHeight);
 
             Color[] panelPixels = new Color[panelTexture.Width * panelTexture.Height];
             for (int i = 0; i < panelPixels.Length; i++) {
@@ -164,7 +162,7 @@ namespace pigeon.pgnconsole {
             }
 
             panelTexture.SetData(panelPixels);
-            panel = new Entity(new Vector2(options.PanelRect.X, options.PanelRect.Y), Image.Create(panelTexture)) { Layer = 0f };
+            panel = new Entity(Vector2.Zero, Image.Create(panelTexture)) { Layer = 0f };
             EntityRegistry.Register(panel);
 
             Sprite cursorSprite = Sprite.Clone("consoleCursor", @"console\cursor");
@@ -206,7 +204,7 @@ namespace pigeon.pgnconsole {
 
         public override void Draw() {
             if (IsDisplaying) {
-                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw, overlayRenderTarget, panel.Position);
+                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw);
             }
         }
 

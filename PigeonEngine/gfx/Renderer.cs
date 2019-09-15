@@ -121,20 +121,21 @@ namespace pigeon.gfx {
             GraphicsDeviceMgr.GraphicsDevice.SetRenderTarget(renderTarget2D);
         }
 
-        public void CustomRender(RenderFunction renderFunction, Color clearColor) {
+        public void Update() {
             if (deviceNeedsRefresh) {
                 applyDeviceChanges();
             }
+        }
 
+        public void RenderGame(RenderFunction renderFunction, Color clearColor) {
             // draw true image
-            SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.FrontToBack);
             setRenderTarget(TrueGameScreen, clearColor);
+            SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.FrontToBack);
             renderFunction();
             SpriteBatch.End();
 
             // apply the shader
-            setRenderTarget(ShadedGameScreen, clearColor);
-            // TODO: try SpriteSortMode.Deferred instead of Immediate and see if it makes any difference
+            setRenderTarget(ShadedGameScreen, Color.Black);
             SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
             PostProcessors?.Invoke();
             SpriteBatch.Draw(TrueGameScreen, Vector2.Zero, Color.White);
@@ -147,25 +148,13 @@ namespace pigeon.gfx {
             }
         }
 
-        internal void RenderOverlay(RenderFunction renderFunction, RenderTarget2D overlayRenderTarget, Vector2 drawPosition) {
-            //setRenderTarget(TrueGameScreen);
+        internal void RenderOverlay(RenderFunction renderFunction) {
             SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.FrontToBack);
             renderFunction();
             SpriteBatch.End();
-
-            //setRenderTarget(TrueGameScreen);
-            //SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.Immediate);
-            //SpriteBatch.Draw(overlayRenderTarget, drawPosition, Color.White);
-            //SpriteBatch.End();
         }
 
         public void FinalDraw() {
-            if (LcdDisplay) {
-                SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
-                SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
-                SpriteBatch.End();
-            }
-
             // scale up
             if (IsFullScreen) {
                 setRenderTarget(PaddedGameScreen, Color.Black);
@@ -177,19 +166,33 @@ namespace pigeon.gfx {
                 SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
                 SpriteBatch.Draw(PaddedGameScreen, Vector2.Zero, Color.White);
                 SpriteBatch.End();
+
+                if (LcdDisplay) {
+                    SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
+                    SpriteBatch.Draw(lcdGridTex, fullscreenInset, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
+                    SpriteBatch.End();
+                }
             } else {
                 setRenderTarget(null, Color.Black);
                 SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
-                SpriteBatch.Draw(ShadedGameScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                SpriteBatch.Draw(ShadedGameScreen, Vector2.Zero, Color.White);
                 SpriteBatch.End();
+
+                if (LcdDisplay && DrawScale != 1) {
+                    SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
+                    SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
+                    SpriteBatch.End();
+                }
             }
+
+
         }
 
         private void applyDeviceChanges() {
             var scaledResX = DrawScale * BaseResolutionX;
             var scaledResY = DrawScale * BaseResolutionY;
 
-            lcdGridTex = new RenderTarget2D(GraphicsDeviceMgr.GraphicsDevice, scaledResX, scaledResY);
+            lcdGridTex = new Texture2D(GraphicsDeviceMgr.GraphicsDevice, scaledResX, scaledResY);
             Color[] lcdGridPixels = new Color[scaledResX * scaledResY];
 
             var emptyPixel = new Color(0, 0, 0, 0);

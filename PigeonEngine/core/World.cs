@@ -101,7 +101,7 @@ namespace pigeon.core {
         }
 
         public virtual void Draw() {
-            Pigeon.Renderer.CustomRender(renderAll, BackgroundColor);
+            Pigeon.Renderer.RenderGame(renderAll, BackgroundColor);
         }
 
         private void renderAll() {
