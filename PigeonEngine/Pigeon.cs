@@ -76,7 +76,7 @@ namespace pigeon {
 
             loadResources();
 
-            Audio.Initialize();
+            Sfx.Initialize();
             Music.Initialize();
 
             Load();
@@ -154,7 +154,7 @@ namespace pigeon {
 
         public void UpdateGameplay() {
             World.Update();
-            Audio.Update();
+            Sfx.Update();
         }
 
         public static void SetWorld(World world, bool isAlreadyInitialized = false) {
@@ -183,7 +183,7 @@ namespace pigeon {
                 World.LoadContent();
             }
 
-            Audio.StopAllSfx();
+            Sfx.StopAllSfx();
             World.Enter();
         }
 
@@ -206,16 +206,8 @@ namespace pigeon {
             SetWorld(Instance.InitialWorld);
         }
 
-        public static void ExitApp() {
-            Instance.ExitGame();
-        }
-
         public void ExitGame() {
             Exit();
-        }
-
-        protected override void OnExiting(object sender, EventArgs args) {
-            base.OnExiting(sender, args);
         }
     }
 }

@@ -8,22 +8,13 @@ namespace pigeon.legacy.entities.primitives {
         private readonly Vector2[] points;
         private readonly Image[] pixels;
 
-        private Color tint;
-
-        public Color Tint {
-            get {
-                return tint;
-            }
-            set {
-                tint = value;
-            }
-        }
+        public Color Tint { get; set; }
 
         public Line(Vector2 start, Vector2 end, Color color, float layer = 0f) {
             Position = start;
             Layer = layer;
 
-            points = FindLine((int) start.X, (int) start.Y, (int) end.X, (int) end.Y);
+            points = findLine((int) start.X, (int) start.Y, (int) end.X, (int) end.Y);
 
             pixels = new Image[points.Length];
             for (int i = 0; i < points.Length; i++) {
@@ -39,7 +30,7 @@ namespace pigeon.legacy.entities.primitives {
             }
         }
 
-        private Vector2[] FindLine(int x, int y, int x2, int y2) {
+        private Vector2[] findLine(int x, int y, int x2, int y2) {
             List<Vector2> coords = new List<Vector2>();
 
             int dx1 = 0;

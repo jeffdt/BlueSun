@@ -67,12 +67,8 @@ namespace pigeon.utilities {
 
             var toTarget = targetPos - currentPos;
 
-            if (((toTarget.X <= 0 && travelDir.X <= 0) || (toTarget.X >= 0 && travelDir.X >= 0))
-                && ((toTarget.Y <= 0 && travelDir.Y <= 0) || (toTarget.Y >= 0 && travelDir.Y >= 0))) {
-                return false;
-            }
-
-            return true;
+            return ((toTarget.X > 0 || travelDir.X > 0) && (toTarget.X < 0 || travelDir.X < 0))
+                || ((toTarget.Y > 0 || travelDir.Y > 0) && (toTarget.Y < 0 || travelDir.Y < 0));
 
             //			if (travelDir.X < 0 && travelDir.Y == 0) { // left
             //				if (currentPos.X < targetPos.X) {

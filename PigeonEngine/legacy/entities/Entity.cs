@@ -20,7 +20,6 @@ namespace pigeon.legacy.entities {
         private List<Component> components;
 
         public void AddComponent(Component component) {
-
             (components ?? (components = new List<Component>())).Add(component);
             // component.Parent = this;
         }
@@ -58,7 +57,6 @@ namespace pigeon.legacy.entities {
 
         public virtual void UnloadContent() { }
 
-
         public void UpdateComponents() {
             // not including in Update because then it could be overridden
             if (components == null) {
@@ -75,7 +73,6 @@ namespace pigeon.legacy.entities {
         public virtual void Update() {
             Graphic?.Update();
         }
-
 
         public virtual void Draw() {
             if (Graphic != null && Visible) {

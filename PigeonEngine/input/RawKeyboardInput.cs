@@ -46,7 +46,7 @@ namespace pigeon.input {
         }
 
         public static bool IsAnyKeyPressed() {
-            return (currentState.GetPressedKeys().Length > 0 && previousState.GetPressedKeys().Length == 0);
+            return currentState.GetPressedKeys().Length > 0 && previousState.GetPressedKeys().Length == 0;
         }
 
         public static bool IsAnyKeyHeld() {

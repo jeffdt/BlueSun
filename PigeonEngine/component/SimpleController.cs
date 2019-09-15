@@ -23,7 +23,7 @@ namespace pigeon.component {
         }
 
         private void updateSmoothControl() {
-            int newX = lastX;
+            int newX;
             if (RawKeyboardInput.IsHeld(Keys.Left)) {
                 newX = -1;
             } else if (RawKeyboardInput.IsHeld(Keys.Right)) {
@@ -32,7 +32,7 @@ namespace pigeon.component {
                 newX = 0;
             }
 
-            int newY = lastY;
+            int newY;
             if (RawKeyboardInput.IsHeld(Keys.Up)) {
                 newY = -1;
             } else if (RawKeyboardInput.IsHeld(Keys.Down)) {

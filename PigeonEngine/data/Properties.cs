@@ -18,10 +18,10 @@ namespace pigeon.data {
             if (File.Exists(Filename))
                 loadFromFile(Filename);
             else
-                File.Create(Filename);
+                _ = File.Create(Filename);
         }
 
-        private string GetRaw(string field) {
+        private string getRaw(string field) {
             return (dictionary.TryGetValue(field, out string value)) ? (value) : (null);
         }
 
@@ -37,7 +37,7 @@ namespace pigeon.data {
         }
 
         public bool TryBool(string field, bool defaultValue) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return (value == null) ? defaultValue : value.ToBool();
         }
 
@@ -46,7 +46,7 @@ namespace pigeon.data {
         }
 
         public int TryInt(string field, int defaultValue) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return (value == null) ? defaultValue : value.ToInt();
         }
 
@@ -55,7 +55,7 @@ namespace pigeon.data {
         }
 
         public float TryFloat(string field, float defaultValue) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return (value == null) ? defaultValue : value.ToFloat();
         }
 
@@ -64,7 +64,7 @@ namespace pigeon.data {
         }
 
         public string TryString(string field, string defaultValue) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return value ?? defaultValue;
         }
 
@@ -77,7 +77,7 @@ namespace pigeon.data {
         }
 
         public Vector2 TryVector2(string field, Vector2 defaultValue) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return (value == null) ? defaultValue : value.ToVector2();
         }
 
@@ -86,7 +86,7 @@ namespace pigeon.data {
         }
 
         public List<string> TryStringList(string field) {
-            string value = GetRaw(field);
+            string value = getRaw(field);
             return value == null ? new List<string>() : GetStringList(field);
         }
 

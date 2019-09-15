@@ -5,11 +5,7 @@
                 return min;
             }
 
-            if (value > max) {
-                return max;
-            }
-
-            return value;
+            return value > max ? max : value;
         }
 
         public static bool InRange(this double value, double min, double max) {

@@ -94,11 +94,9 @@ namespace pigeon.collision {
 
         private static int checkBox(Rectangle specRect1, Rectangle specRect2, bool isX) {
             bool collided = SatCollider.CollideBoxes(specRect1, specRect2);
-            if (collided) {
-                return isX ? SatCollider.GetMinTranslationX(specRect1, specRect2) : SatCollider.GetMinTranslationY(specRect1, specRect2);
-            }
-
-            return 0;
+            return collided
+                ? isX ? SatCollider.GetMinTranslationX(specRect1, specRect2) : SatCollider.GetMinTranslationY(specRect1, specRect2)
+                : 0;
         }
 
         public void Draw() {

@@ -285,7 +285,7 @@ namespace pigeon.gameobject {
         }
 
         public int GetChildrenCount() {
-            return (children == null) ? 0 : children.Count;
+            return children?.Count ?? 0;
         }
 
         public GameObject GetChild(int index) {
@@ -328,7 +328,7 @@ namespace pigeon.gameobject {
             int nextStartInd = ind + 1;
             int nextLength = search.Length - ind - 1;
 
-            return nextChild == null ? null : nextChild.FindChildRecursive(search.Substring(nextStartInd, nextLength));
+            return nextChild?.FindChildRecursive(search.Substring(nextStartInd, nextLength));
         }
 
         public void SafeDeleteChild(string name) {
@@ -342,7 +342,7 @@ namespace pigeon.gameobject {
 
         #region components
         internal readonly List<Component> components = new List<Component>();
-        private List<Drawable> drawableCmpts;
+        private List<IRenderable> drawableCmpts;
         private List<IFlippable> flippableCmpts;
 
         public GameObject AddComponent(Component cmpt) {
@@ -350,13 +350,11 @@ namespace pigeon.gameobject {
                 cmpt.Object = this;
                 components.Add(cmpt);
 
-                if (cmpt is Drawable) {
-
-                    (drawableCmpts ?? (drawableCmpts = new List<Drawable>())).Add(cmpt as Drawable);
+                if (cmpt is IRenderable) {
+                    (drawableCmpts ?? (drawableCmpts = new List<IRenderable>())).Add(cmpt as IRenderable);
                 }
 
                 if (cmpt is IFlippable) {
-
                     (flippableCmpts ?? (flippableCmpts = new List<IFlippable>())).Add(cmpt as IFlippable);
                 }
 
@@ -383,18 +381,16 @@ namespace pigeon.gameobject {
             return null;
         }
 
-        public int ComponentCount { get { return components == null ? 0 : components.Count; } }
+        public int ComponentCount { get { return components?.Count ?? 0; } }
 
         public void RemoveComponent(Component cmpt) {
             cmpt.Destructor?.Invoke();
 
-            var drawable = cmpt as Drawable;
-            if (drawable != null) {
+            if (cmpt is IRenderable drawable) {
                 drawableCmpts.Remove(drawable);
             }
 
-            var flippable = cmpt as IFlippable;
-            if (flippable != null) {
+            if (cmpt is IFlippable flippable) {
                 flippableCmpts.Remove(flippable);
             }
 
@@ -406,7 +402,6 @@ namespace pigeon.gameobject {
         private List<string> tags;
 
         public void AddTag(string tag) {
-
             (tags ?? (tags = new List<string>())).Add(tag);
         }
 
@@ -421,11 +416,7 @@ namespace pigeon.gameobject {
         }
 
         public bool HasTag(string tag) {
-            if (tags == null) {
-                return false;
-            }
-
-            return tags.Contains(tag);
+            return tags?.Contains(tag) ?? false;
         }
         #endregion
 
@@ -517,9 +508,7 @@ namespace pigeon.gameobject {
             Parent = null;
 
             foreach (var component in components) {
-                if (component.Destructor != null) {
-                    component.Destructor();
-                }
+                component.Destructor?.Invoke();
             }
 
             if (children != null) {

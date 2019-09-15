@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using pigeon.data;
 
 namespace pigeon.sound {
-    public static class Audio {
+    public static class Sfx {
         public class SfxVolumeChangedEvent : EventArgs { }
 
         public static float GlobalPitch = 0f;
@@ -60,13 +60,12 @@ namespace pigeon.sound {
             PlaySfx(name, GlobalPitch);
         }
 
-        public static void PlaySfx(string name, float pitch = 0, float volume = 1f) {
+        public static void PlaySfx(string name, float volume = 1f) {
             if (name == null) {
                 return;
             }
 
-            SoundEffectInstance instance;
-            instance = ResourceCache.Sound(name).CreateInstance();
+            SoundEffectInstance instance = ResourceCache.Sound(name).CreateInstance();
             instance.Play();
             instance.Volume = volume;
             activeSfx.Add(instance);

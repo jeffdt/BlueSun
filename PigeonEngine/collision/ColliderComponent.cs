@@ -25,7 +25,7 @@ namespace pigeon.collision {
 
         public HashSet<ColliderComponent> IgnoredColliders;
 
-        public ColliderComponent() {
+        protected ColliderComponent() {
             Destructor = destroy;
         }
 

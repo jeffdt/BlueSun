@@ -88,18 +88,16 @@ namespace pigeon.legacy.graphics.anim {
 
         private static TeslaFrame parseSeed(string seed) {
             var parseResult = seedParse.Match(seed);
-            if (parseResult.Success) {
-                return new TeslaFrame {
+            return parseResult.Success
+                ? new TeslaFrame {
                     AnchorOffsetX = parseResult.Groups["anchorX"].Value.ToInt(),
                     AnchorOffsetY = parseResult.Groups["anchorY"].Value.ToInt(),
                     SheetX = parseResult.Groups["sheetX"].Value.ToInt(),
                     SheetY = parseResult.Groups["sheetY"].Value.ToInt(),
                     Width = parseResult.Groups["width"].Value.ToInt(),
                     Height = parseResult.Groups["height"].Value.ToInt()
-                };
-            }
-
-            return null;
+                }
+                : null;
         }
 
         private static TeslaFrame createFrame(TeslaFrame seedFrame, int frameNum, int duration) {
@@ -142,7 +140,6 @@ namespace pigeon.legacy.graphics.anim {
         public Action Callback;
         private int _callbackFrame;
 
-        private string _currentAnimation;
         public string CurrentAnimation { get; private set; }
 
         private Vector2 adjOrigin;
@@ -156,7 +153,7 @@ namespace pigeon.legacy.graphics.anim {
         }
 
         public void Play(string name, Action onFinish = null, int callbackFrame = -1) {
-            _currentAnimation = name;
+            CurrentAnimation = name;
 
             Callback = onFinish;
             _callbackFrame = callbackFrame;
@@ -170,7 +167,7 @@ namespace pigeon.legacy.graphics.anim {
         }
 
         public void Loop(string name, Action onFinish = null) {
-            _currentAnimation = name;
+            CurrentAnimation = name;
             Callback = onFinish;
 
             animation = Animations[name];
@@ -182,7 +179,7 @@ namespace pigeon.legacy.graphics.anim {
         }
 
         public void PingPong(string name) {
-            _currentAnimation = name;
+            CurrentAnimation = name;
             Callback = null;
 
             animation = Animations[name];
@@ -196,7 +193,7 @@ namespace pigeon.legacy.graphics.anim {
 
         public void ShowFrame(int frame, string name) { // uses current animation if "name" == null
             if (name != null) {
-                _currentAnimation = name;
+                CurrentAnimation = name;
                 animation = Animations[name];
             }
 

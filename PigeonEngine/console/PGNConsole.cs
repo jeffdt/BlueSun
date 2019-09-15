@@ -92,6 +92,7 @@ namespace pigeon.pgnconsole {
         #endregion
 
         private string _commandBuffer;
+
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
@@ -296,15 +297,13 @@ namespace pigeon.pgnconsole {
                     while (charInd < referenceCommand.Length) {
                         // check every other command to see how many of their letters match
                         var character = referenceCommand[charInd];
-                        int commandInd = 1;
-                        while (commandInd < possibleCommands.Count && !breakLoop) {
+                        for (int commandInd = 1; commandInd < possibleCommands.Count && !breakLoop; commandInd++) {
                             string command = possibleCommands[commandInd];
 
                             if (charInd >= command.Length || command[charInd] != character) {
                                 charInd--;
                                 breakLoop = true;
                             }
-                            commandInd++;
                         }
 
                         if (!breakLoop && charInd < referenceCommand.Length - 1) {
@@ -404,7 +403,7 @@ namespace pigeon.pgnconsole {
         private static bool isCapsShift() {
             bool leftShift = RawKeyboardInput.IsHeld(Keys.LeftShift);
             bool rightShift = RawKeyboardInput.IsHeld(Keys.RightShift);
-            return (leftShift || rightShift);
+            return leftShift || rightShift;
         }
 
         private static bool isCapsLockXorShift() {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.text;
 
 namespace pigeon.legacy.entities {
-    public class TextEntity : Entity {
+    public sealed class TextEntity : Entity {
         public delegate string TimeBasedUpdater();
         public delegate string EventBasedUpdater(object sender, EventArgs evt);
 

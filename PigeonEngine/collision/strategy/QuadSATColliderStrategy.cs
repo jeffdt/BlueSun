@@ -41,7 +41,7 @@ namespace pigeon.collision {
                         continue;
                     }
 
-                    bool collided = false;
+                    const bool collided = false;
                     //					var penetration = MinkowskiCollider.Collide(out collided, box, otherBox);
                     if (collided) {
                         //						box.CollidedWith(otherBox, penetration);
