@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 using pigeon.utilities;
+using PigeonEngine.utilities.extensions;
 
 namespace pigeon.gfx {
     public class Renderer {
@@ -111,16 +112,30 @@ namespace pigeon.gfx {
             updateGraphicsDeviceSettings();
         }
 
+        private static void setRenderTarget(RenderTarget2D renderTarget2D, Color clearColor) {
+            setRenderTarget(renderTarget2D);
+            GraphicsDeviceMgr.GraphicsDevice.Clear(clearColor);
+        }
+
+        private static void setRenderTarget(RenderTarget2D renderTarget2D) {
+            GraphicsDeviceMgr.GraphicsDevice.SetRenderTarget(renderTarget2D);
+        }
+
         public void CustomRender(RenderFunction renderFunction, Color clearColor) {
+            if (deviceNeedsRefresh) {
+                applyDeviceChanges();
+            }
+
             // draw true image
-            Begin(trueScaleMatrix);
+            SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.FrontToBack);
             setRenderTarget(TrueGameScreen, clearColor);
             renderFunction();
             SpriteBatch.End();
 
             // apply the shader
             setRenderTarget(ShadedGameScreen, clearColor);
-            SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, trueScaleMatrix);
+            // TODO: try SpriteSortMode.Deferred instead of Immediate and see if it makes any difference
+            SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
             PostProcessors?.Invoke();
             SpriteBatch.Draw(TrueGameScreen, Vector2.Zero, Color.White);
             SpriteBatch.End();
@@ -132,41 +147,42 @@ namespace pigeon.gfx {
             }
         }
 
+        internal void RenderOverlay(RenderFunction renderFunction, RenderTarget2D overlayRenderTarget, Vector2 drawPosition) {
+            //setRenderTarget(TrueGameScreen);
+            SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.FrontToBack);
+            renderFunction();
+            SpriteBatch.End();
+
+            //setRenderTarget(TrueGameScreen);
+            //SpriteBatch.BeginPixelPerfect(trueScaleMatrix, SpriteSortMode.Immediate);
+            //SpriteBatch.Draw(overlayRenderTarget, drawPosition, Color.White);
+            //SpriteBatch.End();
+        }
+
         public void FinalDraw() {
+            if (LcdDisplay) {
+                SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
+                SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
+                SpriteBatch.End();
+            }
+
             // scale up
             if (IsFullScreen) {
                 setRenderTarget(PaddedGameScreen, Color.Black);
-                SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, DrawScaleMatrix);
+                SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
                 SpriteBatch.Draw(ShadedGameScreen, fullscreenInset, Color.White);
-                if (LcdDisplay) {
-                    SpriteBatch.Draw(lcdGridTex, Vector2.Zero, Color.White);
-                }
                 SpriteBatch.End();
 
                 setRenderTarget(null, Color.Black);
-                SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, trueScaleMatrix);
+                SpriteBatch.BeginPixelPerfect(trueScaleMatrix);
                 SpriteBatch.Draw(PaddedGameScreen, Vector2.Zero, Color.White);
                 SpriteBatch.End();
             } else {
                 setRenderTarget(null, Color.Black);
-                SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, DrawScaleMatrix);
+                SpriteBatch.BeginPixelPerfect(DrawScaleMatrix);
                 SpriteBatch.Draw(ShadedGameScreen, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                 SpriteBatch.End();
-
-                if (LcdDisplay) {
-                    SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, trueScaleMatrix);
-                    SpriteBatch.Draw(lcdGridTex, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 1f);
-                    SpriteBatch.End();
-                }
             }
-        }
-
-        protected void Begin(Matrix scaleMatrix) {
-            if (deviceNeedsRefresh) {
-                applyDeviceChanges();
-            }
-
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, scaleMatrix);
         }
 
         private void applyDeviceChanges() {
@@ -196,16 +212,6 @@ namespace pigeon.gfx {
             deviceNeedsRefresh = false;
         }
 
-        private static void setRenderTarget(RenderTarget2D renderTarget2D, Color clearColor) {
-            GraphicsDeviceMgr.GraphicsDevice.SetRenderTarget(renderTarget2D);
-            GraphicsDeviceMgr.GraphicsDevice.Clear(clearColor);
-        }
-
-        internal void RenderOverlay(RenderFunction renderFunction) {
-            Begin(trueScaleMatrix);
-            renderFunction();
-            SpriteBatch.End();
-        }
 
         private void updateGraphicsDeviceSettings() {
             GraphicsDeviceMgr.IsFullScreen = IsFullScreen;

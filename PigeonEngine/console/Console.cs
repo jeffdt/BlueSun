@@ -206,7 +206,7 @@ namespace pigeon.pgnconsole {
 
         public override void Draw() {
             if (IsDisplaying) {
-                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw);
+                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw, overlayRenderTarget, panel.Position);
             }
         }
 
