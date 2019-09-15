@@ -17,7 +17,7 @@ namespace pigeon.utilities.extensions {
             return tailCharsLength >= source.Length ? source : source.Substring(source.Length - tailCharsLength);
         }
 
-        // calculate how many characters will fit in a space of {width} pixels
+        // calculate how many characters will fit in a space of {spaceWidth} pixels
         public static string LastByPixels(this string source, int spaceWidth, SpriteFont font) {
             return _lastByPixels(source, spaceWidth, (str) => (int) font.MeasureString(str).X);
         }
@@ -113,25 +113,39 @@ namespace pigeon.utilities.extensions {
             return str.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        public static string FormatWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
+        public static string FormatWrap(this string text, SpriteFont font, int width, string wrapStr = "", int maxLines = 0) {
             StringBuilder lines = new StringBuilder();
-            _wrapString(text, font.MeasureWidth, width, (str) => lines.Append(str).Append('\n'), maxLines);
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Append(str).Append('\n'), wrapStr, maxLines);
             return lines.ToString();
         }
 
-        public static List<string> SplitWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
+        public static List<string> SplitWrap(this string text, SpriteFont font, int width, string wrapStr = "", int maxLines = 0) {
             List<string> lines = new List<string>();
-            _wrapString(text, font.MeasureWidth, width, (str) => lines.Add(str), maxLines);
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Add(str), wrapStr, maxLines);
             return lines;
         }
 
-        internal static void _wrapString(this string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
-            string[] words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
+        internal static void _wrapString(this string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, string wrapStr = "", int maxLines = 0) {
+            List<string> words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries).ToList();
             string line = string.Empty;
             int lineCount = 1;
 
-            if (text.StartsWith("Name=flavor")) {
-                bool isDebugMessage = true;
+            for (int i = 0; i < words.Count; i++) {
+                string word = words[i];
+                int wordLength = stringMeasurer(word);
+                if (wordLength > width) { // found one word that's too long to fit into a line on its own
+                    for (int j = 0; j < word.Length; j++) {
+                        string subword = word.Substring(0, j + 1);
+                        int subwordLength = stringMeasurer(subword);
+                        if (subwordLength > width) { // found exactly where word {i} too long (index {j})
+                            string splitWordFirst = word.Substring(0, j - 1);
+                            string splitWordSecond = word.Substring(j - 1, word.Length - j + 1);
+                            words[i] = splitWordFirst + wrapStr;
+                            words.Insert(i + 1, splitWordSecond);
+                            break;
+                        }
+                    }
+                }
             }
 
             foreach (string word in words) {
