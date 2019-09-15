@@ -62,11 +62,7 @@ namespace pigeon.gameobject {
         }
 
         public ObjectSeed AddChild(ObjectSeed child) {
-            if (Children == null) {
-                Children = new List<ObjectSeed>();
-            }
-
-            Children.Add(child);
+            (Children ?? (Children = new List<ObjectSeed>())).Add(child);
             return this;
         }
     }

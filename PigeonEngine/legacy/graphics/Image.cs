@@ -73,10 +73,7 @@ namespace pigeon.legacy.graphics {
         }
 
         public void AddSource(object key, Rectangle source) {
-            if (sourceMap == null) {
-                sourceMap = new Dictionary<object, Rectangle>();
-            }
-            sourceMap.Add(key, source);
+            (sourceMap ?? (sourceMap = new Dictionary<object, Rectangle>())).Add(key, source);
         }
 
         public void SwapSource(object key, bool center = false) {

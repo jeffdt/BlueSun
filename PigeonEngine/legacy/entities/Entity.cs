@@ -20,11 +20,8 @@ namespace pigeon.legacy.entities {
         private List<Component> components;
 
         public void AddComponent(Component component) {
-            if (components == null) {
-                components = new List<Component>();
-            }
 
-            components.Add(component);
+            (components ?? (components = new List<Component>())).Add(component);
             // component.Parent = this;
         }
 
