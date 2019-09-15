@@ -83,13 +83,13 @@ namespace pigeon.input {
 
             switch (button) {
                 case Buttons.DPadUp:
-                    return result || isJoystickHeldUp();
+                    return result || IsJoystickHeldUp();
                 case Buttons.DPadRight:
-                    return result || isJoystickHeldRight();
+                    return result || IsJoystickHeldRight();
                 case Buttons.DPadDown:
-                    return result || isJoystickHeldDown();
+                    return result || IsJoystickHeldDown();
                 case Buttons.DPadLeft:
-                    return result || isJoystickHeldLeft();
+                    return result || IsJoystickHeldLeft();
             }
 
             return result;
@@ -97,25 +97,25 @@ namespace pigeon.input {
 
         public override bool IsAnyPressed() {
             return isButtonPressedRaw(Buttons.A) || isButtonPressedRaw(Buttons.B)
-                || isButtonPressedRaw(Buttons.X) || isButtonPressedRaw(Buttons.Y) ||
-                isButtonPressedRaw(Buttons.LeftShoulder) || isButtonPressedRaw(Buttons.RightShoulder) ||
-                isButtonPressedRaw(Buttons.LeftTrigger) || isButtonPressedRaw(Buttons.RightTrigger) ||
-                isButtonPressedRaw(Buttons.DPadLeft) || isButtonPressedRaw(Buttons.DPadRight) ||
-                isButtonPressedRaw(Buttons.DPadUp) || isButtonPressedRaw(Buttons.DPadDown) ||
-                isButtonPressedRaw(Buttons.Back) || isButtonPressedRaw(Buttons.Start) ||
-                isJoystickPressedUp() || isJoystickPressedRight() || isJoystickPressedDown() || isJoystickPressedLeft();
+                || isButtonPressedRaw(Buttons.X) || isButtonPressedRaw(Buttons.Y)
+                || isButtonPressedRaw(Buttons.LeftShoulder) || isButtonPressedRaw(Buttons.RightShoulder)
+                || isButtonPressedRaw(Buttons.LeftTrigger) || isButtonPressedRaw(Buttons.RightTrigger)
+                || isButtonPressedRaw(Buttons.DPadLeft) || isButtonPressedRaw(Buttons.DPadRight)
+                || isButtonPressedRaw(Buttons.DPadUp) || isButtonPressedRaw(Buttons.DPadDown)
+                || isButtonPressedRaw(Buttons.Back) || isButtonPressedRaw(Buttons.Start)
+                || isJoystickPressedUp() || isJoystickPressedRight() || isJoystickPressedDown() || isJoystickPressedLeft();
         }
 
         public override bool IsAnyHeld() {
             return isButtonHeldRaw(Buttons.A) || isButtonHeldRaw(Buttons.B)
-                || isButtonHeldRaw(Buttons.X) || isButtonHeldRaw(Buttons.Y) ||
-                isButtonHeldRaw(Buttons.LeftShoulder) || isButtonHeldRaw(Buttons.RightShoulder) ||
-                isButtonHeldRaw(Buttons.LeftTrigger) || isButtonHeldRaw(Buttons.RightTrigger) ||
-                isButtonHeldRaw(Buttons.DPadLeft) || isButtonHeldRaw(Buttons.DPadRight) ||
-                isButtonHeldRaw(Buttons.DPadUp) || isButtonHeldRaw(Buttons.DPadDown) ||
-                isButtonHeldRaw(Buttons.Back) || isButtonHeldRaw(Buttons.Start) ||
-                isButtonHeldRaw(Buttons.LeftStick) || isButtonHeldRaw(Buttons.RightStick) ||
-                isJoystickHeldUp() || isJoystickHeldRight() || isJoystickHeldDown() || isJoystickHeldLeft();
+                || isButtonHeldRaw(Buttons.X) || isButtonHeldRaw(Buttons.Y)
+                || isButtonHeldRaw(Buttons.LeftShoulder) || isButtonHeldRaw(Buttons.RightShoulder)
+                || isButtonHeldRaw(Buttons.LeftTrigger) || isButtonHeldRaw(Buttons.RightTrigger)
+                || isButtonHeldRaw(Buttons.DPadLeft) || isButtonHeldRaw(Buttons.DPadRight)
+                || isButtonHeldRaw(Buttons.DPadUp) || isButtonHeldRaw(Buttons.DPadDown)
+                || isButtonHeldRaw(Buttons.Back) || isButtonHeldRaw(Buttons.Start)
+                || isButtonHeldRaw(Buttons.LeftStick) || isButtonHeldRaw(Buttons.RightStick)
+                || IsJoystickHeldUp() || IsJoystickHeldRight() || IsJoystickHeldDown() || IsJoystickHeldLeft();
         }
 
         #region raw input checks
@@ -128,34 +128,34 @@ namespace pigeon.input {
         }
 
         private bool isJoystickPressedUp() {
-            return !previousLeftJoystickActive && isJoystickHeldUp();
+            return !previousLeftJoystickActive && IsJoystickHeldUp();
         }
 
         private bool isJoystickPressedRight() {
-            return !previousLeftJoystickActive && isJoystickHeldRight();
+            return !previousLeftJoystickActive && IsJoystickHeldRight();
         }
 
         private bool isJoystickPressedDown() {
-            return !previousLeftJoystickActive && isJoystickHeldDown();
+            return !previousLeftJoystickActive && IsJoystickHeldDown();
         }
 
         private bool isJoystickPressedLeft() {
-            return !previousLeftJoystickActive && isJoystickHeldLeft();
+            return !previousLeftJoystickActive && IsJoystickHeldLeft();
         }
 
-        public bool isJoystickHeldUp() {
+        public bool IsJoystickHeldUp() {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y > JOYSTICK_COMPONENT_THRESH;
         }
 
-        public bool isJoystickHeldDown() {
+        public bool IsJoystickHeldDown() {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y < -JOYSTICK_COMPONENT_THRESH;
         }
 
-        public bool isJoystickHeldRight() {
+        public bool IsJoystickHeldRight() {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.X > JOYSTICK_COMPONENT_THRESH;
         }
 
-        public bool isJoystickHeldLeft() {
+        public bool IsJoystickHeldLeft() {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.X < -JOYSTICK_COMPONENT_THRESH;
         }
         #endregion

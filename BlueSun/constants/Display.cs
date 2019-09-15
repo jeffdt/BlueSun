@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-
 namespace BlueSun.src.parameters {
     static class Display {
         public const int InitialScale = 2;
@@ -13,4 +12,3 @@ namespace BlueSun.src.parameters {
         public static readonly Rectangle Screen = new Rectangle(0, 0, ScreenBoundary.X, ScreenBoundary.Y);
     }
 }
- 

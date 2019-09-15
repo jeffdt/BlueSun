@@ -1,5 +1,5 @@
 ﻿namespace pigeon.gameobject {
-    public interface Drawable {
+    public interface IRenderable {
         void Draw();
     }
 }

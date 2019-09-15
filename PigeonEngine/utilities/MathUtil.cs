@@ -9,11 +9,7 @@ namespace pigeon.utilities {
                 return 0;
             }
 
-            if (value >= max) {
-                return 1;
-            }
-
-            return (value - min) / (max - min);
+            return value >= max ? 1 : (value - min) / (max - min);
         }
 
         public static float CrossLerp(this float value, int fromMin, int fromMax, float toMin, float toMax) {

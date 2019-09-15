@@ -5,7 +5,7 @@ using pigeon.legacy.graphics.text;
 using pigeon.gameobject;
 
 namespace pigeon.gfx {
-    public class TextRenderer : Component, Drawable {
+    public class TextRenderer : Component, IRenderable {
         public delegate string TimeBasedUpdater();
         public delegate string EventBasedUpdater(object sender, EventArgs evt);
 

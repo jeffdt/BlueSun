@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace pigeon.pgnconsole {
-    class CommandHistory {
+    internal class CommandHistory {
         private readonly int historyLength;
         private readonly List<string> commands;
         private int index;

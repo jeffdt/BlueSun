@@ -53,11 +53,7 @@ namespace pigeon.utilities.helpers {
                 return UpFriendly;
             }
 
-            if (direction.Y == 1) {
-                return DownFriendly;
-            }
-
-            return CenterFriendly;
+            return direction.Y == 1 ? DownFriendly : CenterFriendly;
         }
 
         public static Vector2 Translate(string description) {

@@ -17,7 +17,7 @@ namespace pigeon.utilities.helpers {
                 case SimpleDirections.Left:
                     return 3;
                 default:
-                    throw new ArgumentOutOfRangeException("sd");
+                    throw new ArgumentOutOfRangeException(nameof(sd));
             }
         }
 
@@ -32,7 +32,7 @@ namespace pigeon.utilities.helpers {
                 case SimpleDirections.Right:
                     return SimpleDirections.Left;
                 default:
-                    throw new ArgumentOutOfRangeException("sd");
+                    throw new ArgumentOutOfRangeException(nameof(sd));
             }
         }
     }

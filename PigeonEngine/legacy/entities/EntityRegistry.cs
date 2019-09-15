@@ -91,7 +91,7 @@ namespace pigeon.legacy.entities {
         }
 
         private void addNew() {
-            if (toAdd.Count <= 0)
+            if (toAdd.Count == 0)
                 return;
 
             foreach (var entity in toAdd) {
@@ -106,7 +106,7 @@ namespace pigeon.legacy.entities {
         }
 
         private void removeOld() {
-            if (toRemove.Count <= 0)
+            if (toRemove.Count == 0)
                 return;
 
             foreach (var entity in toRemove) {

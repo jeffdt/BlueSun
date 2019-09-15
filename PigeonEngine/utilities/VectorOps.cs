@@ -18,11 +18,7 @@ namespace pigeon.utilities {
                 return vect.Scale(min);
             }
 
-            if (length > max) {
-                return vect.Scale(max);
-            }
-
-            return vect;
+            return length > max ? vect.Scale(max) : vect;
         }
 
         public static Vector2 Clamp(this Vector2 vect, Vector2 clampMin, Vector2 clampMax) {

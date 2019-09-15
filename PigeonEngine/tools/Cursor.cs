@@ -4,7 +4,7 @@ using pigeon.legacy.entities;
 using pigeon.legacy.graphics;
 
 namespace pigeon.tools {
-    class Cursor : Entity {
+    internal class Cursor : Entity {
         public Image Regular, Clicked;
 
         public Cursor(Image regular, Image clicked)

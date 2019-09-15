@@ -5,7 +5,7 @@ using pigeon.legacy.graphics.anim;
 using pigeon.gameobject;
 
 namespace pigeon.gfx {
-    public class SpriteRenderer : Component, Drawable, IFlippable {
+    public class SpriteRenderer : Component, IRenderable, IFlippable {
         public readonly Sprite Sprite;
 
         public SpriteRenderer(string spriteName, string initialAnim = null, string texturePath = null) {
@@ -51,26 +51,26 @@ namespace pigeon.gfx {
         }
 
         public bool IsFlippedHorizontal() {
-            return ((Sprite.Flip & SpriteEffects.FlipHorizontally) != 0);
+            return (Sprite.Flip & SpriteEffects.FlipHorizontally) != 0;
         }
 
         public bool IsFlippedVertical() {
-            return ((Sprite.Flip & SpriteEffects.FlipVertically) != 0);
+            return (Sprite.Flip & SpriteEffects.FlipVertically) != 0;
         }
 
         public void SetFlipHorizontal(bool hFlip) {
             if (hFlip) {
-                Sprite.Flip = Sprite.Flip | SpriteEffects.FlipHorizontally;
+                Sprite.Flip |= SpriteEffects.FlipHorizontally;
             } else {
-                Sprite.Flip = Sprite.Flip & SpriteEffects.FlipVertically;
+                Sprite.Flip &= SpriteEffects.FlipVertically;
             }
         }
 
         public void SetFlipVertical(bool vFlip) {
             if (vFlip) {
-                Sprite.Flip = Sprite.Flip | SpriteEffects.FlipVertically;
+                Sprite.Flip |= SpriteEffects.FlipVertically;
             } else {
-                Sprite.Flip = Sprite.Flip & SpriteEffects.FlipHorizontally;
+                Sprite.Flip &= SpriteEffects.FlipHorizontally;
             }
         }
 

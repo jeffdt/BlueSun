@@ -91,7 +91,6 @@ namespace pigeon.core.events {
             }
         }
 
-
         public void RaiseSimpleEvent(string type, object sender) {
             if (simpleEventHandlers.TryGetValue(type, out SimpleEventHandler handler) && handler != null) {
                 handler(sender);

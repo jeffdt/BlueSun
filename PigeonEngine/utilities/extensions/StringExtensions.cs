@@ -22,8 +22,8 @@ namespace pigeon.utilities.extensions {
             return _lastByPixels(source, spaceWidth, (str) => (int) font.MeasureString(str).X);
         }
 
-        internal static string _lastByPixels(string source, int spaceWidth, Func<string, int> strMeasurer) {
-            for(int i = source.Length - 1; i >= 0; i--) {
+        internal static string _lastByPixels(this string source, int spaceWidth, Func<string, int> strMeasurer) {
+            for (int i = source.Length - 1; i >= 0; i--) {
                 if (strMeasurer(source.Substring(i)) > spaceWidth) {
                     return source.Substring(i + 1);
                 }
@@ -115,17 +115,17 @@ namespace pigeon.utilities.extensions {
 
         public static string FormatWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
             StringBuilder lines = new StringBuilder();
-            _wrapString(text, font.MeasureWidth, width, (str) => lines.Append(str).Append('\n'));
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Append(str).Append('\n'), maxLines);
             return lines.ToString();
         }
 
-        public static List<string> SplitWrap(this string text, SpriteFont font, int width) {
+        public static List<string> SplitWrap(this string text, SpriteFont font, int width, int maxLines = 0) {
             List<string> lines = new List<string>();
-            _wrapString(text, font.MeasureWidth, width, (str) => lines.Add(str)) ;
+            _wrapString(text, font.MeasureWidth, width, (str) => lines.Add(str), maxLines);
             return lines;
         }
 
-        internal static void _wrapString(string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
+        internal static void _wrapString(this string text, Func<string, int> stringMeasurer, int width, Action<string> onSplit, int maxLines = 0) {
             string[] words = text.Split(SPACE_SEPARATOR, StringSplitOptions.RemoveEmptyEntries);
             string line = string.Empty;
             int lineCount = 1;

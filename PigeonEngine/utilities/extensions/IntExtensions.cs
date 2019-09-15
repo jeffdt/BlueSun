@@ -15,11 +15,7 @@ namespace pigeon.utilities.extensions {
                 return max;
             }
 
-            if (me > max) {
-                return min;
-            }
-
-            return me;
+            return me > max ? min : me;
         }
     }
 }

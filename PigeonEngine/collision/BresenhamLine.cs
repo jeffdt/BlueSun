@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace pigeon.collision {
     public static class BresenhamLine {
         // Swap the values of A and B
-        private static void Swap<T>(ref T a, ref T b) {
+        private static void swap<T>(ref T a, ref T b) {
             T c = a;
             a = b;
             b = c;
@@ -25,12 +25,12 @@ namespace pigeon.collision {
 
             bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
             if (steep) {
-                Swap(ref x0, ref y0);
-                Swap(ref x1, ref y1);
+                swap(ref x0, ref y0);
+                swap(ref x1, ref y1);
             }
             if (x0 > x1) {
-                Swap(ref x0, ref x1);
-                Swap(ref y0, ref y1);
+                swap(ref x0, ref x1);
+                swap(ref y0, ref y1);
             }
 
             int deltax = x1 - x0;

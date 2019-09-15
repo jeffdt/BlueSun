@@ -37,6 +37,7 @@ namespace pigeon.gfx {
         }
 
         private bool isBorderless;
+
         public bool IsBorderless {
             get { return isBorderless; }
             set {
@@ -47,6 +48,7 @@ namespace pigeon.gfx {
         }
 
         private bool isFullScreen;
+
         public bool IsFullScreen {
             get { return isFullScreen; }
             set {
@@ -86,7 +88,7 @@ namespace pigeon.gfx {
         public static GraphicsDeviceManager GraphicsDeviceMgr;
 
         public static bool LcdDisplay = false;
-        private const int LcdStrength = 10;
+        private const int lcdStrength = 10;
         private Texture2D lcdGridTex;
 
         private bool takeScreenshot;
@@ -174,7 +176,7 @@ namespace pigeon.gfx {
             Color[] lcdGridPixels = new Color[scaledResX * scaledResY];
 
             var emptyPixel = new Color(0, 0, 0, 0);
-            var gridPixel = new Color(0, 0, 0, LcdStrength);
+            var gridPixel = new Color(0, 0, 0, lcdStrength);
 
             for (int row = 0; row < scaledResY; row++) {
                 for (int col = 0; col < scaledResX; col++) {
@@ -193,7 +195,6 @@ namespace pigeon.gfx {
             deviceNeedsRefresh = false;
         }
 
-
         private void updateGraphicsDeviceSettings() {
             GraphicsDeviceMgr.IsFullScreen = IsFullScreen;
 
@@ -202,7 +203,6 @@ namespace pigeon.gfx {
 
             int fullDisplayWidth;
             int fullDisplayHeight;
-
 
             if (IsFullScreen) {
                 fullDisplayWidth = monitorWidth;

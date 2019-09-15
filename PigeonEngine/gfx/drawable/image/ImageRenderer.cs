@@ -4,7 +4,7 @@ using pigeon.legacy.graphics;
 using pigeon.gameobject;
 
 namespace pigeon.gfx {
-    public class ImageRenderer : Component, Drawable, IFlippable {
+    public class ImageRenderer : Component, IRenderable, IFlippable {
         public string TexturePath;
         public bool Center;
 

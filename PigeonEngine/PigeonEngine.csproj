@@ -101,6 +101,7 @@
     <Compile Include="debug\ObjectDescriber.cs" />
     <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />
@@ -178,9 +179,9 @@
     </Compile>
     <Compile Include="rand\Rand.cs" />
     <Compile Include="rand\WeightedRoulette.cs" />
-    <Compile Include="sound\Audio.cs" />
+    <Compile Include="sound\Sfx.cs" />
     <Compile Include="squab\Component.cs" />
-    <Compile Include="gfx\drawable\Drawable.cs" />
+    <Compile Include="gfx\drawable\IRenderable.cs" />
     <Compile Include="squab\Egg.cs" />
     <Compile Include="squab\ObjectSeed.cs" />
     <Compile Include="squab\GameObject.cs" />

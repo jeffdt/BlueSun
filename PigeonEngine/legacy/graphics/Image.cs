@@ -5,7 +5,7 @@ using pigeon.data;
 using pigeon.gfx;
 
 namespace pigeon.legacy.graphics {
-    public class Image : Graphic {
+    public sealed class Image : Graphic {
         public Texture2D Texture;
         public Rectangle SourceRect;
 

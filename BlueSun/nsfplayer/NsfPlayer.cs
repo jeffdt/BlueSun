@@ -14,7 +14,7 @@ namespace BlueSun.src.worlds {
             GameObject controllerObj = new GameObject("main") { WorldPosition = Display.ScreenCenter };
             controllerObj.AddComponent(new MusicController());
 
-            GameObject songTextObj = new GameObject("song") { LocalLayer = .9f,  FlatLocalPosition = new Point(0, -10) };
+            GameObject songTextObj = new GameObject("song") { LocalLayer = .9f, FlatLocalPosition = new Point(0, -10) };
             songTextObj.AddComponent(new TextRenderer().SetAll("", Fonts.Console, Palette.White, Justification.Center));
             controllerObj.AddChild(songTextObj);
 

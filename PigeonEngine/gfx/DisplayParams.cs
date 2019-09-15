@@ -10,6 +10,6 @@
         public int ScreenWidth { get; }
         public int ScreenHeight { get; }
         public int InitialScale { get; }
-        public int FrameRate { get;}
+        public int FrameRate { get; }
     }
 }

@@ -25,8 +25,9 @@ namespace pigeon.collision {
                     continue;
                 }
 
-                HitboxSetManager hitboxSetManager = new HitboxSetManager();
-                hitboxSetManager.allHitboxSets = new List<HitboxSet>();
+                HitboxSetManager hitboxSetManager = new HitboxSetManager {
+                    allHitboxSets = new List<HitboxSet>()
+                };
 
                 bool isSameHitbox = true;
                 while (isSameHitbox) {
@@ -55,8 +56,6 @@ namespace pigeon.collision {
                     }
                 }
             }
-
-            i = 0;
         }
 
         private static Point parsePoint(string info) {

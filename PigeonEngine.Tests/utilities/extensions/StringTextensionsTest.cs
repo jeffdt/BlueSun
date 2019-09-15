@@ -67,7 +67,6 @@ namespace PigeonEngineTests.utilities.extensions {
             Assert.That(() => "byte".HexToByte(), Throws.TypeOf<FormatException>());
         }
 
-
         [TestCase("0", 0)]
         [TestCase("15", 15)]
         [TestCase("123456789", 123456789)]
@@ -83,7 +82,7 @@ namespace PigeonEngineTests.utilities.extensions {
             Assert.That(() => "111111111111111".ToInt(), Throws.TypeOf<OverflowException>());
             Assert.That(() => "abcdef".ToInt(), Throws.TypeOf<FormatException>());
         }
-        
+
         [TestCase("true", true)]
         [TestCase("false", false)]
         [TestCase("1", true)]

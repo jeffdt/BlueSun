@@ -39,7 +39,7 @@ namespace pigeon.pgnconsole {
                 { "bgmstop", bgmStop },
                 { "bgmvol", setBgmVolume },
                 { "bgmtempo", bgmTempo },
-				{ "bgmequalizer", setBgmEqualizer },
+                { "bgmequalizer", setBgmEqualizer },
                 { "bgmmutevoice", setBgmMuteVoice },
                 { "bgmmutevoices", setBgmMuteVoices },
                 { "bgmstereo", bgmStereoDepth },
@@ -59,7 +59,7 @@ namespace pigeon.pgnconsole {
                 { "savedir", openSaveDir },
                 { "showui", showUi },
                 { "tick", tick },
-				
+
 				// objects
 				{ "components", getComponents },
                 { "bump", bump },
@@ -161,7 +161,7 @@ namespace pigeon.pgnconsole {
                 after = args.ToBool();
             }
 
-            if (before != after) { 
+            if (before != after) {
                 Pigeon.Renderer.IsBorderless = after;
             }
 
@@ -191,7 +191,7 @@ namespace pigeon.pgnconsole {
 
         #region engine
         private static void exitApp(string args) {
-            Pigeon.ExitApp();
+            Pigeon.Instance.Exit();
         }
 
         private static void setGameSpeed(string args) {
@@ -290,7 +290,7 @@ namespace pigeon.pgnconsole {
                     break;
             }
 
-            obj.FlatLocalPosition = obj.FlatLocalPosition + bumpDir;
+            obj.FlatLocalPosition += bumpDir;
         }
 
         private static void describeChildren(GameObject obj, StringBuilder builder) {
@@ -343,15 +343,7 @@ namespace pigeon.pgnconsole {
                 return;
             }
 
-            Component drawable = obj.GetComponent<SpriteRenderer>();
-
-            if (drawable == null) {
-                drawable = obj.GetComponent<ImageRenderer>();
-            }
-
-            if (drawable == null) {
-                drawable = obj.GetComponent<TextRenderer>();
-            }
+            Component drawable = (obj.GetComponent<SpriteRenderer>() ?? (Component) obj.GetComponent<ImageRenderer>()) ?? obj.GetComponent<TextRenderer>();
 
             if (drawable != null) {
                 drawable.Enabled = !drawable.Enabled;
@@ -511,9 +503,9 @@ namespace pigeon.pgnconsole {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
-                var before = Audio.SfxVolume;
+                var before = Sfx.SfxVolume;
                 var after = (float) value;
-                Audio.SfxVolume = after;
+                Sfx.SfxVolume = after;
                 ConsoleUtilities.LogVariableChange("sfx vol", before, after);
             } else {
                 Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
@@ -523,7 +515,7 @@ namespace pigeon.pgnconsole {
 
         #region vars
         private static void setVar(string args) {
-            if (args == string.Empty) {
+            if (args?.Length == 0) {
                 Pigeon.Console.Log("select category:");
                 var allCategories = Const.Categories;
                 StringBuilder stringBuilder = new StringBuilder();
@@ -576,7 +568,7 @@ namespace pigeon.pgnconsole {
         }
 
         private static void loadVarPreset(string args) {
-            if (args == string.Empty) {
+            if (args?.Length == 0) {
                 var presets = PlayerData.GetFileList(@"constants\*.cfg", false);
 
                 StringBuilder stringBuilder = new StringBuilder();

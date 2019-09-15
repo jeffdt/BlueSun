@@ -33,7 +33,7 @@ namespace GameMusicEmuSharp {
             IntPtr outStringPtr = gme_voice_name(emuHandle, i);
 
             // Convert it to an ANSI string.
-            return (Marshal.PtrToStringAnsi(outStringPtr));
+            return Marshal.PtrToStringAnsi(outStringPtr);
         }
 
         /// <summary>
@@ -161,9 +161,7 @@ namespace GameMusicEmuSharp {
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void gme_delete(IntPtr emuHandle);
 
-
         /* Track position/length */
-
 
         /// <summary>
         /// Sets the time for the track to start fading out.
@@ -231,7 +229,6 @@ namespace GameMusicEmuSharp {
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern int gme_track_count(IntPtr emuHandle);
 
-
         /* Informational */
 
         /// <summary>
@@ -282,7 +279,6 @@ namespace GameMusicEmuSharp {
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void gme_free_info(IntPtr trackInfo);
 
-
         /* Advanced Playback */
 
         /// <summary>
@@ -294,7 +290,6 @@ namespace GameMusicEmuSharp {
         /// <param name="depth">The desired stereo echo depth.</param>
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void gme_set_stereo_depth(IntPtr emuHandle, double depth);
-
 
         /// <summary>
         /// Disable automatic end-of-track detection and skips the silence at the beginning if true.
@@ -372,9 +367,7 @@ namespace GameMusicEmuSharp {
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void gme_enable_accuracy(IntPtr emuHandle, bool enabled);
 
-
         // Game Music Types
-
 
         /// <summary>
         /// Gets the type of emulator.

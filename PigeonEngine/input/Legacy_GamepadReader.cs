@@ -13,7 +13,7 @@ namespace pigeon.input {
 
         private static bool currentLeftJoystickActive;
         private static bool previousLeftJoystickActive;
-        private static PlayerIndex controllerIndex = PlayerIndex.One;
+        private const PlayerIndex controllerIndex = PlayerIndex.One;
 
         public static void Initialize() {
             currentState = getPlayerOneState();
@@ -116,24 +116,24 @@ namespace pigeon.input {
 
         public static bool IsAnyButtonJustPressed() {
             return IsPressed(Buttons.A) || IsPressed(Buttons.B)
-                || IsPressed(Buttons.X) || IsPressed(Buttons.Y) ||
-                IsPressed(Buttons.LeftShoulder) || IsPressed(Buttons.RightShoulder) ||
-                IsPressed(Buttons.LeftTrigger) || IsPressed(Buttons.RightTrigger) ||
-                IsPressed(Buttons.DPadLeft) || IsPressed(Buttons.DPadRight) ||
-                IsPressed(Buttons.DPadUp) || IsPressed(Buttons.DPadDown) ||
-                IsPressed(Buttons.Back) || IsPressed(Buttons.Start) ||
-                IsPressed(Buttons.LeftStick) || IsPressed(Buttons.RightStick);
+                || IsPressed(Buttons.X) || IsPressed(Buttons.Y)
+                || IsPressed(Buttons.LeftShoulder) || IsPressed(Buttons.RightShoulder)
+                || IsPressed(Buttons.LeftTrigger) || IsPressed(Buttons.RightTrigger)
+                || IsPressed(Buttons.DPadLeft) || IsPressed(Buttons.DPadRight)
+                || IsPressed(Buttons.DPadUp) || IsPressed(Buttons.DPadDown)
+                || IsPressed(Buttons.Back) || IsPressed(Buttons.Start)
+                || IsPressed(Buttons.LeftStick) || IsPressed(Buttons.RightStick);
         }
 
         public static bool IsAnyButtonHeld() {
             return IsHeld(Buttons.A) || IsHeld(Buttons.B)
-                || IsHeld(Buttons.X) || IsHeld(Buttons.Y) ||
-                IsHeld(Buttons.LeftShoulder) || IsHeld(Buttons.RightShoulder) ||
-                IsHeld(Buttons.LeftTrigger) || IsHeld(Buttons.RightTrigger) ||
-                IsHeld(Buttons.DPadLeft) || IsHeld(Buttons.DPadRight) ||
-                IsHeld(Buttons.DPadUp) || IsHeld(Buttons.DPadDown) ||
-                IsHeld(Buttons.Back) || IsHeld(Buttons.Start) ||
-                IsHeld(Buttons.LeftStick) || IsHeld(Buttons.RightStick);
+                || IsHeld(Buttons.X) || IsHeld(Buttons.Y)
+                || IsHeld(Buttons.LeftShoulder) || IsHeld(Buttons.RightShoulder)
+                || IsHeld(Buttons.LeftTrigger) || IsHeld(Buttons.RightTrigger)
+                || IsHeld(Buttons.DPadLeft) || IsHeld(Buttons.DPadRight)
+                || IsHeld(Buttons.DPadUp) || IsHeld(Buttons.DPadDown)
+                || IsHeld(Buttons.Back) || IsHeld(Buttons.Start)
+                || IsHeld(Buttons.LeftStick) || IsHeld(Buttons.RightStick);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace pigeon.utilities.extensions {
             Renderer.SpriteBatch.Draw(ResourceCache.Pixel, rect, null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
 
-        public static void DrawFilled(int xPosition, int yPosition, int width, int height, Color color, float layer = 1f) {
+        public static void DrawFilled(this int xPosition, int yPosition, int width, int height, Color color, float layer = 1f) {
             Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPosition, yPosition, width, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
 
@@ -45,7 +45,7 @@ namespace pigeon.utilities.extensions {
             DrawBordered(rect.X, rect.Y, rect.Width, rect.Height, color, thickness, layer);
         }
 
-        public static void DrawBordered(int xPos, int yPos, int width, int height, Color color, int thickness = 1, float layer = 1f) {
+        public static void DrawBordered(this int xPos, int yPos, int width, int height, Color color, int thickness = 1, float layer = 1f) {
             // top
             Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, width, thickness), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
             // bottom
@@ -54,7 +54,7 @@ namespace pigeon.utilities.extensions {
             // left
             Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos, yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
             // right
-            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle((xPos + width - thickness), yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
+            Renderer.SpriteBatch.Draw(ResourceCache.Pixel, new Rectangle(xPos + width - thickness, yPos, thickness, height), null, color, 0f, Vector2.Zero, SpriteEffects.None, layer);
         }
     }
 }

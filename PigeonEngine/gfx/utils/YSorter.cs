@@ -4,7 +4,7 @@ using pigeon.gameobject;
 using pigeon.utilities;
 
 namespace pigeon.gfx {
-    public class YSorter : Component, Drawable {
+    public class YSorter : Component, IRenderable {
         #region per-game configuration
         private static float layerMin;
         private static float layerMax;

@@ -22,7 +22,6 @@ namespace pigeon.input {
             }
         }
 
-
         public static int X {
             get {
                 return currentState.X / Pigeon.Renderer.DrawScale;
