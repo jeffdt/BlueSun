@@ -410,7 +410,8 @@ namespace pigeon.pgnconsole {
                 double treble = splitArgs[0].ToDouble();
                 double bass = splitArgs[1].ToFloat();
 
-                Music.SetEqualizer(treble, bass);
+                Music.Treble = treble;
+                Music.Bass = bass;
             }
         }
 
@@ -463,9 +464,10 @@ namespace pigeon.pgnconsole {
         private static void bgmStereoDepth(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmstereodepth <depth>");
-                Pigeon.Console.Log("	depth: 0.0 to 1.0 (def 0)");
+                Pigeon.Console.Log("	depth: 0.0 to 1.0");
+                Pigeon.Console.Log("	current: " + Music.StereoDepth);
             } else {
-                Music.SetStereoDepth(args.ToDouble());
+                Music.StereoDepth = args.ToDouble();
             }
         }
 
@@ -473,16 +475,16 @@ namespace pigeon.pgnconsole {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmfade <msLength>");
             } else {
-                Music.SetFade(args.ToInt());
+                Music.Fade = args.ToInt();
             }
         }
 
         private static void bgmTempo(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmtempo <tempo>");
-                Pigeon.Console.Log("	tempo: 0.5 to 2.0 (def 1)");
+                Pigeon.Console.Log("	tempo: 0.5 to 2.0 (default 1)");
             } else {
-                Music.SetTempo(args.ToDouble());
+                Music.Tempo = args.ToDouble();
             }
         }
 
@@ -490,10 +492,10 @@ namespace pigeon.pgnconsole {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
-                //				var before = Audio.BgmVolume;
-                //				var after = (float) value;
-                //				Audio.BgmVolume = after;
-                //				ConsoleUtilities.LogVariableChange("bgm vol", before, after);
+                var before = Music.Volume;
+                var after = (float) value;
+                Music.Volume = after;
+                ConsoleUtilities.LogVariableChange("bgm volume", before, after);
             } else {
                 Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
             }

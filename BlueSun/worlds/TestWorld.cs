@@ -25,7 +25,7 @@ namespace BlueSun.src.worlds {
             BackgroundColor = Palette.DarkGray;
 
             Music.PlayTrack(0);
-            Music.SetStereoDepth(.4f);
+            Music.StereoDepth = .4f;
         }
 
         protected override void Unload() { }
