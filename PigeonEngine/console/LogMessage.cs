@@ -1,9 +1,9 @@
 ﻿namespace pigeon.pgnconsole {
-    public class LogMessage {
+    internal class LogMessage {
         public string Text;
         public LogMessageTypes Type;
 
-        public LogMessage(string text, LogMessageTypes type) {
+        public LogMessage(string text, LogMessageTypes type = LogMessageTypes.Info) {
             Text = text;
             Type = type;
         }

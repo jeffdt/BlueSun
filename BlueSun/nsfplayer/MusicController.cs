@@ -40,8 +40,8 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            // playRandomSong();
-            //playSpecificSong("morse");
+            //playRandomSong();
+            playSpecificSong("morse");
         }
 
         protected override void Update() {
@@ -91,6 +91,7 @@ namespace BlueSun.src.worlds {
                     randomSong -= albums[i].SongCount;
                 } else {
                     playSong(i, randomSong - 1);
+                    break;
                 }
             }
         }
@@ -111,7 +112,6 @@ namespace BlueSun.src.worlds {
         }
 
         private void playSong(int nextAlbumIndex, int nextSongIndex) {
-            try {
                 currAlbumIndex = nextAlbumIndex;
                 currSongIndex = nextSongIndex;
 
@@ -125,10 +125,6 @@ namespace BlueSun.src.worlds {
                 albumText.Text = songFolder.AlbumName;
 
                 Pigeon.Console.DebugLog(songText.Text);
-            } catch (Exception) {
-                songText.Text = "oops i broke";
-                albumText.Text = "oops i broke";
-            }
         }
     }
 }

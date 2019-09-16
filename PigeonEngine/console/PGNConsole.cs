@@ -114,7 +114,6 @@ namespace pigeon.pgnconsole {
         private readonly CommandHistory history;
         internal MessageLog messageLog;
         internal readonly AliasManager AliasManager = new AliasManager();
-        private bool initialized;
 
         private Entity panel;
         private Entity cursor;
@@ -137,7 +136,6 @@ namespace pigeon.pgnconsole {
         private readonly Dictionary<string, ConsoleCommand> gameCommands = new Dictionary<string, ConsoleCommand>();
 
         private string previousCommand = "";
-        private Queue<string> messageQueue = new Queue<string>();
 
         public bool IsDisplaying { get; private set; }
 
@@ -152,8 +150,6 @@ namespace pigeon.pgnconsole {
 
         protected override void Load() {
             AliasManager.Load();
-
-            initialized = true;
 
             var panelTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Pigeon.Renderer.BaseResolutionX, this.options.PanelHeight);
 
@@ -179,8 +175,6 @@ namespace pigeon.pgnconsole {
             int lineSpacing = font.MeasureHeight(">");
             Vector2 bottomMessagePosition = new Vector2(bufferPosition.X, bufferPosition.Y - lineSpacing);
             messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
-
-            messageQueue = null;    // TODO: what's up with this...? can it be deleted? try it
 
             AddDebugger = false;
 
@@ -422,24 +416,16 @@ namespace pigeon.pgnconsole {
             PlayerData.AppendToFile(logFilename, message);
         }
 
-        public void Log(object message, bool condition = true) {
-            Log(message.ToString(), condition);
+        public void Log(object message) {
+            Log(message.ToString());
         }
 
-        public void Log(string message, bool condition = true) {
-            if (!initialized) {
-                messageQueue.Enqueue(message);
-            } else if (condition) {
-                messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Info));
-            }
+        public void Log(string message) {
+            messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Info));
         }
 
-        public void LogError(string message, bool condition = true) {
-            if (!initialized) {
-                messageQueue.Enqueue(message);
-            } else if (condition) {
-                messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Error));
-            }
+        public void LogError(string message) {
+            messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Error));
         }
 
         private void logCommand(string message) {

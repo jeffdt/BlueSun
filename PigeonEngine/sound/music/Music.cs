@@ -20,7 +20,7 @@ namespace pigeon.sound {
         private static GmeReader reader;
         private static IWavePlayer player;
 
-        private static States state;
+        public static States State { get; private set; }
 
         public static float Volume { get; set; } = 1.0f;
 
@@ -45,17 +45,18 @@ namespace pigeon.sound {
         }
 
         public static void Play() {
+            State = States.Playing;
             player.Play();
-            SetStereoDepth(.4f);
+            StereoDepth = .4f;
         }
 
         public static void Stop() {
-            state = States.Stopped;
+            State = States.Stopped;
             player?.Stop();
         }
 
         public static void Pause() {
-            state = States.Paused;
+            State = States.Paused;
             player.Pause();
         }
 
@@ -91,23 +92,49 @@ namespace pigeon.sound {
             reader.SetEqualizer(0, 90);
         }
 
-        public static void SetEqualizer(double treble, double bass) {
-            var clampedTreble = treble.Clamp(-50, 5);
-            var clampedBass = bass.Clamp(1, 16000);
-            reader.SetEqualizer(clampedTreble, clampedBass);
+        private static double _treble;
+        public static double Treble {
+            get { return _treble; }
+            set {
+                _treble = value.Clamp(-50, 5);
+                // reader.SetEqualizer(_treble)
+            }
         }
 
-        public static void SetStereoDepth(double depth) {
-            var clampedDepth = depth.Clamp(0, 1);
-            reader.SetStereoDepth(clampedDepth);
+        private static double _bass;
+        public static double Bass {
+            get { return _bass; }
+            set {
+                _bass = value.Clamp(1, 16000);
+                reader.SetEqualizer(_treble, _bass);
+            }
         }
 
-        public static void SetFade(int msLength) {
-            reader.SetFade(msLength);
+        private static double _stereoDepth;
+        public static double StereoDepth {
+            get { return _stereoDepth; }
+            set {
+                _stereoDepth = value.Clamp(0, 1);
+                reader.SetStereoDepth(_stereoDepth);
+            }
         }
 
-        public static void SetTempo(double tempo) {
-            reader.SetTempo(tempo);
+        private static int _fade;
+        public static int Fade {
+            get { return _fade; }
+            set {
+                _fade = value;
+                reader.SetFade(_fade);
+            }
+        }
+
+        private static double _tempo;
+        public static double Tempo {
+            get { return _tempo; }
+            set {
+                _tempo = value;
+                reader.SetTempo(_tempo);
+            }
         }
     }
 }

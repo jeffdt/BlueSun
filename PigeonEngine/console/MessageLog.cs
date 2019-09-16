@@ -7,7 +7,7 @@ using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
-    public class MessageLog {
+    internal class MessageLog {
         private readonly int limit;
         private readonly int lineSpacing;
         private readonly SpriteFont font;
@@ -66,11 +66,11 @@ namespace pigeon.pgnconsole {
         }
     }
 
-    public class ConsoleLogChangedEvent : EventArgs {
+    internal class ConsoleLogChangedEvent : EventArgs {
         public LogMessage Message { get; set; }
     }
 
-    public enum LogMessageTypes {
+    internal enum LogMessageTypes {
         Command, Info, Error
     }
 }
