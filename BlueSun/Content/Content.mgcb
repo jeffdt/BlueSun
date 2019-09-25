@@ -207,6 +207,9 @@
 #begin music/LilLoops/HipHop2.nsf
 /copy:music/LilLoops/HipHop2.nsf
 
+#begin music/LilLoops/hugokant.nsf
+/copy:music/LilLoops/hugokant.nsf
+
 #begin music/LilLoops/jester.nsf
 /copy:music/LilLoops/jester.nsf
 
@@ -410,6 +413,66 @@
 
 #begin music/UnfinishedBusiness/sundriedtanuki.nsf
 /copy:music/UnfinishedBusiness/sundriedtanuki.nsf
+
+#begin sfx/sfx0.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx0.wav
+
+#begin sfx/sfx1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx1.wav
+
+#begin sfx/sfx2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx2.wav
+
+#begin sfx/sfx3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx3.wav
+
+#begin sfx/sfx4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx4.wav
+
+#begin sfx/sfx5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx5.wav
+
+#begin sfx/sfx6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx6.wav
+
+#begin sfx/sfx7.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx7.wav
+
+#begin sfx/sfx8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx8.wav
+
+#begin sfx/sfx9.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/sfx9.wav
 
 #begin textures/compactAnimations.cfg
 /copy:textures/compactAnimations.cfg

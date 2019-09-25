@@ -22,7 +22,7 @@ namespace BlueSun.src.worlds {
 
         protected override void Initialize() {
             songText = Object.FindChild("song").GetComponent<TextRenderer>();
-            albumText = Object.FindChild("folder").GetComponent<TextRenderer>();
+            albumText = Object.FindChild("album").GetComponent<TextRenderer>();
 
             albums = new List<Album> {
                 new Album() { AlbumName = "Bazaar" },
@@ -40,8 +40,8 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            //playRandomSong();
-            playSpecificSong("morse");
+            playRandomSong();
+            //playSpecificSong("morse");
         }
 
         protected override void Update() {

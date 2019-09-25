@@ -6,16 +6,13 @@ using pigeon.data;
 namespace pigeon.sound {
     public static class Sfx {
         public class SfxVolumeChangedEvent : EventArgs { }
-
         public static float GlobalPitch = 0f;
-
         private static readonly List<SoundEffectInstance> activeSfx = new List<SoundEffectInstance>();
 
-        public static void Initialize() {
-        }
+        public static void Initialize() { }
 
         public static void Update() {
-            disposeAllSfx(false);
+            cleanUpCompletedSfx(false);
         }
 
         public static void PauseAllSfx() {
@@ -27,7 +24,7 @@ namespace pigeon.sound {
         }
 
         public static void StopAllSfx() {
-            disposeAllSfx(true);
+            cleanUpCompletedSfx(true);
         }
 
         public static void ResumeAllSfx() {
@@ -38,12 +35,18 @@ namespace pigeon.sound {
             }
         }
 
-        private static void disposeAllSfx(bool forceDispose) {
-            for (int index = activeSfx.Count - 1; index >= 0; index--) {
-                var sfxInstance = activeSfx[index];
-                if (forceDispose || sfxInstance.State == SoundState.Stopped) {
-                    activeSfx.RemoveAt(index);
-                    sfxInstance.Dispose();
+        private static void cleanUpCompletedSfx(bool forceDisposeAll) {
+            if (activeSfx.Count > 0) {
+                for (int index = activeSfx.Count - 1; index >= 0; index--) {
+                    var sfxInstance = activeSfx[index];
+                    if (forceDisposeAll || sfxInstance.State == SoundState.Stopped) {
+                        activeSfx.RemoveAt(index);
+                        sfxInstance.Dispose();
+                    }
+                }
+
+                if (activeSfx.Count == 0) {
+                    Music.VolumeState = Music.VolumeStates.Full;
                 }
             }
         }
@@ -69,6 +72,8 @@ namespace pigeon.sound {
             instance.Play();
             instance.Volume = volume;
             activeSfx.Add(instance);
+
+            Music.VolumeState = Music.VolumeStates.Dimmed;
         }
     }
 }

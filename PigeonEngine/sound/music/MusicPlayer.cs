@@ -13,26 +13,48 @@ namespace pigeon.sound {
         public const int P3 = 6;
         public const int P4 = 7;
 
-        public enum States { Playing, Stopped, Paused }
+        public enum PlaybackStates { Playing, Stopped, Paused }
+        public enum VolumeStates { Full, Dimmed, Silent }
 
-        public static int Track;
+        public static PlaybackStates State { get; private set; } = PlaybackStates.Stopped;
+        public static int CurrentTrack;
+
+        private static float _volume = FullVolume;
+        public static float Volume {
+            get { return _volume; }
+            set {
+                _volume = value;
+                player.Volume = _volume;
+            }
+        }
+
+        public static float DimmedVolume { get; set; } = 0.6f;
+        public static float FullVolume { get; set; } = 1.0f;
 
         private static GmeReader reader;
         private static IWavePlayer player;
-
-        public static States State { get; private set; }
-
-        public static float Volume { get; set; } = 1.0f;
 
         public static void Initialize() { }
 
         public static void Load(string filename) {
             reader = new GmeReader(filename);
 
+            //VolumeSampleProvider volumeSampleProvider = new VolumeSampleProvider(reader.ToSampleProvider());
+            //volumeSampleProvider.Volume
+
             player = new WaveOut();
             player.Init(reader);
+
+            /*
+             You need to set up a signal chain that lets you adjust volume.
+             An easy way is to do bufferedWaveProvider1.ToSampleProvider()
+             and then pass that into a VolumeSampleProvider that you can
+             use to adjust the volume of just that stream of audio. Pass
+             the VolumeSampleProvider into player1.Init
+             */
         }
 
+        #region playback controls
         public static void PlayTrack(int trackNum) {
             int clampedTrackNum = trackNum.Clamp(0, reader.TrackCount - 1);
 
@@ -45,21 +67,43 @@ namespace pigeon.sound {
         }
 
         public static void Play() {
-            State = States.Playing;
+            State = PlaybackStates.Playing;
             player.Play();
             StereoDepth = .4f;
         }
 
         public static void Stop() {
-            State = States.Stopped;
+            State = PlaybackStates.Stopped;
             player?.Stop();
         }
 
         public static void Pause() {
-            State = States.Paused;
+            State = PlaybackStates.Paused;
             player.Pause();
         }
+        #endregion
 
+        #region volume controls
+        public static VolumeStates VolumeState {
+            set {
+                switch (value) {
+                    case VolumeStates.Full:
+                        Volume = FullVolume;
+                        break;
+                    case VolumeStates.Dimmed:
+                        Volume = DimmedVolume;
+                        break;
+                    case VolumeStates.Silent:
+                        Volume = 0;
+                        break;
+                }
+            }
+        }
+
+        
+        #endregion
+
+        #region voice muting
         public static void MuteVoice(int voiceIndex) {
             SetVoiceMute(voiceIndex, 1);
         }
@@ -87,7 +131,9 @@ namespace pigeon.sound {
         public static void MaskMuteVoices(int mutingMask) {
             reader.MuteVoices(mutingMask);
         }
+        #endregion
 
+        #region effect controls
         public static void ResetEqualizer() {
             reader.SetEqualizer(0, 90);
         }
@@ -136,5 +182,6 @@ namespace pigeon.sound {
                 reader.SetTempo(_tempo);
             }
         }
+        #endregion
     }
 }
