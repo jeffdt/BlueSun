@@ -15,6 +15,7 @@ using pigeon.gameobject;
 using pigeon.time;
 using pigeon.utilities.extensions;
 using pigeon.winforms;
+using PigeonEngine.sound.music;
 
 namespace pigeon.pgnconsole {
     public static class EngineCommands {
@@ -410,8 +411,8 @@ namespace pigeon.pgnconsole {
                 double treble = splitArgs[0].ToDouble();
                 double bass = splitArgs[1].ToFloat();
 
-                Music.Treble = treble;
-                Music.Bass = bass;
+                MusicController.Treble = treble;
+                MusicController.Bass = bass;
             }
         }
 
@@ -422,14 +423,14 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
             } else {
                 var splitArgs = args.Tokenize();
-                Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
+                MusicController.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
             }
         }
 
         private static void setBgmMuteVoices(string args) {
             //			var mutingMask = 31;
             var mutingMask = Convert.ToInt32(args, 2);
-            Music.MuteVoices(mutingMask);
+            MusicController.MuteVoices(mutingMask);
         }
 
         private static void bgmPlayTrack(string args) {
@@ -443,31 +444,31 @@ namespace pigeon.pgnconsole {
                 if (!args.EndsWith(".nsf")) {
                     args += ".nsf";
                 }
-                Music.Stop();
-                Music.Load(args);
-                Music.Play();
+                MusicController.Stop();
+                MusicController.Load(args);
+                MusicController.Play();
             }
         }
 
         private static void bgmPause(string args) {
-            Music.Pause();
+            MusicController.Pause();
         }
 
         private static void bgmResume(string args) {
-            Music.Play();
+            MusicController.Play();
         }
 
         private static void bgmStop(string args) {
-            Music.Stop();
+            MusicController.Stop();
         }
 
         private static void bgmStereoDepth(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmstereodepth <depth>");
                 Pigeon.Console.Log("	depth: 0.0 to 1.0");
-                Pigeon.Console.Log("	current: " + Music.StereoDepth);
+                Pigeon.Console.Log("	current: " + MusicController.StereoDepth);
             } else {
-                Music.StereoDepth = args.ToDouble();
+                MusicController.StereoDepth = args.ToDouble();
             }
         }
 
@@ -475,7 +476,7 @@ namespace pigeon.pgnconsole {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("bgmfade <msLength>");
             } else {
-                Music.Fade = args.ToInt();
+                MusicController.Fade = args.ToInt();
             }
         }
 
@@ -484,7 +485,7 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("bgmtempo <tempo>");
                 Pigeon.Console.Log("	tempo: 0.5 to 2.0 (default 1)");
             } else {
-                Music.Tempo = args.ToDouble();
+                MusicController.Tempo = args.ToDouble();
             }
         }
 
@@ -492,9 +493,9 @@ namespace pigeon.pgnconsole {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
-                var before = Music.Volume;
+                var before = MusicController.Volume;
                 var after = (float) value;
-                Music.Volume = after;
+                MusicController.SetVolumeInstant(after);
                 ConsoleUtilities.LogVariableChange("bgm volume", before, after);
             } else {
                 Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");

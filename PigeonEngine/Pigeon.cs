@@ -14,6 +14,7 @@ using pigeon.sound;
 using pigeon.time;
 using PigeonEngine.gfx;
 using System;
+using PigeonEngine.sound.music;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
@@ -29,7 +30,7 @@ namespace pigeon {
         protected abstract Color DefaultBkgdColor { get; }
         protected abstract TextureTemplateProcessor TemplateProcessor { get; }
         protected abstract World InitialWorld { get; }
-        protected abstract void Load();
+        protected abstract void LoadGame();
         protected abstract void InitializeGame();
 
         public static PGNConsole Console;
@@ -77,9 +78,9 @@ namespace pigeon {
             loadResources();
 
             Sfx.Initialize();
-            Music.Initialize();
+            MusicController.Initialize();
 
-            Load();
+            LoadGame();
 
             Console = new PGNConsole(ConsoleOpts);
             Console.LoadContent();
@@ -155,6 +156,7 @@ namespace pigeon {
         public void UpdateGameplay() {
             World.Update();
             Sfx.Update();
+            MusicController.Update();
         }
 
         public static void SetWorld(World world, bool isAlreadyInitialized = false) {

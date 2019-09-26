@@ -5,11 +5,12 @@ using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.sound;
+using PigeonEngine.sound.music;
 using System;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
-    internal class MusicController : Component {
+    internal class SongPlaybackController : Component {
         private List<Album> albums;
 
         private TextRenderer songText;
@@ -22,7 +23,7 @@ namespace BlueSun.src.worlds {
 
         protected override void Initialize() {
             songText = Object.FindChild("song").GetComponent<TextRenderer>();
-            albumText = Object.FindChild("folder").GetComponent<TextRenderer>();
+            albumText = Object.FindChild("album").GetComponent<TextRenderer>();
 
             albums = new List<Album> {
                 new Album() { AlbumName = "Bazaar" },
@@ -40,8 +41,8 @@ namespace BlueSun.src.worlds {
                 totalSongCount += folder.SongCount;
             }
 
-            //playRandomSong();
-            playSpecificSong("morse");
+            playRandomSong();
+            //playSpecificSong("morse");
         }
 
         protected override void Update() {
@@ -112,19 +113,19 @@ namespace BlueSun.src.worlds {
         }
 
         private void playSong(int nextAlbumIndex, int nextSongIndex) {
-                currAlbumIndex = nextAlbumIndex;
-                currSongIndex = nextSongIndex;
+            currAlbumIndex = nextAlbumIndex;
+            currSongIndex = nextSongIndex;
 
-                Album songFolder = albums[currAlbumIndex];
+            Album songFolder = albums[currAlbumIndex];
 
-                Music.Stop();
-                Music.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
-                Music.PlayTrack(0);
+            MusicController.Stop();
+            MusicController.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
+            MusicController.PlayTrack(0);
 
-                songText.Text = songFolder.GetFriendlySongName(currSongIndex);
-                albumText.Text = songFolder.AlbumName;
+            songText.Text = songFolder.GetFriendlySongName(currSongIndex);
+            albumText.Text = songFolder.AlbumName;
 
-                Pigeon.Console.DebugLog(songText.Text);
+            Pigeon.Console.DebugLog(songText.Text);
         }
     }
 }

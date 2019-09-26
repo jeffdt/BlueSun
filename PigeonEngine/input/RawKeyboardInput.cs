@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 
@@ -34,7 +35,11 @@ namespace pigeon.input {
         }
 
         public static bool IsPressed(params Keys[] keys) {
-            return keys.Any(key => currentState.IsKeyDown(key) && previousState.IsKeyUp(key));
+            return keys.Any(IsPressed);
+        }
+
+        public static bool IsPressed(ICollection<Keys> keys) {
+            return keys.Any(IsPressed);
         }
 
         public static bool IsHeld(Keys key) {
