@@ -113,6 +113,7 @@
     <Compile Include="sound\gme\GmeType.cs" />
     <Compile Include="sound\music\MusicController.cs" />
     <Compile Include="sound\music\MusicPlayer.cs" />
+    <Compile Include="sound\music\VolumeStates.cs" />
     <Compile Include="utilities\Delegates.cs" />
     <Compile Include="utilities\extensions\BoolExtensions.cs" />
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />

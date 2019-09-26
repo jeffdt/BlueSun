@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using pigeon.data;
+using PigeonEngine.sound.music;
 
 namespace pigeon.sound {
     public static class Sfx {
@@ -46,7 +47,7 @@ namespace pigeon.sound {
                 }
 
                 if (activeSfx.Count == 0) {
-                    Music.VolumeState = Music.VolumeStates.Full;
+                    MusicController.VolumeState = MusicVolumes.Full;
                 }
             }
         }
@@ -73,7 +74,7 @@ namespace pigeon.sound {
             instance.Volume = volume;
             activeSfx.Add(instance);
 
-            Music.VolumeState = Music.VolumeStates.Dimmed;
+            MusicController.VolumeState = MusicVolumes.Dimmed;
         }
     }
 }

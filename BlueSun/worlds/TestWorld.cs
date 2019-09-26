@@ -7,6 +7,7 @@ using pigeon.gameobject;
 using pigeon.sound;
 using pigeon.input;
 using Microsoft.Xna.Framework.Input;
+using PigeonEngine.sound.music;
 
 namespace BlueSun.src.worlds {
     class TestWorld : World {
@@ -24,8 +25,8 @@ namespace BlueSun.src.worlds {
 
             BackgroundColor = Palette.DarkGray;
 
-            Music.PlayTrack(0);
-            Music.StereoDepth = .4f;
+            MusicController.PlayTrack(0);
+            MusicController.StereoDepth = .4f;
         }
 
         protected override void Unload() { }

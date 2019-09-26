@@ -27,7 +27,7 @@ namespace BlueSun {
             }
         }
 
-        protected override void Load() {
+        protected override void LoadGame() {
         }
 
         protected override void InitializeGame() {
