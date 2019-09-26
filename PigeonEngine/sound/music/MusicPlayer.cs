@@ -23,14 +23,6 @@ namespace pigeon.sound {
 
             player = new WaveOut();
             player.Init(volumeSampleProvider);
-
-            /*
-             You need to set up a signal chain that lets you adjust volume.
-             An easy way is to do bufferedWaveProvider1.ToSampleProvider()
-             and then pass that into a VolumeSampleProvider that you can
-             use to adjust the volume of just that stream of audio. Pass
-             the VolumeSampleProvider into player1.Init
-             */
         }
 
         #region playback controls

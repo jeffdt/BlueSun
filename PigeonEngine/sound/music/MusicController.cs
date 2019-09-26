@@ -34,6 +34,7 @@ namespace PigeonEngine.sound.music {
 
         public static void Load(string filename) {
             musicPlayer.Load(filename);
+            setFullVolume();
         }
 
         internal static void Update() {
@@ -46,12 +47,16 @@ namespace PigeonEngine.sound.music {
                 float lerped = MathHelper.Lerp(DimmedVolume, FullVolume, (VolumeRampupTimeSecs - volumeTransitionTimer) / VolumeRampupTimeSecs);
 
                 if (lerped >= FullVolume - float.Epsilon) {
-                    musicPlayer.Volume = FullVolume;
-                    transitioning = false;
+                    setFullVolume();
                 } else {
                     musicPlayer.Volume = lerped;
                 }
             }
+        }
+
+        private static void setFullVolume() {
+            musicPlayer.Volume = FullVolume;
+            transitioning = false;
         }
 
         #region playback controls
