@@ -5,10 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace pigeon.data {
     public static class PlayerData {
+        internal static string SaveFolderName { private get; set; }
+
         public static string UserDataPath { get; private set; }
 
         public static void Initialize() {
-            UserDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Bazaar");
+            UserDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), SaveFolderName);
             DirectoryInfo directory = new DirectoryInfo(UserDataPath);
             if (!directory.Exists) {
                 directory.Create();

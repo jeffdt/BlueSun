@@ -19,8 +19,8 @@ namespace PigeonEngine.sound.music {
         public const int P4 = 7;
 
         public static float DimmedVolume { get; set; } = 0.4f;
-        public static float FullVolume { get; set; } = 0.6f;
-        public static float VolumeRampupTimeSecs { get; set; } = .5f;
+        public static float FullVolume { get; set; } = 0.8f;
+        public static float VolumeRampupTimeSecs { get; set; } = .75f;
 
         private static bool transitioning = false;
         private static MusicVolumes musicVolume = MusicVolumes.Full;
@@ -29,6 +29,7 @@ namespace PigeonEngine.sound.music {
         private static MusicPlayer musicPlayer = new MusicPlayer();
 
         public static void Initialize() {
+
             musicPlayer.Initialize();
         }
 
