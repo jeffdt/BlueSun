@@ -4,9 +4,7 @@ using pigeon.gameobject;
 using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
-using pigeon.sound;
 using PigeonEngine.sound.music;
-using System;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
@@ -121,6 +119,7 @@ namespace BlueSun.src.worlds {
             MusicController.Stop();
             MusicController.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
             MusicController.PlayTrack(0);
+            MusicController.StereoDepth = 1f;
 
             songText.Text = songFolder.GetFriendlySongName(currSongIndex);
             albumText.Text = songFolder.AlbumName;

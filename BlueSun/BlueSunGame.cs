@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using pigeon.pgnconsole;
 using pigeon.core;
 using pigeon.data;
-using pigeon.gfx;
 using PigeonEngine.gfx;
 using System.Reflection;
 
@@ -18,14 +17,11 @@ namespace BlueSun {
         protected override bool StartMouseVisible { get { return true; } }
         protected override int FrameRate { get { return Display.FrameRate; } }
         protected override Color DefaultBkgdColor { get { return Palette.White; } }
+        protected override string SaveFolderName => "Blue Sun";
         protected override TextureTemplateProcessor TemplateProcessor { get { return null; } }
         protected override World InitialWorld { get { return new NsfPlayer(); } }
 
-        protected override PGNConsoleOptions ConsoleOpts {
-            get {
-                return new PGNConsoleOptions();
-            }
-        }
+        protected override PGNConsoleOptions ConsoleOpts { get { return new PGNConsoleOptions(); } }
 
         protected override void LoadGame() {
         }

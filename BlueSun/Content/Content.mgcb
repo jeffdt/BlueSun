@@ -54,14 +54,8 @@
 #begin music/Bazaar/AlwaysBeClosin.nsf
 /copy:music/Bazaar/AlwaysBeClosin.nsf
 
-#begin music/Bazaar/BAZAAR.nsf
-/copy:music/Bazaar/BAZAAR.nsf
-
 #begin music/Bazaar/bazaarshop.nsf
 /copy:music/Bazaar/bazaarshop.nsf
-
-#begin music/Bazaar/boss.nsf
-/copy:music/Bazaar/boss.nsf
 
 #begin music/Bazaar/dreidelpiledriver.nsf
 /copy:music/Bazaar/dreidelpiledriver.nsf
@@ -71,9 +65,6 @@
 
 #begin music/Bazaar/groove.nsf
 /copy:music/Bazaar/groove.nsf
-
-#begin music/Bazaar/highscore.nsf
-/copy:music/Bazaar/highscore.nsf
 
 #begin music/Bazaar/mt.nsf
 /copy:music/Bazaar/mt.nsf
@@ -122,6 +113,9 @@
 
 #begin music/Covers/gratitude.nsf
 /copy:music/Covers/gratitude.nsf
+
+#begin music/Covers/hugokant.nsf
+/copy:music/Covers/hugokant.nsf
 
 #begin music/Covers/irongalaxy.nsf
 /copy:music/Covers/irongalaxy.nsf
@@ -201,14 +195,14 @@
 #begin music/LilLoops/harmonies.nsf
 /copy:music/LilLoops/harmonies.nsf
 
+#begin music/LilLoops/highscore.nsf
+/copy:music/LilLoops/highscore.nsf
+
 #begin music/LilLoops/HipHop.nsf
 /copy:music/LilLoops/HipHop.nsf
 
 #begin music/LilLoops/HipHop2.nsf
 /copy:music/LilLoops/HipHop2.nsf
-
-#begin music/LilLoops/hugokant.nsf
-/copy:music/LilLoops/hugokant.nsf
 
 #begin music/LilLoops/jester.nsf
 /copy:music/LilLoops/jester.nsf
@@ -327,8 +321,11 @@
 #begin music/MetallicWing/triumph.nsf
 /copy:music/MetallicWing/triumph.nsf
 
-#begin music/MetallicWing/valor.nsf
-/copy:music/MetallicWing/valor.nsf
+#begin music/MetallicWing/valor_nes.nsf
+/copy:music/MetallicWing/valor_nes.nsf
+
+#begin music/MetallicWing/valor_vrc6.nsf
+/copy:music/MetallicWing/valor_vrc6.nsf
 
 #begin music/MetallicWing/wonder.nsf
 /copy:music/MetallicWing/wonder.nsf

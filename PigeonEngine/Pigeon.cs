@@ -28,6 +28,7 @@ namespace pigeon {
         protected abstract PGNConsoleOptions ConsoleOpts { get; }
         protected abstract bool StartMouseVisible { get; }
         protected abstract Color DefaultBkgdColor { get; }
+        protected abstract string SaveFolderName { get; }
         protected abstract TextureTemplateProcessor TemplateProcessor { get; }
         protected abstract World InitialWorld { get; }
         protected abstract void LoadGame();
@@ -71,6 +72,7 @@ namespace pigeon {
             ResourceCache.Initialize(TemplateProcessor);
 
             GameData.Initialize();
+            PlayerData.SaveFolderName = SaveFolderName;
             PlayerData.Initialize();
 
             Renderer.SpriteBatch = new SpriteBatch(GraphicsDevice);
