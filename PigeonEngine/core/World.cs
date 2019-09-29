@@ -13,7 +13,7 @@ namespace pigeon.core {
     public abstract class World {
         protected bool AddDebugger = true;
 
-        public GameObject ObjRoot = new GameObject { Name = "Root", DisableSortVariance = true, DisableLayerInheritance = true };
+        public GameObject RootObj = new GameObject { Name = "Root", DisableSortVariance = true, DisableLayerInheritance = true };
         internal List<ColliderComponent> Hitboxes = new List<ColliderComponent>();
 
         public readonly EntityRegistry EntityRegistry = new EntityRegistry();
@@ -21,11 +21,11 @@ namespace pigeon.core {
         private readonly TaskRegistry taskRegistry = new TaskRegistry();
         public Color BackgroundColor = Pigeon.EngineBkgdColor;
 
-        public IColliderStrategy Collider;
+        public IColliderStrategy ColliderStrategy;
         public static bool DrawColliderDebugInfo;
 
         public void AddObj(GameObject obj) {
-            ObjRoot.AddChild(obj);
+            RootObj.AddChild(obj);
         }
 
         public void AddNestedObj(string path, GameObject obj) {
@@ -33,17 +33,17 @@ namespace pigeon.core {
         }
 
         public GameObject FindObj(string name) {
-            return ObjRoot.FindChildRecursive(name);
+            return RootObj.FindChildRecursive(name);
         }
 
         public void AddEmptyObj(params string[] names) {
             foreach (var name in names) {
-                ObjRoot.AddChild(new GameObject(name));
+                RootObj.AddChild(new GameObject(name));
             }
         }
 
         public bool DeleteObjSafe(string name) {
-            GameObject obj = ObjRoot.FindChildRecursive(name);
+            GameObject obj = RootObj.FindChildRecursive(name);
             if (obj != null) {
                 obj.Deleted = true;
                 return true;
@@ -92,12 +92,12 @@ namespace pigeon.core {
         public virtual void Update() {
             taskRegistry.Update();
             EntityRegistry.Update();
-            ObjRoot.Update();
+            RootObj.Update();
             ParticleRegistry.Update();
 
-            Collider?.Collide(Hitboxes);
+            ColliderStrategy?.Collide(Hitboxes);
 
-            ObjRoot.FinalUpdate();
+            RootObj.FinalUpdate();
         }
 
         public virtual void Draw() {
@@ -105,15 +105,15 @@ namespace pigeon.core {
         }
 
         private void renderAll() {
-            ObjRoot.Draw();
+            RootObj.Draw();
             EntityRegistry.Draw();
 
             foreach (Particle particle in ParticleRegistry.Objects) {
                 particle.Draw();
             }
 
-            if (Collider != null && DrawColliderDebugInfo) {
-                Collider.Draw();
+            if (ColliderStrategy != null && DrawColliderDebugInfo) {
+                ColliderStrategy.Draw();
             }
         }
 

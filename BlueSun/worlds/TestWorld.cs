@@ -33,7 +33,7 @@ namespace BlueSun.src.worlds {
     }
 }
 
-internal class RectTester : Component {
+class RectTester : Component {
     RectRenderer rectRenderer;
 
     protected override void Initialize() {

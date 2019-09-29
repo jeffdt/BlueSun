@@ -6,8 +6,8 @@ using pigeon.utilities.extensions;
 namespace pigeon.sound {
     internal class MusicPlayer {
         public float Volume {
-            get { return volumeSampleProvider.Volume; }
-            set { volumeSampleProvider.Volume = value; }
+            get { return (volumeSampleProvider == null) ? 0f : volumeSampleProvider.Volume; }
+            set { if (volumeSampleProvider != null) { volumeSampleProvider.Volume = value; } }
         }
 
         private VolumeSampleProvider volumeSampleProvider;

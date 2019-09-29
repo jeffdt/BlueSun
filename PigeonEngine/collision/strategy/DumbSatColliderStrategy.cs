@@ -7,11 +7,7 @@ namespace pigeon.collision {
     public class DumbSatColliderStrategy : IColliderStrategy {
         private const int ITERATIONS = 3;
 
-        public bool Enabled { get; set; }
-
-        public DumbSatColliderStrategy() {
-            Enabled = true;
-        }
+        public bool Enabled { get; set; } = true;
 
         public void Collide(List<ColliderComponent> allBoxes) {
             if (!Enabled) {
@@ -99,7 +95,6 @@ namespace pigeon.collision {
                 : 0;
         }
 
-        public void Draw() {
-        }
+        public void Draw() { }
     }
 }

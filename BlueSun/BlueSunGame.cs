@@ -1,12 +1,12 @@
 ﻿using BlueSun.resources;
 using BlueSun.src.parameters;
-using BlueSun.src.worlds;
 using Microsoft.Xna.Framework;
 using pigeon.pgnconsole;
 using pigeon.core;
 using pigeon.data;
 using PigeonEngine.gfx;
 using System.Reflection;
+using BlueSun.worlds.collision;
 
 namespace BlueSun {
     internal class BlueSunGame : pigeon.Pigeon {
@@ -19,7 +19,7 @@ namespace BlueSun {
         protected override Color DefaultBkgdColor { get { return Palette.White; } }
         protected override string SaveFolderName => "Blue Sun";
         protected override TextureTemplateProcessor TemplateProcessor { get { return null; } }
-        protected override World InitialWorld { get { return new NsfPlayer(); } }
+        protected override World InitialWorld { get { return new CollisionWorld(); } }
 
         protected override PGNConsoleOptions ConsoleOpts { get { return new PGNConsoleOptions(); } }
 

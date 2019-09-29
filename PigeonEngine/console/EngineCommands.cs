@@ -267,7 +267,7 @@ namespace pigeon.pgnconsole {
         #region objects
         private static void getAllObjects(string args) {
             StringBuilder builder = new StringBuilder();
-            GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.ObjRoot : Pigeon.World.FindObj(args);
+            GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.RootObj : Pigeon.World.FindObj(args);
             describeChildren(obj, builder);
         }
 
