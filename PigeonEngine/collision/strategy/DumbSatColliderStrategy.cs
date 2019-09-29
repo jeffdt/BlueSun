@@ -22,9 +22,9 @@ namespace pigeon.collision {
 
                 var rect1 = box1.GetRectangle();
 
-                for (int j = 0; j < allBoxes.Count; j++) {
+                for (int j = i + 1; j < allBoxes.Count; j++) {
                     var box2 = allBoxes[j];
-                    if (i == j || !box2.Enabled || box1.FrameCollisions.Contains(box2) || (box1.IgnoredColliders?.Contains(box2) == true)) {
+                    if (!box2.Enabled || box1.FrameCollisions.Contains(box2) || (box1.IgnoredColliders?.Contains(box2) == true)) {
                         continue;
                     }
 
@@ -58,10 +58,7 @@ namespace pigeon.collision {
                                 var penetration = new Point(penX, penY);
                                 box1.Collided(box2, penetration);
                                 box2.Collided(box1, penetration.Mult(-1));
-
-                                if (!box1.Enabled || !box2.Enabled) {
-                                    break;
-                                }
+                                break;
                             }
                         }
                     } else if (box1.GetShape() == HitboxShapes.Box && box2.GetShape() == HitboxShapes.Point) {

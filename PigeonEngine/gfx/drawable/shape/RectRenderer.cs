@@ -5,26 +5,28 @@ namespace pigeon.gfx {
     public class RectRenderer : ImageRenderer {
         public enum DrawModes { Filled, Bordered, FilledBordered }
 
-        public Rectangle Rect; // x/y represent offsets from Object.Position
-        public Color FillColor = Color.White;
-        public Color BorderColor = Color.Black;
+        public Rectangle Rect; // x/y represent offsets from Object.Position. if Object.Position is upper left, x/y will be 0,0.
+        public Color InitialFillColor = Color.White;
+        public Color InitialBorderColor = Color.Black;
         public int BorderThickness = 1;
         public DrawModes DrawMode = DrawModes.FilledBordered;
 
+        private Color[] pixels;
+
         protected override void Initialize() {
             initialTexture = new Texture2D(Renderer.GraphicsDeviceMgr.GraphicsDevice, Rect.Width, Rect.Height);
-            Color[] pixels = new Color[initialTexture.Width * initialTexture.Height];
+            pixels = new Color[initialTexture.Width * initialTexture.Height];
 
             switch (DrawMode) {
                 case DrawModes.Filled:
-                    setFillPixels(pixels);
+                    setFillPixels(InitialFillColor);
                     break;
                 case DrawModes.Bordered:
-                    setBorderPixels(pixels, Rect.Width, Rect.Height);
+                    setBorderPixels(InitialBorderColor);
                     break;
                 case DrawModes.FilledBordered:
-                    setFillPixels(pixels);
-                    setBorderPixels(pixels, Rect.Width, Rect.Height);
+                    setFillPixels(InitialFillColor);
+                    setBorderPixels(InitialBorderColor);
                     break;
             }
 
@@ -33,38 +35,41 @@ namespace pigeon.gfx {
             base.Initialize();
         }
 
-        private void setFillPixels(Color[] pixels) {
-            for (int i = 0; i < pixels.Length; i++) {
-                pixels[i] = FillColor;
+        private void setFillPixels(Color fillColor) {
+            for (int i = BorderThickness; i < pixels.Length; i++) {
+                pixels[i] = fillColor;
             }
         }
 
-        private void setBorderPixels(Color[] pixels, int width, int height) {
+        private void setBorderPixels(Color borderColor) {
+            int width = Rect.Width;
+            int height = Rect.Height;
+
             // top
             for (int row = 0; row < BorderThickness; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[(row * width) + col] = BorderColor;
+                    pixels[(row * width) + col] = borderColor;
                 }
             }
 
             // bottom
             for (int row = height - BorderThickness; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[(row * width) + col] = BorderColor;
+                    pixels[(row * width) + col] = borderColor;
                 }
             }
 
             // left
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < BorderThickness; col++) {
-                    pixels[(row * width) + col] = BorderColor;
+                    pixels[(row * width) + col] = borderColor;
                 }
             }
 
             // right
             for (int row = 0; row < height; row++) {
                 for (int col = width - BorderThickness; col < width; col++) {
-                    pixels[(row * width) + col] = BorderColor;
+                    pixels[(row * width) + col] = borderColor;
                 }
             }
         }

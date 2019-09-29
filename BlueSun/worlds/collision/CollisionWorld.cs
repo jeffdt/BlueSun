@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using pigeon;
 using pigeon.collision;
 using pigeon.component;
 using pigeon.core;
@@ -19,13 +20,13 @@ namespace BlueSun.worlds.collision {
             CollisionRectTester rectTester = new CollisionRectTester();
 
             AddObj(
-                new GameObject("Rect 1", 0f) { FlatLocalPosition = new Point(40, 100) }
+                new GameObject("Rect 1", 0f) { FlatLocalPosition = new Point(40, 100), LocalLayer = 1f }
                 .AddComponent(new RectRenderer() {
                     Rect = new Rectangle(0, 0, 30, 30),
                     DrawMode = RectRenderer.DrawModes.FilledBordered,
-                    FillColor = Color.PapayaWhip,
+                    InitialFillColor = Color.PapayaWhip,
                     BorderThickness = 1,
-                    BorderColor = Color.Black,
+                    InitialBorderColor = Color.Black,
                 })
                 .AddComponent(new SimpleController())
                 .AddComponent(rectTester)
@@ -33,13 +34,13 @@ namespace BlueSun.worlds.collision {
             );
 
             AddObj(
-                new GameObject("Rect 2", 0f) { FlatLocalPosition = new Point(80, 100) }
+                new GameObject("Rect 2", 0f) { FlatLocalPosition = new Point(80, 100), LocalLayer = 0f }
                 .AddComponent(new RectRenderer() {
                     Rect = new Rectangle(0, 0, 30, 30),
                     DrawMode = RectRenderer.DrawModes.FilledBordered,
-                    FillColor = Color.ForestGreen,
+                    InitialFillColor = Color.ForestGreen,
                     BorderThickness = 1,
-                    BorderColor = Color.Black
+                    InitialBorderColor = Color.Black
                 })
                 .AddComponent(new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, 30, 30) })
             );
@@ -57,15 +58,19 @@ namespace BlueSun.worlds.collision {
 
         protected override void Update() {
             if (RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift)) {
-                rectRenderer.FillColor = Color.DodgerBlue;
+               rectRenderer.Image.Color = Color.DodgerBlue;
             } else {
-                rectRenderer.FillColor = Color.PapayaWhip;
+               rectRenderer.Image.Color = Color.PapayaWhip;
             }
         }
 
         internal void OnCollision(ColliderComponent thisHitbox, ColliderComponent otherHitbox, Point penetration) {
             if (!thisHitbox.LastFrameCollisions.Contains(otherHitbox)) {
+                Pigeon.Console.Log(string.Format("penetration: {0}", penetration.ToVector2().ToString()));
                 Sfx.PlaySfx("sfx2");
+                rectRenderer.Image.Color = Color.HotPink;
+            } else {
+                rectRenderer.Image.Color = Color.DarkRed;
             }
         }
     }

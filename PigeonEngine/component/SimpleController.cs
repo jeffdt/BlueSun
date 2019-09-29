@@ -24,18 +24,18 @@ namespace pigeon.component {
 
         private void updateSmoothControl() {
             int newX;
-            if (RawKeyboardInput.IsHeld(Keys.Left)) {
+            if (RawKeyboardInput.IsHeld(Keys.Left, Keys.A)) {
                 newX = -1;
-            } else if (RawKeyboardInput.IsHeld(Keys.Right)) {
+            } else if (RawKeyboardInput.IsHeld(Keys.Right, Keys.D)) {
                 newX = 1;
             } else {
                 newX = 0;
             }
 
             int newY;
-            if (RawKeyboardInput.IsHeld(Keys.Up)) {
+            if (RawKeyboardInput.IsHeld(Keys.Up, Keys.W)) {
                 newY = -1;
-            } else if (RawKeyboardInput.IsHeld(Keys.Down)) {
+            } else if (RawKeyboardInput.IsHeld(Keys.Down, Keys.S)) {
                 newY = 1;
             } else {
                 newY = 0;
@@ -50,15 +50,15 @@ namespace pigeon.component {
         }
 
         private void updateBumpControl() {
-            if (RawKeyboardInput.IsPressed(Keys.Left)) {
+            if (RawKeyboardInput.IsPressed(Keys.Left, Keys.A)) {
                 Object.FlatLocalPosition = Object.FlatLocalPosition.AddToX(-1);
-            } else if (RawKeyboardInput.IsPressed(Keys.Right)) {
+            } else if (RawKeyboardInput.IsPressed(Keys.Right, Keys.D)) {
                 Object.FlatLocalPosition = Object.FlatLocalPosition.AddToX(1);
             }
 
-            if (RawKeyboardInput.IsPressed(Keys.Up)) {
+            if (RawKeyboardInput.IsPressed(Keys.Up, Keys.W)) {
                 Object.FlatLocalPosition = Object.FlatLocalPosition.AddToY(-1);
-            } else if (RawKeyboardInput.IsPressed(Keys.Down)) {
+            } else if (RawKeyboardInput.IsPressed(Keys.Down, Keys.S)) {
                 Object.FlatLocalPosition = Object.FlatLocalPosition.AddToY(1);
             }
         }
