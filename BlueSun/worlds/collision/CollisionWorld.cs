@@ -29,7 +29,7 @@ namespace BlueSun.worlds.collision {
             int startY = Rand.Int(tileSize, Display.ScreenHeight - tileSize - 1);
 
             AddObj(
-                new GameObject("Projectile", 0f) { FlatLocalPosition = new Point(startX, startY), LocalLayer = 1f, Velocity =  }
+                new GameObject("Projectile", 0f) { FlatLocalPosition = new Point(startX, startY), LocalLayer = 1f }
                 .AddComponent(new RectRenderer() {
                     Rect = new Rectangle(0, 0, projectileSize, projectileSize),
                     DrawMode = RectRenderer.DrawModes.FilledBordered,
