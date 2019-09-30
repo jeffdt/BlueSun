@@ -11,6 +11,7 @@ using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.sound;
+using pigeon.utilities;
 using PigeonEngine.utilities.extensions;
 
 namespace BlueSun.worlds.collision {
@@ -25,11 +26,11 @@ namespace BlueSun.worlds.collision {
             const int projectileSize = 4;
             const int tileSize = 16;
 
-            int startX = Rand.Int(tileSize, Display.ScreenWidth - tileSize - 1);
-            int startY = Rand.Int(tileSize, Display.ScreenHeight - tileSize - 1);
+            int startX = Rand.Int(tileSize * 2, Display.ScreenWidth - (tileSize * 2));
+            int startY = Rand.Int(tileSize * 2, Display.ScreenHeight - (tileSize * 2));
 
             AddObj(
-                new GameObject("Projectile", 0f) { FlatLocalPosition = new Point(startX, startY), LocalLayer = 1f }
+                new GameObject("Projectile", 0f) { FlatLocalPosition = new Point(startX, startY), LocalLayer = 1f, Velocity = new Vector2(Rand.SignFloat(), Rand.SignFloat()).Scale(100f) }
                 .AddComponent(new RectRenderer() {
                     Rect = new Rectangle(0, 0, projectileSize, projectileSize),
                     DrawMode = RectRenderer.DrawModes.FilledBordered,
