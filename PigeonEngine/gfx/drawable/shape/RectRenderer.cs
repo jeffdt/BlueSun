@@ -6,8 +6,8 @@ namespace pigeon.gfx {
         public enum DrawModes { Filled, Bordered, FilledBordered }
 
         public Rectangle Rect; // x/y represent offsets from Object.Position. if Object.Position is upper left, x/y will be 0,0.
-        public Color InitialFillColor = Color.White;
-        public Color InitialBorderColor = Color.Black;
+        public Color FillColor = Color.White;
+        public Color BorderColor = Color.Black;
         public int BorderThickness = 1;
         public DrawModes DrawMode = DrawModes.FilledBordered;
 
@@ -19,14 +19,14 @@ namespace pigeon.gfx {
 
             switch (DrawMode) {
                 case DrawModes.Filled:
-                    setFillPixels(InitialFillColor);
+                    setFillPixels(FillColor);
                     break;
                 case DrawModes.Bordered:
-                    setBorderPixels(InitialBorderColor);
+                    setBorderPixels(BorderColor);
                     break;
                 case DrawModes.FilledBordered:
-                    setFillPixels(InitialFillColor);
-                    setBorderPixels(InitialBorderColor);
+                    setFillPixels(FillColor);
+                    setBorderPixels(BorderColor);
                     break;
             }
 

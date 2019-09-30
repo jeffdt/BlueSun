@@ -119,6 +119,7 @@
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteBatchExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteFontExtensions.cs" />
+    <Compile Include="utilities\extensions\Vector2Extensions.cs" />
     <Compile Include="utilities\PointOps.cs" />
     <Compile Include="utilities\XmlOps.cs" />
     <Compile Include="winforms\AnimationTool.cs">
