@@ -91,8 +91,17 @@ namespace pigeon.pgnconsole {
         };
         #endregion
 
-        private string _commandBuffer;
+        private int _commandCursorIndex = 0;
+        private int commandCursorIndex {
+            get { return _commandCursorIndex; }
+            set {
+                _commandCursorIndex = value.Clamp(0, commandBuffer.Length);
 
+                cursor.Position.X = bufferHomePosition.X + font.MeasureWidth(buffer.Text.Substring(0, _commandCursorIndex) + " ") + font.Spacing - 1;
+            }
+        }
+
+        private string _commandBuffer;
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
@@ -104,13 +113,15 @@ namespace pigeon.pgnconsole {
                 var displayPortion = _commandBuffer.LastByPixels(lineOverflowWidth, font);
                 buffer.Text = string.Format(">{0}", displayPortion);
 
-                updateCursorPosition();
+                if (commandCursorIndex >= value.Length) {
+                    commandCursorIndex = value.Length;
+                }
             }
         }
 
         internal readonly PGNConsoleOptions options;
         private readonly SpriteFont font;
-        private readonly Vector2 bufferPosition;
+        private readonly Vector2 bufferHomePosition;
         private readonly CommandHistory history;
         internal MessageLog messageLog;
         internal readonly AliasManager AliasManager = new AliasManager();
@@ -143,7 +154,7 @@ namespace pigeon.pgnconsole {
             this.options = options;
 
             font = ResourceCache.Font("console");
-            bufferPosition = new Vector2(this.options.TextInset, this.options.PanelHeight - (this.options.TextInset * 2));
+            bufferHomePosition = new Vector2(this.options.TextInset, this.options.PanelHeight - (this.options.TextInset * 2));
 
             history = new CommandHistory(options.CommandHistory);
         }
@@ -164,16 +175,16 @@ namespace pigeon.pgnconsole {
 
             Sprite cursorSprite = Sprite.Clone("consoleCursor", @"console\cursor");
             cursorSprite.Loop("flash");
-            cursorSprite.Color = options.BufferColor;
-            cursor = new Entity(bufferPosition, cursorSprite) { Layer = .5f };
+            cursorSprite.Color = options.CursorColor;
+            cursor = new Entity(bufferHomePosition - new Vector2(0, 1), cursorSprite) { Layer = .5f };
             EntityRegistry.Register(cursor);
 
             lineOverflowWidth = Pigeon.Renderer.BaseResolutionX - options.TextInset - (font.MeasureWidth(">") * 3);
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferPosition, font, 1f, options.BufferColor, Justification.TopLeft);
+            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferHomePosition, font, 1f, options.BufferColor, Justification.TopLeft);
             commandBuffer = "";
 
             int lineSpacing = font.MeasureHeight(">");
-            Vector2 bottomMessagePosition = new Vector2(bufferPosition.X, bufferPosition.Y - lineSpacing);
+            Vector2 bottomMessagePosition = new Vector2(bufferHomePosition.X, bufferHomePosition.Y - lineSpacing);
             messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
 
             AddDebugger = false;
@@ -230,9 +241,15 @@ namespace pigeon.pgnconsole {
                 var command = history.Next();
                 if (command != null) {
                     commandBuffer = command;
+                    commandCursorIndex = commandBuffer.Length;
                 }
             } else if (key == Keys.Down) {
                 commandBuffer = history.Previous();
+                commandCursorIndex = commandBuffer.Length;
+            } else if (key == Keys.Left) {
+                commandCursorIndex--;
+            } else if (key == Keys.Right) {
+                commandCursorIndex++;
             } else if (key == Keys.Back) {
                 history.Reset();
                 handleBackspace();
@@ -333,7 +350,8 @@ namespace pigeon.pgnconsole {
                 }
             }
 
-            commandBuffer = string.Concat(commandBuffer, character);
+            commandBuffer = commandBuffer.Insert(commandCursorIndex, character.ToString());
+            commandCursorIndex++;
         }
 
         private void commitCommand() {
@@ -378,19 +396,16 @@ namespace pigeon.pgnconsole {
             }
         }
 
-        private void updateCursorPosition() {
-            cursor.Position.X = bufferPosition.X + font.MeasureWidth(buffer.Text) + font.Spacing;
-        }
-
         private void handleBackspace() {
-            if (commandBuffer.Length > 0) {
-                commandBuffer = commandBuffer.Substring(0, commandBuffer.Length - 1);
+            if (commandBuffer.Length > 0 && commandCursorIndex > 0) {
+                commandBuffer = commandBuffer.Remove(commandCursorIndex - 1, 1);
+                commandCursorIndex--;
             }
         }
 
         private void handleDelete() {
-            if (commandBuffer.Length > 0) {
-                commandBuffer = commandBuffer.Substring(0, commandBuffer.Length - 1);
+            if (commandBuffer.Length > 0 && commandCursorIndex < commandBuffer.Length) {
+                commandBuffer = commandBuffer.Remove(commandCursorIndex, 1);
             }
         }
 
