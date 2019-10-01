@@ -486,18 +486,6 @@
 /processorParam:TextureFormat=Color
 /build:textures/console/cursor.png
 
-#begin textures/console/panel.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/console/panel.png
-
 #begin textures/templates.cfg
 /copy:textures/templates.cfg
 

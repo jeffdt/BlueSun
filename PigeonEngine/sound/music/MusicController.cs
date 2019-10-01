@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using pigeon.sound;
 using pigeon.time;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigeonEngine.sound.music {
     public static class MusicController {

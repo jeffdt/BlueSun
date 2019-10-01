@@ -6,6 +6,7 @@ namespace pigeon.pgnconsole {
         public int PanelHeight = Pigeon.Renderer.BaseResolutionY;
         public Color PanelColor = Color.Navy.WithAlpha(150);
         public Color BufferColor = Color.SkyBlue;
+        public Color CursorColor = Color.White;
         public Color HistoryColor = Color.SkyBlue;
         public Color InfoColor = Color.MintCream;
         public Color ErrorColor = Color.Red;

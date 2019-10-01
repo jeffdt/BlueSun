@@ -10,39 +10,40 @@ using pigeon.gameobject;
 using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
-using pigeon.sound;
 using pigeon.utilities;
-using pigeon.utilities.extensions;
 using PigeonEngine.utilities.extensions;
 
 namespace BlueSun.worlds.collision {
     class CollisionWorld : World {
         private const int tileSize = 16;
-        private const int projectileSize = 1;
-        private const float projectileSpeed = 300f;
+        private const int projectileSize = 4;
+        private const int projectileCount = 4;
+        private const float projectileSpeed = 150f;
 
         protected override void Load() {
             ColliderStrategy = new DumbSatColliderStrategy();
 
             BackgroundColor = Color.SteelBlue;
 
-            CollisionRectTester rectTester = new CollisionRectTester() { IsPlayer = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
+            for (int i = 0; i < projectileCount; i++) {
+                CollisionRectTester rectTester = new CollisionRectTester() { IsProjectile = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
 
-            AddObj(
-                new GameObject("Projectile", 0f) { LocalLayer = 1f }
-                .AddComponent(new RectRenderer() {
-                    Rect = new Rectangle(0, 0, projectileSize, projectileSize),
-                    DrawMode = RectRenderer.DrawModes.Filled,
-                    FillColor = Color.White,
-                })
-                .AddComponent(rectTester)
-                .AddComponent(new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, projectileSize, projectileSize), CollisionHandler = rectTester.OnCollision })
-            );
+                AddObj(
+                    new GameObject("Projectile " + i, 0f) { LocalLayer = 1f }
+                    .AddComponent(new RectRenderer() {
+                        Rect = new Rectangle(0, 0, projectileSize, projectileSize),
+                        DrawMode = RectRenderer.DrawModes.Filled,
+                        FillColor = Color.White,
+                    })
+                    .AddComponent(rectTester)
+                    .AddComponent(new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, projectileSize, projectileSize), CollisionHandler = rectTester.OnCollision })
+                );
+            }
 
             for (int row = 0; row < Display.ScreenHeight / tileSize; row++) {
                 for (int col = 0; col < Display.ScreenWidth / tileSize; col++) {
                     if (row == 0 || col == 0 || row == (Display.ScreenHeight / tileSize) - 1 || col == (Display.ScreenWidth / tileSize) - 1) {
-                        rectTester = new CollisionRectTester();
+                        CollisionRectTester rectTester = new CollisionRectTester();
 
                         Color fillColor = Color.White;
                         Color borderColor = Color.Black;
@@ -81,7 +82,7 @@ namespace BlueSun.worlds.collision {
     class CollisionRectTester : Component {
         public float ProjectileSpeed;
 
-        public bool IsPlayer = false;
+        public bool IsProjectile = false;
         public int TileSize;
 
         private RectRenderer rectRenderer;
@@ -89,7 +90,7 @@ namespace BlueSun.worlds.collision {
         protected override void Initialize() {
             rectRenderer = GetComponent<RectRenderer>();
 
-            if (IsPlayer) {
+            if (IsProjectile) {
                 randomizePositionAndVelocity();
             }
         }
@@ -106,7 +107,7 @@ namespace BlueSun.worlds.collision {
                 rectRenderer.Image.Color = Color.White;
             }
 
-            if (IsPlayer && RawKeyboardInput.IsPressed(Keys.Space)) {
+            if (IsProjectile && RawKeyboardInput.IsPressed(Keys.Space)) {
                 randomizePositionAndVelocity();
             }
         }
@@ -115,9 +116,9 @@ namespace BlueSun.worlds.collision {
             if (!thisHitbox.LastFrameCollisions.Contains(otherHitbox)) {
                 rectRenderer.Image.Color = Color.LawnGreen;
                 
-                if (IsPlayer) {
-                    Pigeon.Console.Log(string.Format("penetration: {0}", penetration.ToVector2().ToString()));
-                    Sfx.PlaySfx("sfx6");
+                if (IsProjectile) {
+                    // Pigeon.Console.Log(string.Format("penetration: {0}", penetration.ToVector2().ToString()));
+                    // Sfx.PlaySfx("sfx6");
 
                     if (penetration.X != 0) {
                         Object.Velocity = Object.Velocity.MultiplyX(-1);
