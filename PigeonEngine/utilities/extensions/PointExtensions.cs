@@ -39,6 +39,14 @@ namespace pigeon.utilities {
             return new Point(point.X + val, point.Y + val);
         }
 
+        public static Point SubtractX(this Point point, int x) {
+            return new Point(point.X - x, point.Y);
+        }
+
+        public static Point SubtractY(this Point point, int y) {
+            return new Point(point.X, point.Y - y);
+        }
+
         public static Point Div(this Point point, int divisor) {
             return new Point(point.X / divisor, point.Y / divisor);
         }

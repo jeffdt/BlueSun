@@ -15,67 +15,77 @@ namespace pigeon.collision {
             }
 
             for (int i = 0; i < allBoxes.Count; i++) {
-                var box1 = allBoxes[i];
-                if (!box1.Enabled || box1.IsPassive()) {
+                var boxA = allBoxes[i];
+                if (!boxA.Enabled || boxA.IsPassive()) {
                     continue;
                 }
 
-                var rect1 = box1.GetRectangle();
+                var rectA = boxA.GetRectangle();
 
                 for (int j = i + 1; j < allBoxes.Count; j++) {
-                    var box2 = allBoxes[j];
-                    if (!box2.Enabled || box1.FrameCollisions.Contains(box2) || (box1.IgnoredColliders?.Contains(box2) == true)) {
+                    var boxB = allBoxes[j];
+                    if (!boxB.Enabled || boxA.FrameCollisions.Contains(boxB) || (boxA.IgnoredColliders?.Contains(boxB) == true)) {
                         continue;
                     }
 
                     bool collided;
 
-                    if (box1.GetShape() == HitboxShapes.Box && box2.GetShape() == HitboxShapes.Box) {
-                        var rect2 = box2.GetRectangle();
+                    if (boxA.GetShape() == HitboxShapes.Box && boxB.GetShape() == HitboxShapes.Box) {
+                        var rectB = boxB.GetRectangle();
 
                         int iterationCount = 1;
-                        if (box1.Object.Velocity.LengthSquared() + box2.Object.Velocity.LengthSquared() > 3000) {
+                        if (boxA.Object.Velocity.LengthSquared() + boxB.Object.Velocity.LengthSquared() > 3000) {
                             iterationCount = 2;
                         }
 
-                        var box1WorldPosition = box1.Object.WorldPosition;
-                        var box2WorldPosition = box2.Object.WorldPosition;
+                        var boxAWorldPosition = boxA.Object.WorldPosition;
+                        var boxBWorldPosition = boxB.Object.WorldPosition;
 
                         for (int iteration = 0; iteration < iterationCount; iteration++) {
                             var deltaTime = (iteration + 1) * time.Time.SecScaled / iterationCount;
-                            var box1SpeculativePosition = box1.Object.SpeculativeWorldPositionAt(deltaTime);
-                            var box2SpeculativePosition = box2.Object.SpeculativeWorldPositionAt(deltaTime);
+                            var boxASpeculativePosition = boxA.Object.SpeculativeWorldPositionAt(deltaTime);
+                            var boxBSpeculativePosition = boxB.Object.SpeculativeWorldPositionAt(deltaTime);
 
-                            var specRectX1 = getSpeculativeRect(rect1, box1SpeculativePosition.X, box1WorldPosition.Y);
-                            var specRectX2 = getSpeculativeRect(rect2, box2SpeculativePosition.X, box2WorldPosition.Y);
-                            var penX = checkBox(specRectX1, specRectX2, true);
+                            var specRectXA = getSpeculativeRect(rectA, boxASpeculativePosition.X, boxAWorldPosition.Y);
+                            var specRectXB = getSpeculativeRect(rectB, boxBSpeculativePosition.X, boxBWorldPosition.Y);
+                            var penX = checkBox(specRectXA, specRectXB, true);
+                            if (penX != 0) {
+                                penX = (penX < 0 && (boxA.IgnoredSides[1] || boxB.IgnoredSides[3]))
+                                    || (penX > 0 && (boxA.IgnoredSides[3] || boxB.IgnoredSides[1]))
+                                    ? 0 : penX;
+                            }
 
-                            var specRectY1 = getSpeculativeRect(rect1, box1WorldPosition.X, box1SpeculativePosition.Y);
-                            var specRectY2 = getSpeculativeRect(rect2, box2WorldPosition.X, box2SpeculativePosition.Y);
-                            var penY = checkBox(specRectY1, specRectY2, false);
+                            var specRectYA = getSpeculativeRect(rectA, boxAWorldPosition.X, boxASpeculativePosition.Y);
+                            var specRectYB = getSpeculativeRect(rectB, boxBWorldPosition.X, boxBSpeculativePosition.Y);
+                            var penY = checkBox(specRectYA, specRectYB, false);
+                            if (penY != 0) {
+                                penY = (penY < 0 && (boxA.IgnoredSides[2] || boxB.IgnoredSides[0]))
+                                    || (penY > 0 && (boxA.IgnoredSides[0] || boxB.IgnoredSides[2]))
+                                    ? 0 : penY;
+                            }
 
                             if (penX != 0 || penY != 0) {
                                 var penetration = new Point(penX, penY);
-                                box1.Collided(box2, penetration);
-                                box2.Collided(box1, penetration.Mult(-1));
+                                boxA.Collided(boxB, penetration);
+                                boxB.Collided(boxA, penetration.Mult(-1));
                                 break;
                             }
                         }
-                    } else if (box1.GetShape() == HitboxShapes.Box && box2.GetShape() == HitboxShapes.Point) {
-                        collided = SatCollider.CollideBoxPoint(box1.GetRectangle(), box2.Object.WorldPosition);
+                    } else if (boxA.GetShape() == HitboxShapes.Box && boxB.GetShape() == HitboxShapes.Point) {
+                        collided = SatCollider.CollideBoxPoint(boxA.GetRectangle(), boxB.Object.WorldPosition);
                         if (collided) {
-                            box1.Collided(box2, Point.Zero);
-                            box2.Collided(box1, Point.Zero);
+                            boxA.Collided(boxB, Point.Zero);
+                            boxB.Collided(boxA, Point.Zero);
                         }
-                    } else if (box1.GetShape() == HitboxShapes.Point && box2.GetShape() == HitboxShapes.Box) {
-                        collided = SatCollider.CollideBoxPoint(box2.GetWorldRectangle(), box1.Object.WorldPosition);
+                    } else if (boxA.GetShape() == HitboxShapes.Point && boxB.GetShape() == HitboxShapes.Box) {
+                        collided = SatCollider.CollideBoxPoint(boxB.GetWorldRectangle(), boxA.Object.WorldPosition);
 
                         if (collided) {
-                            box1.Collided(box2, Point.Zero);
-                            box2.Collided(box1, Point.Zero);
+                            boxA.Collided(boxB, Point.Zero);
+                            boxB.Collided(boxA, Point.Zero);
                         }
                     } else {
-                        throw new NotImplementedException(string.Format("no collision detection algorithm for shapes {0} and {1}", box1.GetShape(), box2.GetShape()));
+                        throw new NotImplementedException(string.Format("no collision detection algorithm for shapes {0} and {1}", boxA.GetShape(), boxB.GetShape()));
                     }
                 }
             }
@@ -85,10 +95,10 @@ namespace pigeon.collision {
             return new Rectangle(hbRect.X + xPosition, hbRect.Y + yPosition, hbRect.Width, hbRect.Height);
         }
 
-        private static int checkBox(Rectangle specRect1, Rectangle specRect2, bool isX) {
-            bool collided = SatCollider.CollideBoxes(specRect1, specRect2);
+        private static int checkBox(Rectangle specRectA, Rectangle specRectB, bool isX) {
+            bool collided = SatCollider.CollideBoxes(specRectA, specRectB);
             return collided
-                ? isX ? SatCollider.GetMinTranslationX(specRect1, specRect2) : SatCollider.GetMinTranslationY(specRect1, specRect2)
+                ? (isX ? SatCollider.GetMinTranslationX(specRectA, specRectB) : SatCollider.GetMinTranslationY(specRectA, specRectB))
                 : 0;
         }
 

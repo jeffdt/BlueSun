@@ -25,6 +25,7 @@ namespace pigeon.collision {
         public HashSet<ColliderComponent> LastFrameCollisions = new HashSet<ColliderComponent>();
 
         public HashSet<ColliderComponent> IgnoredColliders;
+        public bool[] IgnoredSides = new bool[4];
 
         protected ColliderComponent() {
             Destructor = destroy;

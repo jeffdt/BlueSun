@@ -52,7 +52,7 @@
     <Compile Include="constants\Palette.cs" />
     <Compile Include="constants\Fonts.cs" />
     <Compile Include="constants\Inputs.cs" />
-    <Compile Include="worlds\nsfplayer\MusicController.cs" />
+    <Compile Include="worlds\nsfplayer\SongPlaybackController.cs" />
     <Compile Include="worlds\nsfplayer\NsfPlayer.cs" />
     <Compile Include="worlds\nsfplayer\Album.cs" />
     <Compile Include="worlds\TestWorld.cs" />

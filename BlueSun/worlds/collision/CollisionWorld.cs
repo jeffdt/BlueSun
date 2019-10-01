@@ -12,39 +12,36 @@ using pigeon.input;
 using pigeon.rand;
 using pigeon.sound;
 using pigeon.utilities;
+using pigeon.utilities.extensions;
 using PigeonEngine.utilities.extensions;
 
 namespace BlueSun.worlds.collision {
     class CollisionWorld : World {
+        private const int tileSize = 16;
+        private const int projectileSize = 1;
+        private const float projectileSpeed = 300f;
+
         protected override void Load() {
             ColliderStrategy = new DumbSatColliderStrategy();
 
             BackgroundColor = Color.SteelBlue;
 
-            CollisionRectTester rectTester = new CollisionRectTester();
-
-            const int projectileSize = 4;
-            const int tileSize = 16;
-
-            int startX = Rand.Int(tileSize * 2, Display.ScreenWidth - (tileSize * 2));
-            int startY = Rand.Int(tileSize * 2, Display.ScreenHeight - (tileSize * 2));
+            CollisionRectTester rectTester = new CollisionRectTester() { IsPlayer = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
 
             AddObj(
-                new GameObject("Projectile", 0f) { FlatLocalPosition = new Point(startX, startY), LocalLayer = 1f, Velocity = new Vector2(Rand.SignFloat(), Rand.SignFloat()).Scale(100f) }
+                new GameObject("Projectile", 0f) { LocalLayer = 1f }
                 .AddComponent(new RectRenderer() {
                     Rect = new Rectangle(0, 0, projectileSize, projectileSize),
-                    DrawMode = RectRenderer.DrawModes.FilledBordered,
+                    DrawMode = RectRenderer.DrawModes.Filled,
                     FillColor = Color.White,
-                    BorderColor = Color.Black,
-                    BorderThickness = 1,
                 })
                 .AddComponent(rectTester)
                 .AddComponent(new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, projectileSize, projectileSize), CollisionHandler = rectTester.OnCollision })
             );
 
-            for (int row = 0; row < Display.ScreenWidth / tileSize; row++) {
-                for (int col = 0; col < Display.ScreenHeight / tileSize; col++) {
-                    if (row == 0 || col == 0 || row == (Display.ScreenWidth / tileSize) - 1 || col == (Display.ScreenHeight / tileSize) - 1) {
+            for (int row = 0; row < Display.ScreenHeight / tileSize; row++) {
+                for (int col = 0; col < Display.ScreenWidth / tileSize; col++) {
+                    if (row == 0 || col == 0 || row == (Display.ScreenHeight / tileSize) - 1 || col == (Display.ScreenWidth / tileSize) - 1) {
                         rectTester = new CollisionRectTester();
 
                         Color fillColor = Color.White;
@@ -58,7 +55,17 @@ namespace BlueSun.worlds.collision {
                         };
                         SimpleBoxCollider wallCollider = new SimpleBoxCollider() { Passive = true, Hitbox = new Rectangle(0, 0, tileSize, tileSize), CollisionHandler = rectTester.OnCollision };
 
-                        GameObject wallObj = new GameObject("Wall", 0f) { FlatLocalPosition = new Point(row * tileSize, col * tileSize), LocalLayer = 0f };
+                        if (row == 0 || row == (Display.ScreenHeight / tileSize) - 1) { // top or bottom row
+                            wallCollider.IgnoredSides[1] = true; // right
+                            wallCollider.IgnoredSides[3] = true; // left
+                        }
+
+                        if (col == 0 || col == (Display.ScreenWidth / tileSize) - 1) { // left or right col
+                            wallCollider.IgnoredSides[0] = true; // top
+                            wallCollider.IgnoredSides[2] = true; // bot
+                        }
+
+                        GameObject wallObj = new GameObject("Wall " + (row * col + col), 0f) { FlatLocalPosition = new Point(col * tileSize, row* tileSize), LocalLayer = 0f };
                         wallObj.AddComponent(wallRenderer);
                         wallObj.AddComponent(wallCollider);
                         wallObj.AddComponent(rectTester);
@@ -72,34 +79,60 @@ namespace BlueSun.worlds.collision {
     }
 
     class CollisionRectTester : Component {
-        RectRenderer rectRenderer;
+        public float ProjectileSpeed;
+
+        public bool IsPlayer = false;
+        public int TileSize;
+
+        private RectRenderer rectRenderer;
 
         protected override void Initialize() {
             rectRenderer = GetComponent<RectRenderer>();
+
+            if (IsPlayer) {
+                randomizePositionAndVelocity();
+            }
+        }
+
+        private void randomizePositionAndVelocity() {
+            int startX = Rand.Int(TileSize * 2, Display.ScreenWidth - (TileSize * 2));
+            int startY = Rand.Int(TileSize * 2, Display.ScreenHeight - (TileSize * 2));
+            Object.FlatLocalPosition = new Point(startX, startY);
+            Object.Velocity = new Vector2(Rand.SignFloat(), Rand.SignFloat()).Scale(ProjectileSpeed);
         }
 
         protected override void Update() {
             if (rectRenderer.Image.Color != Color.White) {
                 rectRenderer.Image.Color = Color.White;
             }
+
+            if (IsPlayer && RawKeyboardInput.IsPressed(Keys.Space)) {
+                randomizePositionAndVelocity();
+            }
         }
 
         internal void OnCollision(ColliderComponent thisHitbox, ColliderComponent otherHitbox, Point penetration) {
             if (!thisHitbox.LastFrameCollisions.Contains(otherHitbox)) {
-                Pigeon.Console.Log(string.Format("penetration: {0}", penetration.ToVector2().ToString()));
-                Sfx.PlaySfx("sfx6");
-                rectRenderer.Image.Color = Color.HotPink;
+                rectRenderer.Image.Color = Color.LawnGreen;
                 
-                if (penetration.X != 0) {
-                    Object.Velocity = Object.Velocity.MultiplyX(-1);
-                }
+                if (IsPlayer) {
+                    Pigeon.Console.Log(string.Format("penetration: {0}", penetration.ToVector2().ToString()));
+                    Sfx.PlaySfx("sfx6");
 
-                if (penetration.Y != 0) {
-                    Object.Velocity = Object.Velocity.MultiplyY(-1);
-                }
+                    if (penetration.X != 0) {
+                        Object.Velocity = Object.Velocity.MultiplyX(-1);
+                        Object.FlatLocalPosition = Object.FlatLocalPosition.AddX(penetration.X);
+                        Object.UpdateSpeculativePosition();
+                    }
 
+                    if (penetration.Y != 0) {
+                        Object.Velocity = Object.Velocity.MultiplyY(-1);
+                        Object.FlatLocalPosition = Object.FlatLocalPosition.AddY(penetration.Y);
+                        Object.UpdateSpeculativePosition();
+                    }
+                }
             } else {
-                rectRenderer.Image.Color = Color.DarkRed;
+                rectRenderer.Image.Color = Color.OrangeRed;
             }
         }
     }

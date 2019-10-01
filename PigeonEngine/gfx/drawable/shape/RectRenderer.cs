@@ -36,7 +36,7 @@ namespace pigeon.gfx {
         }
 
         private void setFillPixels(Color fillColor) {
-            for (int i = BorderThickness; i < pixels.Length; i++) {
+            for (int i = 0; i < pixels.Length; i++) {
                 pixels[i] = fillColor;
             }
         }

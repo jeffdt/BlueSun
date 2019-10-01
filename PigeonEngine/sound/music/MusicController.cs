@@ -18,8 +18,8 @@ namespace PigeonEngine.sound.music {
         public const int P3 = 6;
         public const int P4 = 7;
 
-        public static float DimmedVolume { get; set; } = 0.4f;
-        public static float FullVolume { get; set; } = 0.8f;
+        public static float DimmedVolume { get; set; } = 0.6f;
+        public static float FullVolume { get; set; } = 0.6f;
         public static float VolumeRampupTimeSecs { get; set; } = .75f;
 
         private static bool transitioning = false;
