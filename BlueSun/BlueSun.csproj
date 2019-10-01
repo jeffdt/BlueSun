@@ -44,16 +44,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BlueSunGame.cs" />
-    <Compile Include="nsfplayer\SfxController.cs" />
+    <Compile Include="worlds\collision\CollisionWorld.cs" />
+    <Compile Include="worlds\nsfplayer\SfxController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="constants\Display.cs" />
     <Compile Include="constants\Palette.cs" />
     <Compile Include="constants\Fonts.cs" />
     <Compile Include="constants\Inputs.cs" />
-    <Compile Include="nsfplayer\MusicController.cs" />
-    <Compile Include="nsfplayer\NsfPlayer.cs" />
-    <Compile Include="nsfplayer\Album.cs" />
+    <Compile Include="worlds\nsfplayer\SongPlaybackController.cs" />
+    <Compile Include="worlds\nsfplayer\NsfPlayer.cs" />
+    <Compile Include="worlds\nsfplayer\Album.cs" />
     <Compile Include="worlds\TestWorld.cs" />
   </ItemGroup>
   <ItemGroup>

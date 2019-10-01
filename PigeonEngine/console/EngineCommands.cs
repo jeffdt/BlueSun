@@ -16,6 +16,7 @@ using pigeon.time;
 using pigeon.utilities.extensions;
 using pigeon.winforms;
 using PigeonEngine.sound.music;
+using System.IO;
 
 namespace pigeon.pgnconsole {
     public static class EngineCommands {
@@ -213,9 +214,9 @@ namespace pigeon.pgnconsole {
         private static void tick(string args) {
             if (!Pigeon.PauseWorld) {
                 Pigeon.PauseWorld = true;
+            } else {
+                Pigeon.Instance.UpdateGameplay();
             }
-
-            Pigeon.Instance.UpdateGameplay();
         }
 
         private static void showUi(string args) {
@@ -267,7 +268,7 @@ namespace pigeon.pgnconsole {
         #region objects
         private static void getAllObjects(string args) {
             StringBuilder builder = new StringBuilder();
-            GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.ObjRoot : Pigeon.World.FindObj(args);
+            GameObject obj = string.IsNullOrEmpty(args) ? Pigeon.World.RootObj : Pigeon.World.FindObj(args);
             describeChildren(obj, builder);
         }
 
@@ -444,9 +445,12 @@ namespace pigeon.pgnconsole {
                 if (!args.EndsWith(".nsf")) {
                     args += ".nsf";
                 }
-                MusicController.Stop();
-                MusicController.Load(args);
-                MusicController.Play();
+
+                if (File.Exists(args)) {
+                    MusicController.Stop();
+                    MusicController.Load(args);
+                    MusicController.Play();
+                }
             }
         }
 

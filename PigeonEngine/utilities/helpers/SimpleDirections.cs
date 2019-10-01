@@ -2,7 +2,7 @@
 
 namespace pigeon.utilities.helpers {
     public enum SimpleDirections {
-        Up, Right, Down, Left
+        Up = 0, Right = 1, Down = 2, Left =3
     }
 
     public static class SimpleDirectionsExtensions {

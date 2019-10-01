@@ -21,9 +21,11 @@ namespace pigeon.collision {
         public int Height { get { return GetRectangle().Height; } }
 
         public HashSet<string> Tags = new HashSet<string>();
-        internal HashSet<ColliderComponent> FrameCollisions = new HashSet<ColliderComponent>();
+        public HashSet<ColliderComponent> FrameCollisions = new HashSet<ColliderComponent>();
+        public HashSet<ColliderComponent> LastFrameCollisions = new HashSet<ColliderComponent>();
 
         public HashSet<ColliderComponent> IgnoredColliders;
+        public bool[] IgnoredSides = new bool[4];
 
         protected ColliderComponent() {
             Destructor = destroy;
@@ -59,7 +61,17 @@ namespace pigeon.collision {
         }
 
         protected override void Update() {
-            FrameCollisions.Clear();
+            if (LastFrameCollisions.Count > 0) {
+                LastFrameCollisions.Clear();
+            }
+
+            if (FrameCollisions.Count > 0) {
+                foreach (var collision in FrameCollisions) {
+                    LastFrameCollisions.Add(collision);
+                }
+
+                FrameCollisions.Clear();
+            }
         }
 
         protected override void Initialize() {

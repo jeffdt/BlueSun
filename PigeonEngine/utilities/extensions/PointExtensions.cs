@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 
 namespace pigeon.utilities {
-    public static class PointOps {
+    public static class PointExtensions {
         public static string ToFormattedString(this Point pt) {
             return string.Format("({0},{1})", pt.X, pt.Y);
         }
@@ -27,16 +27,24 @@ namespace pigeon.utilities {
             return new Point(point.X, y);
         }
 
-        public static Point AddToX(this Point point, int x) {
+        public static Point AddX(this Point point, int x) {
             return new Point(point.X + x, point.Y);
         }
 
-        public static Point AddToY(this Point point, int y) {
+        public static Point AddY(this Point point, int y) {
             return new Point(point.X, point.Y + y);
         }
 
         public static Point Add(this Point point, int val) {
             return new Point(point.X + val, point.Y + val);
+        }
+
+        public static Point SubtractX(this Point point, int x) {
+            return new Point(point.X - x, point.Y);
+        }
+
+        public static Point SubtractY(this Point point, int y) {
+            return new Point(point.X, point.Y - y);
         }
 
         public static Point Div(this Point point, int divisor) {

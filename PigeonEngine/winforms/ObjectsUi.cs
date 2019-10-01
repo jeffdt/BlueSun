@@ -11,7 +11,7 @@ namespace pigeon.winforms {
             enableObjectDetails(false);
 
             objectTree.Nodes.Clear();
-            var allObjects = Pigeon.World.ObjRoot.GetChildren();
+            var allObjects = Pigeon.World.RootObj.GetChildren();
             populateObjectTreeRecursive(objectTree.Nodes, allObjects);
         }
 
