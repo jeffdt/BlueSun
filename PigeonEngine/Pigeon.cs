@@ -163,8 +163,8 @@ namespace pigeon {
 
         public static void SetWorld(World world, bool isAlreadyInitialized = false) {
             if (nextWorld != null) {
-                Console.LogError("NextWorld has already been set.");
-                Console.LogError("Cannot override " + nextWorld + " with " + world);
+                Console.Error("NextWorld has already been set.");
+                Console.Error("Cannot override " + nextWorld + " with " + world);
             }
 
             nextWorld = world;

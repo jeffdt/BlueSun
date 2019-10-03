@@ -178,7 +178,7 @@ namespace pigeon.pgnconsole {
             int after = args.ToInt();
 
             if (after < 1 || after > 7) {
-                Pigeon.Console.LogError("Scale must be between 1 and 7");
+                Pigeon.Console.Error("Scale must be between 1 and 7");
             } else {
                 int before = Pigeon.Renderer.DrawScale;
                 Pigeon.Renderer.DrawScale = after;
@@ -335,7 +335,7 @@ namespace pigeon.pgnconsole {
                 return;
             }
 
-            Pigeon.Console.LogError("object does not exist");
+            Pigeon.Console.Error("object does not exist");
         }
 
         private static void setHideDrawable(string args) {
@@ -437,6 +437,8 @@ namespace pigeon.pgnconsole {
         private static void bgmPlayTrack(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("usage: bgmplay <trackName>");
+                Pigeon.Console.Log("-trackname: (path to track)");
+                Pigeon.Console.Log("e.g. \"bgmplay metallicwing/solitude\"");
             } else {
                 if (!args.StartsWith("music/")) {
                     args = "music/" + args;
@@ -447,7 +449,7 @@ namespace pigeon.pgnconsole {
                 }
 
                 if (!File.Exists(args)) {
-                    Pigeon.Console.Log("unknown track");
+                    Pigeon.Console.Error("unknown track");
                     return;
                 }
 
@@ -510,7 +512,7 @@ namespace pigeon.pgnconsole {
                 MusicController.SetVolumeInstant(after);
                 ConsoleUtilities.LogVariableChange("bgm volume", before, after);
             } else {
-                Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
+                Pigeon.Console.Error("Invalid volume; enter a decimal value from 0.0 to 1.0");
             }
         }
 
@@ -523,7 +525,7 @@ namespace pigeon.pgnconsole {
                 Sfx.SfxVolume = after;
                 ConsoleUtilities.LogVariableChange("sfx vol", before, after);
             } else {
-                Pigeon.Console.LogError("Invalid volume; enter a decimal value from 0.0 to 1.0");
+                Pigeon.Console.Error("Invalid volume; enter a decimal value from 0.0 to 1.0");
             }
         }
         #endregion
@@ -566,7 +568,7 @@ namespace pigeon.pgnconsole {
                     ConsoleUtilities.LogVariableChange(splitArgs[0] + "." + splitArgs[1], before, after);
                     break;
                 default:
-                    Pigeon.Console.LogError("too many arguments provided.");
+                    Pigeon.Console.Error("too many arguments provided.");
                     break;
             }
         }

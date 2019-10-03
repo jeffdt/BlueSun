@@ -24,7 +24,6 @@ namespace PigeonEngine.sound.music {
         private static MusicPlayer musicPlayer = new MusicPlayer();
 
         public static void Initialize() {
-
             musicPlayer.Initialize();
         }
 

@@ -83,7 +83,7 @@ namespace pigeon.legacy.graphics {
                     centerImage(this);
                 }
             } else {
-                Pigeon.Console.LogError("no source on image with key: " + key);
+                Pigeon.Console.Error("no source on image with key: " + key);
             }
         }
 

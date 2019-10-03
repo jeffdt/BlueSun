@@ -34,7 +34,7 @@ namespace pigeon.sound {
             int clampedTrackNum = trackNum.Clamp(0, reader.TrackCount - 1);
 
             if (trackNum < 0 || trackNum > reader.TrackCount - 1) {
-                Pigeon.Console.LogError(string.Format("trackNum {0} not valid for trackCount range [0, {1}]. defaulting to {2}.", trackNum, reader.TrackCount - 1, clampedTrackNum));
+                Pigeon.Console.Error(string.Format("trackNum {0} not valid for trackCount range [0, {1}]. defaulting to {2}.", trackNum, reader.TrackCount - 1, clampedTrackNum));
             }
 
             reader.SetTrack(clampedTrackNum);
