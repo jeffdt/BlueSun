@@ -360,7 +360,7 @@ namespace pigeon.gameobject {
 
                 (toInitialize ?? (toInitialize = new List<Component>())).Add(cmpt);
             } else {
-                Pigeon.Console.LogError("cannot add a component to more than one object.");
+                Pigeon.Console.Error("cannot add a component to more than one object.");
             }
 
             return this;

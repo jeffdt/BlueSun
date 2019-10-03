@@ -318,12 +318,12 @@ namespace pigeon.pgnconsole {
                         ExecuteCommand(aliasCommand);
                     }
                 } else {
-                    LogError("Command name not recognized: " + commandName);
+                    Error("Command name not recognized: " + commandName);
                 }
 
                 previousCommand = (commandName == "repeat") ? previousCommand : commandFull;
             } catch (Exception e) {
-                LogError("command failed: " + commandFull);
+                Error("command failed: " + commandFull);
                 Log(e.Message);
             }
         }
@@ -376,7 +376,7 @@ namespace pigeon.pgnconsole {
             messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Info));
         }
 
-        public void LogError(string message) {
+        public void Error(string message) {
             messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Error));
         }
 

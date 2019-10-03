@@ -31,7 +31,7 @@ namespace pigeon.gfx {
 
                     Pigeon.GameEventRegistry.RaiseEmptyEvent<RenderScaleChangedEvent>();
                 } catch (Exception) {
-                    Pigeon.Console.LogError("Unable to set drawscale to " + value);
+                    Pigeon.Console.Error("Unable to set drawscale to " + value);
                 }
             }
         }

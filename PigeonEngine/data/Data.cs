@@ -73,7 +73,7 @@ namespace pigeon.data {
         public static T DeserializeObject<T>(string filePath) where T : class {
             if (!File.Exists(filePath)) {
                 var dir = Directory.GetCurrentDirectory();
-                Pigeon.Console.LogError(string.Format("file {0} not found in directory {1}", filePath, dir));
+                Pigeon.Console.Error(string.Format("file {0} not found in directory {1}", filePath, dir));
                 return null;
             }
 
