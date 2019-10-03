@@ -117,6 +117,7 @@
     <Compile Include="utilities\Delegates.cs" />
     <Compile Include="utilities\extensions\BoolExtensions.cs" />
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />
+    <Compile Include="utilities\extensions\KeysExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteBatchExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteFontExtensions.cs" />
     <Compile Include="utilities\extensions\Vector2Extensions.cs" />

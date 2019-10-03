@@ -172,7 +172,7 @@ namespace pigeon.pgnconsole {
 
         private static void setScale(string args) {
             if (string.IsNullOrEmpty(args)) {
-                Pigeon.Console.Log("current draw scale: " + Pigeon.Renderer.DrawScale);
+                Pigeon.Console.Log("drawscale: " + Pigeon.Renderer.DrawScale);
                 return;
             }
             int after = args.ToInt();
@@ -198,12 +198,12 @@ namespace pigeon.pgnconsole {
 
         private static void setGameSpeed(string args) {
             if (string.IsNullOrEmpty(args)) {
-                ConsoleUtilities.LogVariable("game speed", GameSpeed.Multiplier);
+                ConsoleUtilities.LogVariable("gamespeed", GameSpeed.Multiplier);
             } else {
                 var oldValue = GameSpeed.Multiplier;
                 var newValue = args.ToFloat();
                 GameSpeed.Multiplier = newValue;
-                ConsoleUtilities.LogVariableChange("game speed", oldValue, newValue);
+                ConsoleUtilities.LogVariableChange("gamespeed", oldValue, newValue);
             }
         }
 
@@ -403,9 +403,9 @@ namespace pigeon.pgnconsole {
         #region audio
         private static void setBgmEqualizer(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("bgmequalizer <treble> <bass>");
-                Pigeon.Console.Log("   treble: -50 to 5 (def 0)");
-                Pigeon.Console.Log("   bass: 1 to 16000 (def 90)");
+                Pigeon.Console.Log("usage: bgmequalizer <treble> <bass>");
+                Pigeon.Console.Log("-treble: -50 to 5 (def 0)");
+                Pigeon.Console.Log("-bass: 1 to 16000 (def 90)");
             } else {
                 var splitArgs = args.Tokenize();
 
@@ -419,9 +419,9 @@ namespace pigeon.pgnconsole {
 
         private static void setBgmMuteVoice(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("bgmmutevoice <index> <mute>");
-                Pigeon.Console.Log("   index: 0 to 7 (channel to mute)");
-                Pigeon.Console.Log("   mute: 0 or 1 (1 to mute)");
+                Pigeon.Console.Log("usage: bgmmutevoice <index> <mute>");
+                Pigeon.Console.Log("-index: 0 to 7 (channel index)");
+                Pigeon.Console.Log("-mute: 0 or 1 (unmute or mute)");
             } else {
                 var splitArgs = args.Tokenize();
                 MusicController.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
@@ -436,7 +436,7 @@ namespace pigeon.pgnconsole {
 
         private static void bgmPlayTrack(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("unknown track");
+                Pigeon.Console.Log("usage: bgmplay <trackName>");
             } else {
                 if (!args.StartsWith("music/")) {
                     args = "music/" + args;
@@ -446,11 +446,14 @@ namespace pigeon.pgnconsole {
                     args += ".nsf";
                 }
 
-                if (File.Exists(args)) {
-                    MusicController.Stop();
-                    MusicController.Load(args);
-                    MusicController.Play();
+                if (!File.Exists(args)) {
+                    Pigeon.Console.Log("unknown track");
+                    return;
                 }
+
+                MusicController.Stop();
+                MusicController.Load(args);
+                MusicController.Play();
             }
         }
 
@@ -468,9 +471,9 @@ namespace pigeon.pgnconsole {
 
         private static void bgmStereoDepth(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("bgmstereodepth <depth>");
-                Pigeon.Console.Log("	depth: 0.0 to 1.0");
-                Pigeon.Console.Log("	current: " + MusicController.StereoDepth);
+                Pigeon.Console.Log("usage: bgmstereodepth <depth>");
+                Pigeon.Console.Log("-depth: 0.0 to 1.0");
+                Pigeon.Console.Log("-current: " + MusicController.StereoDepth);
             } else {
                 MusicController.StereoDepth = args.ToDouble();
             }
@@ -478,7 +481,7 @@ namespace pigeon.pgnconsole {
 
         private static void setBgmFade(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("bgmfade <msLength>");
+                Pigeon.Console.Log("usage: bgmfade <msLength>");
             } else {
                 MusicController.Fade = args.ToInt();
             }
@@ -486,14 +489,19 @@ namespace pigeon.pgnconsole {
 
         private static void bgmTempo(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
-                Pigeon.Console.Log("bgmtempo <tempo>");
-                Pigeon.Console.Log("	tempo: 0.5 to 2.0 (default 1)");
+                Pigeon.Console.Log("usage: bgmtempo <tempo>");
+                Pigeon.Console.Log("-tempo: 0.5 to 2.0 (def 1)");
             } else {
                 MusicController.Tempo = args.ToDouble();
             }
         }
 
         private static void setBgmVolume(string args) {
+            if (string.IsNullOrWhiteSpace(args)) {
+                Pigeon.Console.Log("usage: bgmvol <volume>");
+                Pigeon.Console.Log("-volume: 0.0 to 1.0");
+            }
+
             double? value = args.ToUnitInterval();
 
             if (value != null) {
@@ -601,12 +609,13 @@ namespace pigeon.pgnconsole {
             Keys key = KeyBinds.ParseToKey(splitArgs[0]);
 
             // TODO: if no args passed in, then list all current binds
-            if (splitArgs.Length == 1) {    // if no command is given, just display current bind for that key
-                displayKeybind(key);
-            } else {    // create a new bind
+
+            if (splitArgs.Length == 2) {    // create a new bind
                 KeyBinds.BindKey(key, splitArgs[1]);
-                displayKeybind(key);
             }
+            
+            // if no command is given, just display current bind for that key
+            displayKeybind(key);
         }
 
         private static void setUnbind(string args) {
