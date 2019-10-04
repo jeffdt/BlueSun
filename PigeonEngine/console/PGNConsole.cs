@@ -14,13 +14,54 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using pigeon.gfx;
 using PigeonEngine.utilities.extensions;
 using pigeon.legacy.graphics;
+using pigeon.time;
 
 namespace pigeon.pgnconsole {
     public class PGNConsole : World {
+        #region constants
         private const int bufferMaxLength = 300;
+        private int lineOverflowWidth;
+        internal readonly PGNConsoleOptions options;
+        private readonly SpriteFont font;
+        private readonly Vector2 bufferHomePosition;
+        #endregion
+
+        #region helpers
+        private readonly CommandHistory history;
+        internal MessageLog messageLog;
+        internal readonly AliasManager AliasManager = new AliasManager();
+        private Entity panel;
+        private Entity cursor;
+        private TextEntity buffer;
+        #endregion
+
+        #region commands
+        internal List<string> AllCommandNames {
+            get {
+                var all = new List<string>();
+                all.AddRange(EngineCommandNames);
+                all.AddRange(GameCommandNames);
+                return all;
+            }
+        }
+        internal List<string> EngineCommandNames { get { return engineCommands.Keys.ToList(); } }
+        internal List<string> GameCommandNames { get { return gameCommands.Keys.ToList(); } }
+        private readonly Dictionary<string, ConsoleCommand> engineCommands = new Dictionary<string, ConsoleCommand>();
+        private readonly Dictionary<string, ConsoleCommand> gameCommands = new Dictionary<string, ConsoleCommand>();
+        #endregion
+
+        #region key repeating
+        private Keys lastKey;
+        private float lastKeyHoldTimeSecs;
+        private bool isRepeatingKey;
+        private const float beginRepeatKeySecs = .6f;
+        private const float continueRepeatKeySecs = .05f;
+        #endregion
+        
+        #region command buffer state
+        private string previousCommand = "";
 
         private int _commandCursorIndex = 0;
-
         private int commandCursorIndex {
             get { return _commandCursorIndex; }
             set {
@@ -31,7 +72,6 @@ namespace pigeon.pgnconsole {
         }
 
         private string _commandBuffer;
-
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
@@ -48,35 +88,7 @@ namespace pigeon.pgnconsole {
                 }
             }
         }
-
-        internal readonly PGNConsoleOptions options;
-        private readonly SpriteFont font;
-        private readonly Vector2 bufferHomePosition;
-        private readonly CommandHistory history;
-        internal MessageLog messageLog;
-        internal readonly AliasManager AliasManager = new AliasManager();
-
-        private Entity panel;
-        private Entity cursor;
-        private TextEntity buffer;
-
-        private int lineOverflowWidth;
-
-        internal List<string> AllCommandNames {
-            get {
-                var all = new List<string>();
-                all.AddRange(EngineCommandNames);
-                all.AddRange(GameCommandNames);
-                return all;
-            }
-        }
-
-        internal List<string> EngineCommandNames { get { return engineCommands.Keys.ToList(); } }
-        internal List<string> GameCommandNames { get { return gameCommands.Keys.ToList(); } }
-        private readonly Dictionary<string, ConsoleCommand> engineCommands = new Dictionary<string, ConsoleCommand>();
-        private readonly Dictionary<string, ConsoleCommand> gameCommands = new Dictionary<string, ConsoleCommand>();
-
-        private string previousCommand = "";
+        #endregion
 
         public bool IsDisplaying { get; private set; }
 
@@ -128,7 +140,7 @@ namespace pigeon.pgnconsole {
             base.Update();
 
             if (RawKeyboardInput.IsPressed(Keys.OemTilde)) {
-                toggleDisplay();
+                IsDisplaying = !IsDisplaying;
             }
 
             if (!IsDisplaying) {
@@ -163,42 +175,110 @@ namespace pigeon.pgnconsole {
         private void handleKeyboardInput() {
             Keys key = RawKeyboardInput.GetSingleJustPressedKey();
 
-            if (key == Keys.None) {
+            if (key == Keys.None) { // if did not press a new key
+                if (lastKey != Keys.None) { // but key was down on previous frame
+                    checkKeyRepeat();
+                    if (isRepeatingKey) {
+                        handleContinueRepeatingKey();
+                    } else {
+                        handleBeginRepeatingKey();
+                    }
+                }
                 return;
             }
 
-            if (key == Keys.Up) {
-                var command = history.Next();
-                if (command != null) {
-                    commandBuffer = command;
-                    commandCursorIndex = commandBuffer.Length;
-                }
-            } else if (key == Keys.Down) {
-                commandBuffer = history.Previous();
-                commandCursorIndex = commandBuffer.Length;
-            } else if (key == Keys.Left) {
-                commandCursorIndex--;
-            } else if (key == Keys.Right) {
-                commandCursorIndex++;
-            } else if (key == Keys.Back) {
-                history.Reset();
-                handleBackspace();
-            } else if (key == Keys.Delete) {
-                history.Reset();
-                handleDelete();
-            } else if (key == Keys.Enter) {
+            if (isRepeatingKey) {
+                resetKeyRepeat();
+            }
+
+            lastKey = key;
+
+            handleSingleKey(key);
+        }
+
+        private void handleSingleKey(Keys key, bool isFromKeyRepeat = false) {
+            if (key == Keys.Up && !isFromKeyRepeat) {
+                handleUp();
+            } else if (key == Keys.Down && !isFromKeyRepeat) {
+                handleDown();
+            } else if(key == Keys.Enter && !isFromKeyRepeat) {
                 history.Reset();
                 commitCommand();
-            } else if (key == Keys.Tab) {
+            } else if (key == Keys.Tab && !isFromKeyRepeat) {
                 history.Reset();
                 handleAutocomplete();
-            } else if (key == Keys.Home) {
-                commandCursorIndex = 0;
-            } else if (key == Keys.End) {
-                commandCursorIndex = commandBuffer.Length;
-            } else if (key.IsPrintable()) {
-                history.Reset();
+            } else if (key == Keys.Home && !isFromKeyRepeat) {
+                handleHome();
+            } else if (key == Keys.End && !isFromKeyRepeat) {
+                handleEnd();
+            } else if (key == Keys.Left) {
+                handleLeft();
+            } else if (key == Keys.Right) {
+                handleRight();
+            } else if (key == Keys.Back) {
+                handleBackspace();
+            } else if (key == Keys.Delete) {
+                handleDelete();
+            } else  if (key.IsPrintable()) {
                 handleCharacters(key.ToChar());
+            }
+        }
+
+        private void handleBeginRepeatingKey() {
+            if (lastKeyHoldTimeSecs >= beginRepeatKeySecs) {
+                isRepeatingKey = true;
+                lastKeyHoldTimeSecs = 0f;
+                handleSingleKey(lastKey, true);
+            }
+        }
+
+        private void handleContinueRepeatingKey() {
+            if (lastKeyHoldTimeSecs >= continueRepeatKeySecs) {
+                lastKeyHoldTimeSecs = 0f;
+
+                handleSingleKey(lastKey, true);
+            }
+        }
+
+        private void checkKeyRepeat() {
+            if (RawKeyboardInput.IsHeld(lastKey)) { // if key from last frame is still down on this frame, we're in repeat territory
+                lastKeyHoldTimeSecs += Time.SecScaled;
+
+                if (!isRepeatingKey) {
+                    handleBeginRepeatingKey();
+                } else {
+                    handleContinueRepeatingKey();
+                }
+            } else { // key repeat is over. RESET EVERYTHING!
+                resetKeyRepeat();
+            }
+        }
+
+        private void resetKeyRepeat() {
+            isRepeatingKey = false;
+            lastKey = Keys.None;
+            lastKeyHoldTimeSecs = 0;
+        }
+
+        #region key handlers
+        private void handleEnd() {
+            commandCursorIndex = commandBuffer.Length;
+        }
+
+        private void handleHome() {
+            commandCursorIndex = 0;
+        }
+
+        private void handleDown() {
+            commandBuffer = history.Previous();
+            commandCursorIndex = commandBuffer.Length;
+        }
+
+        private void handleUp() {
+            var command = history.Next();
+            if (command != null) {
+                commandBuffer = command;
+                commandCursorIndex = commandBuffer.Length;
             }
         }
 
@@ -269,7 +349,17 @@ namespace pigeon.pgnconsole {
             }
         }
 
+        private void handleRight() {
+            commandCursorIndex++;
+        }
+
+        private void handleLeft() {
+            commandCursorIndex--;
+        }
+
         private void handleCharacters(char character) {
+            history.Reset();
+
             if (commandBuffer.Length == bufferMaxLength) {
                 return;
             }
@@ -290,6 +380,29 @@ namespace pigeon.pgnconsole {
             string command = commandBuffer;
             ExecuteCommand(command, true);
         }
+
+        private void handleBackspace() {
+            history.Reset();
+
+            if (commandBuffer.Length > 0 && commandCursorIndex > 0) {
+                bool isCursorAtEnd = commandCursorIndex == commandBuffer.Length;
+
+                commandBuffer = commandBuffer.Remove(commandCursorIndex - 1, 1);
+
+                if (!isCursorAtEnd) {
+                    commandCursorIndex--;
+                }
+            }
+        }
+
+        private void handleDelete() {
+            history.Reset();
+
+            if (commandBuffer.Length > 0 && commandCursorIndex < commandBuffer.Length) {
+                commandBuffer = commandBuffer.Remove(commandCursorIndex, 1);
+            }
+        }
+        #endregion
 
         public void ExecuteCommand(string commandFull, bool addToHistory = false) {
             string lowercaseBuffer = commandFull;
@@ -328,24 +441,6 @@ namespace pigeon.pgnconsole {
             }
         }
 
-        private void handleBackspace() {
-            if (commandBuffer.Length > 0 && commandCursorIndex > 0) {
-                bool isCursorAtEnd = commandCursorIndex == commandBuffer.Length;
-
-                commandBuffer = commandBuffer.Remove(commandCursorIndex - 1, 1);
-
-                if (!isCursorAtEnd) { 
-                    commandCursorIndex--;
-                }
-            }
-        }
-
-        private void handleDelete() {
-            if (commandBuffer.Length > 0 && commandCursorIndex < commandBuffer.Length) {
-                commandBuffer = commandBuffer.Remove(commandCursorIndex, 1);
-            }
-        }
-
         private static bool isShiftHeld() {
             bool leftShift = RawKeyboardInput.IsHeld(Keys.LeftShift);
             bool rightShift = RawKeyboardInput.IsHeld(Keys.RightShift);
@@ -356,10 +451,7 @@ namespace pigeon.pgnconsole {
             return isShiftHeld() ^ Console.CapsLock;
         }
 
-        private void toggleDisplay() {
-            IsDisplaying = !IsDisplaying;
-        }
-
+        #region logging
         public void DebugLog(string message) {
             Log(message);
         }
@@ -383,6 +475,7 @@ namespace pigeon.pgnconsole {
         private void logCommand(string message) {
             messageLog.AddMessage(new LogMessage(message, LogMessageTypes.Command));
         }
+        #endregion
 
         public void RepeatPrevious() {
             ExecuteCommand(previousCommand);
