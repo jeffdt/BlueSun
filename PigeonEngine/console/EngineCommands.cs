@@ -606,16 +606,22 @@ namespace pigeon.pgnconsole {
 
         #region binds/aliases
         private static void setBind(string args) {
+            if (string.IsNullOrWhiteSpace(args)) {
+                Pigeon.Console.Log("current keybinds:");
+                foreach (var boundKey in KeyBinds.GetAllKeyBinds().Keys) {
+                    displayKeybind(boundKey);
+                }
+                return;
+            }
+
             string[] splitArgs = args.Split(new[] { ' ' }, 2);
 
             Keys key = KeyBinds.ParseToKey(splitArgs[0]);
 
-            // TODO: if no args passed in, then list all current binds
-
             if (splitArgs.Length == 2) {    // create a new bind
                 KeyBinds.BindKey(key, splitArgs[1]);
             }
-            
+
             // if no command is given, just display current bind for that key
             displayKeybind(key);
         }

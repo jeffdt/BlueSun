@@ -8,6 +8,7 @@ using PigeonEngine.gfx;
 using System.Reflection;
 using BlueSun.worlds.collision;
 using pigeon;
+using BlueSun.src.worlds;
 
 namespace BlueSun {
     internal class BlueSunGame : Pigeon {
