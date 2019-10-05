@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PigeonEngine.utilities.extensions {
+namespace pigeon.utilities.extensions {
     public static class Vector2Extensions {
         public static Vector2 Multiply(this Vector2 vector2, float x, float y) {
             return new Vector2(vector2.X * x, vector2.Y * y);

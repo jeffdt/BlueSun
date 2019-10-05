@@ -12,25 +12,35 @@ namespace BlueSun.src.worlds {
             BackgroundColor = Palette.DarkGray;
 
             AddObj(new GameObject("sfx").AddComponent(new SfxController()));
-            AddObj(buildMusicController());
+            AddObj(buildPlayer());
+            AddObj(buildControls());
         }
 
-        private static GameObject buildMusicController() {
+        private static GameObject buildPlayer() {
             GameObject musicObj = new GameObject("music") { WorldPosition = Display.ScreenCenter };
-            musicObj.AddComponent(new SongPlaybackController());
+            musicObj.AddComponent(new SongPlayer());
 
-            GameObject songTextObj = new GameObject("song") { LocalLayer = .9f, FlatLocalPosition = new Point(0, -10) };
+            GameObject songTextObj = new GameObject("songtext") { LocalLayer = .9f, FlatLocalPosition = new Point(0, -10) };
             songTextObj.AddComponent(new TextRenderer().SetAll("", Fonts.Console, Palette.White, Justification.Center));
             musicObj.AddChild(songTextObj);
 
-            GameObject flavorTextObj = new GameObject("flavor") { LocalLayer = .9f, FlatLocalPosition = new Point(2, 10) };
+            GameObject flavorTextObj = new GameObject("flavortext") { LocalLayer = .9f, FlatLocalPosition = new Point(2, 10) };
             flavorTextObj.AddComponent(new TextRenderer().SetAll("from the album:", Fonts.Console, Palette.LightGray, Justification.Center));
             musicObj.AddChild(flavorTextObj);
 
-            GameObject folderTextObj = new GameObject("album") { LocalLayer = .9f, FlatLocalPosition = new Point(0, 22) };
+            GameObject folderTextObj = new GameObject("albumtext") { LocalLayer = .9f, FlatLocalPosition = new Point(0, 22) };
             folderTextObj.AddComponent(new TextRenderer().SetAll("", Fonts.Console, Palette.LightGray, Justification.Center));
             musicObj.AddChild(folderTextObj);
             return musicObj;
+        }
+
+        private static GameObject buildControls() {
+            GameObject controlsObj = new GameObject("controls");
+            controlsObj.AddComponent(new SongControls());
+
+
+
+            return controlsObj;
         }
 
         protected override void Unload() { }

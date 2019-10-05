@@ -11,7 +11,7 @@ using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.utilities;
-using PigeonEngine.utilities.extensions;
+using pigeon.utilities.extensions;
 
 namespace BlueSun.worlds.collision {
     class CollisionWorld : World {

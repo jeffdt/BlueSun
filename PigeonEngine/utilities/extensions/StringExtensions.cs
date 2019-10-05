@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PigeonEngine.utilities.extensions;
+using pigeon.utilities.extensions;
 
 namespace pigeon.utilities.extensions {
     public static class StringExtensions {

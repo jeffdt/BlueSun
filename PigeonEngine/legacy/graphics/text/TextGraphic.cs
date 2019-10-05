@@ -108,6 +108,4 @@ namespace pigeon.legacy.graphics.text {
             Renderer.SpriteBatch.DrawString(Font, text, position, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
         }
     }
-
-    public enum Justification { Left, Center, Right, TopLeft, TopCenter, TopRight, BottomLeft, BottomCenter, BottomRight }
 }

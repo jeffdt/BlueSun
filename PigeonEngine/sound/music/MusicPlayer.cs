@@ -21,9 +21,7 @@ namespace pigeon.sound {
 
             volumeSampleProvider = new VolumeSampleProvider(reader.ToSampleProvider());
 
-            var waveOut = new WaveOut();
-
-            waveOut.DeviceNumber = -1;
+            var waveOut = new WaveOut { DeviceNumber = -1 };
             waveOut.Init(volumeSampleProvider);
 
             player = waveOut;

@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using pigeon;
 using pigeon.gameobject;
 using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
-using PigeonEngine.sound.music;
+using pigeon.sound.music;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {
-    internal class SongPlaybackController : Component {
+    internal class SongPlayer : Component {
         private List<Album> albums;
 
         private TextRenderer songText;
@@ -20,8 +19,8 @@ namespace BlueSun.src.worlds {
         private int totalSongCount;
 
         protected override void Initialize() {
-            songText = Object.FindChild("song").GetComponent<TextRenderer>();
-            albumText = Object.FindChild("album").GetComponent<TextRenderer>();
+            songText = Object.FindChild("songtext").GetComponent<TextRenderer>();
+            albumText = Object.FindChild("albumtext").GetComponent<TextRenderer>();
 
             albums = new List<Album> {
                 new Album() { AlbumName = "Bazaar" },
@@ -83,7 +82,6 @@ namespace BlueSun.src.worlds {
 
         private void playRandomSong() {
             int randomSong = totalSongCount.Random();
-            Pigeon.Console.DebugLog(randomSong.ToString());
 
             for (int i = 0; i < albums.Count; i++) {
                 if (albums[i].SongCount < randomSong) {
@@ -116,15 +114,13 @@ namespace BlueSun.src.worlds {
 
             Album songFolder = albums[currAlbumIndex];
 
-            MusicController.Stop();
-            MusicController.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
-            MusicController.PlayTrack(0);
-            MusicController.StereoDepth = 1f;
+            Music.Stop();
+            Music.Load(songFolder.GetFullPathForSongIndex(currSongIndex));
+            Music.PlayTrack(0);
+            Music.StereoDepth = 1f;
 
             songText.Text = songFolder.GetFriendlySongName(currSongIndex);
             albumText.Text = songFolder.AlbumName;
-
-            Pigeon.Console.DebugLog(songText.Text);
         }
     }
 }

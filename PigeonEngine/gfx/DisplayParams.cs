@@ -1,4 +1,4 @@
-﻿namespace PigeonEngine.gfx {
+﻿namespace pigeon.gfx {
     public class DisplayParams {
         public DisplayParams(int screenWidth, int screenHeight, int initialScale, int frameRate) {
             ScreenWidth = screenWidth;

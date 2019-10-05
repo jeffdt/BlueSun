@@ -2,8 +2,8 @@
 using pigeon.sound;
 using pigeon.time;
 
-namespace PigeonEngine.sound.music {
-    public static class MusicController {
+namespace pigeon.sound.music {
+    public static class Music {
         public const int P1 = 0;
         public const int P2 = 1;
         public const int TRI = 2;

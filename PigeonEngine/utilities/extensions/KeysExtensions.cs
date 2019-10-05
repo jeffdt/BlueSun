@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PigeonEngine.utilities.extensions {
+namespace pigeon.utilities.extensions {
     public static class KeysExtensions {
         private static readonly Dictionary<Keys, char> printCharacters = new Dictionary<Keys, char>{
             {Keys.Space, ' '},
