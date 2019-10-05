@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using pigeon.gfx;
 using pigeon.gameobject;
 using pigeon.time;
+using pigeon.gfx.drawable.image;
 
 namespace pigeon.component {
     public class AlphaFader : Component {

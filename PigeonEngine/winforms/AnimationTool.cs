@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using pigeon.legacy.graphics.anim;
-using pigeon.gfx;
+using pigeon.gfx.drawable.animation;
 
 namespace pigeon.winforms {
     public partial class AnimationTool : Form {

@@ -5,6 +5,7 @@ using pigeon.rand;
 using pigeon.collision;
 using pigeon.time;
 using pigeon.utilities;
+using PigeonEngine.gfx.drawable;
 
 namespace pigeon.gameobject {
     public class GameObject {

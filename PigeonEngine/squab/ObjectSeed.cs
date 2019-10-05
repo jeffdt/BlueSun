@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using pigeon.gfx;
+using pigeon.gfx.drawable.animation;
 
 namespace pigeon.gameobject {
     [Serializable]

@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics;
 using pigeon.gameobject;
+using pigeon;
+using PigeonEngine.gfx.drawable;
 
-namespace pigeon.gfx {
+namespace pigeon.gfx.drawable.image {
     public class ImageRenderer : Component, IRenderable, IFlippable {
         public string TexturePath;
         public bool Center;

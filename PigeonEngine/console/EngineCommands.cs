@@ -17,6 +17,9 @@ using pigeon.utilities.extensions;
 using pigeon.winforms;
 using pigeon.sound.music;
 using System.IO;
+using pigeon.gfx.drawable.text;
+using pigeon.gfx.drawable.image;
+using pigeon.gfx.drawable.animation;
 
 namespace pigeon.pgnconsole {
     public static class EngineCommands {
@@ -127,11 +130,12 @@ namespace pigeon.pgnconsole {
 
         #region graphics
         private static void toggleLcd(string args) {
-            if (string.IsNullOrEmpty(args)) {
-                Renderer.LcdDisplay = !Renderer.LcdDisplay;
-            } else {
-                Renderer.LcdDisplay = args.Tokenize()[0].ToBool();
-            }
+            bool before = Renderer.LcdDisplay;
+            bool after = string.IsNullOrEmpty(args) ? !Renderer.LcdDisplay : args.Tokenize()[0].ToBool();
+
+            Renderer.LcdDisplay = after;
+
+            ConsoleUtilities.LogVariableChange("LCD effect", before, after);
         }
 
         private static void toggleFullscreen(string args) {

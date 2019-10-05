@@ -7,11 +7,11 @@ using pigeon.collision;
 using pigeon.component;
 using pigeon.core;
 using pigeon.gameobject;
-using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.utilities;
 using pigeon.utilities.extensions;
+using pigeon.gfx.drawable.shape;
 
 namespace BlueSun.worlds.collision {
     class CollisionWorld : World {

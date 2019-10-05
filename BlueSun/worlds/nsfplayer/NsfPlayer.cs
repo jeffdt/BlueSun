@@ -5,6 +5,7 @@ using pigeon.gfx;
 using Microsoft.Xna.Framework;
 using pigeon.legacy.graphics.text;
 using BlueSun.src.parameters;
+using pigeon.gfx.drawable.text;
 
 namespace BlueSun.src.worlds {
     internal class NsfPlayer : World {

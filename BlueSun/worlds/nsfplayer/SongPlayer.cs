@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using pigeon.gameobject;
-using pigeon.gfx;
 using pigeon.input;
 using pigeon.rand;
 using pigeon.sound.music;
+using pigeon.gfx.drawable.text;
 using System.Collections.Generic;
 
 namespace BlueSun.src.worlds {

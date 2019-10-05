@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using pigeon.gfx.drawable.image;
 
-namespace pigeon.gfx {
+namespace pigeon.gfx.drawable.shape {
     public class RectRenderer : ImageRenderer {
         public enum DrawModes { Filled, Bordered, FilledBordered }
 
@@ -48,28 +49,28 @@ namespace pigeon.gfx {
             // top
             for (int row = 0; row < BorderThickness; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[(row * width) + col] = borderColor;
+                    pixels[row * width + col] = borderColor;
                 }
             }
 
             // bottom
             for (int row = height - BorderThickness; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[(row * width) + col] = borderColor;
+                    pixels[row * width + col] = borderColor;
                 }
             }
 
             // left
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < BorderThickness; col++) {
-                    pixels[(row * width) + col] = borderColor;
+                    pixels[row * width + col] = borderColor;
                 }
             }
 
             // right
             for (int row = 0; row < height; row++) {
                 for (int col = width - BorderThickness; col < width; col++) {
-                    pixels[(row * width) + col] = borderColor;
+                    pixels[row * width + col] = borderColor;
                 }
             }
         }

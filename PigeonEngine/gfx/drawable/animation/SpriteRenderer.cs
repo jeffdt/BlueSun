@@ -3,8 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.anim;
 using pigeon.gameobject;
+using pigeon;
+using PigeonEngine.gfx.drawable;
 
-namespace pigeon.gfx {
+namespace pigeon.gfx.drawable.animation {
     public class SpriteRenderer : Component, IRenderable, IFlippable {
         public readonly Sprite Sprite;
 
@@ -76,7 +78,7 @@ namespace pigeon.gfx {
 
         public void Rotate90DegreesCW(int numOf90DegreeRotations) {
             // TODO: no idea if/how this works
-            Sprite.Rotation = (MathHelper.PiOver2 * numOf90DegreeRotations);
+            Sprite.Rotation = MathHelper.PiOver2 * numOf90DegreeRotations;
         }
 
         protected override void Initialize() {
