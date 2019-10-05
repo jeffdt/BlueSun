@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using pigeon.data;
 
@@ -17,6 +18,10 @@ namespace pigeon.input {
                 keyBinds = PlayerData.Deserialize<SerializableDictionary<Keys, string>>(BINDINGS_FILEPATH);
                 updateBoundKeysList();
             }
+        }
+
+        public static Dictionary<Keys, string> GetAllKeyBinds() {
+            return keyBinds.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
         public static Keys ParseToKey(string keyStr) {
