@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using pigeon.sound;
 using pigeon.time;
 
 namespace pigeon.sound.music {

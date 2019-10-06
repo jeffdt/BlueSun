@@ -49,8 +49,8 @@ namespace pigeon.winforms {
             objectUpdateEnabledCheckbox.Checked = !obj.UpdateDisabled;
             objectDrawEnabledCheckbox.Checked = !obj.DrawDisabled;
 
-            objectInheritLayerCheckBox.Checked = !obj.DisableLayerInheritance;
-            objectVarianceCheckBox.Checked = !obj.DisableSortVariance;
+            objectInheritLayerCheckBox.Checked = obj.LayerInheritanceEnabled;
+            objectVarianceCheckBox.Checked = obj.SortVarianceEnabled;
 
             refreshObjectLayerInfo(obj);
 
@@ -65,11 +65,11 @@ namespace pigeon.winforms {
 
         private void refreshObjectLayerInfo(GameObject obj) {
             const string layerFormat = "F6";
-            objectLayerText.Text = obj.LocalLayer.ToString(layerFormat);
+            objectLayerText.Text = obj.Layer.ToString(layerFormat);
             objectParentLayerText.Text = obj.Parent.DrawLayer.ToString(layerFormat);
-            objectParentLayerText.Enabled = !obj.DisableLayerInheritance;
+            objectParentLayerText.Enabled = obj.LayerInheritanceEnabled;
             objectLayerVarianceText.Text = obj.sortVariance.ToString(layerFormat);
-            objectLayerVarianceText.Enabled = !obj.DisableSortVariance;
+            objectLayerVarianceText.Enabled = obj.SortVarianceEnabled;
             objectDrawLayerText.Text = obj.DrawLayer.ToString(layerFormat);
         }
 
@@ -123,12 +123,12 @@ namespace pigeon.winforms {
 
         #region layer
         private void objectInheritLayerCheckBox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DisableLayerInheritance = !objectInheritLayerCheckBox.Checked;
+            currentObj.LayerInheritanceEnabled = objectInheritLayerCheckBox.Checked;
             refreshObjectLayerInfo(currentObj);
         }
 
         private void objectVarianceCheckBox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DisableSortVariance = !objectVarianceCheckBox.Checked;
+            currentObj.SortVarianceEnabled = objectVarianceCheckBox.Checked;
             refreshObjectLayerInfo(currentObj);
         }
 

@@ -12,7 +12,6 @@ using pigeon.input;
 using pigeon.legacy.graphics.anim;
 using pigeon.sound;
 using pigeon.time;
-using pigeon.gfx;
 using System;
 using pigeon.sound.music;
 

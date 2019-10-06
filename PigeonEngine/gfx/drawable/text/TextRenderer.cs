@@ -12,31 +12,55 @@ namespace pigeon.gfx.drawable.text {
 
         private TextGraphic textGraphic;
 
+        private string _text;
         public string Text {
-            get { return textGraphic.Text; }
-            set { textGraphic.Text = value; }
+            get { return _text; }
+            set {
+                _text = value;
+                if (textGraphic != null) {
+                    textGraphic.Text = _text;
+                }
+            }
         }
 
+        private Color _color;
         public Color Color {
-            get { return textGraphic.Color; }
-            set { textGraphic.Color = value; }
+            get { return _color; }
+            set {
+                _color = value;
+                if (textGraphic != null) {
+                    textGraphic.Color = _color;
+                }
+            }
         }
 
         public Point Size {
             get { return textGraphic.Size; }
         }
 
+        private SpriteFont _font;
         public SpriteFont Font {
-            get { return textGraphic.Font; }
-            set { textGraphic.Font = value; }
+            get { return _font; }
+            set {
+                _font = value;
+
+                if (textGraphic != null) {
+                    textGraphic.Font = _font;
+                }
+            }
         }
 
-        public TextRenderer SetAll(string text, SpriteFont font, Color color, Justification justification = Justification.Center) {
+        public Justifications Justification;
+
+        public TextRenderer SetAll(string text, SpriteFont font, Color color, Justifications justification = Justifications.Center) {
             textGraphic = new TextGraphic(text, font, color, justification);
             return this;
         }
 
-        protected override void Initialize() { }
+        protected override void Initialize() {
+            textGraphic = new TextGraphic(_text, _font, _color, Justification);
+        }
+
         protected override void Update() { }
 
         public void Draw() {

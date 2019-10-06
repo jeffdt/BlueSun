@@ -102,6 +102,7 @@
     <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="gfx\drawable\text\Justifications.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />

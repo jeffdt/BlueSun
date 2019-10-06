@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.anim;
 using pigeon.gameobject;
-using pigeon;
 using PigeonEngine.gfx.drawable;
 
 namespace pigeon.gfx.drawable.animation {

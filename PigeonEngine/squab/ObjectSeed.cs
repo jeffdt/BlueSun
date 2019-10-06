@@ -26,7 +26,7 @@ namespace pigeon.gameobject {
         public List<ObjectSeed> Children;
 
         public GameObject Build() {
-            GameObject obj = new GameObject(Name, Layer);
+            GameObject obj = new GameObject(Name) { Layer = Layer };
             if (Sprite != null) {
                 var spriteRenderer = new SpriteRenderer(Sprite);
                 obj.AddComponent(spriteRenderer);

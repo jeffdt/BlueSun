@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using pigeon.component;
 using pigeon.core;
 using pigeon.gameobject;
-using pigeon.sound;
 using pigeon.input;
 using Microsoft.Xna.Framework.Input;
 using pigeon.sound.music;
@@ -17,7 +16,7 @@ namespace BlueSun.src.worlds {
                 Rect = new Rectangle(0, 0, 30, 30)
             };
 
-            var obj = new GameObject("TitleScreen", 0f);
+            var obj = new GameObject("TitleScreen") { Layer = 0f };
             obj.AddComponent(rectRenderer);
             obj.AddComponent(new SimpleController());
             obj.AddComponent(new RectTester());

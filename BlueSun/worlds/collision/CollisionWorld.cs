@@ -1,10 +1,7 @@
-﻿using System;
-using BlueSun.src.parameters;
+﻿using BlueSun.src.parameters;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using pigeon;
 using pigeon.collision;
-using pigeon.component;
 using pigeon.core;
 using pigeon.gameobject;
 using pigeon.input;
@@ -29,7 +26,7 @@ namespace BlueSun.worlds.collision {
                 CollisionRectTester rectTester = new CollisionRectTester() { IsProjectile = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
 
                 AddObj(
-                    new GameObject("Projectile " + i, 0f) { LocalLayer = 1f }
+                    new GameObject("Projectile " + i) { Layer = 1f }
                     .AddComponent(new RectRenderer() {
                         Rect = new Rectangle(0, 0, projectileSize, projectileSize),
                         DrawMode = RectRenderer.DrawModes.Filled,
@@ -66,7 +63,7 @@ namespace BlueSun.worlds.collision {
                             wallCollider.IgnoredSides[2] = true; // bot
                         }
 
-                        GameObject wallObj = new GameObject("Wall " + (row * col + col), 0f) { FlatLocalPosition = new Point(col * tileSize, row* tileSize), LocalLayer = 0f };
+                        GameObject wallObj = new GameObject("Wall " + (row * col + col)) { FlatLocalPosition = new Point(col * tileSize, row* tileSize), Layer = 0f };
                         wallObj.AddComponent(wallRenderer);
                         wallObj.AddComponent(wallCollider);
                         wallObj.AddComponent(rectTester);

@@ -13,7 +13,7 @@ namespace pigeon.gameobject {
         private readonly List<Component> cmpts = new List<Component>();
 
         public GameObject Clone() {
-            var obj = new GameObject { Name = Name + instanceCount++, LocalLayer = Layer };
+            var obj = new GameObject { Name = Name + instanceCount++, Layer = Layer };
 
             foreach (var child in children) {
                 obj.AddChild(child.Clone());

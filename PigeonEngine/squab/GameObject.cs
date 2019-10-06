@@ -129,22 +129,22 @@ namespace pigeon.gameobject {
         #endregion
 
         #region layers
-        public bool DisableLayerInheritance = false;
-        public bool DisableSortVariance;
+        public bool LayerInheritanceEnabled = true;
+        public bool SortVarianceEnabled = true;
 
         internal float sortVariance = Rand.Float(0f, .0001f);
 
-        public float LocalLayer;
+        public float Layer;
 
         public float DrawLayer {
             get {
-                float drawLayer = LocalLayer;
+                float drawLayer = Layer;
 
-                if (!DisableLayerInheritance && Parent != null) {
+                if (LayerInheritanceEnabled && Parent != null) {
                     drawLayer += Parent.DrawLayer;
                 }
 
-                if (!DisableSortVariance) {
+                if (SortVarianceEnabled) {
                     drawLayer += sortVariance;
                 }
 
@@ -233,7 +233,7 @@ namespace pigeon.gameobject {
         private List<GameObject> children_toAdd;
         private List<Component> toInitialize;
 
-        public void AddChild(GameObject newChild) {
+        public GameObject AddChild(GameObject newChild) {
             if (children == null) {
                 children = new List<GameObject>();
             }
@@ -246,6 +246,8 @@ namespace pigeon.gameobject {
             newChild.updateWorldPosition();
 
             children_toAdd.Add(newChild);
+
+            return this;
         }
 
         public void AddChildImmediate(GameObject newChild) {
@@ -425,23 +427,12 @@ namespace pigeon.gameobject {
         public GameObject Parent;
         public bool Deleted;
 
-        private GameObject newParent = null;
+        private GameObject newParent;
 
         public GameObject() { }
 
         public GameObject(string name) {
             Name = name;
-        }
-
-        public GameObject(string name, float localLayer) {
-            Name = name;
-            LocalLayer = localLayer;
-        }
-
-        public GameObject(string name, float localLayer, Point flatLocalPosition) {
-            FlatLocalPosition = flatLocalPosition;
-            Name = name;
-            LocalLayer = localLayer;
         }
 
         public void Update() {

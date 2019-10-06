@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace pigeon.utilities.extensions {
     public static class CharExtensions {

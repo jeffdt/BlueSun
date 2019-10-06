@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework;
 using pigeon.pgnconsole;
 using pigeon.core;
 using pigeon.data;
-using pigeon.gfx;
 using System.Reflection;
 using pigeon;
 using BlueSun.src.worlds;
+using pigeon.gfx;
 
 namespace BlueSun {
     internal class BlueSunGame : Pigeon {

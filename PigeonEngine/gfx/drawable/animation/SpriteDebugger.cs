@@ -1,13 +1,11 @@
-﻿using pigeon;
-using pigeon.gameobject;
+﻿using pigeon.gameobject;
 using pigeon.time;
-using pigeon.gfx.drawable.animation;
 
 namespace pigeon.gfx.drawable.animation {
     public static class SpriteDebugger {
         public static void CreateTestAnim(string sprite, string animation, bool isCentered, bool continuousLoop) {
             Pigeon.World.DeleteObjSafe("ANIM_TEST");
-            GameObject animObj = new GameObject("ANIM_TEST", .99f);
+            GameObject animObj = new GameObject("ANIM_TEST") { Layer = .99f };
 
             var spriteRenderer = new SpriteRenderer(sprite);
 

@@ -56,6 +56,7 @@
     <Compile Include="worlds\nsfplayer\SongPlayer.cs" />
     <Compile Include="worlds\nsfplayer\NsfPlayer.cs" />
     <Compile Include="worlds\nsfplayer\Album.cs" />
+    <Compile Include="worlds\nsfplayer\VoiceController.cs" />
     <Compile Include="worlds\TestWorld.cs" />
   </ItemGroup>
   <ItemGroup>
