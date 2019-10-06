@@ -49,26 +49,28 @@ namespace BlueSun.src.worlds {
         }
 
         private static GameObject buildVoiceControls() {
-            GameObject voices = new GameObject("voices") { FlatLocalPosition = new Point(Display.ScreenCenterX - (4 * (voiceButtonSize + 1)), 80) };
-            voices.AddComponent(new VoiceController());
+            GameObject voices = new GameObject("voices") { FlatLocalPosition = new Point(Display.ScreenCenterX - (4 * (voiceButtonSize + 1)), 80), Layer = .1f };
+            voices.AddComponent(new VoicesController());
 
             for (int v = 0; v < 8; v++) {
-                GameObject voiceOn = buildSingleVoice(v, Color.WhiteSmoke, Color.DimGray, "on", true);
-                GameObject voiceOff = buildSingleVoice(v, Color.DimGray, Color.Black, "off", false);
+                GameObject voiceOn = buildSingleVoice(v, Color.WhiteSmoke, Color.DimGray, "on", .2f);
+                GameObject voiceOff = buildSingleVoice(v, Color.DimGray, Color.WhiteSmoke, "off", .1f);
                 voices.AddChild(voiceOn).AddChild(voiceOff);
             }
 
             return voices;
         }
 
-        private static GameObject buildSingleVoice(int voiceIndex, Color fillColor, Color textColor, string nameSuffix, bool startsEnabled) {
-            var voice = new GameObject(string.Format("{0}-" + nameSuffix, voiceIndex + 1)) { FlatLocalPosition = new Point(voiceIndex * (voiceButtonSize + 1), 0), UpdateDisabled = !startsEnabled, DrawDisabled = !startsEnabled };
+        private static GameObject buildSingleVoice(int voiceIndex, Color fillColor, Color textColor, string nameSuffix, float layer) {
+            var voice = new GameObject(string.Format("{0}-" + nameSuffix, voiceIndex + 1)) { FlatLocalPosition = new Point(voiceIndex * (voiceButtonSize + 1), 0), Layer  = layer};
             voice.AddComponent(new RectRenderer() {
-                DrawMode = RectRenderer.DrawModes.Filled,
+                DrawMode = RectRenderer.DrawModes.FilledBordered,
+                BorderThickness = 1,
+                BorderColor = Color.WhiteSmoke,
                 FillColor = fillColor,
                 Rect = new Rectangle(0, 0, voiceButtonSize, voiceButtonSize)
             });
-            voice.AddChild(new GameObject("text") { FlatLocalPosition = new Point(4, 2) }.AddComponent(new TextRenderer() { Text = (voiceIndex + 1).ToString(), Color = textColor, Font = Fonts.Console, Justification = Justifications.TopCenter }));
+            voice.AddChild(new GameObject("text") { Layer = .05f, FlatLocalPosition = new Point(4, 2) }.AddComponent(new TextRenderer() { Text = (voiceIndex + 1).ToString(), Color = textColor, Font = Fonts.Console, Justification = Justifications.TopCenter }));
             return voice;
         }
 

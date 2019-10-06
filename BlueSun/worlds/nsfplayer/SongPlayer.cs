@@ -87,7 +87,7 @@ namespace BlueSun.src.worlds {
                 if (albums[i].SongCount < randomSong) {
                     randomSong -= albums[i].SongCount;
                 } else {
-                    playSong(i, randomSong - 1);
+                    playSong(i, randomSong);
                     break;
                 }
             }

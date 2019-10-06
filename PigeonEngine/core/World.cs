@@ -42,7 +42,7 @@ namespace pigeon.core {
             }
         }
 
-        public bool DeleteObjSafe(string name) {
+        internal bool DeleteObjSafe(string name) {
             GameObject obj = RootObj.FindChildRecursive(name);
             if (obj != null) {
                 obj.Deleted = true;
@@ -67,7 +67,7 @@ namespace pigeon.core {
             Unload();
         }
 
-        // useful if you only want to do something any time you enter a world, but not in LoadContent
+        // called every time a world is swapped in. compare to Initialize() which is called only the first time.
         public virtual void Enter() { }
 
         public List<ObjectSeed> LoadSeeds(string seedLocation) {

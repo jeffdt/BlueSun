@@ -154,10 +154,10 @@ namespace pigeon.gameobject {
         #endregion
 
         #region control
-        private bool isUpdateDisabled { get { return UpdateDisabled || (Parent?.isUpdateDisabled == true); } }
-        private bool isDrawDisabled { get { return DrawDisabled || (Parent?.isDrawDisabled == true); } }
-        public bool UpdateDisabled;
-        public bool DrawDisabled;
+        private bool isUpdateEnabled { get { return UpdateEnabled && (Parent?.isUpdateEnabled != false); } }
+        private bool isDrawEnabled { get { return DrawEnabled && (Parent?.isDrawEnabled != false); } }
+        public bool UpdateEnabled = true;
+        public bool DrawEnabled = true;
         #endregion
 
         #region flipping
@@ -444,7 +444,7 @@ namespace pigeon.gameobject {
                 toInitialize.Clear();
             }
 
-            if (!isUpdateDisabled) {
+            if (isUpdateEnabled) {
                 for (int index = 0; index < components.Count; index++) {
                     var component = components[index];
                     if (component.Enabled) {
@@ -452,7 +452,7 @@ namespace pigeon.gameobject {
                     }
                 }
             }
-            if (!isUpdateDisabled && !IsStatic) {
+            if (isUpdateEnabled && !IsStatic) {
                 UpdateSpeculativePosition();
             } else {
                 SpeculativePosition = FlatLocalPosition.ToVector2();
@@ -512,7 +512,7 @@ namespace pigeon.gameobject {
         }
 
         public void Draw() {
-            if (drawableCmpts != null && !isDrawDisabled) {
+            if (drawableCmpts != null && isDrawEnabled) {
                 foreach (var cmpt in drawableCmpts) {
                     cmpt.Draw();
                 }

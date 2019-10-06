@@ -428,7 +428,7 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("-mute:  0 or 1 (unmute or mute)");
             } else {
                 var splitArgs = args.Tokenize();
-                Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
+                Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToBool());
             }
         }
 

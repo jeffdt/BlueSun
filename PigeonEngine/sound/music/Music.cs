@@ -103,28 +103,28 @@ namespace pigeon.sound.music {
         #endregion
 
         #region voice muting
+        public static void SetVoiceMute(int voiceIndex, bool mute) {
+            musicPlayer.SetVoiceMute(voiceIndex, mute);
+        }
+
+        public static void MuteVoice(int voiceIndex) {
+            musicPlayer.SetVoiceMute(voiceIndex, true);
+        }
+
+        public static void UnmuteVoice(int voiceIndex) {
+            musicPlayer.SetVoiceMute(voiceIndex, false);
+        }
+
         public static void MuteVoices(params int[] voiceIndexes) {
             foreach (int voiceIndex in voiceIndexes) {
                 MuteVoice(voiceIndex);
             }
         }
 
-        public static void MuteVoice(int voiceIndex) {
-            musicPlayer.SetVoiceMute(voiceIndex, 1);
-        }
-
         public static void UnmuteVoices(params int[] voiceIndexes) {
             foreach (int voiceIndex in voiceIndexes) {
                 UnmuteVoice(voiceIndex);
             }
-        }
-
-        public static void UnmuteVoice(int voiceIndex) {
-            musicPlayer.SetVoiceMute(voiceIndex, 0);
-        }
-
-        public static void SetVoiceMute(int voiceIndex, int mute) {
-            musicPlayer.SetVoiceMute(voiceIndex, mute);
         }
 
         public static void MaskMuteVoices(int mutingMask) {

@@ -53,8 +53,8 @@ namespace pigeon.sound {
         #endregion
 
         #region voice muting
-        public void SetVoiceMute(int voiceIndex, int mute) {
-            reader.MuteVoice(voiceIndex, mute);
+        public void SetVoiceMute(int voiceIndex, bool mute) {
+            reader.MuteVoice(voiceIndex, mute ? 1 : 0);
         }
 
         public void MaskMuteVoices(int mutingMask) {

@@ -42,8 +42,8 @@ namespace pigeon.gameobject {
             }
 
             obj.FlatLocalPosition = Position;
-            obj.UpdateDisabled = !IsUpdateEnabled;
-            obj.DrawDisabled = !IsDrawEnabled;
+            obj.UpdateEnabled = IsUpdateEnabled;
+            obj.DrawEnabled = IsDrawEnabled;
             if (IsYLayerSorted) {
                 obj.AddComponent(new YSorter { YOffset = YLayerSortOffset });
             }

@@ -46,8 +46,8 @@ namespace pigeon.winforms {
             objectFlipXCheckBox.Checked = obj.IsFlippedX();
             objectFlipYCheckBox.Checked = obj.IsFlippedY();
 
-            objectUpdateEnabledCheckbox.Checked = !obj.UpdateDisabled;
-            objectDrawEnabledCheckbox.Checked = !obj.DrawDisabled;
+            objectUpdateEnabledCheckbox.Checked = obj.UpdateEnabled;
+            objectDrawEnabledCheckbox.Checked = obj.DrawEnabled;
 
             objectInheritLayerCheckBox.Checked = obj.LayerInheritanceEnabled;
             objectVarianceCheckBox.Checked = obj.SortVarianceEnabled;
@@ -113,11 +113,11 @@ namespace pigeon.winforms {
 
         #region control
         private void objectUpdateEnabledCheckbox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.UpdateDisabled = !objectUpdateEnabledCheckbox.Checked;
+            currentObj.UpdateEnabled = objectUpdateEnabledCheckbox.Checked;
         }
 
         private void objectDrawEnabledCheckbox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DrawDisabled = !objectDrawEnabledCheckbox.Checked;
+            currentObj.DrawEnabled = objectDrawEnabledCheckbox.Checked;
         }
         #endregion control
 
