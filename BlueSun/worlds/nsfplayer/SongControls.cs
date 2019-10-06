@@ -9,5 +9,9 @@ namespace BlueSun.src.worlds {
         protected override void Update() {
             
         }
+
+        public void ResetAll() {
+            Object.FindChild("voices").GetComponent<VoicesController>().Reset();
+        }
     }
 }

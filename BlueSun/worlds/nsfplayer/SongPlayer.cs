@@ -82,9 +82,9 @@ namespace BlueSun.src.worlds {
 
         private void playRandomSong() {
             int randomSong = totalSongCount.Random();
-
+            
             for (int i = 0; i < albums.Count; i++) {
-                if (albums[i].SongCount < randomSong) {
+                if (albums[i].SongCount <= randomSong) {
                     randomSong -= albums[i].SongCount;
                 } else {
                     playSong(i, randomSong);
@@ -121,6 +121,8 @@ namespace BlueSun.src.worlds {
 
             songText.Text = songFolder.GetFriendlySongName(currSongIndex);
             albumText.Text = songFolder.AlbumName;
+
+            Object.Parent.FindChild("controls").GetComponent<SongControls>().ResetAll();
         }
     }
 }
