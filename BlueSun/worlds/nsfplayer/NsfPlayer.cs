@@ -45,7 +45,7 @@ namespace BlueSun.worlds.nsfplayer {
 
             controlsObj.AddChild(buildVoiceControls());
             
-            controlsObj.AddChild(buildTempoControls());
+            controlsObj.AddChild(buildTempoControl());
             controlsObj.AddChild(buildStereoControls());
             controlsObj.AddChild(buildBassControls());
             controlsObj.AddChild(buildTrebleControls());
@@ -79,24 +79,68 @@ namespace BlueSun.worlds.nsfplayer {
             return voice;
         }
 
-        private static GameObject buildTempoControls() {
-            string tempo = "tempo";
+        private static GameObject buildTempoControl() {
+            string controlType = "tempo";
             int startY = 110;
             float minValue = 0.01f;
             float maxValue = 2f;
             float defaultValue = 1.0f;
             float bumpAmount = .1f;
-            
             Keys bumpLeftKey = Keys.A;
             Keys bumpRightKey = Keys.S;
-
             AdjustControl onAdjust = (float value) => Music.Tempo = value;
 
-            GameObject controlObj = new GameObject(tempo) { LocalPosition = new Point(Display.ScreenCenterX, startY) };
-            controlObj.AddComponent(new SliderControls() { Min = minValue, Max = maxValue, Default = defaultValue, BumpAmount = bumpAmount, LeftBumpKey = bumpLeftKey, RightBumpKey = bumpRightKey, OnAdjustControl = onAdjust });
-            
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+        }
 
-            controlObj.AddChild(new GameObject("label-name").AddComponent(new TextRenderer() { Font = Fonts.Console, Text = tempo, Color = Color.WhiteSmoke, Justification = Justifications.Center }));
+        private static GameObject buildStereoControls() {
+            string controlType = "stereo";
+            int startY = 140;
+            float minValue = 0;
+            float maxValue = 1;
+            float defaultValue = 1;
+            float bumpAmount = .1f;
+            Keys bumpLeftKey = Keys.D;
+            Keys bumpRightKey = Keys.F;
+            AdjustControl onAdjust = (float value) => Music.StereoDepth = value;
+
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+        }
+
+        private static GameObject buildTrebleControls() {
+            string controlType = "treble";
+            int startY = 170;
+            float minValue = -50;
+            float maxValue = 5;
+            float defaultValue = 0;
+            float bumpAmount = .1f;
+            Keys bumpLeftKey = Keys.G;
+            Keys bumpRightKey = Keys.H;
+            AdjustControl onAdjust = (float value) => Music.Treble = value;
+
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+        }
+
+        private static GameObject buildBassControls() {
+            string controlType = "bass";
+            int startY = 200;
+            float minValue = 1;
+            float maxValue = 1000;
+            float defaultValue = 90;
+            float bumpAmount = .1f;
+            Keys bumpLeftKey = Keys.J;
+            Keys bumpRightKey = Keys.K;
+            AdjustControl onAdjust = (float value) => Music.Bass = value;
+
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+        }
+
+
+
+        private static GameObject buildSliderControl(string controlType, int startY, float minValue, float maxValue, float defaultValue, float bumpAmount, Keys bumpLeftKey, Keys bumpRightKey, AdjustControl onAdjust) {
+            GameObject controlObj = new GameObject(controlType) { LocalPosition = new Point(Display.ScreenCenterX, startY) };
+            controlObj.AddComponent(new SliderControls() { Min = minValue, Max = maxValue, Default = defaultValue, BumpAmount = bumpAmount, LeftBumpKey = bumpLeftKey, RightBumpKey = bumpRightKey, OnAdjustControl = onAdjust });
+            controlObj.AddChild(new GameObject("label-name").AddComponent(new TextRenderer() { Font = Fonts.Console, Text = controlType, Color = Color.WhiteSmoke, Justification = Justifications.Center }));
             controlObj.AddChild(new GameObject("slider-rod") { LocalPosition = new Point(0, 8) }.AddComponent(new RectRenderer() {
                 Rect = new Rectangle(-50, 0, 100, 1),
                 DrawStyle = ShapeDrawStyles.Filled,
@@ -104,24 +148,12 @@ namespace BlueSun.worlds.nsfplayer {
             }));
             controlObj.AddChild(new GameObject("slider-switch") { LocalPosition = new Point(0, 4), Layer = .1f }.AddComponent(new RectRenderer() {
                 Rect = new Rectangle(-1, 0, 3, 9),
-                DrawStyle = ShapeDrawStyles.Filled,
-                FillColor = Color.WhiteSmoke
+                DrawStyle = ShapeDrawStyles.FilledBordered,
+                BorderThickness = 1,
+                BorderColor = Color.WhiteSmoke,
+                FillColor = Color.DimGray
             }));
-            
-
             return controlObj;
-        }
-
-        private static GameObject buildTrebleControls() {
-            return new GameObject("treble");
-        }
-
-        private static GameObject buildBassControls() {
-            return new GameObject("bass");
-        }
-
-        private static GameObject buildStereoControls() {
-            return new GameObject("stereo");
         }
 
         protected override void Unload() { }

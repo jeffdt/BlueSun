@@ -32,7 +32,8 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
             sliderSwitch = Object.FindChild("slider-switch");
 
             current = (Default - Min) / (Max - Min);
-            bumpPercentage =  BumpAmount / (Max - Min);
+            // bumpPercentage =  BumpAmount / (Max - Min);
+            bumpPercentage = .05f;
         }
 
         private void updateSwitchPosition() {
