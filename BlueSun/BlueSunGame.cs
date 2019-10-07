@@ -6,8 +6,8 @@ using pigeon.core;
 using pigeon.data;
 using System.Reflection;
 using pigeon;
-using BlueSun.src.worlds;
 using pigeon.gfx;
+using BlueSun.worlds.nsfplayer;
 
 namespace BlueSun {
     internal class BlueSunGame : Pigeon {

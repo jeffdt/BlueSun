@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.text;
 using pigeon.gameobject;
-using PigeonEngine.gfx.drawable;
 
 namespace pigeon.gfx.drawable.text {
     public class TextRenderer : Component, IRenderable {
@@ -23,7 +22,7 @@ namespace pigeon.gfx.drawable.text {
             }
         }
 
-        private Color _color;
+        private Color _color = Color.Black;
         public Color Color {
             get { return _color; }
             set {
@@ -52,12 +51,11 @@ namespace pigeon.gfx.drawable.text {
 
         public Justifications Justification;
 
-        public TextRenderer SetAll(string text, SpriteFont font, Color color, Justifications justification = Justifications.Center) {
-            textGraphic = new TextGraphic(text, font, color, justification);
-            return this;
-        }
-
         protected override void Initialize() {
+            if (_font == null) {
+                throw new ArgumentNullException("_font");
+            }
+
             textGraphic = new TextGraphic(_text, _font, _color, Justification);
         }
 

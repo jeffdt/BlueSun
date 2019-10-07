@@ -18,7 +18,7 @@ namespace pigeon.gfx.drawable.animation {
             animObj.AddComponent(spriteRenderer);
 
             if (isCentered) {
-                animObj.FlatLocalPosition = Pigeon.Renderer.BaseScreenCenter;
+                animObj.LocalPosition = Pigeon.Renderer.BaseScreenCenter;
             }
 
             Pigeon.World.AddObj(animObj);

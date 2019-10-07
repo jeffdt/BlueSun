@@ -296,7 +296,7 @@ namespace pigeon.pgnconsole {
                     break;
             }
 
-            obj.FlatLocalPosition += bumpDir;
+            obj.LocalPosition += bumpDir;
         }
 
         private static void describeChildren(GameObject obj, StringBuilder builder) {

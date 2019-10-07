@@ -50,8 +50,8 @@ namespace pigeon.component {
         protected override void Initialize() { }
 
         protected override void Update() {
-            int newX = Object.FlatLocalPosition.X;
-            int newY = Object.FlatLocalPosition.Y;
+            int newX = Object.LocalPosition.X;
+            int newY = Object.LocalPosition.Y;
 
             xFramesAccum++;
             if (xFramesAccum >= xFramesPerPix) {
@@ -65,8 +65,8 @@ namespace pigeon.component {
                 newY += yPix;
             }
 
-            if (newX != Object.FlatLocalPosition.X || newY != Object.FlatLocalPosition.Y) {
-                Object.FlatLocalPosition = new Point(newX, newY);
+            if (newX != Object.LocalPosition.X || newY != Object.LocalPosition.Y) {
+                Object.LocalPosition = new Point(newX, newY);
             }
         }
     }

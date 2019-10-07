@@ -54,8 +54,8 @@ namespace pigeon.winforms {
 
             refreshObjectLayerInfo(obj);
 
-            localPositionXText.Text = obj.FlatLocalPosition.X.ToString();
-            localPositionYText.Text = obj.FlatLocalPosition.Y.ToString();
+            localPositionXText.Text = obj.LocalPosition.X.ToString();
+            localPositionYText.Text = obj.LocalPosition.Y.ToString();
             worldPositionXText.Text = obj.WorldPosition.X.ToString();
             worldPositionYText.Text = obj.WorldPosition.Y.ToString();
             drawPositionCheckbox.Checked = obj.DrawPosition;

@@ -29,7 +29,7 @@ namespace BlueSun.worlds.collision {
                     new GameObject("Projectile " + i) { Layer = 1f }
                     .AddComponent(new RectRenderer() {
                         Rect = new Rectangle(0, 0, projectileSize, projectileSize),
-                        DrawMode = RectRenderer.DrawModes.Filled,
+                        DrawStyle = ShapeDrawStyles.Filled,
                         FillColor = Color.White,
                     })
                     .AddComponent(rectTester)
@@ -46,7 +46,7 @@ namespace BlueSun.worlds.collision {
                         Color borderColor = Color.Black;
                         RectRenderer wallRenderer = new RectRenderer() {
                             Rect = new Rectangle(0, 0, tileSize, tileSize),
-                            DrawMode = RectRenderer.DrawModes.FilledBordered,
+                            DrawStyle = ShapeDrawStyles.FilledBordered,
                             FillColor = fillColor,
                             BorderColor = borderColor,
                             BorderThickness = 1
@@ -63,7 +63,7 @@ namespace BlueSun.worlds.collision {
                             wallCollider.IgnoredSides[2] = true; // bot
                         }
 
-                        GameObject wallObj = new GameObject("Wall " + (row * col + col)) { FlatLocalPosition = new Point(col * tileSize, row* tileSize), Layer = 0f };
+                        GameObject wallObj = new GameObject("Wall " + (row * col + col)) { LocalPosition = new Point(col * tileSize, row* tileSize), Layer = 0f };
                         wallObj.AddComponent(wallRenderer);
                         wallObj.AddComponent(wallCollider);
                         wallObj.AddComponent(rectTester);
@@ -95,7 +95,7 @@ namespace BlueSun.worlds.collision {
         private void randomizePositionAndVelocity() {
             int startX = Rand.Int(TileSize * 2, Display.ScreenWidth - (TileSize * 2));
             int startY = Rand.Int(TileSize * 2, Display.ScreenHeight - (TileSize * 2));
-            Object.FlatLocalPosition = new Point(startX, startY);
+            Object.LocalPosition = new Point(startX, startY);
             Object.Velocity = new Vector2(Rand.SignFloat(), Rand.SignFloat()).Scale(ProjectileSpeed);
         }
 
@@ -119,13 +119,13 @@ namespace BlueSun.worlds.collision {
 
                     if (penetration.X != 0) {
                         Object.Velocity = Object.Velocity.MultiplyX(-1);
-                        Object.FlatLocalPosition = Object.FlatLocalPosition.AddX(penetration.X);
+                        Object.LocalPosition = Object.LocalPosition.AddX(penetration.X);
                         Object.UpdateSpeculativePosition();
                     }
 
                     if (penetration.Y != 0) {
                         Object.Velocity = Object.Velocity.MultiplyY(-1);
-                        Object.FlatLocalPosition = Object.FlatLocalPosition.AddY(penetration.Y);
+                        Object.LocalPosition = Object.LocalPosition.AddY(penetration.Y);
                         Object.UpdateSpeculativePosition();
                     }
                 }

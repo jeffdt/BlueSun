@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using BlueSun.worlds.nsfplayer.propertyControllers;
+using Microsoft.Xna.Framework.Input;
 using pigeon.gameobject;
 using pigeon.gfx.drawable.text;
 using pigeon.input;
@@ -6,7 +7,7 @@ using pigeon.rand;
 using pigeon.sound.music;
 using System.Collections.Generic;
 
-namespace BlueSun.src.worlds {
+namespace BlueSun.worlds.nsfplayer {
     internal class SongPlayer : Component {
         private List<Album> albums;
 
@@ -60,29 +61,29 @@ namespace BlueSun.src.worlds {
 
         private void playPreviousSong() {
             Album album = albums[currAlbumIndex];
-            int nextSongIndex = (currSongIndex == 0) ? album.SongCount - 1 : (currSongIndex - 1);
+            int nextSongIndex = currSongIndex == 0 ? album.SongCount - 1 : currSongIndex - 1;
             playSong(currAlbumIndex, nextSongIndex);
         }
 
         private void playPreviousAlbum() {
-            int nextAlbumIndex = (currAlbumIndex == 0) ? albums.Count - 1 : (currAlbumIndex - 1);
+            int nextAlbumIndex = currAlbumIndex == 0 ? albums.Count - 1 : currAlbumIndex - 1;
             playSong(nextAlbumIndex, albums[nextAlbumIndex].SongCount.Random());
         }
 
         private void playNextSong() {
             Album album = albums[currAlbumIndex];
-            int nextSongIndex = (currSongIndex == album.SongCount - 1) ? 0 : (currSongIndex + 1);
+            int nextSongIndex = currSongIndex == album.SongCount - 1 ? 0 : currSongIndex + 1;
             playSong(currAlbumIndex, nextSongIndex);
         }
 
         private void playNextAlbum() {
-            int nextAlbumIndex = (currAlbumIndex == albums.Count - 1) ? 0 : (currAlbumIndex + 1);
+            int nextAlbumIndex = currAlbumIndex == albums.Count - 1 ? 0 : currAlbumIndex + 1;
             playSong(nextAlbumIndex, albums[nextAlbumIndex].SongCount.Random());
         }
 
         private void playRandomSong() {
             int randomSong = totalSongCount.Random();
-            
+
             for (int i = 0; i < albums.Count; i++) {
                 if (albums[i].SongCount <= randomSong) {
                     randomSong -= albums[i].SongCount;

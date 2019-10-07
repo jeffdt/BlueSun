@@ -2,7 +2,7 @@
 
 namespace BlueSun.src.parameters {
     static class Display {
-        public const int InitialScale = 2;
+        public const int InitialScale = 3;
         public const int FrameRate = 144;
         public const int ScreenWidth = 320;
         public const int ScreenHeight = 224;

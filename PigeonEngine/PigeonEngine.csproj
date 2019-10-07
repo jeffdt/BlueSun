@@ -98,6 +98,7 @@
     <Compile Include="debug\ObjectDescriber.cs" />
     <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
+    <Compile Include="gfx\drawable\shape\ShapeDrawStyles.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="gfx\drawable\text\Justifications.cs" />
     <Compile Include="ObjectRegistry.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="utilities\Delegates.cs" />
     <Compile Include="utilities\extensions\BoolExtensions.cs" />
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />
+    <Compile Include="utilities\extensions\FloatExtensions.cs" />
     <Compile Include="utilities\extensions\KeysExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteBatchExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteFontExtensions.cs" />

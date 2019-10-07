@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using pigeon.utilities.extensions;
 
-namespace BlueSun.src.worlds {
+namespace BlueSun.worlds.nsfplayer {
     internal class Album {
         public string AlbumName;
         private List<string> songFilenames;

@@ -5,7 +5,7 @@ using pigeon.rand;
 using pigeon.collision;
 using pigeon.time;
 using pigeon.utilities;
-using PigeonEngine.gfx.drawable;
+using pigeon.gfx.drawable;
 
 namespace pigeon.gameobject {
     public class GameObject {
@@ -22,7 +22,7 @@ namespace pigeon.gameobject {
         private Point flatLocalPosition;
         private Point newWorldPosition;
 
-        public Point FlatLocalPosition {
+        public Point LocalPosition {
             get { return flatLocalPosition; }
             set {
                 trueLocalPosition = new Vector2(value.X, value.Y);
@@ -36,9 +36,9 @@ namespace pigeon.gameobject {
             get { return newWorldPosition; }
             set {
                 if (Parent == null) {
-                    FlatLocalPosition = value;
+                    LocalPosition = value;
                 } else {
-                    FlatLocalPosition = value - Parent.newWorldPosition;
+                    LocalPosition = value - Parent.newWorldPosition;
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace pigeon.gameobject {
         }
 
         public void FlattenPosition() {
-            trueLocalPosition = FlatLocalPosition.ToVector2();
+            trueLocalPosition = LocalPosition.ToVector2();
         }
         #endregion
 
@@ -455,7 +455,7 @@ namespace pigeon.gameobject {
             if (isUpdateEnabled && !IsStatic) {
                 UpdateSpeculativePosition();
             } else {
-                SpeculativePosition = FlatLocalPosition.ToVector2();
+                SpeculativePosition = LocalPosition.ToVector2();
             }
 
             if (children != null) {
@@ -559,7 +559,7 @@ namespace pigeon.gameobject {
             var inspector = new ObjectInspector();
             inspector.AppendField("Name", Name);
             inspector.AppendField("WPos", WorldPosition);
-            inspector.AppendField("LPos", FlatLocalPosition);
+            inspector.AppendField("LPos", LocalPosition);
             inspector.AppendField("DrawLayer", DrawLayer);
             if (children?.Count > 0) {
                 inspector.AppendField("Children", children.Count);
