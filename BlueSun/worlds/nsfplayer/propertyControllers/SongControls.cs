@@ -11,7 +11,11 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
         }
 
         public void ResetAll() {
-            Object.FindChild("voices").GetComponent<VoiceControls>().Reset();
+            Object.FindChild("channels").GetComponent<ChannelControls>().Reset();
+            Object.FindChild("tempo").GetComponent<SliderControls>().Reset();
+            Object.FindChild("stereo").GetComponent<SliderControls>().Reset();
+            Object.FindChild("treble").GetComponent<SliderControls>().Reset();
+            Object.FindChild("bass").GetComponent<SliderControls>().Reset();
         }
     }
 }

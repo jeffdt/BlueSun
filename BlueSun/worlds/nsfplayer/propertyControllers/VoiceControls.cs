@@ -5,7 +5,7 @@ using pigeon.input;
 using pigeon.sound.music;
 
 namespace BlueSun.worlds.nsfplayer.propertyControllers {
-    internal class VoiceControls : Component {
+    internal class ChannelControls : Component {
         private readonly GameObject[] enabledVoices = new GameObject[8];
 
         private readonly Keys[] numRowKeys = { Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8 };

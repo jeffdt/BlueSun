@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using pigeon.gameobject;
 using pigeon.input;
@@ -11,8 +12,8 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
         public AdjustControl OnAdjustControl;
         public float Min { get; set; }
         public float Max { get; set; }
+
         public float Default { get; set; }
-        public float BumpAmount { get; set; }
         public Keys LeftBumpKey { get; set; }
         public Keys RightBumpKey { get; set; }
 
@@ -31,9 +32,12 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
         protected override void Initialize() {
             sliderSwitch = Object.FindChild("slider-switch");
 
-            current = (Default - Min) / (Max - Min);
-            // bumpPercentage =  BumpAmount / (Max - Min);
+            current = calcDefaultPercentage();
             bumpPercentage = .05f;
+        }
+
+        private float calcDefaultPercentage() {
+            return (Default - Min) / (Max - Min);
         }
 
         private void updateSwitchPosition() {
@@ -47,6 +51,12 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
             } else if (RawKeyboardInput.IsPressed(RightBumpKey)) {
                 current += bumpPercentage;
                 OnAdjustControl(MathHelper.Lerp(Min, Max, current));
+            }
+        }
+
+        internal void Reset() {
+            if (sliderSwitch != null) {
+                current = calcDefaultPercentage();
             }
         }
     }

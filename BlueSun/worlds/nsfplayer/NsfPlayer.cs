@@ -54,19 +54,20 @@ namespace BlueSun.worlds.nsfplayer {
         }
 
         private static GameObject buildVoiceControls() {
-            GameObject voices = new GameObject("voices") { LocalPosition = new Point(Display.ScreenCenterX - 4 * (voiceButtonSize + 1) + 1, 80), Layer = .1f };
-            voices.AddComponent(new VoiceControls());
+            GameObject channels = new GameObject("channels") { LocalPosition = new Point(Display.ScreenCenterX - 4 * (voiceButtonSize + 1) + 1, 80), Layer = .1f };
+            channels.AddComponent(new ChannelControls());
+            
 
             for (int v = 0; v < 8; v++) {
-                GameObject voiceOn = buildSingleVoice(v, Color.WhiteSmoke, Color.DimGray, "on", .2f);
-                GameObject voiceOff = buildSingleVoice(v, Color.DimGray, Color.WhiteSmoke, "off", .1f);
-                voices.AddChild(voiceOn).AddChild(voiceOff);
+                GameObject channelOn = buildSingleChannelButton(v, Color.WhiteSmoke, Color.DimGray, "on", .2f);
+                GameObject channelOff = buildSingleChannelButton(v, Color.DimGray, Color.WhiteSmoke, "off", .1f);
+                channels.AddChild(channelOn).AddChild(channelOff);
             }
 
-            return voices;
+            return channels;
         }
 
-        private static GameObject buildSingleVoice(int voiceIndex, Color fillColor, Color textColor, string nameSuffix, float layer) {
+        private static GameObject buildSingleChannelButton(int voiceIndex, Color fillColor, Color textColor, string nameSuffix, float layer) {
             var voice = new GameObject(string.Format("{0}-" + nameSuffix, voiceIndex + 1)) { LocalPosition = new Point(voiceIndex * (voiceButtonSize + 1), 0), Layer = layer };
             voice.AddComponent(new RectRenderer() {
                 DrawStyle = ShapeDrawStyles.FilledBordered,
@@ -85,12 +86,11 @@ namespace BlueSun.worlds.nsfplayer {
             float minValue = 0.01f;
             float maxValue = 2f;
             float defaultValue = 1.0f;
-            float bumpAmount = .1f;
             Keys bumpLeftKey = Keys.A;
             Keys bumpRightKey = Keys.S;
-            AdjustControl onAdjust = (float value) => Music.Tempo = value;
+            void onAdjust(float value) => Music.Tempo = value;
 
-            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpLeftKey, bumpRightKey, onAdjust);
         }
 
         private static GameObject buildStereoControls() {
@@ -99,12 +99,11 @@ namespace BlueSun.worlds.nsfplayer {
             float minValue = 0;
             float maxValue = 1;
             float defaultValue = 1;
-            float bumpAmount = .1f;
             Keys bumpLeftKey = Keys.D;
             Keys bumpRightKey = Keys.F;
-            AdjustControl onAdjust = (float value) => Music.StereoDepth = value;
+            void onAdjust(float value) => Music.StereoDepth = value;
 
-            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpLeftKey, bumpRightKey, onAdjust);
         }
 
         private static GameObject buildTrebleControls() {
@@ -113,12 +112,11 @@ namespace BlueSun.worlds.nsfplayer {
             float minValue = -50;
             float maxValue = 5;
             float defaultValue = 0;
-            float bumpAmount = .1f;
             Keys bumpLeftKey = Keys.G;
             Keys bumpRightKey = Keys.H;
-            AdjustControl onAdjust = (float value) => Music.Treble = value;
+            void onAdjust(float value) => Music.Treble = value;
 
-            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpLeftKey, bumpRightKey, onAdjust);
         }
 
         private static GameObject buildBassControls() {
@@ -126,26 +124,28 @@ namespace BlueSun.worlds.nsfplayer {
             int startY = 200;
             float minValue = 1;
             float maxValue = 1000;
-            float defaultValue = 90;
-            float bumpAmount = .1f;
+            float defaultValue = 990;
             Keys bumpLeftKey = Keys.J;
             Keys bumpRightKey = Keys.K;
-            AdjustControl onAdjust = (float value) => Music.Bass = value;
+            void onAdjust(float value) => Music.Bass = (1001 - value);
 
-            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpAmount, bumpLeftKey, bumpRightKey, onAdjust);
+            return buildSliderControl(controlType, startY, minValue, maxValue, defaultValue, bumpLeftKey, bumpRightKey, onAdjust);
         }
 
 
-
-        private static GameObject buildSliderControl(string controlType, int startY, float minValue, float maxValue, float defaultValue, float bumpAmount, Keys bumpLeftKey, Keys bumpRightKey, AdjustControl onAdjust) {
+        private static GameObject buildSliderControl(string controlType, int startY, float minValue, float maxValue, float defaultValue, Keys bumpLeftKey, Keys bumpRightKey, AdjustControl onAdjust) {
             GameObject controlObj = new GameObject(controlType) { LocalPosition = new Point(Display.ScreenCenterX, startY) };
-            controlObj.AddComponent(new SliderControls() { Min = minValue, Max = maxValue, Default = defaultValue, BumpAmount = bumpAmount, LeftBumpKey = bumpLeftKey, RightBumpKey = bumpRightKey, OnAdjustControl = onAdjust });
+            controlObj.AddComponent(new SliderControls() { Min = minValue, Max = maxValue, Default = defaultValue, LeftBumpKey = bumpLeftKey, RightBumpKey = bumpRightKey, OnAdjustControl = onAdjust });
             controlObj.AddChild(new GameObject("label-name").AddComponent(new TextRenderer() { Font = Fonts.Console, Text = controlType, Color = Color.WhiteSmoke, Justification = Justifications.Center }));
             controlObj.AddChild(new GameObject("slider-rod") { LocalPosition = new Point(0, 8) }.AddComponent(new RectRenderer() {
                 Rect = new Rectangle(-50, 0, 100, 1),
                 DrawStyle = ShapeDrawStyles.Filled,
                 FillColor = Color.LightGray
             }));
+
+            controlObj.AddChild(new GameObject("label-left-button") { LocalPosition = new Point(-59, 11) }.AddComponent(new TextRenderer() { Font = Fonts.Console, Text = bumpLeftKey.ToString(), Color = Color.LightGray, Justification = Justifications.Center }));
+            controlObj.AddChild(new GameObject("label-right-button") { LocalPosition = new Point(59, 11) }.AddComponent(new TextRenderer() { Font = Fonts.Console, Text = bumpRightKey.ToString(), Color = Color.LightGray, Justification = Justifications.Center }));
+
             controlObj.AddChild(new GameObject("slider-switch") { LocalPosition = new Point(0, 4), Layer = .1f }.AddComponent(new RectRenderer() {
                 Rect = new Rectangle(-1, 0, 3, 9),
                 DrawStyle = ShapeDrawStyles.FilledBordered,
