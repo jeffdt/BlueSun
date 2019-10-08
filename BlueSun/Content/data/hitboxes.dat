@@ -27,6 +27,3 @@
 # 
 #	This would create the same hitbox as above, except it would also support being mirrored Horizontally and Vertically. 
 #
-
-border.thl
-	[0,0][64,7]{PS}

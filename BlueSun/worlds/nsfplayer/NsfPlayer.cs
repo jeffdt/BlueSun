@@ -8,6 +8,7 @@ using pigeon.gameobject;
 using pigeon.gfx.drawable.shape;
 using pigeon.gfx.drawable.text;
 using pigeon.sound.music;
+using PigeonEngine.gfx.drawable.shape;
 using static BlueSun.worlds.nsfplayer.propertyControllers.SliderControls;
 
 namespace BlueSun.worlds.nsfplayer {
@@ -15,11 +16,17 @@ namespace BlueSun.worlds.nsfplayer {
         private const int voiceButtonSize = 9;
 
         protected override void Load() {
-            BackgroundColor = Color.DimGray;
+            BackgroundColor = Color.Gray;
 
             // AddObj(new GameObject("sfx").AddComponent(new SfxController()));
-            AddObj(buildPlayer());
-            AddObj(buildControls());
+            var parentObj = new GameObject("parent") { LocalPosition = new Point(0, -15) };
+            parentObj.AddChild(buildPlayer());
+            parentObj.AddChild(buildControls());
+            AddObj(parentObj);
+
+            var circle = new GameObject("circle") { LocalPosition = Display.ScreenCenter, Layer = 0f };
+            circle.AddComponent(new CircleRenderer() { Radius = 110, FillColor = Color.DimGray  });
+            AddObj(circle);
         }
 
         private static GameObject buildPlayer() {
@@ -41,7 +48,7 @@ namespace BlueSun.worlds.nsfplayer {
         }
 
         private static GameObject buildControls() {
-            GameObject controlsObj = new GameObject("controls").AddComponent(new SongControls());
+            GameObject controlsObj = new GameObject("controls") { Layer = .1f }.AddComponent(new SongControls());
 
             controlsObj.AddChild(buildVoiceControls());
             
