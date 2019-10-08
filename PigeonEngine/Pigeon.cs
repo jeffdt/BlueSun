@@ -12,9 +12,8 @@ using pigeon.input;
 using pigeon.legacy.graphics.anim;
 using pigeon.sound;
 using pigeon.time;
-using PigeonEngine.gfx;
 using System;
-using PigeonEngine.sound.music;
+using pigeon.sound.music;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
@@ -80,7 +79,7 @@ namespace pigeon {
             loadResources();
 
             Sfx.Initialize();
-            MusicController.Initialize();
+            Music.Initialize();
 
             LoadGame();
 
@@ -158,7 +157,7 @@ namespace pigeon {
         public void UpdateGameplay() {
             World.Update();
             Sfx.Update();
-            MusicController.Update();
+            Music.Update();
         }
 
         public static void SetWorld(World world, bool isAlreadyInitialized = false) {

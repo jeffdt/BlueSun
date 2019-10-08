@@ -2,15 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics;
 using pigeon.gameobject;
+using pigeon.gfx.drawable;
 
-namespace pigeon.gfx {
+namespace pigeon.gfx.drawable.image {
     public class ImageRenderer : Component, IRenderable, IFlippable {
         public string TexturePath;
         public bool Center;
 
         public Image Image;
 
-        public readonly Point Anchor;
+        public Point InitialAnchor;
         public Color InitialColor = Color.White;
         private readonly float initialAlpha = -1;
 
@@ -24,7 +25,7 @@ namespace pigeon.gfx {
 
         public ImageRenderer(string texturePath, Point anchor, float initialAlpha = -1) {
             TexturePath = texturePath;
-            Anchor = anchor;
+            InitialAnchor = anchor;
             this.initialAlpha = initialAlpha;
         }
 
@@ -37,10 +38,11 @@ namespace pigeon.gfx {
 
             if (initialTexture != null) {   // build image from custom texture
                 Image = Image.Create(initialTexture);
+                Image.Offset = InitialAnchor;
             } else {    // build image from standard named texture
-                if (Anchor != Point.Zero) {
+                if (InitialAnchor != Point.Zero) {
                     Image = Image.Create(TexturePath);
-                    Image.Offset = Anchor;
+                    Image.Offset = InitialAnchor;
                 } else {
                     Image = Image.Create(TexturePath, Center);
                 }

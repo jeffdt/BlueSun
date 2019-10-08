@@ -40,9 +40,6 @@
     <Reference Include="NAudio">
       <HintPath>..\dependencies\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="Steamworks.NET">
-      <HintPath>..\dependencies\Steamworks\Steamworks.NET.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -101,7 +98,9 @@
     <Compile Include="debug\ObjectDescriber.cs" />
     <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
+    <Compile Include="gfx\drawable\shape\ShapeDrawStyles.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="gfx\drawable\text\Justifications.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />
@@ -111,12 +110,13 @@
     <Compile Include="sound\gme\GmeNative.cs" />
     <Compile Include="sound\gme\GmeReader.cs" />
     <Compile Include="sound\gme\GmeType.cs" />
-    <Compile Include="sound\music\MusicController.cs" />
+    <Compile Include="sound\music\Music.cs" />
     <Compile Include="sound\music\MusicPlayer.cs" />
     <Compile Include="sound\music\VolumeStates.cs" />
     <Compile Include="utilities\Delegates.cs" />
     <Compile Include="utilities\extensions\BoolExtensions.cs" />
     <Compile Include="utilities\extensions\DoubleExtensions.cs" />
+    <Compile Include="utilities\extensions\FloatExtensions.cs" />
     <Compile Include="utilities\extensions\KeysExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteBatchExtensions.cs" />
     <Compile Include="utilities\extensions\SpriteFontExtensions.cs" />

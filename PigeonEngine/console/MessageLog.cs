@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using pigeon.gfx.drawable.text;
 using pigeon.legacy.entities;
-using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
@@ -56,7 +56,7 @@ namespace pigeon.pgnconsole {
                 messageEntities.RemoveAt(limit - 1);
             }
 
-            messageEntities.Insert(0, TextEntity.RegisterStatic(registry, text, bottomMessagePosition, font, 1f, typeColors[type], Justification.TopLeft));
+            messageEntities.Insert(0, TextEntity.RegisterStatic(registry, text, bottomMessagePosition, font, 1f, typeColors[type], Justifications.TopLeft));
 
             for (int index = 1; index < messageEntities.Count; index++) {
                 var line = messageEntities[index];

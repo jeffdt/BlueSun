@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 using pigeon.utilities;
-using PigeonEngine.utilities.extensions;
+using pigeon.utilities.extensions;
 
 namespace pigeon.gfx {
     public class Renderer {

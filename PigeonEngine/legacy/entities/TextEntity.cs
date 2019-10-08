@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using pigeon.gfx.drawable.text;
 using pigeon.legacy.graphics.text;
 
 namespace pigeon.legacy.entities {
@@ -38,7 +39,7 @@ namespace pigeon.legacy.entities {
             Graphic = graphic;
         }
 
-        public static TextEntity RegisterStatic(EntityRegistry registry, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justification justification = Justification.Center) {
+        public static TextEntity RegisterStatic(EntityRegistry registry, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justifications justification = Justifications.Center) {
             TextEntity entity = new TextEntity(position, new TextGraphic(text, font, tint, justification), layer);
             entity.textGraphic.Color = tint;
             registry.Register(entity);
@@ -49,7 +50,7 @@ namespace pigeon.legacy.entities {
             return new TextEntity(position, textGraphic, layer);
         }
 
-        public static TextEntity RegisterTimeUpdated(EntityRegistry registry, TimeBasedUpdater timeUpdater, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justification justification = Justification.Center) {
+        public static TextEntity RegisterTimeUpdated(EntityRegistry registry, TimeBasedUpdater timeUpdater, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justifications justification = Justifications.Center) {
             TextEntity entity = new TextEntity(position, new TextGraphic(text, font, tint, justification), layer) {
                 timeUpdater = timeUpdater
             };
@@ -58,7 +59,7 @@ namespace pigeon.legacy.entities {
             return entity;
         }
 
-        public static TextEntity RegisterEventUpdated<T>(EntityRegistry registry, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justification justification, params EventBasedUpdater[] updaters) where T : EventArgs {
+        public static TextEntity RegisterEventUpdated<T>(EntityRegistry registry, string text, Vector2 position, SpriteFont font, float layer, Color tint, Justifications justification, params EventBasedUpdater[] updaters) where T : EventArgs {
             TextEntity entity = new TextEntity(position, new TextGraphic(text, font, tint, justification), layer);
 
             foreach (EventBasedUpdater updater in updaters) {

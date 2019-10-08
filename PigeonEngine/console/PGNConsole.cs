@@ -8,13 +8,12 @@ using pigeon.input;
 using pigeon.core;
 using pigeon.legacy.entities;
 using pigeon.legacy.graphics.anim;
-using pigeon.legacy.graphics.text;
 using pigeon.utilities.extensions;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
-using pigeon.gfx;
-using PigeonEngine.utilities.extensions;
 using pigeon.legacy.graphics;
 using pigeon.time;
+using pigeon.gfx.drawable.text;
+using pigeon.gfx;
 
 namespace pigeon.pgnconsole {
     public class PGNConsole : World {
@@ -122,7 +121,7 @@ namespace pigeon.pgnconsole {
             EntityRegistry.Register(cursor);
 
             lineOverflowWidth = Pigeon.Renderer.BaseResolutionX - options.TextInset - (font.MeasureWidth(">") * 3);
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferHomePosition, font, 1f, options.BufferColor, Justification.TopLeft);
+            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferHomePosition, font, 1f, options.BufferColor, Justifications.TopLeft);
             commandBuffer = "";
 
             int lineSpacing = font.MeasureHeight(">");
@@ -347,6 +346,8 @@ namespace pigeon.pgnconsole {
 
                     break;
             }
+
+            commandCursorIndex = commandBuffer.Length;
         }
 
         private void handleRight() {

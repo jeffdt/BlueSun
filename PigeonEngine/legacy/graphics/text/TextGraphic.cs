@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.gfx;
+using pigeon.gfx.drawable.text;
 using pigeon.utilities;
 using pigeon.utilities.extensions;
 
@@ -21,17 +22,16 @@ namespace pigeon.legacy.graphics.text {
             }
         }
 
-        private readonly Justification just;
+        private readonly Justifications just;
 
-        private string text;
-
+        private string _text;
         public string Text {
-            get { return text; }
+            get { return _text; }
             set {
-                text = value;
+                _text = value;
 
-                for (int i = 0; i < text.Length; i++) {
-                    var character = text[i];
+                for (int i = 0; i < _text.Length; i++) {
+                    var character = _text[i];
                     if (!Font.Characters.Contains(character) && character != '\r' && character != '\n') {
                         throw new ArgumentException(string.Format("Font {0} cannot draw character '{1}' ({2})", Font, character, character.Ascii()));
                     }
@@ -42,37 +42,38 @@ namespace pigeon.legacy.graphics.text {
         }
 
         private void setSizing() {
-            Size = Font.MeasureString(text).ToPoint();
+            Vector2 vector2 = Font.MeasureString(_text);
+            Size = vector2.ToPoint();
             justify();
         }
 
         private void justify() {
             switch (just) {
-                case Justification.Left:
+                case Justifications.Left:
                     Offset = new Point(0, Size.Y / 2);
                     break;
-                case Justification.Center:
+                case Justifications.Center:
                     Offset = Size.Div(2);
                     break;
-                case Justification.Right:
+                case Justifications.Right:
                     Offset = new Point(Size.X, Size.Y / 2);
                     break;
-                case Justification.TopLeft:
+                case Justifications.TopLeft:
                     Offset = Point.Zero;
                     break;
-                case Justification.TopCenter:
+                case Justifications.TopCenter:
                     Offset = new Point(Size.X / 2, 0);
                     break;
-                case Justification.TopRight:
+                case Justifications.TopRight:
                     Offset = new Point(Size.X, 0);
                     break;
-                case Justification.BottomLeft:
+                case Justifications.BottomLeft:
                     Offset = new Point(0, Size.Y);
                     break;
-                case Justification.BottomCenter:
+                case Justifications.BottomCenter:
                     Offset = new Point(Size.X / 2, Size.Y);
                     break;
-                case Justification.BottomRight:
+                case Justifications.BottomRight:
                     Offset = new Point(Size.X, Size.Y);
                     break;
                 default:
@@ -80,24 +81,9 @@ namespace pigeon.legacy.graphics.text {
             }
         }
 
-        public TextGraphic(string txt, SpriteFont font, Color color) {
-            Font = font;
-            just = Justification.Center;
-            Color = color;
-            Text = txt;
-        }
-
-        public TextGraphic(string txt, SpriteFont font, Color color, Justification justification) {
+        public TextGraphic(string txt, SpriteFont font, Color color, Justifications justification) {
             Font = font;
             just = justification;
-            Color = color;
-            Text = txt;
-        }
-
-        public TextGraphic(string txt, SpriteFont font, Color color, Point manualOffset) {
-            Font = font;
-            just = Justification.TopLeft;
-            Offset = manualOffset;
             Color = color;
             Text = txt;
         }
@@ -105,9 +91,7 @@ namespace pigeon.legacy.graphics.text {
         public override void Update() { }
 
         public override void Draw(Vector2 position, float layer) {
-            Renderer.SpriteBatch.DrawString(Font, text, position, Color, Rotation, Offset.ToVector2(), Scale, Flip, layer);
+            Renderer.SpriteBatch.DrawString(Font, _text, position, Color, Rotation, InternalOffset, Scale, Flip, layer);
         }
     }
-
-    public enum Justification { Left, Center, Right, TopLeft, TopCenter, TopRight, BottomLeft, BottomCenter, BottomRight }
 }

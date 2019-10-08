@@ -5,6 +5,7 @@ using pigeon.rand;
 using pigeon.collision;
 using pigeon.time;
 using pigeon.utilities;
+using pigeon.gfx.drawable;
 
 namespace pigeon.gameobject {
     public class GameObject {
@@ -21,7 +22,7 @@ namespace pigeon.gameobject {
         private Point flatLocalPosition;
         private Point newWorldPosition;
 
-        public Point FlatLocalPosition {
+        public Point LocalPosition {
             get { return flatLocalPosition; }
             set {
                 trueLocalPosition = new Vector2(value.X, value.Y);
@@ -35,9 +36,9 @@ namespace pigeon.gameobject {
             get { return newWorldPosition; }
             set {
                 if (Parent == null) {
-                    FlatLocalPosition = value;
+                    LocalPosition = value;
                 } else {
-                    FlatLocalPosition = value - Parent.newWorldPosition;
+                    LocalPosition = value - Parent.newWorldPosition;
                 }
             }
         }
@@ -77,7 +78,7 @@ namespace pigeon.gameobject {
         }
 
         public void FlattenPosition() {
-            trueLocalPosition = FlatLocalPosition.ToVector2();
+            trueLocalPosition = LocalPosition.ToVector2();
         }
         #endregion
 
@@ -128,22 +129,22 @@ namespace pigeon.gameobject {
         #endregion
 
         #region layers
-        public bool DisableLayerInheritance = false;
-        public bool DisableSortVariance;
+        public bool LayerInheritanceEnabled = true;
+        public bool SortVarianceEnabled = true;
 
         internal float sortVariance = Rand.Float(0f, .0001f);
 
-        public float LocalLayer;
+        public float Layer;
 
         public float DrawLayer {
             get {
-                float drawLayer = LocalLayer;
+                float drawLayer = Layer;
 
-                if (!DisableLayerInheritance && Parent != null) {
+                if (LayerInheritanceEnabled && Parent != null) {
                     drawLayer += Parent.DrawLayer;
                 }
 
-                if (!DisableSortVariance) {
+                if (SortVarianceEnabled) {
                     drawLayer += sortVariance;
                 }
 
@@ -153,10 +154,10 @@ namespace pigeon.gameobject {
         #endregion
 
         #region control
-        private bool isUpdateDisabled { get { return UpdateDisabled || (Parent?.isUpdateDisabled == true); } }
-        private bool isDrawDisabled { get { return DrawDisabled || (Parent?.isDrawDisabled == true); } }
-        public bool UpdateDisabled;
-        public bool DrawDisabled;
+        private bool isUpdateEnabled { get { return UpdateEnabled && (Parent?.isUpdateEnabled != false); } }
+        private bool isDrawEnabled { get { return DrawEnabled && (Parent?.isDrawEnabled != false); } }
+        public bool UpdateEnabled = true;
+        public bool DrawEnabled = true;
         #endregion
 
         #region flipping
@@ -232,7 +233,7 @@ namespace pigeon.gameobject {
         private List<GameObject> children_toAdd;
         private List<Component> toInitialize;
 
-        public void AddChild(GameObject newChild) {
+        public GameObject AddChild(GameObject newChild) {
             if (children == null) {
                 children = new List<GameObject>();
             }
@@ -245,6 +246,8 @@ namespace pigeon.gameobject {
             newChild.updateWorldPosition();
 
             children_toAdd.Add(newChild);
+
+            return this;
         }
 
         public void AddChildImmediate(GameObject newChild) {
@@ -424,23 +427,12 @@ namespace pigeon.gameobject {
         public GameObject Parent;
         public bool Deleted;
 
-        private GameObject newParent = null;
+        private GameObject newParent;
 
         public GameObject() { }
 
         public GameObject(string name) {
             Name = name;
-        }
-
-        public GameObject(string name, float localLayer) {
-            Name = name;
-            LocalLayer = localLayer;
-        }
-
-        public GameObject(string name, float localLayer, Point flatLocalPosition) {
-            FlatLocalPosition = flatLocalPosition;
-            Name = name;
-            LocalLayer = localLayer;
         }
 
         public void Update() {
@@ -452,7 +444,7 @@ namespace pigeon.gameobject {
                 toInitialize.Clear();
             }
 
-            if (!isUpdateDisabled) {
+            if (isUpdateEnabled) {
                 for (int index = 0; index < components.Count; index++) {
                     var component = components[index];
                     if (component.Enabled) {
@@ -460,10 +452,10 @@ namespace pigeon.gameobject {
                     }
                 }
             }
-            if (!isUpdateDisabled && !IsStatic) {
+            if (isUpdateEnabled && !IsStatic) {
                 UpdateSpeculativePosition();
             } else {
-                SpeculativePosition = FlatLocalPosition.ToVector2();
+                SpeculativePosition = LocalPosition.ToVector2();
             }
 
             if (children != null) {
@@ -520,7 +512,7 @@ namespace pigeon.gameobject {
         }
 
         public void Draw() {
-            if (drawableCmpts != null && !isDrawDisabled) {
+            if (drawableCmpts != null && isDrawEnabled) {
                 foreach (var cmpt in drawableCmpts) {
                     cmpt.Draw();
                 }
@@ -567,7 +559,7 @@ namespace pigeon.gameobject {
             var inspector = new ObjectInspector();
             inspector.AppendField("Name", Name);
             inspector.AppendField("WPos", WorldPosition);
-            inspector.AppendField("LPos", FlatLocalPosition);
+            inspector.AppendField("LPos", LocalPosition);
             inspector.AppendField("DrawLayer", DrawLayer);
             if (children?.Count > 0) {
                 inspector.AppendField("Children", children.Count);

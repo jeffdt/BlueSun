@@ -46,16 +46,16 @@ namespace pigeon.winforms {
             objectFlipXCheckBox.Checked = obj.IsFlippedX();
             objectFlipYCheckBox.Checked = obj.IsFlippedY();
 
-            objectUpdateEnabledCheckbox.Checked = !obj.UpdateDisabled;
-            objectDrawEnabledCheckbox.Checked = !obj.DrawDisabled;
+            objectUpdateEnabledCheckbox.Checked = obj.UpdateEnabled;
+            objectDrawEnabledCheckbox.Checked = obj.DrawEnabled;
 
-            objectInheritLayerCheckBox.Checked = !obj.DisableLayerInheritance;
-            objectVarianceCheckBox.Checked = !obj.DisableSortVariance;
+            objectInheritLayerCheckBox.Checked = obj.LayerInheritanceEnabled;
+            objectVarianceCheckBox.Checked = obj.SortVarianceEnabled;
 
             refreshObjectLayerInfo(obj);
 
-            localPositionXText.Text = obj.FlatLocalPosition.X.ToString();
-            localPositionYText.Text = obj.FlatLocalPosition.Y.ToString();
+            localPositionXText.Text = obj.LocalPosition.X.ToString();
+            localPositionYText.Text = obj.LocalPosition.Y.ToString();
             worldPositionXText.Text = obj.WorldPosition.X.ToString();
             worldPositionYText.Text = obj.WorldPosition.Y.ToString();
             drawPositionCheckbox.Checked = obj.DrawPosition;
@@ -65,11 +65,11 @@ namespace pigeon.winforms {
 
         private void refreshObjectLayerInfo(GameObject obj) {
             const string layerFormat = "F6";
-            objectLayerText.Text = obj.LocalLayer.ToString(layerFormat);
+            objectLayerText.Text = obj.Layer.ToString(layerFormat);
             objectParentLayerText.Text = obj.Parent.DrawLayer.ToString(layerFormat);
-            objectParentLayerText.Enabled = !obj.DisableLayerInheritance;
+            objectParentLayerText.Enabled = obj.LayerInheritanceEnabled;
             objectLayerVarianceText.Text = obj.sortVariance.ToString(layerFormat);
-            objectLayerVarianceText.Enabled = !obj.DisableSortVariance;
+            objectLayerVarianceText.Enabled = obj.SortVarianceEnabled;
             objectDrawLayerText.Text = obj.DrawLayer.ToString(layerFormat);
         }
 
@@ -113,22 +113,22 @@ namespace pigeon.winforms {
 
         #region control
         private void objectUpdateEnabledCheckbox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.UpdateDisabled = !objectUpdateEnabledCheckbox.Checked;
+            currentObj.UpdateEnabled = objectUpdateEnabledCheckbox.Checked;
         }
 
         private void objectDrawEnabledCheckbox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DrawDisabled = !objectDrawEnabledCheckbox.Checked;
+            currentObj.DrawEnabled = objectDrawEnabledCheckbox.Checked;
         }
         #endregion control
 
         #region layer
         private void objectInheritLayerCheckBox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DisableLayerInheritance = !objectInheritLayerCheckBox.Checked;
+            currentObj.LayerInheritanceEnabled = objectInheritLayerCheckBox.Checked;
             refreshObjectLayerInfo(currentObj);
         }
 
         private void objectVarianceCheckBox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.DisableSortVariance = !objectVarianceCheckBox.Checked;
+            currentObj.SortVarianceEnabled = objectVarianceCheckBox.Checked;
             refreshObjectLayerInfo(currentObj);
         }
 

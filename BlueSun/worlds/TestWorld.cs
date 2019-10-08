@@ -2,12 +2,11 @@
 using Microsoft.Xna.Framework;
 using pigeon.component;
 using pigeon.core;
-using pigeon.gfx;
 using pigeon.gameobject;
-using pigeon.sound;
 using pigeon.input;
 using Microsoft.Xna.Framework.Input;
-using PigeonEngine.sound.music;
+using pigeon.sound.music;
+using pigeon.gfx.drawable.shape;
 
 namespace BlueSun.src.worlds {
     class TestWorld : World {
@@ -17,7 +16,7 @@ namespace BlueSun.src.worlds {
                 Rect = new Rectangle(0, 0, 30, 30)
             };
 
-            var obj = new GameObject("TitleScreen", 0f);
+            var obj = new GameObject("TitleScreen") { Layer = 0f };
             obj.AddComponent(rectRenderer);
             obj.AddComponent(new SimpleController());
             obj.AddComponent(new RectTester());
@@ -25,8 +24,8 @@ namespace BlueSun.src.worlds {
 
             BackgroundColor = Palette.DarkGray;
 
-            MusicController.PlayTrack(0);
-            MusicController.StereoDepth = .4f;
+            Music.PlayTrack(0);
+            Music.StereoDepth = .4f;
         }
 
         protected override void Unload() { }

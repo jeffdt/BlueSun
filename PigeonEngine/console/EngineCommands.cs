@@ -15,8 +15,11 @@ using pigeon.gameobject;
 using pigeon.time;
 using pigeon.utilities.extensions;
 using pigeon.winforms;
-using PigeonEngine.sound.music;
+using pigeon.sound.music;
 using System.IO;
+using pigeon.gfx.drawable.text;
+using pigeon.gfx.drawable.image;
+using pigeon.gfx.drawable.animation;
 
 namespace pigeon.pgnconsole {
     public static class EngineCommands {
@@ -127,11 +130,12 @@ namespace pigeon.pgnconsole {
 
         #region graphics
         private static void toggleLcd(string args) {
-            if (string.IsNullOrEmpty(args)) {
-                Renderer.LcdDisplay = !Renderer.LcdDisplay;
-            } else {
-                Renderer.LcdDisplay = args.Tokenize()[0].ToBool();
-            }
+            bool before = Renderer.LcdDisplay;
+            bool after = string.IsNullOrEmpty(args) ? !Renderer.LcdDisplay : args.Tokenize()[0].ToBool();
+
+            Renderer.LcdDisplay = after;
+
+            ConsoleUtilities.LogVariableChange("LCD effect", before, after);
         }
 
         private static void toggleFullscreen(string args) {
@@ -292,7 +296,7 @@ namespace pigeon.pgnconsole {
                     break;
             }
 
-            obj.FlatLocalPosition += bumpDir;
+            obj.LocalPosition += bumpDir;
         }
 
         private static void describeChildren(GameObject obj, StringBuilder builder) {
@@ -412,8 +416,8 @@ namespace pigeon.pgnconsole {
                 double treble = splitArgs[0].ToDouble();
                 double bass = splitArgs[1].ToFloat();
 
-                MusicController.Treble = treble;
-                MusicController.Bass = bass;
+                Music.Treble = treble;
+                Music.Bass = bass;
             }
         }
 
@@ -421,17 +425,17 @@ namespace pigeon.pgnconsole {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("usage: bgmmutevoice <index> <mute>");
                 Pigeon.Console.Log("-index: 0 to 7 (channel index)");
-                Pigeon.Console.Log("-mute: 0 or 1 (unmute or mute)");
+                Pigeon.Console.Log("-mute:  0 or 1 (unmute or mute)");
             } else {
                 var splitArgs = args.Tokenize();
-                MusicController.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToInt());
+                Music.SetVoiceMute(splitArgs[0].ToInt(), splitArgs[1].ToBool());
             }
         }
 
         private static void setBgmMuteVoices(string args) {
             //			var mutingMask = 31;
             var mutingMask = Convert.ToInt32(args, 2);
-            MusicController.MuteVoices(mutingMask);
+            Music.MaskMuteVoices(mutingMask);
         }
 
         private static void bgmPlayTrack(string args) {
@@ -453,31 +457,31 @@ namespace pigeon.pgnconsole {
                     return;
                 }
 
-                MusicController.Stop();
-                MusicController.Load(args);
-                MusicController.Play();
+                Music.Stop();
+                Music.Load(args);
+                Music.Play();
             }
         }
 
         private static void bgmPause(string args) {
-            MusicController.Pause();
+            Music.Pause();
         }
 
         private static void bgmResume(string args) {
-            MusicController.Play();
+            Music.Play();
         }
 
         private static void bgmStop(string args) {
-            MusicController.Stop();
+            Music.Stop();
         }
 
         private static void bgmStereoDepth(string args) {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("usage: bgmstereodepth <depth>");
                 Pigeon.Console.Log("-depth: 0.0 to 1.0");
-                Pigeon.Console.Log("-current: " + MusicController.StereoDepth);
+                Pigeon.Console.Log("-current: " + Music.StereoDepth);
             } else {
-                MusicController.StereoDepth = args.ToDouble();
+                Music.StereoDepth = args.ToDouble();
             }
         }
 
@@ -485,7 +489,7 @@ namespace pigeon.pgnconsole {
             if (string.IsNullOrWhiteSpace(args)) {
                 Pigeon.Console.Log("usage: bgmfade <msLength>");
             } else {
-                MusicController.Fade = args.ToInt();
+                Music.Fade = args.ToInt();
             }
         }
 
@@ -494,7 +498,7 @@ namespace pigeon.pgnconsole {
                 Pigeon.Console.Log("usage: bgmtempo <tempo>");
                 Pigeon.Console.Log("-tempo: 0.5 to 2.0 (def 1)");
             } else {
-                MusicController.Tempo = args.ToDouble();
+                Music.Tempo = args.ToDouble();
             }
         }
 
@@ -507,9 +511,9 @@ namespace pigeon.pgnconsole {
             double? value = args.ToUnitInterval();
 
             if (value != null) {
-                var before = MusicController.Volume;
+                var before = Music.Volume;
                 var after = (float) value;
-                MusicController.SetVolumeInstant(after);
+                Music.SetVolumeInstant(after);
                 ConsoleUtilities.LogVariableChange("bgm volume", before, after);
             } else {
                 Pigeon.Console.Error("Invalid volume; enter a decimal value from 0.0 to 1.0");

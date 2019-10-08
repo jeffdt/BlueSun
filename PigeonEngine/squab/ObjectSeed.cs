@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using pigeon.gfx;
+using pigeon.gfx.drawable.animation;
 
 namespace pigeon.gameobject {
     [Serializable]
@@ -25,7 +26,7 @@ namespace pigeon.gameobject {
         public List<ObjectSeed> Children;
 
         public GameObject Build() {
-            GameObject obj = new GameObject(Name, Layer);
+            GameObject obj = new GameObject(Name) { Layer = Layer };
             if (Sprite != null) {
                 var spriteRenderer = new SpriteRenderer(Sprite);
                 obj.AddComponent(spriteRenderer);
@@ -40,9 +41,9 @@ namespace pigeon.gameobject {
                 }
             }
 
-            obj.FlatLocalPosition = Position;
-            obj.UpdateDisabled = !IsUpdateEnabled;
-            obj.DrawDisabled = !IsDrawEnabled;
+            obj.LocalPosition = Position;
+            obj.UpdateEnabled = IsUpdateEnabled;
+            obj.DrawEnabled = IsDrawEnabled;
             if (IsYLayerSorted) {
                 obj.AddComponent(new YSorter { YOffset = YLayerSortOffset });
             }
