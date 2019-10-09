@@ -24,9 +24,12 @@ namespace BlueSun.worlds.nsfplayer {
             parentObj.AddChild(buildControls());
             AddObj(parentObj);
 
-            var circle = new GameObject("circle") { LocalPosition = Display.ScreenCenter, Layer = 0f };
-            circle.AddComponent(new CircleRenderer() { Radius = 110, FillColor = Color.DimGray  });
-            AddObj(circle);
+            for (int i = 8; i > 0; i--) {
+                var circle = new GameObject("circle" + i) { LocalPosition = Display.ScreenCenter, Layer = (7 - i) * .01f };
+                circle.AddComponent(new CircleRenderer() { Radius = (i - 1) * 22 + 22, FillColor = i % 2 == 0 ? Color.Gray : Color.DimGray });
+                AddObj(circle);
+            }
+            
         }
 
         private static GameObject buildPlayer() {
