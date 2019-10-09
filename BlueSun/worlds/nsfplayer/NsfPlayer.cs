@@ -26,7 +26,7 @@ namespace BlueSun.worlds.nsfplayer {
 
             for (int i = 8; i > 0; i--) {
                 var circle = new GameObject("circle" + i) { LocalPosition = Display.ScreenCenter, Layer = (7 - i) * .01f };
-                circle.AddComponent(new CircleRenderer() { Radius = (i - 1) * 22 + 22, FillColor = i % 2 == 0 ? Color.Gray : Color.DimGray });
+                circle.AddComponent(new CircleRenderer() { Rad = (i - 1) * 22 + 22, RadAdjust = .1f,  FillColor = i % 2 == 0 ? Color.Gray : Color.DimGray });
                 AddObj(circle);
             }
             
