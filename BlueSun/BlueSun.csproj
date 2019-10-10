@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,6 +20,8 @@
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -73,12 +80,150 @@
     <Content Include="Content\fonts\numbers.png" />
     <Content Include="Content\fonts\console.png" />
     <Content Include="Content\fonts\fonts.xml" />
+    <Content Include="Content\sfx\sfx0.wav" />
+    <Content Include="Content\sfx\sfx1.wav" />
+    <Content Include="Content\sfx\sfx2.wav" />
+    <Content Include="Content\sfx\sfx3.wav" />
+    <Content Include="Content\sfx\sfx4.wav" />
+    <Content Include="Content\sfx\sfx5.wav" />
+    <Content Include="Content\sfx\sfx6.wav" />
+    <Content Include="Content\sfx\sfx7.wav" />
+    <Content Include="Content\sfx\sfx8.wav" />
+    <Content Include="Content\sfx\sfx9.wav" />
+    <Content Include="Content\textures\console\cursor.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.config" />
     <None Include="app.manifest" />
+    <None Include="Content\data\hitboxes.dat" />
+    <None Include="Content\music\Bazaar\AlwaysBeClosin.nsf" />
+    <None Include="Content\music\Bazaar\bazaarshop.nsf" />
+    <None Include="Content\music\Bazaar\dreidelpiledriver.nsf" />
+    <None Include="Content\music\Bazaar\fastjam.nsf" />
+    <None Include="Content\music\Bazaar\groove.nsf" />
+    <None Include="Content\music\Bazaar\mt.nsf" />
+    <None Include="Content\music\Bazaar\scarabdroppings.nsf" />
+    <None Include="Content\music\Bazaar\slowjam2.nsf" />
+    <None Include="Content\music\Bazaar\tectonictechniques.nsf" />
+    <None Include="Content\music\Bazaar\turbanyouth.nsf" />
+    <None Include="Content\music\Covers\breathe.nsf" />
+    <None Include="Content\music\Covers\chromeparadise.nsf" />
+    <None Include="Content\music\Covers\cupsandblunts.nsf" />
+    <None Include="Content\music\Covers\cydelix_nes.nsf" />
+    <None Include="Content\music\Covers\cydelix_vrc6.nsf" />
+    <None Include="Content\music\Covers\dblockwhat.nsf" />
+    <None Include="Content\music\Covers\dnb.nsf" />
+    <None Include="Content\music\Covers\duke.nsf" />
+    <None Include="Content\music\Covers\eye2eye.nsf" />
+    <None Include="Content\music\Covers\gostraight.nsf" />
+    <None Include="Content\music\Covers\gratitude.nsf" />
+    <None Include="Content\music\Covers\hugokant.nsf" />
+    <None Include="Content\music\Covers\internetdream.nsf" />
+    <None Include="Content\music\Covers\irongalaxy.nsf" />
+    <None Include="Content\music\Covers\launchpad.nsf" />
+    <None Include="Content\music\Covers\lobster.nsf" />
+    <None Include="Content\music\Covers\lostvikings.nsf" />
+    <None Include="Content\music\Covers\lowerbrinstar.nsf" />
+    <None Include="Content\music\Covers\momentsinlove.nsf" />
+    <None Include="Content\music\Covers\morse.nsf" />
+    <None Include="Content\music\Covers\nectarforisis.nsf" />
+    <None Include="Content\music\Covers\policeandthieves.nsf" />
+    <None Include="Content\music\Covers\policeandthieves_noswing.nsf" />
+    <None Include="Content\music\Covers\sawitoff.nsf" />
+    <None Include="Content\music\Covers\seaweed.nsf" />
+    <None Include="Content\music\Covers\shitsfucked.nsf" />
+    <None Include="Content\music\Covers\suntemple.nsf" />
+    <None Include="Content\music\Covers\sybins-beansoffuturepast.nsf" />
+    <None Include="Content\music\Covers\thecars-imnottheone.nsf" />
+    <None Include="Content\music\Covers\tunaktun.nsf" />
+    <None Include="Content\music\Covers\UNsquadron.nsf" />
+    <None Include="Content\music\Covers\yourenotalone.nsf" />
+    <None Include="Content\music\LilLoops\blue.nsf" />
+    <None Include="Content\music\LilLoops\bluetwo.nsf" />
+    <None Include="Content\music\LilLoops\bluhblah.nsf" />
+    <None Include="Content\music\LilLoops\digga.nsf" />
+    <None Include="Content\music\LilLoops\doopter.nsf" />
+    <None Include="Content\music\LilLoops\ElCapitan.nsf" />
+    <None Include="Content\music\LilLoops\gungeon.nsf" />
+    <None Include="Content\music\LilLoops\harmonies.nsf" />
+    <None Include="Content\music\LilLoops\highscore.nsf" />
+    <None Include="Content\music\LilLoops\HipHop.nsf" />
+    <None Include="Content\music\LilLoops\HipHop2.nsf" />
+    <None Include="Content\music\LilLoops\jester.nsf" />
+    <None Include="Content\music\LilLoops\L.nsf" />
+    <None Include="Content\music\LilLoops\labess.nsf" />
+    <None Include="Content\music\LilLoops\loop.nsf" />
+    <None Include="Content\music\LilLoops\luke.nsf" />
+    <None Include="Content\music\LilLoops\mushroom.nsf" />
+    <None Include="Content\music\LilLoops\selection.nsf" />
+    <None Include="Content\music\LilLoops\shanty.nsf" />
+    <None Include="Content\music\LilLoops\spokky.nsf" />
+    <None Include="Content\music\LilLoops\truepower.nsf" />
+    <None Include="Content\music\LilLoops\turbodrive.nsf" />
+    <None Include="Content\music\LilLoops\turtles.nsf" />
+    <None Include="Content\music\MetallicWing\blast_furnace.nsf" />
+    <None Include="Content\music\MetallicWing\briefing.nsf" />
+    <None Include="Content\music\MetallicWing\consequences.nsf" />
+    <None Include="Content\music\MetallicWing\distress_signals.nsf" />
+    <None Include="Content\music\MetallicWing\dread.nsf" />
+    <None Include="Content\music\MetallicWing\echo.nsf" />
+    <None Include="Content\music\MetallicWing\fear.nsf" />
+    <None Include="Content\music\MetallicWing\harmonies.nsf" />
+    <None Include="Content\music\MetallicWing\hope.nsf" />
+    <None Include="Content\music\MetallicWing\intrigue.nsf" />
+    <None Include="Content\music\MetallicWing\intrigueX.nsf" />
+    <None Include="Content\music\MetallicWing\loss.nsf" />
+    <None Include="Content\music\MetallicWing\peril+intro.nsf" />
+    <None Include="Content\music\MetallicWing\peril.nsf" />
+    <None Include="Content\music\MetallicWing\predation.nsf" />
+    <None Include="Content\music\MetallicWing\relief.nsf" />
+    <None Include="Content\music\MetallicWing\remorse.nsf" />
+    <None Include="Content\music\MetallicWing\resolve.nsf" />
+    <None Include="Content\music\MetallicWing\rust.nsf" />
+    <None Include="Content\music\MetallicWing\sad.nsf" />
+    <None Include="Content\music\MetallicWing\shadowvapors.nsf" />
+    <None Include="Content\music\MetallicWing\solitude.nsf" />
+    <None Include="Content\music\MetallicWing\starsurfin.nsf" />
+    <None Include="Content\music\MetallicWing\strife.nsf" />
+    <None Include="Content\music\MetallicWing\strife_loop.nsf" />
+    <None Include="Content\music\MetallicWing\thuglas.nsf" />
+    <None Include="Content\music\MetallicWing\titanium.nsf" />
+    <None Include="Content\music\MetallicWing\triumph.nsf" />
+    <None Include="Content\music\MetallicWing\valor_nes.nsf" />
+    <None Include="Content\music\MetallicWing\valor_vrc6.nsf" />
+    <None Include="Content\music\MetallicWing\wonder.nsf" />
+    <None Include="Content\music\MetallicWing\wroughtiron.nsf" />
+    <None Include="Content\music\RandomJams\2medieval.nsf" />
+    <None Include="Content\music\RandomJams\arps.nsf" />
+    <None Include="Content\music\RandomJams\CasioCruiser.nsf" />
+    <None Include="Content\music\RandomJams\coiled.nsf" />
+    <None Include="Content\music\RandomJams\dill_dealer.nsf" />
+    <None Include="Content\music\RandomJams\fury.nsf" />
+    <None Include="Content\music\RandomJams\jupiter.nsf" />
+    <None Include="Content\music\RandomJams\LoopPoop.nsf" />
+    <None Include="Content\music\RandomJams\malice.nsf" />
+    <None Include="Content\music\RandomJams\mancave.nsf" />
+    <None Include="Content\music\RandomJams\paralysis.nsf" />
+    <None Include="Content\music\RandomJams\roasted.nsf" />
+    <None Include="Content\music\RandomJams\sensoryoverload.nsf" />
+    <None Include="Content\music\RandomJams\sharked.nsf" />
+    <None Include="Content\music\RandomJams\viper.nsf" />
+    <None Include="Content\music\SuperFORE!\cave.nsf" />
+    <None Include="Content\music\SuperFORE!\nimbus.nsf" />
+    <None Include="Content\music\SuperFORE!\parkour.nsf" />
+    <None Include="Content\music\SuperFORE!\splendor.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\aquatics.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\encounterwiththekhanklan.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\evil.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\fantasy.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\ice.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\rock_n_roll.nsf" />
+    <None Include="Content\music\UnfinishedBusiness\sundriedtanuki.nsf" />
+    <None Include="Content\textures\compactAnimations.cfg" />
+    <None Include="Content\textures\templates.cfg" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PigeonEngine\PigeonEngine.csproj">
@@ -86,12 +231,32 @@
       <Name>PigeonEngine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)\dependencies\gme.dll" "$(TargetDir)" /Y</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.6\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.6\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

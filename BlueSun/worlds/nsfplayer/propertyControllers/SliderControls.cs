@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using pigeon.gameobject;
 using pigeon.input;
@@ -46,10 +45,10 @@ namespace BlueSun.worlds.nsfplayer.propertyControllers {
 
         protected override void Update() {
             if (RawKeyboardInput.IsPressed(LeftBumpKey)) {
-                current -= bumpPercentage;
+                current -= RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift) ? bumpPercentage * .5f : bumpPercentage;
                 OnAdjustControl(MathHelper.Lerp(Min, Max, current));
             } else if (RawKeyboardInput.IsPressed(RightBumpKey)) {
-                current += bumpPercentage;
+                current += RawKeyboardInput.IsHeld(Keys.LeftShift, Keys.RightShift) ? bumpPercentage * .5f : bumpPercentage;
                 OnAdjustControl(MathHelper.Lerp(Min, Max, current));
             }
         }
