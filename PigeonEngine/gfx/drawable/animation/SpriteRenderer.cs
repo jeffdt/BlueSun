@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.anim;
 using pigeon.gameobject;
-using pigeon.gfx.drawable;
 
 namespace pigeon.gfx.drawable.animation {
     public class SpriteRenderer : Component, IRenderable, IFlippable {

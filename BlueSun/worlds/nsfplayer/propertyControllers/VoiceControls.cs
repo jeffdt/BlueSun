@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using pigeon.gameobject;
 using pigeon.input;
 using pigeon.sound.music;
