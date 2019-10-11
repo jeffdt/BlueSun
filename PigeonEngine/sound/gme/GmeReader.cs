@@ -52,7 +52,7 @@ namespace GameMusicEmuSharp {
         /// </summary>
         ~GmeReader() {
             // Free the handle acquired for GameMusicEmu.
-            GmeNative.gme_delete(emuHandle);
+             GmeNative.gme_delete(emuHandle);
         }
 
         public void Unload() {

@@ -17,8 +17,15 @@ namespace pigeon.sound {
         public void Initialize() { }
 
         public void Load(string filename) {
-            var oldReader = reader;
-            var oldPlayer = player;
+            if (player != null) {
+                player.Stop();
+                player.Dispose();
+            }
+
+            if (reader != null) {
+                reader.Dispose();
+                reader.Unload();
+            }
 
             reader = new GmeReader(filename);
 
@@ -28,15 +35,6 @@ namespace pigeon.sound {
             waveOut.Init(volumeSampleProvider);
 
             player = waveOut;
-
-
-            if (oldReader != null) {
-                oldReader.Dispose();
-            }
-
-            if (oldPlayer != null) {
-                oldPlayer.Dispose();
-            }
         }
 
         #region playback controls
