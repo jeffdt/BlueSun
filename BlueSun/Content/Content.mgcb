@@ -249,6 +249,9 @@
 #begin music/MetallicWing/briefing.nsf
 /copy:music/MetallicWing/briefing.nsf
 
+#begin music/MetallicWing/briefing_vrc6.nsf
+/copy:music/MetallicWing/briefing_vrc6.nsf
+
 #begin music/MetallicWing/consequences.nsf
 /copy:music/MetallicWing/consequences.nsf
 
@@ -341,6 +344,9 @@
 
 #begin music/RandomJams/arps.nsf
 /copy:music/RandomJams/arps.nsf
+
+#begin music/RandomJams/arps_vrc6.nsf
+/copy:music/RandomJams/arps_vrc6.nsf
 
 #begin music/RandomJams/CasioCruiser.nsf
 /copy:music/RandomJams/CasioCruiser.nsf

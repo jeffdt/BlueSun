@@ -29,7 +29,6 @@ namespace BlueSun.worlds.nsfplayer {
                 circle.AddComponent(new CircleRenderer() { Rad = ((i - 1) * 22) + 22, RadAdjust = .1f,  FillColor = Color.Gray, BorderColor = Color.DimGray, BorderThickness = 4 });
                 AddObj(circle);
             }
-            
         }
 
         private static GameObject buildPlayer() {
