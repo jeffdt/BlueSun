@@ -16,7 +16,7 @@ using System;
 using pigeon.sound.music;
 using Serilog.Core;
 using Serilog;
-using PigeonEngine.log;
+using PigeonEngine.logger;
 using Serilog.Events;
 
 namespace pigeon {
