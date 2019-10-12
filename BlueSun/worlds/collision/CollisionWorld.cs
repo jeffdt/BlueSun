@@ -13,17 +13,17 @@ using pigeon.gfx.drawable.shape;
 namespace BlueSun.worlds.collision {
     class CollisionWorld : World {
         private const int tileSize = 16;
-        private const int projectileSize = 4;
-        private const int projectileCount = 4;
-        private const float projectileSpeed = 150f;
+        private const int projectileSize = 2;
+        private const int projectileCount = 8;
+        private const float projectileSpeed = 300f;
 
         protected override void Load() {
             ColliderStrategy = new DumbSatColliderStrategy();
 
-            BackgroundColor = Color.SteelBlue;
+            BackgroundColor = Color.GhostWhite;
 
             for (int i = 0; i < projectileCount; i++) {
-                CollisionRectTester rectTester = new CollisionRectTester() { IsProjectile = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
+                CollisionRectTester rectTester = new CollisionRectTester() { NormalColor = Color.Black, IsProjectile = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
 
                 AddObj(
                     new GameObject("Projectile " + i) { Layer = 1f }
@@ -77,6 +77,7 @@ namespace BlueSun.worlds.collision {
     }
 
     class CollisionRectTester : Component {
+        public Color NormalColor = Color.White;
         public float ProjectileSpeed;
 
         public bool IsProjectile = false;
@@ -100,9 +101,7 @@ namespace BlueSun.worlds.collision {
         }
 
         protected override void Update() {
-            if (rectRenderer.Image.Color != Color.White) {
-                rectRenderer.Image.Color = Color.White;
-            }
+            rectRenderer.Image.Color = NormalColor;
 
             if (IsProjectile && RawKeyboardInput.IsPressed(Keys.Space)) {
                 randomizePositionAndVelocity();
