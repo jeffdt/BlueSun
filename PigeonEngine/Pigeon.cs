@@ -18,6 +18,7 @@ using Serilog.Core;
 using Serilog;
 using PigeonEngine.logger;
 using Serilog.Events;
+using System.IO;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
@@ -65,9 +66,18 @@ namespace pigeon {
             Renderer.GraphicsDeviceMgr = new GraphicsDeviceManager(this);
 
             Instance = this;
+
+            PlayerData.SaveFolderName = SaveFolderName;
         }
 
         protected sealed override void LoadContent() {
+            PlayerData.Initialize();
+
+            Logger = new LoggerConfiguration()
+                .WriteTo.PGNConsoleSink()
+                .WriteTo.File(Path.Combine(PlayerData.UserDataPath, "log.txt"), rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             Renderer = new Renderer(DisplayParams.ScreenWidth, DisplayParams.ScreenHeight, DisplayParams.InitialScale);
 
             Renderer.GraphicsDeviceMgr.SynchronizeWithVerticalRetrace = false; //Vsync
@@ -78,14 +88,7 @@ namespace pigeon {
 
             ResourceCache.Initialize(TemplateProcessor);
 
-            Logger = new LoggerConfiguration()
-                .WriteTo.PGNConsoleSink()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-
             GameData.Initialize();
-            PlayerData.SaveFolderName = SaveFolderName;
-            PlayerData.Initialize();
 
             Renderer.SpriteBatch = new SpriteBatch(GraphicsDevice);
 

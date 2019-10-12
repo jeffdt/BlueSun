@@ -108,8 +108,8 @@
     <Compile Include="gfx\drawable\shape\ShapeDrawStyles.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="gfx\drawable\text\Justifications.cs" />
-    <Compile Include="log\LoggerConfigurationExtensions.cs" />
-    <Compile Include="log\PGNConsoleSink.cs" />
+    <Compile Include="logger\LoggerConfigurationExtensions.cs" />
+    <Compile Include="logger\PGNConsoleSink.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />
