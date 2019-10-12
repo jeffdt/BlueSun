@@ -40,6 +40,12 @@
     <Reference Include="NAudio">
       <HintPath>..\dependencies\NAudio.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -102,6 +108,8 @@
     <Compile Include="gfx\drawable\shape\ShapeDrawStyles.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="gfx\drawable\text\Justifications.cs" />
+    <Compile Include="logger\LoggerConfigurationExtensions.cs" />
+    <Compile Include="logger\PGNConsoleSink.cs" />
     <Compile Include="ObjectRegistry.cs" />
     <Compile Include="particle\BurstParticleEmitter.cs" />
     <Compile Include="particle\ConstantParticleEmitter.cs" />
@@ -216,6 +224,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>

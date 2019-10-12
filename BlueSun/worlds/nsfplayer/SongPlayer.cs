@@ -40,7 +40,7 @@ namespace BlueSun.worlds.nsfplayer {
             }
 
             playRandomSong();
-            //playSpecificSong("morse");
+            //playSpecificSong("internetdream");
         }
 
         protected override void Update() {

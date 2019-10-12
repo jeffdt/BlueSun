@@ -14,6 +14,11 @@ using pigeon.sound;
 using pigeon.time;
 using System;
 using pigeon.sound.music;
+using Serilog.Core;
+using Serilog;
+using PigeonEngine.logger;
+using Serilog.Events;
+using System.IO;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
@@ -33,6 +38,7 @@ namespace pigeon {
         protected abstract void LoadGame();
         protected abstract void InitializeGame();
 
+        public static Logger Logger;
         public static PGNConsole Console;
         public static Renderer Renderer;
         public static readonly EventRegistry GameEventRegistry = new EventRegistry();
@@ -60,10 +66,22 @@ namespace pigeon {
             Renderer.GraphicsDeviceMgr = new GraphicsDeviceManager(this);
 
             Instance = this;
+
+            PlayerData.SaveFolderName = SaveFolderName;
         }
 
         protected sealed override void LoadContent() {
+            PlayerData.Initialize();
+
+            Logger = new LoggerConfiguration()
+                .WriteTo.PGNConsoleSink()
+                .WriteTo.File(Path.Combine(PlayerData.UserDataPath, "log.txt"), rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             Renderer = new Renderer(DisplayParams.ScreenWidth, DisplayParams.ScreenHeight, DisplayParams.InitialScale);
+
+            Renderer.GraphicsDeviceMgr.SynchronizeWithVerticalRetrace = false; //Vsync
+            IsFixedTimeStep = true;
 
             TargetElapsedTime = TimeSpan.FromSeconds(1 / (float) FrameRate);
             Instance.Window.Title = WindowTitle;
@@ -71,8 +89,6 @@ namespace pigeon {
             ResourceCache.Initialize(TemplateProcessor);
 
             GameData.Initialize();
-            PlayerData.SaveFolderName = SaveFolderName;
-            PlayerData.Initialize();
 
             Renderer.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -91,6 +107,8 @@ namespace pigeon {
 
             World = InitialWorld;
             World.LoadContent();
+
+            Logger.Information("Starting {WindowTitle} with targeted frame duration {TargetElapsedTime}.", WindowTitle, TargetElapsedTime);
         }
 
         private static void loadResources() {
