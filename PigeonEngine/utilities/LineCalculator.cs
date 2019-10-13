@@ -1,45 +1,22 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using pigeon.legacy.graphics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace pigeon.legacy.entities.primitives {
-    public class Line : Entity {
-        private readonly Vector2[] points;
-        private readonly Image[] pixels;
-
-        public Color Tint { get; set; }
-
-        public Line(Vector2 start, Vector2 end, Color color, float layer = 0f) {
-            Position = start;
-            Layer = layer;
-
-            points = findLine((int) start.X, (int) start.Y, (int) end.X, (int) end.Y);
-
-            pixels = new Image[points.Length];
-            for (int i = 0; i < points.Length; i++) {
-                Image pixel = Image.Create("pixel");
-                pixel.Color = color;
-                pixels[i] = pixel;
-            }
-        }
-
-        public override void Draw() {
-            for (int i = 0; i < points.Length; i++) {
-                pixels[i].Draw(points[i], Layer);
-            }
-        }
-
-        private Vector2[] findLine(int x, int y, int x2, int y2) {
-            List<Vector2> coords = new List<Vector2>();
+namespace PigeonEngine.utilities {
+    public static class LineCalculator {
+        private static Point[] findLine(Point a, Point b) {
+            List<Point> coords = new List<Point>();
 
             int dx1 = 0;
             int dy1 = 0;
             int dx2 = 0;
             int dy2 = 0;
 
-            int w = x2 - x;
-            int h = y2 - y;
+            int w = b.X - a.X;
+            int h = b.Y - a.Y;
             int longest = Math.Abs(w);
             int shortest = Math.Abs(h);
 
@@ -70,8 +47,11 @@ namespace pigeon.legacy.entities.primitives {
 
             int numerator = longest >> 1;
 
+            int x = a.X;
+            int y = a.Y;
+
             for (int i = 0; i <= longest; i++) {
-                coords.Add(new Vector2(x, y));
+                coords.Add(new Point(x, y));
                 numerator += shortest;
                 if (!(numerator < longest)) {
                     numerator -= longest;

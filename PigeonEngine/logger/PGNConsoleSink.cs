@@ -13,7 +13,7 @@ namespace PigeonEngine.logger {
 
         public void Emit(LogEvent logEvent) {
             var message = logEvent.RenderMessage(null);
-            Pigeon.Console.Log(DateTimeOffset.Now.ToString() + " " + message);
+            Pigeon.Console.Log(DateTimeOffset.Now.ToString("hh:mm:ss") + " " + message);
         }
     }
 }

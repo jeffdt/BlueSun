@@ -25,6 +25,8 @@ namespace BlueSun.worlds.collision {
             for (int i = 0; i < projectileCount; i++) {
                 CollisionRectTester rectTester = new CollisionRectTester() { NormalColor = Color.Black, IsProjectile = true, TileSize = tileSize, ProjectileSpeed = projectileSpeed };
 
+                SimpleBoxCollider colliderCmpt = new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, projectileSize, projectileSize), CollisionHandler = rectTester.OnCollision };
+
                 AddObj(
                     new GameObject("Projectile " + i) { Layer = 1f }
                     .AddComponent(new RectRenderer() {
@@ -33,7 +35,7 @@ namespace BlueSun.worlds.collision {
                         FillColor = Color.White,
                     })
                     .AddComponent(rectTester)
-                    .AddComponent(new SimpleBoxCollider() { Passive = false, Hitbox = new Rectangle(0, 0, projectileSize, projectileSize), CollisionHandler = rectTester.OnCollision })
+                    .AddComponent(colliderCmpt)
                 );
             }
 

@@ -1,7 +1,7 @@
 ﻿using pigeon.gameobject;
 using pigeon.time;
 
-namespace pigeon.gfx.drawable.animation {
+namespace pigeon.gfx.drawable.sprite {
     public static class SpriteDebugger {
         public static void CreateTestAnim(string sprite, string animation, bool isCentered, bool continuousLoop) {
             Pigeon.World.DeleteObjSafe("ANIM_TEST");

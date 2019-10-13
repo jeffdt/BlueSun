@@ -74,7 +74,7 @@ namespace pigeon {
             PlayerData.Initialize();
 
             Logger = new LoggerConfiguration()
-                .WriteTo.PGNConsoleSink()
+                .WriteTo.PGNConsole()
                 .WriteTo.File(Path.Combine(PlayerData.UserDataPath, "log.txt"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
@@ -108,7 +108,7 @@ namespace pigeon {
             World = InitialWorld;
             World.LoadContent();
 
-            Logger.Information("Starting {WindowTitle} with targeted frame duration {TargetElapsedTime}.", WindowTitle, TargetElapsedTime);
+            Logger.Information("Starting {WindowTitle}", WindowTitle, TargetElapsedTime);
         }
 
         private static void loadResources() {

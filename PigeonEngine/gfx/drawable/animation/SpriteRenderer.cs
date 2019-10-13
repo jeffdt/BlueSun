@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.legacy.graphics.anim;
 using pigeon.gameobject;
 
-namespace pigeon.gfx.drawable.animation {
+namespace pigeon.gfx.drawable.sprite {
     public class SpriteRenderer : Component, IRenderable, IFlippable {
         public readonly Sprite Sprite;
 

@@ -36,7 +36,7 @@ namespace pigeon.legacy.graphics.anim {
                     textureName = splitName[1];
                 }
 
-                Sprite sprite = new Sprite { Animations = new SerializableDictionary<string, List<TeslaFrame>>(), texturePath = textureName };
+                Sprite sprite = new Sprite { Animations = new SerializableDictionary<string, List<SpriteFrame>>(), texturePath = textureName };
 
                 bool isSameSprite = true;
                 while (isSameSprite) {
@@ -47,8 +47,8 @@ namespace pigeon.legacy.graphics.anim {
                     if (parseResult.Success) {
                         string animationName = parseResult.Groups["animName"].Value;
 
-                        TeslaFrame seedFrame = parseSeed(parseResult.Groups["seed"].Value);
-                        List<TeslaFrame> frames = new List<TeslaFrame> { seedFrame };
+                        SpriteFrame seedFrame = parseSeed(parseResult.Groups["seed"].Value);
+                        List<SpriteFrame> frames = new List<SpriteFrame> { seedFrame };
 
                         string dupeParamsStr = parseResult.Groups["dupeParams"].Value;
                         string delayParamsStr = parseResult.Groups["delayParams"].Value;
@@ -59,7 +59,7 @@ namespace pigeon.legacy.graphics.anim {
                             seedFrame.Duration = duration;
 
                             for (int frameNum = 1; frameNum < frameCount; frameNum++) {
-                                TeslaFrame frame = createFrame(seedFrame, frameNum, duration);
+                                SpriteFrame frame = createFrame(seedFrame, frameNum, duration);
                                 frames.Add(frame);
                             }
                         } else if (delayParamsStr != string.Empty) {
@@ -68,7 +68,7 @@ namespace pigeon.legacy.graphics.anim {
                             seedFrame.Duration = delayParams[0].ToInt();
 
                             for (int frameNum = 1; frameNum < frameCount; frameNum++) {
-                                TeslaFrame frame = createFrame(seedFrame, frameNum, delayParams[frameNum].ToInt());
+                                SpriteFrame frame = createFrame(seedFrame, frameNum, delayParams[frameNum].ToInt());
                                 frames.Add(frame);
                             }
                         }
@@ -86,10 +86,10 @@ namespace pigeon.legacy.graphics.anim {
             }
         }
 
-        private static TeslaFrame parseSeed(string seed) {
+        private static SpriteFrame parseSeed(string seed) {
             var parseResult = seedParse.Match(seed);
             return parseResult.Success
-                ? new TeslaFrame {
+                ? new SpriteFrame {
                     AnchorOffsetX = parseResult.Groups["anchorX"].Value.ToInt(),
                     AnchorOffsetY = parseResult.Groups["anchorY"].Value.ToInt(),
                     SheetX = parseResult.Groups["sheetX"].Value.ToInt(),
@@ -100,8 +100,8 @@ namespace pigeon.legacy.graphics.anim {
                 : null;
         }
 
-        private static TeslaFrame createFrame(TeslaFrame seedFrame, int frameNum, int duration) {
-            return new TeslaFrame {
+        private static SpriteFrame createFrame(SpriteFrame seedFrame, int frameNum, int duration) {
+            return new SpriteFrame {
                 Duration = duration,
                 AnchorOffsetX = seedFrame.AnchorOffsetX,
                 AnchorOffsetY = seedFrame.AnchorOffsetY,
@@ -129,10 +129,10 @@ namespace pigeon.legacy.graphics.anim {
         private bool isPingPonging;
         private int pingPongCoefficient;
 
-        public SerializableDictionary<string, List<TeslaFrame>> Animations;
+        public SerializableDictionary<string, List<SpriteFrame>> Animations;
         public Texture2D Texture;
         private string texturePath = NO_TEXTURE;
-        private List<TeslaFrame> animation;
+        private List<SpriteFrame> animation;
         public Rectangle SourceArea = new Rectangle();
         private int frameIndex;
         private float frameTimer;
