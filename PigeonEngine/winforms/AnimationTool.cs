@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using pigeon.legacy.graphics.anim;
 using pigeon.gfx.drawable.sprite;
 
 namespace pigeon.winforms {

@@ -8,7 +8,7 @@ using pigeon.gfx;
 using pigeon.time;
 using pigeon.utilities.extensions;
 
-namespace pigeon.legacy.graphics.anim {
+namespace pigeon.gfx.drawable.sprite {
     public class Sprite : Graphic {
         private const string NO_TEXTURE = "NO TEXTURE SPECIFIED";
 

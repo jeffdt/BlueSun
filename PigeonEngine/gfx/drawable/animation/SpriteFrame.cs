@@ -1,4 +1,4 @@
-﻿namespace pigeon.legacy.graphics.anim {
+﻿namespace pigeon.gfx.drawable.sprite {
     public class SpriteFrame {
         public int Duration = -1;
 

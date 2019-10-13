@@ -8,7 +8,6 @@ using pigeon.gameobject;
 using pigeon.gfx.drawable.shape;
 using pigeon.gfx.drawable.text;
 using pigeon.sound.music;
-using PigeonEngine.gfx.drawable.shape;
 using static BlueSun.worlds.nsfplayer.propertyControllers.SliderControls;
 
 namespace BlueSun.worlds.nsfplayer {

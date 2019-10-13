@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.gfx;
 using pigeon.gfx.drawable.image;
 
-namespace PigeonEngine.gfx.drawable.shape {
+namespace pigeon.gfx.drawable.shape {
     public class CircleRenderer : ImageRenderer {
         public Color FillColor = Color.White;
         public Color BorderColor = Color.Black;

@@ -173,11 +173,11 @@
     <Compile Include="input\KeyboardInputDevice.cs" />
     <Compile Include="input\RawKeyboardInput.cs" />
     <Compile Include="input\MouseReader.cs" />
-    <Compile Include="legacy\graphics\anim\Sprite.cs" />
-    <Compile Include="legacy\graphics\anim\SpriteFrame.cs" />
-    <Compile Include="legacy\graphics\Graphic.cs" />
-    <Compile Include="legacy\graphics\Image.cs" />
-    <Compile Include="legacy\graphics\text\TextGraphic.cs" />
+    <Compile Include="gfx\drawable\animation\Sprite.cs" />
+    <Compile Include="gfx\drawable\animation\SpriteFrame.cs" />
+    <Compile Include="gfx\drawable\Graphic.cs" />
+    <Compile Include="gfx\drawable\image\Image.cs" />
+    <Compile Include="gfx\drawable\text\TextGraphic.cs" />
     <Compile Include="Pigeon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

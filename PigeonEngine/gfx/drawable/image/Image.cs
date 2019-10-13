@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 using pigeon.gfx;
 
-namespace pigeon.legacy.graphics {
+namespace pigeon.gfx.drawable.image {
     public sealed class Image : Graphic {
         public Texture2D Texture;
         public Rectangle SourceRect;

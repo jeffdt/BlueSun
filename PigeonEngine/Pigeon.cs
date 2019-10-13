@@ -9,7 +9,6 @@ using pigeon.data;
 using pigeon.debug;
 using pigeon.gfx;
 using pigeon.input;
-using pigeon.legacy.graphics.anim;
 using pigeon.sound;
 using pigeon.time;
 using System;
@@ -17,8 +16,8 @@ using pigeon.sound.music;
 using Serilog.Core;
 using Serilog;
 using PigeonEngine.logger;
-using Serilog.Events;
 using System.IO;
+using pigeon.gfx.drawable.sprite;
 
 namespace pigeon {
     public abstract class Pigeon : Game {
