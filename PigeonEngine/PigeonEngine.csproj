@@ -198,7 +198,6 @@
     <Compile Include="squab\GameObject.cs" />
     <Compile Include="time\GameSpeed.cs" />
     <Compile Include="time\Time.cs" />
-    <Compile Include="tools\Cursor.cs" />
     <Compile Include="utilities\extensions\ArrayExtensions.cs" />
     <Compile Include="utilities\extensions\CharExtensions.cs" />
     <Compile Include="utilities\extensions\CollectionExtensions.cs" />

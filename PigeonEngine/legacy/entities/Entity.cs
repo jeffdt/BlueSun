@@ -42,16 +42,7 @@ namespace pigeon.legacy.entities {
             MarkedForRemoval = false;
         }
 
-        public Entity() {
-            Position = Vector2.Zero;
-        }
-
         public Entity(Vector2 position) {
-            Position = position;
-        }
-
-        public Entity(Vector2 position, Graphic graphic) {
-            Graphic = graphic;
             Position = position;
         }
 
