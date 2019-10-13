@@ -241,7 +241,7 @@ namespace pigeon.pgnconsole {
 
         private void checkKeyRepeat() {
             if (RawKeyboardInput.IsHeld(lastKey)) { // if key from last frame is still down on this frame, we're in repeat territory
-                lastKeyHoldTimeSecs += Time.SecScaled;
+                lastKeyHoldTimeSecs += Time.Seconds;
 
                 if (!isRepeatingKey) {
                     handleBeginRepeatingKey();
