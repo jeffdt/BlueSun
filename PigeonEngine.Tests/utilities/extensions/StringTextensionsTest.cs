@@ -190,7 +190,7 @@ namespace PigeonEngineTests.utilities.extensions {
         }
 
         [TestCase("a b c", new string[] { "a", "b", "c" })]
-        [TestCase("a b cde fgh", new string[] { "a", "b", "cde", "fgh" })]
+        [TestCase("a b cde fgh", new string[] { "a", "b", "cde", "fg h" })]
         public void Tokenize(string input, string[] expected) {
             Assert.AreEqual(expected, input.Tokenize());
         }
