@@ -17,6 +17,7 @@ namespace BlueSun.worlds.nsfplayer {
         protected override void Load() {
             BackgroundColor = Color.Gray;
 
+
             // AddObj(new GameObject("sfx").AddComponent(new SfxController()));
             var parentObj = new GameObject("parent") { LocalPosition = new Point(0, -15) };
             parentObj.AddChild(buildPlayer());
