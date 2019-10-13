@@ -8,7 +8,6 @@ using pigeon.gameobject;
 using pigeon.gfx.drawable.shape;
 using pigeon.gfx.drawable.text;
 using pigeon.sound.music;
-using PigeonEngine.gfx.drawable.shape;
 using static BlueSun.worlds.nsfplayer.propertyControllers.SliderControls;
 
 namespace BlueSun.worlds.nsfplayer {
@@ -26,7 +25,7 @@ namespace BlueSun.worlds.nsfplayer {
 
             for (int i = 8; i > 0; i--) {
                 var circle = new GameObject("circle" + i) { LocalPosition = Display.ScreenCenter, Layer = (7 - i) * .01f };
-                circle.AddComponent(new CircleRenderer() { Rad = ((i - 1) * 22) + 22, RadAdjust = .1f,  FillColor = Color.Gray, BorderColor = Color.DimGray, BorderThickness = 4 });
+                circle.AddComponent(new CircleRenderer() { Rad = ((i - 1) * 22) + 22, RadAdjust = 0f,  FillColor = Color.Gray, BorderColor = Color.DimGray, BorderThickness = 4 });
                 AddObj(circle);
             }
         }

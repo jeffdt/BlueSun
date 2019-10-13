@@ -6,14 +6,15 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 using pigeon.input;
 using pigeon.core;
-using pigeon.legacy.entities;
-using pigeon.legacy.graphics.anim;
 using pigeon.utilities.extensions;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
-using pigeon.legacy.graphics;
 using pigeon.time;
 using pigeon.gfx.drawable.text;
 using pigeon.gfx;
+using pigeon.gameobject;
+using pigeon.gfx.drawable.image;
+using pigeon.utilities;
+using pigeon.gfx.drawable.sprite;
 
 namespace pigeon.pgnconsole {
     public class PGNConsole : World {
@@ -22,16 +23,15 @@ namespace pigeon.pgnconsole {
         private int lineOverflowWidth;
         internal readonly PGNConsoleOptions options;
         private readonly SpriteFont font;
-        private readonly Vector2 bufferHomePosition;
+        private readonly Point bufferHomePosition;
         #endregion
 
         #region helpers
         private readonly CommandHistory history;
         internal MessageLog messageLog;
         internal readonly AliasManager AliasManager = new AliasManager();
-        private Entity panel;
-        private Entity cursor;
-        private TextEntity buffer;
+        private GameObject cursor;
+        private TextRenderer buffer;
         #endregion
 
         #region commands
@@ -66,7 +66,7 @@ namespace pigeon.pgnconsole {
             set {
                 _commandCursorIndex = value.Clamp(0, commandBuffer.Length);
 
-                cursor.Position.X = bufferHomePosition.X + font.MeasureWidth(buffer.Text.Substring(0, _commandCursorIndex) + " ") + font.Spacing - 1;
+                cursor.LocalPosition = cursor.LocalPosition.WithX(bufferHomePosition.X + font.MeasureWidth(buffer.Text.Substring(0, _commandCursorIndex) + " ") + (int) font.Spacing - 1);
             }
         }
 
@@ -95,7 +95,7 @@ namespace pigeon.pgnconsole {
             this.options = options;
 
             font = ResourceCache.Font("console");
-            bufferHomePosition = new Vector2(this.options.TextInset, this.options.PanelHeight - (this.options.TextInset * 2));
+            bufferHomePosition = new Point(this.options.TextInset, this.options.PanelHeight - (this.options.TextInset * 2));
 
             history = new CommandHistory(options.CommandHistory);
         }
@@ -111,23 +111,26 @@ namespace pigeon.pgnconsole {
             }
 
             panelTexture.SetData(panelPixels);
-            panel = new Entity(Vector2.Zero, Image.Create(panelTexture)) { Layer = 0f };
-            EntityRegistry.Register(panel);
+            var objPanel = new GameObject("panel") { LayerInheritanceEnabled = false, LayerSortingVarianceEnabled = false };
+            objPanel.AddComponent(new ImageRenderer() { Image = Image.Create(panelTexture) } );
+            AddObj(objPanel);
 
             Sprite cursorSprite = Sprite.Clone("consoleCursor", @"console\cursor");
             cursorSprite.Loop("flash");
             cursorSprite.Color = options.CursorColor;
-            cursor = new Entity(bufferHomePosition - new Vector2(0, 1), cursorSprite) { Layer = .5f };
-            EntityRegistry.Register(cursor);
+            cursor = new GameObject("cursor") { LocalPosition = bufferHomePosition - new Point(0, 1), Layer = .5f, LayerSortingVarianceEnabled = false } ;
+            cursor.AddComponent(new SpriteRenderer() { Sprite = cursorSprite });
+            AddObj(cursor);
 
             lineOverflowWidth = Pigeon.Renderer.BaseResolutionX - options.TextInset - (font.MeasureWidth(">") * 3);
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferHomePosition, font, 1f, options.BufferColor, Justifications.TopLeft);
-            commandBuffer = "";
+            buffer = new TextRenderer() { Font = font, Color = options.BufferColor, Justification = Justifications.TopLeft };
+            AddObj(new GameObject("buffer") { LocalPosition = bufferHomePosition, Layer = 1f }.AddComponent(buffer));
+            commandBuffer = string.Empty;
 
             int lineSpacing = font.MeasureHeight(">");
-            Vector2 bottomMessagePosition = new Vector2(bufferHomePosition.X, bufferHomePosition.Y - lineSpacing);
-            messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
-
+            Point bottomMessagePosition = bufferHomePosition.MinusY(lineSpacing);
+            messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, this);
+            
             AddDebugger = false;
 
             Log("Console loaded...");
@@ -151,7 +154,7 @@ namespace pigeon.pgnconsole {
 
         public override void Draw() {
             if (IsDisplaying) {
-                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw);
+                Pigeon.Renderer.RenderOverlay(RootObj.Draw);
             }
         }
 

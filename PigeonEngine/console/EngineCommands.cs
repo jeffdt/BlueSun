@@ -19,7 +19,7 @@ using pigeon.sound.music;
 using System.IO;
 using pigeon.gfx.drawable.text;
 using pigeon.gfx.drawable.image;
-using pigeon.gfx.drawable.animation;
+using pigeon.gfx.drawable.sprite;
 
 namespace pigeon.pgnconsole {
     public static class EngineCommands {

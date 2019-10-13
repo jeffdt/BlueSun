@@ -1,5 +1,5 @@
-﻿namespace pigeon.legacy.graphics.anim {
-    public class TeslaFrame {
+﻿namespace pigeon.gfx.drawable.sprite {
+    public class SpriteFrame {
         public int Duration = -1;
 
         public int AnchorOffsetX;

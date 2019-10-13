@@ -51,15 +51,15 @@ namespace pigeon.component {
 
         private void updateBumpControl() {
             if (RawKeyboardInput.IsPressed(Keys.Left, Keys.A)) {
-                Object.LocalPosition = Object.LocalPosition.AddX(-1);
+                Object.LocalPosition = Object.LocalPosition.PlusX(-1);
             } else if (RawKeyboardInput.IsPressed(Keys.Right, Keys.D)) {
-                Object.LocalPosition = Object.LocalPosition.AddX(1);
+                Object.LocalPosition = Object.LocalPosition.PlusX(1);
             }
 
             if (RawKeyboardInput.IsPressed(Keys.Up, Keys.W)) {
-                Object.LocalPosition = Object.LocalPosition.AddY(-1);
+                Object.LocalPosition = Object.LocalPosition.PlusY(-1);
             } else if (RawKeyboardInput.IsPressed(Keys.Down, Keys.S)) {
-                Object.LocalPosition = Object.LocalPosition.AddY(1);
+                Object.LocalPosition = Object.LocalPosition.PlusY(1);
             }
         }
     }

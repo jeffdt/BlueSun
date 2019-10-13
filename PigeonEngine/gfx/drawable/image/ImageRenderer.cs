@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using pigeon.legacy.graphics;
 using pigeon.gameobject;
 
 namespace pigeon.gfx.drawable.image {
@@ -28,7 +27,7 @@ namespace pigeon.gfx.drawable.image {
             this.initialAlpha = initialAlpha;
         }
 
-        protected ImageRenderer() { }   // can leave configuration up to custom components
+        public ImageRenderer() { }   // can leave configuration up to custom components
 
         protected override void Initialize() {
             if (Image != null) {

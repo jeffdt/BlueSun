@@ -2,7 +2,7 @@
 
 namespace pigeon.time {
     public static class Time {
-        public static float MsUnscaled;
+        public static float Milliseconds;
         public static float Seconds;
         public static float MsScaled;
         public static float SecScaled;
@@ -11,10 +11,10 @@ namespace pigeon.time {
         public static double SingleFrame { get { return Pigeon.Instance.TargetElapsedTime.Seconds; } }
 
         public static void Set(GameTime gameTime) {
-            MsUnscaled = (float) gameTime.ElapsedGameTime.TotalMilliseconds;
+            Milliseconds = (float) gameTime.ElapsedGameTime.TotalMilliseconds;
             Seconds = (float) gameTime.ElapsedGameTime.TotalSeconds;
 
-            MsScaled = MsUnscaled * GameSpeed.Multiplier;
+            MsScaled = Milliseconds * GameSpeed.Multiplier;
             SecScaled = Seconds * GameSpeed.Multiplier;
 
             TotalSec = gameTime.TotalGameTime.TotalSeconds;

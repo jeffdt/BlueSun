@@ -6,7 +6,7 @@ using pigeon.gfx.drawable.text;
 using pigeon.utilities;
 using pigeon.utilities.extensions;
 
-namespace pigeon.legacy.graphics.text {
+namespace pigeon.gfx.drawable.text {
     public class TextGraphic : Graphic {
         private SpriteFont _font;
 

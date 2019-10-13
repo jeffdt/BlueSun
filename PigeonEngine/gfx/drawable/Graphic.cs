@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace pigeon.legacy.graphics {
+namespace pigeon.gfx.drawable {
     public abstract class Graphic {
         public Point Size = new Point(1);
         public Vector2 Parallax = new Vector2(1);
