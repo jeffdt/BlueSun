@@ -130,7 +130,7 @@ namespace pigeon.gameobject {
 
         #region layers
         public bool LayerInheritanceEnabled = true;
-        public bool SortVarianceEnabled = true;
+        public bool LayerSortingVarianceEnabled = true;
 
         internal float sortVariance = Rand.Float(0f, .0001f);
 
@@ -144,7 +144,7 @@ namespace pigeon.gameobject {
                     drawLayer += Parent.DrawLayer;
                 }
 
-                if (SortVarianceEnabled) {
+                if (LayerSortingVarianceEnabled) {
                     drawLayer += sortVariance;
                 }
 

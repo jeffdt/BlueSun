@@ -13,7 +13,7 @@ namespace pigeon.core {
     public abstract class World {
         protected bool AddDebugger = true;
 
-        public GameObject RootObj = new GameObject { Name = "Root", SortVarianceEnabled = false, LayerInheritanceEnabled = false };
+        public GameObject RootObj = new GameObject { Name = "Root", LayerSortingVarianceEnabled = false, LayerInheritanceEnabled = false };
         internal List<ColliderComponent> Hitboxes = new List<ColliderComponent>();
 
         public readonly EntityRegistry EntityRegistry = new EntityRegistry();

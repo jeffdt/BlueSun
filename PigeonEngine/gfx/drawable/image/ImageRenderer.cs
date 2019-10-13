@@ -28,7 +28,7 @@ namespace pigeon.gfx.drawable.image {
             this.initialAlpha = initialAlpha;
         }
 
-        protected ImageRenderer() { }   // can leave configuration up to custom components
+        public ImageRenderer() { }   // can leave configuration up to custom components
 
         protected override void Initialize() {
             if (Image != null) {

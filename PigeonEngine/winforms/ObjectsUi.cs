@@ -50,7 +50,7 @@ namespace pigeon.winforms {
             objectDrawEnabledCheckbox.Checked = obj.DrawEnabled;
 
             objectInheritLayerCheckBox.Checked = obj.LayerInheritanceEnabled;
-            objectVarianceCheckBox.Checked = obj.SortVarianceEnabled;
+            objectVarianceCheckBox.Checked = obj.LayerSortingVarianceEnabled;
 
             refreshObjectLayerInfo(obj);
 
@@ -69,7 +69,7 @@ namespace pigeon.winforms {
             objectParentLayerText.Text = obj.Parent.DrawLayer.ToString(layerFormat);
             objectParentLayerText.Enabled = obj.LayerInheritanceEnabled;
             objectLayerVarianceText.Text = obj.sortVariance.ToString(layerFormat);
-            objectLayerVarianceText.Enabled = obj.SortVarianceEnabled;
+            objectLayerVarianceText.Enabled = obj.LayerSortingVarianceEnabled;
             objectDrawLayerText.Text = obj.DrawLayer.ToString(layerFormat);
         }
 
@@ -128,7 +128,7 @@ namespace pigeon.winforms {
         }
 
         private void objectVarianceCheckBox_CheckedChanged(object sender, EventArgs e) {
-            currentObj.SortVarianceEnabled = objectVarianceCheckBox.Checked;
+            currentObj.LayerSortingVarianceEnabled = objectVarianceCheckBox.Checked;
             refreshObjectLayerInfo(currentObj);
         }
 

@@ -14,6 +14,8 @@ using pigeon.legacy.graphics;
 using pigeon.time;
 using pigeon.gfx.drawable.text;
 using pigeon.gfx;
+using pigeon.gameobject;
+using pigeon.gfx.drawable.image;
 
 namespace pigeon.pgnconsole {
     public class PGNConsole : World {
@@ -29,7 +31,6 @@ namespace pigeon.pgnconsole {
         private readonly CommandHistory history;
         internal MessageLog messageLog;
         internal readonly AliasManager AliasManager = new AliasManager();
-        private Entity panel;
         private Entity cursor;
         private TextEntity buffer;
         #endregion
@@ -111,8 +112,9 @@ namespace pigeon.pgnconsole {
             }
 
             panelTexture.SetData(panelPixels);
-            panel = new Entity(Vector2.Zero, Image.Create(panelTexture)) { Layer = 0f };
-            EntityRegistry.Register(panel);
+            var objPanel = new GameObject() { LayerInheritanceEnabled = false, LayerSortingVarianceEnabled = false };
+            objPanel.AddComponent(new ImageRenderer() { Image = Image.Create(panelTexture) } );
+            AddObj(objPanel);
 
             Sprite cursorSprite = Sprite.Clone("consoleCursor", @"console\cursor");
             cursorSprite.Loop("flash");
@@ -151,7 +153,7 @@ namespace pigeon.pgnconsole {
 
         public override void Draw() {
             if (IsDisplaying) {
-                Pigeon.Renderer.RenderOverlay(EntityRegistry.Draw);
+                Pigeon.Renderer.RenderOverlay(() => { RootObj.Draw(); EntityRegistry.Draw(); });
             }
         }
 
