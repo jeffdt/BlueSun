@@ -74,7 +74,7 @@ namespace pigeon.pgnconsole {
         private string commandBuffer {
             get { return _commandBuffer; }
             set {
-                if (value.Length > bufferMaxLength) {
+                if (font.MeasureWidth(value) > bufferMaxLength) {
                     return;
                 }
 
