@@ -120,13 +120,13 @@ namespace BlueSun.worlds.collision {
 
                     if (penetration.X != 0) {
                         Object.Velocity = Object.Velocity.MultiplyX(-1);
-                        Object.LocalPosition = Object.LocalPosition.AddX(penetration.X);
+                        Object.LocalPosition = Object.LocalPosition.PlusX(penetration.X);
                         Object.UpdateSpeculativePosition();
                     }
 
                     if (penetration.Y != 0) {
                         Object.Velocity = Object.Velocity.MultiplyY(-1);
-                        Object.LocalPosition = Object.LocalPosition.AddY(penetration.Y);
+                        Object.LocalPosition = Object.LocalPosition.PlusY(penetration.Y);
                         Object.UpdateSpeculativePosition();
                     }
                 }

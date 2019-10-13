@@ -6,7 +6,9 @@ using pigeon.gameobject;
 
 namespace pigeon.gfx.drawable.sprite {
     public class SpriteRenderer : Component, IRenderable, IFlippable {
-        public readonly Sprite Sprite;
+        public Sprite Sprite;
+
+        public SpriteRenderer() { }
 
         public SpriteRenderer(string spriteName, string initialAnim = null, string texturePath = null) {
             Sprite = Sprite.Clone(spriteName, texturePath);
