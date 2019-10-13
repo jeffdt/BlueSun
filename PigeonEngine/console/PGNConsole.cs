@@ -34,7 +34,7 @@ namespace pigeon.pgnconsole {
         internal MessageLog messageLog;
         internal readonly AliasManager AliasManager = new AliasManager();
         private GameObject cursor;
-        private TextEntity buffer;
+        private TextRenderer buffer;
         #endregion
 
         #region commands
@@ -126,8 +126,9 @@ namespace pigeon.pgnconsole {
             AddObj(cursor);
 
             lineOverflowWidth = Pigeon.Renderer.BaseResolutionX - options.TextInset - (font.MeasureWidth(">") * 3);
-            buffer = TextEntity.RegisterStatic(EntityRegistry, "", bufferHomePosition.ToVector2(), font, 1f, options.BufferColor, Justifications.TopLeft);
-            commandBuffer = "";
+            buffer = new TextRenderer() { Font = font, Color = options.BufferColor, Justification = Justifications.TopLeft };
+            AddObj(new GameObject("buffer") { LocalPosition = bufferHomePosition, Layer = 1f }.AddComponent(buffer));
+            commandBuffer = string.Empty;
 
             int lineSpacing = font.MeasureHeight(">");
             Vector2 bottomMessagePosition = new Vector2(bufferHomePosition.X, bufferHomePosition.Y - lineSpacing);

@@ -11,7 +11,7 @@ namespace pigeon.gfx.drawable.text {
 
         private TextGraphic textGraphic;
 
-        private string _text;
+        private string _text = string.Empty;
         public string Text {
             get { return _text; }
             set {
