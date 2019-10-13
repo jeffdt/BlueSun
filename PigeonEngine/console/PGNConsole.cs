@@ -131,9 +131,9 @@ namespace pigeon.pgnconsole {
             commandBuffer = string.Empty;
 
             int lineSpacing = font.MeasureHeight(">");
-            Vector2 bottomMessagePosition = new Vector2(bufferHomePosition.X, bufferHomePosition.Y - lineSpacing);
-            messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, EntityRegistry);
-
+            Point bottomMessagePosition = bufferHomePosition.MinusY(lineSpacing);
+            messageLog = new MessageLog(font, lineOverflowWidth, bottomMessagePosition, lineSpacing, options, this);
+            
             AddDebugger = false;
 
             Log("Console loaded...");

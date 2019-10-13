@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using pigeon.core;
+using pigeon.gameobject;
 using pigeon.gfx.drawable.text;
 using pigeon.legacy.entities;
+using pigeon.utilities;
 using pigeon.utilities.extensions;
 
 namespace pigeon.pgnconsole {
@@ -11,26 +14,26 @@ namespace pigeon.pgnconsole {
         private readonly int limit;
         private readonly int lineSpacing;
         private readonly SpriteFont font;
-        private readonly Vector2 bottomMessagePosition;
+        private readonly Point bottomMessagePosition;
         private readonly int wrapWidth;
         private readonly Dictionary<LogMessageTypes, Color> typeColors;
-        private readonly EntityRegistry registry;
+        private readonly World console;
 
         private readonly List<LogMessage> allMessages;
-        private readonly List<TextEntity> messageEntities;
+        private readonly List<GameObject> messageEntities;
 
-        public MessageLog(SpriteFont font, int lineWrapWidth, Vector2 bottomMessagePosition, int lineSpacing, PGNConsoleOptions options, EntityRegistry registry) {
+        public MessageLog(SpriteFont font, int lineWrapWidth, Point bottomMessagePosition, int lineSpacing, PGNConsoleOptions options, World console) {
             this.font = font;
             this.wrapWidth = lineWrapWidth;
             this.lineSpacing = lineSpacing;
             this.bottomMessagePosition = bottomMessagePosition;
-            this.registry = registry;
+            this.console = console;
 
             limit = options.LogHistoryLimit;
             typeColors = new Dictionary<LogMessageTypes, Color> { { LogMessageTypes.Command, options.HistoryColor }, { LogMessageTypes.Info, options.InfoColor }, { LogMessageTypes.Error, options.ErrorColor } };
 
             allMessages = new List<LogMessage>();
-            messageEntities = new List<TextEntity>();
+            messageEntities = new List<GameObject>();
         }
 
         public void AddMessage(LogMessage message) {
@@ -52,16 +55,20 @@ namespace pigeon.pgnconsole {
         private void logOne(string text, LogMessageTypes type) {
             if (messageEntities.Count == limit) {
                 // TODO: for scrollable log history, this part will need to change
-                messageEntities[limit - 1].MarkedForRemoval = true;
+                messageEntities[limit - 1].Delete();
                 messageEntities.RemoveAt(limit - 1);
             }
 
-            messageEntities.Insert(0, TextEntity.RegisterStatic(registry, text, bottomMessagePosition, font, 1f, typeColors[type], Justifications.TopLeft));
+            var textRenderer = new TextRenderer() { Text = text, Font = font, Color = typeColors[type], Justification = Justifications.TopLeft };
+            var textObj = new GameObject("logMsg") { LocalPosition = bottomMessagePosition, LayerSortingVarianceEnabled = false, Layer = 1f };
+            textObj.AddComponent(textRenderer);
+            console.AddObj(textObj);
+            messageEntities.Insert(0, textObj);
 
             for (int index = 1; index < messageEntities.Count; index++) {
                 var line = messageEntities[index];
                 var previousLine = messageEntities[index - 1];
-                line.Position.Y = previousLine.Position.Y - lineSpacing;
+                line.LocalPosition = line.LocalPosition.WithY(previousLine.LocalPosition.Y - lineSpacing);
             }
         }
     }
