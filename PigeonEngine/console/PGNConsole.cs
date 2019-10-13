@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.data;
 using pigeon.input;
 using pigeon.core;
-using pigeon.legacy.entities;
 using pigeon.legacy.graphics.anim;
 using pigeon.utilities.extensions;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
@@ -157,7 +156,7 @@ namespace pigeon.pgnconsole {
 
         public override void Draw() {
             if (IsDisplaying) {
-                Pigeon.Renderer.RenderOverlay(() => { RootObj.Draw(); EntityRegistry.Draw(); });
+                Pigeon.Renderer.RenderOverlay(RootObj.Draw);
             }
         }
 

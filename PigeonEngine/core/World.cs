@@ -4,7 +4,6 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using pigeon.collision;
 using pigeon.data;
-using pigeon.legacy.entities;
 using pigeon.core.tasks;
 using pigeon.gameobject;
 using pigeon.particle;
@@ -16,7 +15,6 @@ namespace pigeon.core {
         public GameObject RootObj = new GameObject { Name = "Root", LayerSortingVarianceEnabled = false, LayerInheritanceEnabled = false };
         internal List<ColliderComponent> Hitboxes = new List<ColliderComponent>();
 
-        public readonly EntityRegistry EntityRegistry = new EntityRegistry();
         public readonly ObjectRegistry<Particle> ParticleRegistry = new ObjectRegistry<Particle>();
         private readonly TaskRegistry taskRegistry = new TaskRegistry();
         public Color BackgroundColor = Pigeon.EngineBkgdColor;
@@ -61,7 +59,6 @@ namespace pigeon.core {
         protected abstract void Unload();
 
         public void UnloadContent() {
-            EntityRegistry.Clear();
             ParticleRegistry.Clear();
 
             Unload();
@@ -91,7 +88,6 @@ namespace pigeon.core {
 
         public virtual void Update() {
             taskRegistry.Update();
-            EntityRegistry.Update();
             RootObj.Update();
             ParticleRegistry.Update();
 
@@ -106,7 +102,6 @@ namespace pigeon.core {
 
         private void renderAll() {
             RootObj.Draw();
-            EntityRegistry.Draw();
 
             foreach (Particle particle in ParticleRegistry.Objects) {
                 particle.Draw();

@@ -173,9 +173,6 @@
     <Compile Include="input\KeyboardInputDevice.cs" />
     <Compile Include="input\RawKeyboardInput.cs" />
     <Compile Include="input\MouseReader.cs" />
-    <Compile Include="legacy\entities\Entity.cs" />
-    <Compile Include="legacy\entities\EntityRegistry.cs" />
-    <Compile Include="legacy\entities\TextEntity.cs" />
     <Compile Include="legacy\graphics\anim\Sprite.cs" />
     <Compile Include="legacy\graphics\anim\SpriteFrame.cs" />
     <Compile Include="legacy\graphics\Graphic.cs" />

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using pigeon.core;
 using pigeon.gameobject;
 using pigeon.gfx.drawable.text;
-using pigeon.legacy.entities;
 using pigeon.utilities;
 using pigeon.utilities.extensions;
 
