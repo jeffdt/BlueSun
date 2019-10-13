@@ -61,21 +61,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="collision\BoxCollider.cs" />
-    <Compile Include="collision\SimpleBoxCollider.cs" />
+    <Compile Include="component\collider\BoxCollider.cs" />
+    <Compile Include="component\collider\SimpleBoxCollider.cs" />
     <Compile Include="collision\TriggerCollisionHandler.cs" />
     <Compile Include="collision\strategy\DumbSatColliderStrategy.cs" />
     <Compile Include="collision\HitboxSetManager.cs" />
-    <Compile Include="collision\ColliderComponent.cs" />
+    <Compile Include="component\collider\ColliderComponent.cs" />
     <Compile Include="collision\HitboxShapes.cs" />
     <Compile Include="collision\strategy\IColliderStrategy.cs" />
-    <Compile Include="collision\PointCollider.cs" />
+    <Compile Include="component\collider\PointCollider.cs" />
     <Compile Include="collision\strategy\QuadSATColliderStrategy.cs" />
     <Compile Include="collision\QuadTree.cs" />
     <Compile Include="collision\BresenhamLine.cs" />
     <Compile Include="collision\SatCollider.cs" />
     <Compile Include="collision\HitboxSet.cs" />
-    <Compile Include="component\AlphaFader.cs" />
+    <Compile Include="component\gfx\AlphaFader.cs" />
     <Compile Include="component\BoundaryExpirator.cs" />
     <Compile Include="component\PrecisionVelocityManager.cs" />
     <Compile Include="component\SimpleController.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="core\events\EventRegistry.cs" />
     <Compile Include="core\tasks\TaskRegistry.cs" />
     <Compile Include="core\tasks\TimedTask.cs" />
-    <Compile Include="core\World.cs" />
+    <Compile Include="core\world\World.cs" />
     <Compile Include="data\ContentLoader.cs" />
     <Compile Include="data\Data.cs" />
     <Compile Include="data\Font.cs" />
@@ -101,13 +101,13 @@
     <Compile Include="data\Properties.cs" />
     <Compile Include="data\ResourceCache.cs" />
     <Compile Include="data\SerializableDictionary.cs" />
-    <Compile Include="debug\Const.cs" />
-    <Compile Include="debug\DebugHelper.cs" />
-    <Compile Include="debug\EmptyWorld.cs" />
-    <Compile Include="debug\ObjectDescriber.cs" />
+    <Compile Include="vars\Const.cs" />
+    <Compile Include="debughelpers\DebugHelper.cs" />
+    <Compile Include="core\world\EmptyWorld.cs" />
+    <Compile Include="core\gameobject\ObjectDescriber.cs" />
     <Compile Include="gfx\DisplayParams.cs" />
     <Compile Include="gfx\drawable\animation\SpriteDebugger.cs" />
-    <Compile Include="gfx\drawable\shape\CircleRenderer.cs" />
+    <Compile Include="component\gfx\CircleRenderer.cs" />
     <Compile Include="gfx\drawable\shape\ShapeDrawStyles.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="gfx\drawable\text\Justifications.cs" />
@@ -154,14 +154,14 @@
     <Compile Include="winforms\PigeonUi.Designer.cs">
       <DependentUpon>PigeonUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="gfx\utils\YSorter.cs" />
+    <Compile Include="component\YSorter.cs" />
     <Compile Include="IFlippable.cs" />
-    <Compile Include="gfx\drawable\image\ImageRenderer.cs" />
-    <Compile Include="gfx\drawable\shape\RectRenderer.cs" />
+    <Compile Include="component\gfx\ImageRenderer.cs" />
+    <Compile Include="component\gfx\RectRenderer.cs" />
     <Compile Include="gfx\Renderer.cs" />
-    <Compile Include="gfx\drawable\animation\SpriteRenderer.cs" />
-    <Compile Include="gfx\drawable\text\TextRenderer.cs" />
-    <Compile Include="gfx\utils\TimedFlasher.cs" />
+    <Compile Include="component\gfx\SpriteRenderer.cs" />
+    <Compile Include="component\gfx\TextRenderer.cs" />
+    <Compile Include="component\gfx\TimedFlasher.cs" />
     <Compile Include="input\InputReader.cs" />
     <Compile Include="input\Legacy_GamepadAdapter.cs" />
     <Compile Include="input\GamepadInputDevice.cs" />
@@ -188,11 +188,11 @@
     <Compile Include="rand\Rand.cs" />
     <Compile Include="rand\WeightedRoulette.cs" />
     <Compile Include="sound\Sfx.cs" />
-    <Compile Include="squab\Component.cs" />
+    <Compile Include="core\component\Component.cs" />
     <Compile Include="gfx\drawable\IRenderable.cs" />
     <Compile Include="squab\Egg.cs" />
     <Compile Include="squab\ObjectSeed.cs" />
-    <Compile Include="squab\GameObject.cs" />
+    <Compile Include="core\gameobject\GameObject.cs" />
     <Compile Include="time\GameSpeed.cs" />
     <Compile Include="time\Time.cs" />
     <Compile Include="utilities\extensions\ArrayExtensions.cs" />
