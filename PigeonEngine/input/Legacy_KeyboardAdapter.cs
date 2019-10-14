@@ -20,13 +20,13 @@ namespace pigeon.input {
             }
         }
 
-        public bool IsPressed(SimpleDirections dir) {
+        public bool IsPressed(AxisDirections dir) {
             switch (dir) {
-                case SimpleDirections.Up:
+                case AxisDirections.Up:
                     return RawKeyboardInput.IsPressed(Keys.Up);
-                case SimpleDirections.Down:
+                case AxisDirections.Down:
                     return RawKeyboardInput.IsPressed(Keys.Down);
-                case SimpleDirections.Left:
+                case AxisDirections.Left:
                     return RawKeyboardInput.IsPressed(Keys.Left);
                 default:
                     return RawKeyboardInput.IsPressed(Keys.Right);
@@ -37,13 +37,13 @@ namespace pigeon.input {
             return RawKeyboardInput.IsPressed(keyMap[input]);
         }
 
-        public bool IsHeld(SimpleDirections dir) {
+        public bool IsHeld(AxisDirections dir) {
             switch (dir) {
-                case SimpleDirections.Up:
+                case AxisDirections.Up:
                     return RawKeyboardInput.IsHeld(Keys.Up);
-                case SimpleDirections.Down:
+                case AxisDirections.Down:
                     return RawKeyboardInput.IsHeld(Keys.Down);
-                case SimpleDirections.Left:
+                case AxisDirections.Left:
                     return RawKeyboardInput.IsHeld(Keys.Left);
                 default:
                     return RawKeyboardInput.IsHeld(Keys.Right);

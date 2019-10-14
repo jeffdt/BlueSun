@@ -46,7 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BlueSunGame.cs" />
+    <Compile Include="worlds\collision\ProjectileController.cs" />
     <Compile Include="worlds\collision\CollisionWorld.cs" />
+    <Compile Include="worlds\collision\EnemyController.cs" />
+    <Compile Include="worlds\collision\PlayerController.cs" />
     <Compile Include="worlds\nsfplayer\SfxController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

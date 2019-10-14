@@ -21,45 +21,45 @@ namespace pigeon.input {
         }
 
         public bool IsPressed(T input) {
-            return Legacy_GamepadReader.IsPressed(buttomMap[input]);
+            return RawGamepadInput.IsPressed(buttomMap[input]);
         }
 
         public bool IsHeld(T input) {
-            return Legacy_GamepadReader.IsHeld(buttomMap[input]);
+            return RawGamepadInput.IsHeld(buttomMap[input]);
         }
 
-        public bool IsLJSPressed(SimpleDirections direction) {
+        public bool IsLJSPressed(AxisDirections direction) {
             switch (direction) {
-                case SimpleDirections.Up:
-                    return Legacy_GamepadReader.IsLeftJoystickPressedUp();
-                case SimpleDirections.Down:
-                    return Legacy_GamepadReader.IsLeftJoystickPressedDown();
-                case SimpleDirections.Left:
-                    return Legacy_GamepadReader.IsLeftJoystickPressedLeft();
+                case AxisDirections.Up:
+                    return RawGamepadInput.IsLeftJoystickPressedUp();
+                case AxisDirections.Down:
+                    return RawGamepadInput.IsLeftJoystickPressedDown();
+                case AxisDirections.Left:
+                    return RawGamepadInput.IsLeftJoystickPressedLeft();
                 default:
-                    return Legacy_GamepadReader.IsLeftJoystickPressedRight();
+                    return RawGamepadInput.IsLeftJoystickPressedRight();
             }
         }
 
-        public bool IsLJSHeld(SimpleDirections direction) {
+        public bool IsLJSHeld(AxisDirections direction) {
             switch (direction) {
-                case SimpleDirections.Up:
-                    return Legacy_GamepadReader.IsLeftJoystickHeldUp();
-                case SimpleDirections.Down:
-                    return Legacy_GamepadReader.IsLeftJoystickHeldDown();
-                case SimpleDirections.Left:
-                    return Legacy_GamepadReader.IsLeftJoystickHeldLeft();
+                case AxisDirections.Up:
+                    return RawGamepadInput.IsLeftJoystickHeldUp();
+                case AxisDirections.Down:
+                    return RawGamepadInput.IsLeftJoystickHeldDown();
+                case AxisDirections.Left:
+                    return RawGamepadInput.IsLeftJoystickHeldLeft();
                 default:
-                    return Legacy_GamepadReader.IsLeftJoystickHeldRight();
+                    return RawGamepadInput.IsLeftJoystickHeldRight();
             }
         }
 
-        public bool IsDpadPressed(SimpleDirections direction) {
-            return Legacy_GamepadReader.IsDpadPressed(direction);
+        public bool IsDpadPressed(AxisDirections direction) {
+            return RawGamepadInput.IsDpadPressed(direction);
         }
 
-        public bool IsDpadHeld(SimpleDirections direction) {
-            return Legacy_GamepadReader.IsDpadHeld(direction);
+        public bool IsDpadHeld(AxisDirections direction) {
+            return RawGamepadInput.IsDpadHeld(direction);
         }
     }
 }

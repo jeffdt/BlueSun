@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using pigeon.utilities.helpers;
 
 namespace pigeon.input {
-    public static class Legacy_GamepadReader {
+    public static class RawGamepadInput {
         private const float JOYSTICK_DIGITAL_LENGTH_THRESH = .5f;
         private const float JOYSTICK_COMPONENT_THRESH = .25f;
 
@@ -56,6 +56,19 @@ namespace pigeon.input {
             return !previousLeftJoystickActive && IsLeftJoystickHeldRight() && Pigeon.IsInFocus;
         }
 
+        public static bool IsLeftJoystickPressed(AxisDirections dir) {
+            switch (dir) {
+                case AxisDirections.Up:
+                    return  IsLeftJoystickPressedUp();
+                case AxisDirections.Down:
+                    return IsLeftJoystickPressedDown();
+                case AxisDirections.Left:
+                    return IsLeftJoystickPressedLeft();
+                default:
+                    return IsLeftJoystickPressedRight();
+            }
+        }
+
         public static bool IsLeftJoystickHeldUp() {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.Y > JOYSTICK_COMPONENT_THRESH && Pigeon.IsInFocus;
         }
@@ -72,17 +85,17 @@ namespace pigeon.input {
             return currentLeftJoystickActive && currentState.ThumbSticks.Left.X > JOYSTICK_COMPONENT_THRESH && Pigeon.IsInFocus;
         }
 
-        public static bool IsDpadPressed(SimpleDirections direction) {
+        public static bool IsDpadPressed(AxisDirections direction) {
             bool pressed;
 
             switch (direction) {
-                case SimpleDirections.Up:
+                case AxisDirections.Up:
                     pressed = currentState.IsButtonDown(Buttons.DPadUp) && previousState.IsButtonUp(Buttons.DPadUp);
                     break;
-                case SimpleDirections.Down:
+                case AxisDirections.Down:
                     pressed = currentState.IsButtonDown(Buttons.DPadDown) && previousState.IsButtonUp(Buttons.DPadDown);
                     break;
-                case SimpleDirections.Left:
+                case AxisDirections.Left:
                     pressed = currentState.IsButtonDown(Buttons.DPadLeft) && previousState.IsButtonUp(Buttons.DPadLeft);
                     break;
                 default:
@@ -93,17 +106,17 @@ namespace pigeon.input {
             return pressed && Pigeon.IsInFocus;
         }
 
-        public static bool IsDpadHeld(SimpleDirections direction) {
+        public static bool IsDpadHeld(AxisDirections direction) {
             bool pressed;
 
             switch (direction) {
-                case SimpleDirections.Up:
+                case AxisDirections.Up:
                     pressed = currentState.IsButtonDown(Buttons.DPadUp);
                     break;
-                case SimpleDirections.Down:
+                case AxisDirections.Down:
                     pressed = currentState.IsButtonDown(Buttons.DPadDown);
                     break;
-                case SimpleDirections.Left:
+                case AxisDirections.Left:
                     pressed = currentState.IsButtonDown(Buttons.DPadLeft);
                     break;
                 default:

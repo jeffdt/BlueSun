@@ -88,7 +88,7 @@ namespace pigeon.gfx {
         public static GraphicsDeviceManager GraphicsDeviceMgr;
 
         public static bool LcdDisplay = false;
-        private const int lcdStrength = 10;
+        private const int lcdStrength = 30;
         private Texture2D lcdGridTex;
 
         private bool takeScreenshot;
@@ -176,7 +176,7 @@ namespace pigeon.gfx {
             Color[] lcdGridPixels = new Color[scaledResX * scaledResY];
 
             var emptyPixel = new Color(0, 0, 0, 0);
-            var gridPixel = new Color(0, 0, 0, lcdStrength);
+            var gridPixel = new Color(255, 255, 255, lcdStrength);
 
             for (int row = 0; row < scaledResY; row++) {
                 for (int col = 0; col < scaledResX; col++) {
