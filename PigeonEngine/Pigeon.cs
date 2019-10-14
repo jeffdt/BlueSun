@@ -132,7 +132,7 @@ namespace pigeon {
 
             MouseReader.Initialize();
             RawKeyboardInput.Initialize();
-            Legacy_GamepadReader.Initialize();
+            RawGamepadInput.Initialize();
             GameSpeed.Reinitialize();
             GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
             DebugHelper.Initialize();
@@ -155,7 +155,7 @@ namespace pigeon {
 
             InputManager.Update();
             RawKeyboardInput.Update();
-            Legacy_GamepadReader.Update();
+            RawGamepadInput.Update();
             MouseReader.Update();
 
             Time.Set(gameTime);

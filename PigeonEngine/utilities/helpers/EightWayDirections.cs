@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace pigeon.utilities.helpers {
-    public static class Direction {
+    public static class EightWayDirections {
         public const string CenterFriendly = @"center";
         public const string UpFriendly = @"up";
         public const string LeftFriendly = @"left";

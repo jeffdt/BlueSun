@@ -101,6 +101,7 @@
     <Compile Include="data\Properties.cs" />
     <Compile Include="data\ResourceCache.cs" />
     <Compile Include="data\SerializableDictionary.cs" />
+    <Compile Include="utilities\helpers\DiagonalDirections.cs" />
     <Compile Include="vars\Const.cs" />
     <Compile Include="debughelpers\DebugHelper.cs" />
     <Compile Include="core\world\EmptyWorld.cs" />
@@ -165,7 +166,7 @@
     <Compile Include="input\InputReader.cs" />
     <Compile Include="input\Legacy_GamepadAdapter.cs" />
     <Compile Include="input\GamepadInputDevice.cs" />
-    <Compile Include="input\Legacy_GamepadReader.cs" />
+    <Compile Include="input\RawGamepadInput.cs" />
     <Compile Include="input\InputManager.cs" />
     <Compile Include="input\InputDevice.cs" />
     <Compile Include="input\KeyBinds.cs" />
@@ -207,9 +208,8 @@
     <Compile Include="utilities\extensions\StringExtensions.cs" />
     <Compile Include="utilities\extensions\Texture2DExtensions.cs" />
     <Compile Include="utilities\GraphicsUtility.cs" />
-    <Compile Include="utilities\helpers\CardinalDirections.cs" />
-    <Compile Include="utilities\helpers\Direction.cs" />
-    <Compile Include="utilities\helpers\SimpleDirections.cs" />
+    <Compile Include="utilities\helpers\EightWayDirections.cs" />
+    <Compile Include="utilities\helpers\AxisDirections.cs" />
     <Compile Include="utilities\MathUtil.cs" />
     <Compile Include="utilities\PropertiesParser.cs" />
     <Compile Include="utilities\VectorOps.cs" />

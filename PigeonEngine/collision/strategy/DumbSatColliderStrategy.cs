@@ -22,9 +22,9 @@ namespace pigeon.collision {
 
                 var rectA = boxA.GetRectangle();
 
-                for (int j = i + 1; j < allBoxes.Count; j++) {
+                for (int j = 0; j < allBoxes.Count; j++) {
                     var boxB = allBoxes[j];
-                    if (!boxB.Enabled || boxA.FrameCollisions.Contains(boxB) || (boxA.IgnoredColliders?.Contains(boxB) == true)) {
+                    if (i == j || !boxB.Enabled || boxA.FrameCollisions.Contains(boxB) || (boxA.IgnoredColliders?.Contains(boxB) == true)) {
                         continue;
                     }
 

@@ -144,21 +144,21 @@ namespace pigeon.rand {
 
             switch (dir) {
                 case 0:
-                    return Direction.UpLeft;
+                    return EightWayDirections.UpLeft;
                 case 1:
-                    return Direction.Up;
+                    return EightWayDirections.Up;
                 case 2:
-                    return Direction.UpRight;
+                    return EightWayDirections.UpRight;
                 case 3:
-                    return Direction.Left;
+                    return EightWayDirections.Left;
                 case 4:
-                    return Direction.Right;
+                    return EightWayDirections.Right;
                 case 5:
-                    return Direction.DownLeft;
+                    return EightWayDirections.DownLeft;
                 case 6:
-                    return Direction.Down;
+                    return EightWayDirections.Down;
                 default:
-                    return Direction.DownRight;
+                    return EightWayDirections.DownRight;
             }
         }
     }
